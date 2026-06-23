@@ -423,9 +423,11 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
     <div class="ptag">CLINICAL REFERENCE</div>
   </div>
   <div class="tabs">
-    <button class="tab on" onclick="gT('abx',this)">ABX</button>
+    <button class="tab on" onclick="gT('abx',this)">ABX · BY BUG</button>
+    <button class="tab" onclick="gT('drugs',this)">ABX · BY DRUG</button>
     <button class="tab" onclick="gT('clinic',this)">CLINIC</button>
     <button class="tab" onclick="gT('data',this)">DATA</button>
+    <button class="tab" onclick="gT('dx',this)">DX · CRITERIA</button>
   </div>
 </div>
 
@@ -540,6 +542,17 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   </div>
 </div>
 
+<div id="panel-drugs" class="panel">
+  <div class="h1">Antibiotics <span>by drug</span></div>
+  <div style="font-size:24px;color:var(--t3);margin-bottom:14px;">Pick a drug or class → spectrum, what it's used for, dosing &amp; cautions</div>
+  <div style="position:relative;margin-bottom:12px;">
+    <input type="text" id="drug-search" placeholder="Search drug, class, use..." oninput="drugFilter()" autocomplete="off" style="width:100%;box-sizing:border-box;background:var(--s2);border:1px solid var(--b2);border-radius:var(--r);padding:10px 14px 10px 38px;font-family:var(--mono);font-size:13px;color:var(--t);outline:none;">
+    <span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:15px;">⌕</span>
+  </div>
+  <div id="drug-pills" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;"></div>
+  <div id="drug-list"></div>
+</div>
+
 <div id="panel-clinic" class="panel">
   <div class="h1">Clinical <span>guide</span></div>
   <div style="font-size:24px;color:var(--t3);margin-bottom:14px;">Complaint → Differential → Questions → Workup → SOAP</div>
@@ -566,7 +579,8 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
 
 <!-- Mobile bottom nav (3 tabs, no More) -->
 <nav class="bnav" id="bnav">
-  <button class="ni on" id="ni-abx" onclick="gM('abx',this)"><span class="nicon">Rx</span><span class="nlbl">ABX</span></button>
+  <button class="ni on" id="ni-abx" onclick="gM('abx',this)"><span class="nicon">Rx</span><span class="nlbl">By Bug</span></button>
+  <button class="ni" id="ni-drugs" onclick="gM('drugs',this)"><span class="nicon">℞</span><span class="nlbl">By Drug</span></button>
   <button class="ni" id="ni-clinic" onclick="gM('clinic',this)"><span class="nicon">Hx</span><span class="nlbl">Clinic</span></button>
   <button class="ni" id="ni-data" onclick="gM('data',this)"><span class="nicon">≡</span><span class="nlbl">Data</span></button>
 </nav>
@@ -2454,10 +2468,372 @@ function closeAnyDrawer(){
 }
 
 // ============================================================
+// DRUGS — antibiotics organized by drug / class
+// ============================================================
+var drugActiveCat='all';
+function drugRender(){
+  const pills=document.getElementById('drug-pills');
+  if(pills){
+    let h=`<button class="clinic-pill${drugActiveCat==='all'?' on':''}" onclick="drugSetCat('all')">ALL</button>`;
+    Object.keys(DRUG_DATA).forEach(k=>{ h+=`<button class="clinic-pill${drugActiveCat===k?' on':''}" onclick="drugSetCat('${k}')">${DRUG_DATA[k].name}</button>`; });
+    pills.innerHTML=h;
+  }
+  const q=(document.getElementById('drug-search')||{}).value||'';
+  drugBuildList(q.toLowerCase());
+}
+function drugSetCat(k){ drugActiveCat=k; drugRender(); }
+function drugFilter(){ const q=(document.getElementById('drug-search')||{}).value||''; drugBuildList(q.toLowerCase()); }
+function drugBuildList(q){
+  const list=document.getElementById('drug-list'); if(!list) return;
+  let h='';
+  Object.keys(DRUG_DATA).forEach(ck=>{
+    if(drugActiveCat!=='all' && drugActiveCat!==ck) return;
+    const cat=DRUG_DATA[ck];
+    const matches=cat.drugs.filter(d=>{ if(!q) return true; const hay=(d.name+' '+(d.tag||'')+' '+(d.covers||'')+' '+(d.uses||[]).join(' ')).toLowerCase(); return hay.indexOf(q)>=0; });
+    if(!matches.length) return;
+    h+=`<div class="card" style="margin-bottom:14px;"><div style="font-family:var(--mono);font-size:11px;color:${cat.color};letter-spacing:.1em;margin-bottom:10px;">${cat.name.toUpperCase()}</div><div style="display:flex;flex-wrap:wrap;gap:8px;">`;
+    matches.forEach(d=>{ h+=`<button class="btn bs" onclick="openDrugDrawer('${ck}','${d.id}')" style="font-size:22px;padding:8px 14px;">${d.name}</button>`; });
+    h+=`</div></div>`;
+  });
+  if(!h) h='<div style="font-size:24px;color:var(--t3);font-style:italic;padding:20px 0;">No matching drugs.</div>';
+  list.innerHTML=h;
+}
+function openDrugDrawer(ck,did){
+  closeAnyDrawer();
+  const cat=DRUG_DATA[ck]; const d=(cat&&cat.drugs.find(x=>x.id===did)); if(!d) return;
+  let html=drawerHead(d.name,cat.name,cat.color,'closeAnyDrawer()');
+  if(d.tag){ html+=`<div style="margin:13px 16px 4px;"><span style="display:inline-block;font-family:var(--mono);font-size:12px;color:var(--g);background:rgba(127,255,110,.1);border:1px solid rgba(127,255,110,.22);border-radius:6px;padding:3px 10px;">${d.tag}</span></div>`; }
+  html+=secHeader('SPECTRUM');
+  html+=`<div class="dwcard"><div class="dwcard-b"><div class="dwfact"><b>COVERS</b>${d.covers}</div>`;
+  if(d.gaps) html+=`<div class="dwfact" style="margin-top:10px;"><b style="color:var(--g4)">GAPS</b>${d.gaps}</div>`;
+  html+=`</div></div>`;
+  html+=secHeader('USED FOR');
+  html+=listBlock(d.uses,'var(--g)');
+  html+=secHeader('ABOUT THE DRUG');
+  const facts=[['Mechanism',d.mech],['Dosing / route',d.dosing],['Adverse effects',d.adverse],['Monitoring',d.monitor]].filter(f=>f[1]);
+  html+=`<div class="dwcard"><div class="dwcard-b">`;
+  facts.forEach((f,i)=>{ html+=`<div class="dwfact" style="${i?'margin-top:11px;':''}"><b>${f[0].toUpperCase()}</b>${f[1]}</div>`; });
+  html+=`</div></div>`;
+  if(d.pearls&&d.pearls.length){ html+=`<div class="dwpearls"><div class="dwpearls-h">✦ KEY PEARLS</div>`; d.pearls.forEach(p=>{ html+=`<div class="dwpearl">${p}</div>`; }); html+=`</div>`; }
+  html+=`<div style="height:30px;"></div>`;
+  buildDrawer(html);
+}
+var DRUG_DATA={
+  penicillins:{name:'Penicillins',color:'var(--g)',drugs:[
+    {id:'pen_g',name:'Penicillin G / VK',tag:'Natural penicillin',
+      covers:'Strep (Group A/B, viridans, susceptible S. pneumoniae), Treponema pallidum (syphilis), Enterococcus (with synergy), Actinomyces, oral anaerobes, susceptible Neisseria meningitidis.',
+      gaps:'No staph (penicillinase), most gram-negatives, or atypicals.',
+      uses:['Syphilis at every stage — the drug of choice (benzathine penicillin G IM)','Neurosyphilis (IV penicillin G)','Strep pharyngitis and susceptible strep/enterococcal endocarditis'],
+      mech:'Beta-lactam — binds penicillin-binding proteins to block cell-wall synthesis. Bactericidal.',
+      dosing:'Pen VK PO; Pen G IV/IM; benzathine penicillin G IM is long-acting for syphilis.',
+      adverse:'Hypersensitivity (rash to anaphylaxis), seizures at very high doses in renal failure, interstitial nephritis. Jarisch-Herxheimer reaction after treating syphilis.',
+      pearls:['Drug of choice for syphilis — pregnancy and neurosyphilis REQUIRE penicillin (desensitize if allergic).','True penicillin anaphylaxis is rare; always clarify the reported reaction.']},
+    {id:'amox',name:'Amoxicillin',tag:'Aminopenicillin',
+      covers:'Strep (incl. S. pneumoniae), Enterococcus, Listeria, H. influenzae (if not beta-lactamase), some E. coli/Proteus, H. pylori (in combination).',
+      gaps:'No beta-lactamase producers, no Pseudomonas, no MRSA, no atypicals.',
+      uses:['Outpatient CAP in a healthy host (high-dose for pneumococcus)','Strep pharyngitis, otitis media, sinusitis','Enterococcal UTI; H. pylori regimens; dental/endocarditis prophylaxis'],
+      mech:'Aminopenicillin with broader gram-negative reach than penicillin. Bactericidal.',
+      dosing:'Excellent oral bioavailability (>90%); 500 mg–1 g PO TID.',
+      adverse:'Rash (a non-allergic rash is classic with concurrent EBV/mono), GI upset, hypersensitivity.',
+      pearls:['First-line for outpatient CAP in a healthy host.','An amoxicillin rash during mononucleosis is NOT a true penicillin allergy.']},
+    {id:'augmentin',name:'Amox-Clavulanate (Augmentin)',tag:'Aminopenicillin + beta-lactamase inhibitor',
+      covers:'Adds beta-lactamase producers: MSSA, beta-lactamase H. influenzae/Moraxella, many anaerobes (Bacteroides), more E. coli/Klebsiella.',
+      gaps:'No MRSA, no Pseudomonas, no atypicals.',
+      uses:['AECOPD, sinusitis, otitis (beta-lactamase producers)','Animal/human BITE wounds (Pasteurella, Eikenella, anaerobes)','Aspiration pneumonia / lung abscess (PO step-down); mild diabetic foot'],
+      mech:'Clavulanate inhibits beta-lactamase, restoring amoxicillin activity against producers.',
+      dosing:'875/125 mg PO BID. GI diarrhea (from clavulanate) is dose-limiting.',
+      adverse:'Diarrhea (common), cholestatic hepatotoxicity (clavulanate — may be delayed), rash.',
+      pearls:['Go-to oral agent for bite wounds (covers Pasteurella + anaerobes + skin flora).','Clavulanate drives the GI side effects and the rare cholestatic hepatitis.']},
+    {id:'ampicillin',name:'Ampicillin (± Sulbactam)',tag:'Aminopenicillin (IV)',
+      covers:'Like amoxicillin (Strep, Enterococcus, LISTERIA). Sulbactam (Unasyn) adds MSSA, anaerobes, beta-lactamase H. flu, and notably Acinetobacter.',
+      gaps:'Plain ampicillin: no beta-lactamase producers, no Pseudomonas, no MRSA.',
+      uses:['LISTERIA coverage — ADD to ceftriaxone in meningitis for elderly/immunocompromised/pregnant','Enterococcal infections (UTI, endocarditis — often with ceftriaxone or gentamicin synergy)','Unasyn: intra-abdominal, aspiration, bite wounds, Acinetobacter'],
+      mech:'IV aminopenicillin; sulbactam is the beta-lactamase inhibitor.',
+      dosing:'Ampicillin IV q4–6h; Unasyn (amp-sulbactam) IV q6h.',
+      adverse:'Rash, hypersensitivity, GI upset.',
+      pearls:['Ampicillin is what you ADD for Listeria — cephalosporins miss it.','Ampicillin + ceftriaxone is a standard enterococcal endocarditis regimen.']},
+    {id:'antistaph',name:'Nafcillin / Oxacillin / Dicloxacillin',tag:'Antistaphylococcal penicillin',
+      covers:'MSSA (drug of choice) and Strep.',
+      gaps:'NO MRSA, no enterococcus, no gram-negatives.',
+      uses:['MSSA bacteremia / endocarditis / osteomyelitis (definitive therapy once MSSA confirmed)','MSSA skin/soft tissue','Dicloxacillin PO for mild MSSA cellulitis'],
+      mech:'Beta-lactamase-stable penicillins that resist staphylococcal penicillinase.',
+      dosing:'Nafcillin/oxacillin IV q4h; dicloxacillin PO QID on an empty stomach.',
+      adverse:'Interstitial nephritis (nafcillin), phlebitis, neutropenia with prolonged use, hepatotoxicity (oxacillin).',
+      pearls:['Cefazolin is an equivalent, better-tolerated MSSA option that many centers prefer.','De-escalate to nafcillin/cefazolin once MSSA is confirmed — vancomycin is INFERIOR for MSSA.']},
+    {id:'zosyn',name:'Piperacillin-Tazobactam (Zosyn)',tag:'Antipseudomonal penicillin + BLI',
+      covers:'Broad: gram-positives (not MRSA), gram-negatives INCLUDING Pseudomonas, anaerobes, Enterococcus.',
+      gaps:'No MRSA, no atypicals, not reliable for ESBL, variable Acinetobacter.',
+      uses:['Empiric sepsis and HAP/VAP (add an anti-MRSA agent if needed)','Intra-abdominal infections and aspiration','Neutropenic fever; severe diabetic foot; complicated UTI with Pseudomonas risk'],
+      mech:'Antipseudomonal penicillin + tazobactam (beta-lactamase inhibitor); extended-infusion improves pharmacokinetics.',
+      dosing:'4.5 g IV q6–8h; extended (4h) infusion preferred for serious infection.',
+      adverse:'Cytopenias, sodium load/hypokalemia, and an AKI signal when combined with vancomycin.',
+      pearls:['Covers Pseudomonas AND anaerobes — no need to add metronidazole.','Watch renal function with vanc + Zosyn (AKI signal); cefepime is an alternative backbone.']}
+  ]},
+  ceph:{name:'Cephalosporins',color:'var(--g2)',drugs:[
+    {id:'cefazolin',name:'Cefazolin (1st gen)',tag:'1st-gen cephalosporin',
+      covers:'MSSA, Strep, and some gram-negatives ("PEK": Proteus, E. coli, Klebsiella).',
+      gaps:'No MRSA, enterococcus, Pseudomonas, anaerobes, or atypicals. Poor CNS penetration.',
+      uses:['MSSA bacteremia/endocarditis (preferred — well tolerated, q8h)','Surgical prophylaxis (the most common agent)','MSSA/strep skin and soft tissue (IV)'],
+      mech:'1st-gen cephalosporin; bactericidal cell-wall inhibitor.',
+      dosing:'1–2 g IV q8h.',
+      adverse:'Generally very well tolerated; low penicillin cross-reactivity.',
+      pearls:['Preferred over nafcillin for MSSA at many centers (less toxicity, easier dosing).','First-line surgical prophylaxis.']},
+    {id:'cephalexin',name:'Cephalexin (Keflex, 1st gen PO)',tag:'1st-gen cephalosporin (oral)',
+      covers:'MSSA, Strep, PEK gram-negatives.',
+      gaps:'No MRSA, Pseudomonas, or enterococcus.',
+      uses:['Outpatient non-purulent cellulitis (strep + MSSA)','Simple UTI, strep pharyngitis'],
+      mech:'Oral 1st-gen cephalosporin.',
+      dosing:'500 mg PO QID.',
+      adverse:'GI upset, rash, hypersensitivity.',
+      pearls:['First-line oral agent for non-purulent cellulitis.']},
+    {id:'cef2',name:'Cefuroxime / Cefoxitin / Cefotetan (2nd gen)',tag:'2nd-gen cephalosporin',
+      covers:'More gram-negative than 1st gen; cefuroxime covers respiratory H. flu. CEPHAMYCINS (cefoxitin/cefotetan) cover ANAEROBES (Bacteroides).',
+      gaps:'No Pseudomonas, MRSA, or enterococcus.',
+      uses:['Cefuroxime: sinusitis, outpatient respiratory infections','Cefoxitin/cefotetan: surgical prophylaxis (colorectal/GYN), PID, mild intra-abdominal (anaerobic coverage)'],
+      mech:'2nd-gen cephalosporins; cephamycins add anaerobic coverage.',
+      dosing:'Agent-dependent (IV/PO).',
+      adverse:'Cefotetan has an NMTT side chain → disulfiram-like reaction with alcohol and a bleeding/hypoprothrombinemia risk.',
+      pearls:['Cephamycins (cefoxitin/cefotetan) are the cephalosporins that cover anaerobes.','Cefotetan + alcohol = disulfiram reaction; it can also prolong the INR.']},
+    {id:'ceftriaxone',name:'Ceftriaxone (3rd gen)',tag:'3rd-gen cephalosporin',
+      covers:'Strep (incl. pneumococcus), H. flu, Moraxella, most Enterobacterales (E. coli, Klebsiella, Proteus), Neisseria (gonorrhea/meningitis). Good CNS penetration.',
+      gaps:'NO Pseudomonas, enterococcus, Listeria, MRSA, below-diaphragm anaerobes, or atypicals.',
+      uses:['Inpatient CAP (with azithromycin)','Pyelonephritis / complicated UTI; SBP','Bacterial meningitis (empiric, + vancomycin ± ampicillin)','Gonorrhea (1 g IM), strep cellulitis, strep endocarditis'],
+      mech:'3rd-gen cephalosporin; long half-life (once daily); dual biliary + renal elimination (no renal dose adjustment).',
+      dosing:'1–2 g IV/IM q24h (2 g q12h for meningitis).',
+      adverse:'Biliary sludging/pseudolithiasis, C. diff risk; avoid in neonates (kernicterus; do not co-administer with calcium).',
+      pearls:['The workhorse 3rd-gen — remember it MISSES Pseudomonas, enterococcus, and Listeria.','No renal dose adjustment; convenient once-daily dosing.']},
+    {id:'ceftazidime',name:'Ceftazidime (3rd gen, antipseudomonal)',tag:'3rd-gen cephalosporin',
+      covers:'Gram-negatives INCLUDING Pseudomonas.',
+      gaps:'Weak gram-positive (do not use alone for staph/strep); no anaerobes, MRSA, or enterococcus.',
+      uses:['Pseudomonal infections','Febrile neutropenia (antipseudomonal beta-lactam)','Ceftazidime-avibactam for MDR/ESBL/CRE organisms'],
+      mech:'3rd-gen with antipseudomonal activity but weak gram-positive coverage.',
+      dosing:'2 g IV q8h.',
+      adverse:'Hypersensitivity; selects for resistance.',
+      pearls:['The 3rd-gen that DOES cover Pseudomonas — but pair it if gram-positive coverage matters.']},
+    {id:'cefepime',name:'Cefepime (4th gen)',tag:'4th-gen cephalosporin',
+      covers:'Broad gram-negative INCLUDING Pseudomonas, PLUS good gram-positive (strep, MSSA). Stable to AmpC beta-lactamases.',
+      gaps:'No MRSA, enterococcus, anaerobes, or atypicals; not reliable for ESBL.',
+      uses:['HAP/VAP and febrile neutropenia','Sepsis with Pseudomonas risk; meningitis (good CNS penetration)','AmpC producers (Enterobacter, Serratia, Citrobacter)'],
+      mech:'4th-gen — combines antipseudomonal and gram-positive coverage; stable against AmpC.',
+      dosing:'2 g IV q8h for serious/CNS infection; renally adjust.',
+      adverse:'CEFEPIME NEUROTOXICITY — encephalopathy, myoclonus, non-convulsive status — especially with renal impairment/under-adjusted dosing.',
+      monitor:'Watch for confusion/myoclonus, particularly in renal dysfunction — renally dose carefully.',
+      pearls:['Preferred for AmpC organisms (Enterobacter/Serratia/Citrobacter) over 3rd-gen agents.','Cefepime neurotoxicity is under-recognized in renal failure — adjust the dose.']},
+    {id:'ceftaroline',name:'Ceftaroline (5th gen)',tag:'Advanced cephalosporin (anti-MRSA)',
+      covers:'Unique cephalosporin with MRSA activity, plus strep and typical gram-negatives.',
+      gaps:'No Pseudomonas, anaerobes, or enterococcus (except some E. faecalis).',
+      uses:['MRSA pneumonia/SSTI when alternatives are limited','MRSA bacteremia salvage (off-label)'],
+      mech:'5th-gen cephalosporin that binds PBP2a, giving it MRSA activity.',
+      dosing:'600 mg IV q12h.',
+      adverse:'Generally well tolerated; rash, eosinophilia.',
+      pearls:['The cephalosporin that covers MRSA — but it does NOT cover Pseudomonas.']}
+  ]},
+  carbapenems:{name:'Carbapenems / Monobactam',color:'var(--g3)',drugs:[
+    {id:'meropenem',name:'Meropenem / Imipenem',tag:'Carbapenem',
+      covers:'Very broad — gram-positives (not MRSA/E. faecium), gram-negatives incl. Pseudomonas and ESBL, and anaerobes.',
+      gaps:'No MRSA, atypicals, VRE/E. faecium, or Stenotrophomonas; not carbapenem-resistant organisms (CRE).',
+      uses:['ESBL infections (DRUG OF CHOICE)','Severe polymicrobial / intra-abdominal sepsis','Empiric coverage in the critically ill with MDR risk; severe febrile neutropenia'],
+      mech:'Broadest beta-lactam; very stable to most beta-lactamases (but not carbapenemases).',
+      dosing:'Meropenem 1 g IV q8h (2 g q8h, 3h infusion, for CNS/MDR).',
+      adverse:'Seizures (imipenem > meropenem, esp. in renal failure / high dose / CNS lesions); C. diff.',
+      pearls:['Drug of choice for ESBL Enterobacterales.','Meropenem has a lower seizure risk than imipenem.']},
+    {id:'ertapenem',name:'Ertapenem',tag:'Carbapenem (once-daily)',
+      covers:'Gram-positives (not MRSA/enterococcus), gram-negatives incl. ESBL, and anaerobes.',
+      gaps:'NO Pseudomonas, NO Acinetobacter, no MRSA/enterococcus.',
+      uses:['ESBL UTI / pyelonephritis (convenient once-daily, no Pseudomonas needed)','Complicated intra-abdominal / skin infections','Outpatient parenteral therapy (OPAT)'],
+      mech:'Long-half-life carbapenem dosed once daily; the gap vs meropenem is Pseudomonas/Acinetobacter.',
+      dosing:'1 g IV/IM q24h.',
+      adverse:'Seizures (lower risk), C. diff.',
+      pearls:['The once-daily carbapenem — great for ESBL UTI when you do NOT need Pseudomonas coverage.']},
+    {id:'aztreonam',name:'Aztreonam (monobactam)',tag:'Monobactam',
+      covers:'Gram-negatives ONLY, INCLUDING Pseudomonas.',
+      gaps:'NO gram-positives and NO anaerobes.',
+      uses:['Gram-negative / Pseudomonas coverage in SEVERE penicillin/cephalosporin allergy','Pair with a gram-positive agent when broader coverage is needed'],
+      mech:'Monobactam — binds PBP3 of gram-negatives only; essentially no cross-reactivity in beta-lactam allergy (shares a side chain with ceftazidime).',
+      dosing:'2 g IV q8h.',
+      adverse:'Very well tolerated.',
+      pearls:['The gram-negative beta-lactam you can use in true penicillin anaphylaxis.','Covers Pseudomonas but NOTHING gram-positive — always pair when gram-positives matter.']}
+  ]},
+  fquinolones:{name:'Fluoroquinolones',color:'var(--g4)',drugs:[
+    {id:'cipro',name:'Ciprofloxacin',tag:'Fluoroquinolone',
+      covers:'Gram-negatives incl. Pseudomonas; atypicals. WEAK gram-positive (not reliable for strep/pneumococcus).',
+      gaps:'Poor pneumococcus, no anaerobes, no MRSA.',
+      uses:['Complicated UTI / pyelonephritis / prostatitis','Pseudomonal infections (an oral option)','Intra-abdominal/GI (with metronidazole); traveler\'s diarrhea'],
+      mech:'Inhibits DNA gyrase/topoisomerase; excellent oral bioavailability and tissue penetration.',
+      dosing:'500 mg PO BID / 400 mg IV q12h.',
+      adverse:'QTc prolongation, tendinopathy/rupture, aortic aneurysm/dissection, C. diff, peripheral neuropathy, dysglycemia, CNS effects (FDA black-box warnings).',
+      pearls:['Cipro is the FQ for Pseudomonas — it is NOT reliable for pneumococcus (don\'t use it alone for CAP).','High C. diff risk; reserve for when benefits outweigh the toxicities.']},
+    {id:'resp_fq',name:'Levofloxacin / Moxifloxacin',tag:'Respiratory fluoroquinolone',
+      covers:'Adds strong pneumococcus + atypicals to FQ gram-negative coverage. Levofloxacin covers Pseudomonas; moxifloxacin adds anaerobes.',
+      gaps:'Moxifloxacin: NO Pseudomonas and poor urinary levels (not for UTI).',
+      uses:['CAP — respiratory FQ monotherapy (esp. with a beta-lactam allergy)','Levofloxacin: pyelonephritis / Pseudomonas','Moxifloxacin: intra-abdominal (anaerobes)'],
+      mech:'Respiratory fluoroquinolones with enhanced gram-positive/atypical coverage.',
+      dosing:'Levofloxacin 750 mg q24h; moxifloxacin 400 mg q24h.',
+      adverse:'Same class warnings (QTc — worst with moxifloxacin; tendon, aorta, dysglycemia, neuropathy, C. diff).',
+      pearls:['"Respiratory" FQs (levo/moxi) cover pneumococcus → good for CAP; cipro does not.','Moxifloxacin covers anaerobes but NOT Pseudomonas and is poor for UTI.']}
+  ]},
+  macrolides:{name:'Macrolides',color:'var(--g)',drugs:[
+    {id:'azithro',name:'Azithromycin (± Clarithro/Erythro)',tag:'Macrolide',
+      covers:'Atypicals (Mycoplasma, Chlamydia, Legionella), some Strep/H. flu/Moraxella, and MAC.',
+      gaps:'Rising pneumococcal resistance; no reliable enteric gram-negative or Pseudomonas coverage.',
+      uses:['CAP — atypical coverage (combined with ceftriaxone inpatient)','Chlamydia (1 g PO x1), pertussis','COPD exacerbation; MAC prophylaxis/treatment (in combination)'],
+      mech:'Inhibits the 50S ribosome; also has anti-inflammatory/immunomodulatory effects. Long half-life (azithromycin).',
+      dosing:'Azithromycin 500 mg day 1 → 250 mg daily x4; azithromycin has minimal CYP interactions (unlike clarithro/erythro).',
+      adverse:'QTc prolongation, GI upset (erythromycin is a motilin agonist — prokinetic), hepatotoxicity.',
+      pearls:['Azithromycin adds atypical coverage in CAP plus an anti-inflammatory benefit.','Clarithromycin/erythromycin are strong CYP3A4 inhibitors (drug interactions); azithromycin is cleaner.']}
+  ]},
+  tetracyclines:{name:'Tetracyclines',color:'var(--g2)',drugs:[
+    {id:'doxy',name:'Doxycycline (± Minocycline)',tag:'Tetracycline',
+      covers:'Atypicals, CA-MRSA (skin), tick-borne illness (Rickettsia, Ehrlichia, Anaplasma, Lyme), Vibrio, Pasteurella, respiratory pathogens, syphilis (alternative).',
+      gaps:'Variable enteric gram-negatives, no Pseudomonas; not for serious MRSA bacteremia.',
+      uses:['CA-MRSA skin/soft tissue (PO)','Outpatient CAP (atypical coverage)','TICK-BORNE illness — give empirically for suspected RMSF','Chlamydia, PID (adjunct), COPD, acne'],
+      mech:'Inhibits the 30S ribosome; ~93% oral bioavailability (PO ≈ IV).',
+      dosing:'100 mg PO BID.',
+      adverse:'Photosensitivity, pill esophagitis (take upright with water), GI upset; historically teeth staining (but still used for RMSF at any age).',
+      pearls:['Give doxycycline empirically for suspected Rocky Mountain spotted fever — do NOT wait for confirmation, at any age.','Excellent oral bioavailability and reliable CA-MRSA coverage for skin infections.']}
+  ]},
+  aminoglycosides:{name:'Aminoglycosides',color:'var(--g3)',drugs:[
+    {id:'gent',name:'Gentamicin / Tobramycin / Amikacin',tag:'Aminoglycoside',
+      covers:'Aerobic gram-negatives incl. Pseudomonas; SYNERGY for gram-positive endocarditis (enterococcus, staph). Amikacin for resistant gram-negatives.',
+      gaps:'NO anaerobes (uptake needs oxygen), poor activity in acidic/abscess environments, no reliable gram-positive monotherapy.',
+      uses:['Synergy in enterococcal/staph endocarditis (low-dose)','Gram-negative / Pseudomonas infections (often as an adjunct)'],
+      mech:'Inhibits the 30S ribosome; concentration-dependent killing with a post-antibiotic effect. Requires oxygen for uptake (no anaerobic activity).',
+      dosing:'Extended-interval (once-daily) dosing for most infections; low-dose q8h for synergy.',
+      adverse:'NEPHROTOXICITY (usually reversible ATN) and OTOTOXICITY (cochlear/vestibular, often irreversible); neuromuscular blockade.',
+      monitor:'Follow drug levels (peaks/troughs or nomogram) and renal function closely; keep courses short.',
+      pearls:['Nephrotoxic AND ototoxic — monitor levels and renal function, minimize duration.','No anaerobic activity (needs oxygen) and ineffective in abscesses.']}
+  ]},
+  antimrsa:{name:'Anti-MRSA / Gram-positive',color:'var(--g4)',drugs:[
+    {id:'vanc',name:'Vancomycin',tag:'Glycopeptide',
+      covers:'MRSA, MSSA, Strep, Enterococcus (not VRE), and C. diff (ORAL, for colitis).',
+      gaps:'NO gram-negatives or atypicals; IV vanc does NOT treat C. diff (needs ORAL); inferior to beta-lactams for MSSA.',
+      uses:['MRSA bacteremia/endocarditis/pneumonia/SSTI','Empiric gram-positive coverage in sepsis/meningitis','ORAL vancomycin for C. diff colitis (it is not absorbed)'],
+      mech:'Glycopeptide — binds D-ala-D-ala to block cell-wall synthesis. Slowly bactericidal.',
+      dosing:'IV with AUC-guided dosing (target AUC 400–600). Oral only for C. diff.',
+      adverse:'Nephrotoxicity (esp. with Zosyn), infusion reaction ("red man"/flushing — slow the infusion), DRESS, rare ototoxicity.',
+      monitor:'AUC-guided (or trough) monitoring plus renal function.',
+      pearls:['IV vanc does NOTHING for C. diff colitis — that needs ORAL vancomycin.','Vancomycin is INFERIOR to nafcillin/cefazolin for MSSA — de-escalate once MSSA is confirmed.','"Red man" is an infusion-rate reaction, not a true allergy — slow it down.']},
+    {id:'linezolid',name:'Linezolid',tag:'Oxazolidinone',
+      covers:'MRSA, VRE, Strep — all resistant gram-positives. Good lung penetration.',
+      gaps:'No gram-negatives; bacteriostatic (caution in endocarditis/bacteremia).',
+      uses:['VRE infections','MRSA pneumonia/SSTI — a 100% oral option','When vancomycin fails or renal-sparing is needed'],
+      mech:'Oxazolidinone — inhibits 50S initiation. Bacteriostatic; 100% oral bioavailability.',
+      dosing:'600 mg IV/PO q12h.',
+      adverse:'Myelosuppression (thrombocytopenia, esp. >2 weeks), serotonin syndrome (weak MAOI — with SSRIs/SNRIs), peripheral/optic neuropathy (prolonged), lactic acidosis.',
+      monitor:'Weekly CBC; watch for serotonin syndrome with serotonergic drugs.',
+      pearls:['Covers VRE and is 100% orally bioavailable — a great PO option for resistant gram-positives.','Weak MAOI → serotonin syndrome risk; thrombocytopenia with prolonged use.']},
+    {id:'dapto',name:'Daptomycin',tag:'Lipopeptide',
+      covers:'MRSA, VRE, and resistant gram-positives. Bactericidal.',
+      gaps:'INACTIVATED by surfactant → CANNOT be used for pneumonia. No gram-negatives.',
+      uses:['MRSA bacteremia and right-sided endocarditis','VRE bacteremia','MRSA SSTI when vancomycin is unsuitable'],
+      mech:'Lipopeptide — disrupts the cell membrane; concentration-dependent bactericidal.',
+      dosing:'IV once daily (weight-based).',
+      adverse:'MYOPATHY / rhabdomyolysis; rare eosinophilic pneumonia.',
+      monitor:'Weekly CK; hold statins if feasible.',
+      pearls:['NEVER use daptomycin for pneumonia — surfactant inactivates it.','Monitor CK weekly for myopathy.']},
+    {id:'clinda',name:'Clindamycin',tag:'Lincosamide',
+      covers:'Gram-positives (incl. CA-MRSA), anaerobes ABOVE the diaphragm, with an antitoxin effect.',
+      gaps:'No gram-negatives or enterococcus; rising MRSA/anaerobe resistance.',
+      uses:['CA-MRSA SSTI (a PO option)','TOXIN suppression in necrotizing fasciitis / toxic shock (added to a beta-lactam)','Aspiration / oral anaerobes; penicillin-allergic strep'],
+      mech:'Inhibits the 50S ribosome and suppresses toxin production.',
+      dosing:'300–450 mg PO TID/QID; 600–900 mg IV q8h.',
+      adverse:'The HIGHEST C. diff risk among common antibiotics; diarrhea, rash.',
+      pearls:['Add clindamycin in nec fasc / toxic shock for its antitoxin (protein-synthesis-inhibiting) effect.','Classic highest-risk antibiotic for C. diff.']},
+    {id:'bactrim',name:'TMP-SMX (Bactrim)',tag:'Folate antagonist',
+      covers:'CA-MRSA, many Enterobacterales, Stenotrophomonas, Nocardia, PJP (Pneumocystis), Listeria (alternative).',
+      gaps:'No Pseudomonas; NOT reliable for Group A strep (don\'t use alone for non-purulent cellulitis); no anaerobes.',
+      uses:['CA-MRSA SSTI (PO)','PJP (Pneumocystis) treatment AND prophylaxis','UTI (if susceptible); Stenotrophomonas; Nocardia'],
+      mech:'Sequential blockade of folate synthesis (synergistic). Bactericidal.',
+      dosing:'1 DS tab PO BID for UTI/SSTI; high-dose weight-based for PJP.',
+      adverse:'Hyperkalemia, AKI / a benign Cr rise (blocks tubular secretion), rash/SJS, myelosuppression, photosensitivity; raises warfarin INR and raises K with ACEi/ARB.',
+      pearls:['Drug of choice for Pneumocystis (PJP) treatment and prophylaxis.','Raises potassium and creatinine; watch the warfarin INR.','Does not reliably cover Strep — not for non-purulent cellulitis alone.']}
+  ]},
+  anaerobic_uti:{name:'Anaerobic & Urinary',color:'var(--g)',drugs:[
+    {id:'metro',name:'Metronidazole',tag:'Nitroimidazole',
+      covers:'Anaerobes BELOW the diaphragm (Bacteroides), protozoa (Giardia, Trichomonas, Entamoeba), C. diff, H. pylori (combo), bacterial vaginosis.',
+      gaps:'No aerobes; weak coverage of above-diaphragm anaerobes.',
+      uses:['Intra-abdominal infections (add to gram-negative coverage)','C. diff (non-severe, when vanc/fidaxomicin unavailable)','Bacterial vaginosis, trichomoniasis, giardiasis, amebiasis; diverticulitis'],
+      mech:'Forms toxic radicals in anaerobes; excellent tissue and CNS penetration.',
+      dosing:'500 mg PO/IV q8h.',
+      adverse:'DISULFIRAM-like reaction with alcohol, metallic taste, peripheral neuropathy (prolonged), reversible encephalopathy/cerebellar signs.',
+      pearls:['Covers below-diaphragm anaerobes — pair with a gram-negative agent for intra-abdominal infection.','Avoid alcohol (disulfiram-like reaction).']},
+    {id:'nitro',name:'Nitrofurantoin',tag:'Urinary agent',
+      covers:'E. coli, S. saprophyticus, Enterococcus (incl. some VRE) — cystitis pathogens.',
+      gaps:'Proteus/Klebsiella/Pseudomonas resistant; achieves NO tissue/blood levels — cystitis ONLY.',
+      uses:['Uncomplicated cystitis (first-line)','UTI prophylaxis'],
+      mech:'Concentrated in the urine with multiple intracellular targets — a bladder-only therapy.',
+      dosing:'100 mg PO BID x5 days (macrocrystals).',
+      adverse:'Avoid if CrCl <30 (inadequate urinary levels + toxicity); pulmonary fibrosis (chronic use), hemolysis in G6PD, neuropathy.',
+      pearls:['CYSTITIS ONLY — it does not reach tissue, so never use it for pyelonephritis.','Avoid when CrCl <30 and at term in pregnancy.']},
+    {id:'fosfo',name:'Fosfomycin',tag:'Urinary agent',
+      covers:'E. coli (incl. many ESBL), Enterococcus (incl. VRE), some Klebsiella — cystitis.',
+      gaps:'Cystitis only; not for upper-tract or tissue infection.',
+      uses:['Uncomplicated or MDR cystitis (a single oral dose)','An ESBL E. coli cystitis "escape" option'],
+      mech:'Inhibits early cell-wall synthesis; concentrated in the urine.',
+      dosing:'3 g PO x1 dose.',
+      adverse:'GI upset; generally well tolerated.',
+      pearls:['Single-dose oral option for cystitis, including many ESBL/VRE — a handy MDR escape for the bladder.']}
+  ]},
+  antifungals:{name:'Antifungals',color:'var(--g3)',drugs:[
+    {id:'fluconazole',name:'Fluconazole',tag:'Azole',
+      covers:'Most Candida albicans and Cryptococcus; good CNS and urinary penetration.',
+      gaps:'NO molds (no Aspergillus); C. krusei is resistant and C. glabrata is often resistant.',
+      uses:['Candidemia step-down (susceptible Candida), thrush, esophageal/vaginal candidiasis','Cryptococcal meningitis consolidation/maintenance','Candiduria (good urinary levels)'],
+      mech:'Inhibits ergosterol synthesis (a CYP enzyme); many drug interactions; QTc prolongation.',
+      dosing:'PO/IV, ~90% oral bioavailability.',
+      adverse:'QTc prolongation, hepatotoxicity, many CYP interactions (warfarin, etc.).',
+      pearls:['No mold coverage; know your Candida species (krusei resistant, glabrata often resistant).','Excellent oral bioavailability with CNS and urinary penetration.']},
+    {id:'echinocandin',name:'Echinocandins (Micafungin)',tag:'Echinocandin',
+      covers:'Broad Candida INCLUDING azole-resistant (glabrata, krusei); some Aspergillus (not first-line).',
+      gaps:'Poor CNS/urinary penetration (not for Candida meningitis/UTI); no Cryptococcus.',
+      uses:['First-line EMPIRIC therapy for candidemia / invasive candidiasis','Febrile neutropenia with suspected fungal infection'],
+      mech:'Inhibits beta-1,3-glucan synthase (fungal cell wall); few drug interactions.',
+      dosing:'IV once daily.',
+      adverse:'Very well tolerated; minimal interactions.',
+      pearls:['First-line empiric drug for candidemia — broad Candida coverage including azole-resistant species.','Poor urine/CNS levels — switch to fluconazole/amphotericin for Candida UTI or meningitis.']},
+    {id:'voriconazole',name:'Voriconazole',tag:'Triazole',
+      covers:'ASPERGILLUS (drug of choice), Candida, and some molds.',
+      gaps:'No mucormycosis (use amphotericin or isavuconazole).',
+      uses:['Invasive aspergillosis (first-line)','Mold infections in the immunocompromised'],
+      mech:'Triazole; CYP-metabolized (many interactions); needs therapeutic drug monitoring.',
+      dosing:'IV/PO with level monitoring (TDM).',
+      adverse:'Visual disturbances, hepatotoxicity, QTc, photosensitivity / long-term skin cancer, many CYP interactions.',
+      pearls:['Drug of choice for invasive aspergillosis; it does NOT cover mucor.','Needs therapeutic drug monitoring and has many interactions and visual side effects.']},
+    {id:'amphotericin',name:'Amphotericin B',tag:'Polyene',
+      covers:'Broadest antifungal — Candida, Cryptococcus, molds INCLUDING mucormycosis, and endemic fungi.',
+      gaps:'Toxicity-limited; true resistance is rare.',
+      uses:['Severe / CNS fungal infection (cryptococcal meningitis induction)','Mucormycosis','Refractory or severe invasive fungal disease'],
+      mech:'Binds ergosterol to form membrane pores; the liposomal formulation is less nephrotoxic.',
+      dosing:'IV (liposomal preferred to reduce toxicity).',
+      adverse:'NEPHROTOXICITY, electrolyte wasting (K, Mg), and infusion reactions (fever/rigors).',
+      monitor:'Renal function and electrolytes (K/Mg); pre-hydrate and use the liposomal form.',
+      pearls:['The antifungal that covers mucormycosis; broadest spectrum but most toxic.','Liposomal reduces nephrotoxicity; expect K/Mg wasting and infusion reactions.']}
+  ]},
+  antivirals:{name:'Antivirals',color:'var(--g2)',drugs:[
+    {id:'acyclovir',name:'Acyclovir / Valacyclovir',tag:'Antiviral (herpesviruses)',
+      covers:'HSV-1/2 and VZV (higher dose). Valacyclovir is the oral prodrug (better bioavailability).',
+      gaps:'No CMV (use ganciclovir); no reliable EBV.',
+      uses:['HSV ENCEPHALITIS — start IV acyclovir empirically if suspected','Genital/oral herpes and shingles (zoster)','HSV in the immunocompromised'],
+      mech:'Guanosine analog activated by viral thymidine kinase; inhibits viral DNA polymerase.',
+      dosing:'IV for encephalitis/severe disease; valacyclovir PO for outpatients.',
+      adverse:'Crystalline nephropathy (HYDRATE for IV dosing), neurotoxicity in renal failure.',
+      pearls:['Start IV acyclovir empirically for suspected HSV encephalitis — don\'t wait for the PCR.','Hydrate well with IV acyclovir to prevent crystal nephropathy.']},
+    {id:'oseltamivir',name:'Oseltamivir (Tamiflu)',tag:'Neuraminidase inhibitor',
+      covers:'Influenza A and B.',
+      gaps:'Influenza only.',
+      uses:['Influenza treatment — best within 48h, but still give if hospitalized/severe regardless of timing','Post-exposure prophylaxis in high-risk patients'],
+      mech:'Neuraminidase inhibitor that blocks viral release.',
+      dosing:'75 mg PO BID x5 days.',
+      adverse:'Nausea/vomiting; generally well tolerated.',
+      pearls:['Most benefit within 48h, but still treat hospitalized, severe, or high-risk influenza at any point.']}
+  ]}
+};
+
+// ============================================================
 // INIT
 // ============================================================
 function onLoad(){
-  try{ clinicRender(); dataRender(); clinicBuildList(''); dataBuildList(''); }catch(e){ console.error('init',e); }
+  try{ clinicRender(); dataRender(); drugRender(); clinicBuildList(''); dataBuildList(''); }catch(e){ console.error('init',e); }
 }
 
 window.addEventListener('DOMContentLoaded', onLoad);
