@@ -191,12 +191,50 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .abox p{font-size:26px;color:var(--t2);line-height:1.8;margin-bottom:8px;}.abox p:last-child{margin-bottom:0;}.abox strong{color:var(--t);}
 .ov{position:fixed;inset:0;background:rgba(13,15,14,.92);display:flex;align-items:center;justify-content:center;z-index:999;flex-direction:column;gap:16px;}
 .ov p{font-family:var(--mono);font-size:26px;color:var(--t2);}
+/* ── DRAWER COMPONENTS (shared, both platforms) ── */
+.dwhead{position:sticky;top:0;background:var(--s2);padding:20px 70px 15px 20px;border-bottom:1px solid var(--b);z-index:3;}
+.dwtitle{font-family:var(--serif);font-size:22px;font-weight:400;color:var(--t);line-height:1.25;margin-bottom:6px;}
+.dweyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;}
+.dwnormal{font-size:14px;color:var(--t3);margin-top:7px;}
+.dwnormal b{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--t3);font-weight:400;}
+.dwclose{position:absolute;top:15px;right:16px;width:44px;height:44px;border-radius:50%;background:var(--s3);border:1px solid var(--b2);color:var(--t2);font-size:28px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;z-index:4;padding:0;}
+.dwclose:active{background:var(--s1);color:var(--t);transform:scale(.92);}
+.dwsec{font-family:var(--mono);font-size:12px;color:var(--t3);letter-spacing:.14em;text-transform:uppercase;margin:20px 16px 10px;display:flex;align-items:center;gap:8px;}
+.dwsec::before{content:'';width:14px;height:2px;border-radius:1px;background:var(--g);flex-shrink:0;}
+.dwcard{margin:12px 14px;border:1px solid var(--b2);border-radius:var(--rl);overflow:hidden;background:var(--s2);}
+.dwcard-h{background:var(--s3);border-bottom:1px solid var(--b);padding:10px 15px;font-family:var(--mono);font-size:12px;color:var(--t2);letter-spacing:.04em;}
+.dwcard-b{padding:15px;}
+.dwdrug{display:inline-block;font-family:var(--mono);font-size:16px;font-weight:600;color:var(--g);background:rgba(127,255,110,.1);border:1px solid rgba(127,255,110,.22);border-radius:7px;padding:4px 11px;margin-bottom:10px;}
+.dwdose{font-size:16px;color:var(--t);line-height:1.5;padding:11px 13px;background:var(--s3);border-radius:9px;border-left:3px solid var(--g);margin-bottom:11px;}
+.dwfact{font-size:15px;color:var(--t2);line-height:1.6;margin-bottom:4px;}
+.dwfact b{font-family:var(--mono);font-size:11px;letter-spacing:.07em;color:var(--g2);font-weight:500;margin-right:6px;}
+/* collapsible disclosure for tuck-away context */
+details.disc{margin-top:11px;border-top:1px solid var(--b);padding-top:10px;}
+details.disc>summary{list-style:none;cursor:pointer;font-family:var(--mono);font-size:13px;color:var(--g2);letter-spacing:.03em;display:flex;align-items:center;gap:8px;user-select:none;}
+details.disc>summary::-webkit-details-marker{display:none;}
+details.disc>summary .chv{display:inline-block;transition:transform .18s;font-size:13px;}
+details.disc[open]>summary .chv{transform:rotate(90deg);}
+details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-top:10px;}
+.dwor{display:flex;align-items:center;gap:12px;padding:2px 15px 0;}
+.dwor .ln{flex:1;height:1px;background:var(--b);}
+.dwor .tx{font-family:var(--mono);font-size:11px;color:var(--t3);padding:8px 0;letter-spacing:.1em;}
+.dwpearls{margin:18px 14px;background:rgba(127,255,110,.04);border:1px solid rgba(127,255,110,.14);border-radius:var(--rl);padding:15px 17px;}
+.dwpearls-h{font-family:var(--mono);font-size:12px;color:var(--g);letter-spacing:.14em;margin-bottom:11px;display:flex;align-items:center;gap:7px;}
+.dwpearl{font-size:15px;color:var(--t2);line-height:1.6;margin-bottom:9px;padding-left:20px;position:relative;}
+.dwpearl:last-child{margin-bottom:0;}
+.dwpearl::before{content:'›';position:absolute;left:4px;color:var(--g);font-family:var(--mono);font-weight:600;}
+.dwlist{margin:0 14px 10px;background:var(--s2);border:1px solid var(--b2);border-radius:var(--rl);padding:14px 16px;}
+.dwlist-i{font-size:15px;color:var(--t2);line-height:1.6;margin-bottom:9px;padding-left:20px;position:relative;}
+.dwlist-i:last-child{margin-bottom:0;}
+.dwlist-i::before{content:'›';position:absolute;left:4px;font-family:var(--mono);font-weight:600;color:var(--bul,var(--g));}
+.dwqa{margin:0 14px 9px;background:var(--s2);border:1px solid var(--b2);border-radius:var(--rl);padding:13px 15px;}
+.dwqa-q{font-size:16px;color:var(--g2);font-weight:500;line-height:1.45;}
 ::-webkit-scrollbar{width:5px;height:5px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--s3);border-radius:3px;}
 @media(max-width:768px){
   /* ── TOKENS ── */
-  :root{--nav:56px;--r:10px;--rl:12px;}
+  :root{--nav:70px;--r:10px;--rl:12px;--safeL:env(safe-area-inset-left,0px);--safeR:env(safe-area-inset-right,0px);}
 
   /* ── LAYOUT ── */
   .hdr{display:none;}
@@ -216,13 +254,16 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 
   /* ── BOTTOM NAV ── */
   .bnav{display:flex !important;position:fixed;bottom:0;left:0;right:0;background:var(--s1);
-    border-top:1px solid var(--b);padding-bottom:var(--safe);z-index:100;
+    border-top:1px solid var(--b2);padding-bottom:var(--safe);
+    padding-left:var(--safeL);padding-right:var(--safeR);z-index:100;
     height:calc(var(--nav) + var(--safe));touch-action:pan-y;overflow-x:hidden;}
   .ni{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    padding:5px 2px;cursor:pointer;gap:2px;border:none;background:none;-webkit-tap-highlight-color:transparent;min-width:0;}
-  .nicon{font-size:18px;color:var(--t2);line-height:1.2;}
-  .nlbl{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;}
+    padding:8px 2px 6px;cursor:pointer;gap:5px;border:none;background:none;-webkit-tap-highlight-color:transparent;min-width:0;position:relative;}
+  .nicon{font-size:26px;color:var(--t2);line-height:1;font-weight:500;}
+  .nlbl{font-family:var(--mono);font-size:12px;color:var(--t3);letter-spacing:.03em;text-transform:uppercase;white-space:nowrap;}
   .ni.on .nicon,.ni.on .nlbl{color:var(--g);}
+  .ni.on::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+    width:40%;height:3px;border-radius:0 0 3px 3px;background:var(--g);}
   /* ── MORE TRAY ── */
   .more-tray{display:none;position:fixed;inset:0;z-index:200;}
   .more-tray.open{display:block;}
@@ -242,8 +283,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   .more-hdl{width:36px;height:4px;border-radius:2px;background:var(--b2);margin:0 auto 4px;}
 
   /* ── TYPOGRAPHY — reset ALL the giant px values ── */
-  body{font-size:14px;line-height:1.55;}
-  .h1{font-size:18px;font-weight:400;margin-bottom:10px;line-height:1.3;}
+  body{font-size:16px;line-height:1.55;}
+  .h1{font-size:23px;font-weight:400;margin-bottom:12px;line-height:1.3;}
   .h1 span{color:var(--g);}
   .lbl{font-size:10px;letter-spacing:.07em;margin-bottom:6px;}
   .sl{font-size:12px;}
@@ -251,18 +292,21 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   .smsg{font-size:10px;margin-top:4px;}
 
   /* Override every hardcoded font-size in inline styles (specificity win via !important) */
-  [style*="font-size:38px"]{font-size:20px !important;}
-  [style*="font-size:32px"]{font-size:18px !important;}
-  [style*="font-size:29px"]{font-size:15px !important;}
-  [style*="font-size:28px"]{font-size:14px !important;}
-  [style*="font-size:27px"]{font-size:13px !important;}
-  [style*="font-size:26px"]{font-size:13px !important;}
-  [style*="font-size:25px"]{font-size:13px !important;}
-  [style*="font-size:24px"]{font-size:11px !important;}
-  [style*="font-size:23px"]{font-size:11px !important;}
-  [style*="font-size:22px"]{font-size:10px !important;}
-  [style*="font-size:21px"]{font-size:10px !important;}
-  [style*="font-size:20px"]{font-size:10px !important;}
+  [style*="font-size:38px"]{font-size:25px !important;}
+  [style*="font-size:32px"]{font-size:22px !important;}
+  [style*="font-size:29px"]{font-size:19px !important;}
+  [style*="font-size:28px"]{font-size:18px !important;}
+  [style*="font-size:27px"]{font-size:17px !important;}
+  [style*="font-size:26px"]{font-size:16px !important;}
+  [style*="font-size:25px"]{font-size:16px !important;}
+  [style*="font-size:24px"]{font-size:15px !important;}
+  [style*="font-size:23px"]{font-size:15px !important;}
+  [style*="font-size:22px"]{font-size:15px !important;}
+  [style*="font-size:21px"]{font-size:14px !important;}
+  [style*="font-size:20px"]{font-size:14px !important;}
+  /* category labels (11px mono) inside the three panels */
+  #panel-abx [style*="font-size:11px"],#panel-clinic [style*="font-size:11px"],#panel-data [style*="font-size:11px"]{font-size:13px !important;letter-spacing:.12em !important;}
+  .clinic-pill{font-size:13px !important;padding:7px 13px !important;}
 
   /* ── CARDS ── */
   .card{padding:11px 12px;border-radius:11px;margin-bottom:9px;}
@@ -370,7 +414,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <!-- Mobile top bar -->
 <div class="mbar">
   <div class="mlogo">Intern <span>Guide</span></div>
-  <a href="https://javiermontelongo-md.github.io/academic-OS" target="_blank" style="font-family:var(--mono);font-size:9px;color:var(--t3);text-decoration:none;border:1px solid var(--b2);border-radius:4px;padding:2px 7px;">Academic OS ↗</a>
 </div>
 
 <!-- Desktop header -->
@@ -378,7 +421,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   <div class="htop">
     <div class="logo">Intern <span>Guide</span></div>
     <div class="ptag">CLINICAL REFERENCE</div>
-    <a href="https://javiermontelongo-md.github.io/academic-OS" target="_blank" style="margin-left:auto;font-family:var(--mono);font-size:24px;color:var(--t3);text-decoration:none;border:1px solid var(--b2);border-radius:5px;padding:3px 10px;transition:all .15s;" onmouseover="this.style.borderColor='var(--g)';this.style.color='var(--g)'" onmouseout="this.style.borderColor='var(--b2)';this.style.color='var(--t3)'">Academic OS ↗</a>
   </div>
   <div class="tabs">
     <button class="tab on" onclick="gT('abx',this)">ABX</button>
@@ -1003,35 +1045,18 @@ function openAbxDrawer(key){
   const d=ABX_DATA[key];
   if(!d) return;
 
-  let html=`<div style="padding:20px 20px 0;">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;">
-      <div style="font-family:var(--mono);font-size:15px;color:var(--t);font-weight:600;line-height:1.3;flex:1;padding-right:12px;">${d.title}</div>
-      <button onclick="closeAbxDrawer()" style="background:transparent;border:none;color:var(--t3);font-size:24px;cursor:pointer;padding:2px 6px;line-height:1;flex-shrink:0;">×</button>
-    </div>
-    <div style="font-family:var(--mono);font-size:10px;color:var(--g);letter-spacing:.1em;margin-bottom:18px;">${d.category}</div>
-  </div>`;
+  let html=drawerHead(d.title,d.category,'var(--g)','closeAbxDrawer()');
 
   // Drug scenario cards
   d.drugs.forEach(scenario=>{
-    html+=`<div style="margin:0 12px 12px;border:1px solid var(--b2);border-radius:var(--r);overflow:hidden;">`;
-    // Situation label header
-    html+=`<div style="background:var(--s3);border-bottom:1px solid var(--b);padding:8px 14px;">
-      <span style="font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;">${scenario.label}</span>
-    </div>`;
-    // Options with OR divider
+    html+=`<div class="dwcard"><div class="dwcard-h">${scenario.label}</div>`;
     scenario.options.forEach((opt,i)=>{
-      if(i>0){
-        html+=`<div style="display:flex;align-items:center;gap:10px;padding:0 14px;background:var(--s2);">
-          <div style="flex:1;height:1px;background:var(--b);"></div>
-          <div style="font-family:var(--mono);font-size:10px;color:var(--t3);padding:6px 0;">— OR —</div>
-          <div style="flex:1;height:1px;background:var(--b);"></div>
-        </div>`;
-      }
-      html+=`<div style="padding:14px;background:var(--s2);">
-        <div style="font-family:var(--mono);font-size:13px;color:var(--g);font-weight:600;margin-bottom:6px;">${opt.drug}</div>
-        <div style="font-size:13px;color:var(--t);line-height:1.5;margin-bottom:8px;padding:8px 10px;background:var(--s3);border-radius:8px;border-left:2px solid var(--g);">${opt.dose}</div>
-        <div style="font-size:12px;color:var(--g2);margin-bottom:6px;"><span style="font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:var(--t3);">COVERS  </span>${opt.covers}</div>
-        <div style="font-size:12px;color:var(--t2);line-height:1.6;font-style:italic;">${opt.why}</div>
+      if(i>0){ html+=`<div class="dwor"><div class="ln"></div><div class="tx">OR</div><div class="ln"></div></div>`; }
+      html+=`<div class="dwcard-b">
+        <div class="dwdrug">${opt.drug}</div>
+        <div class="dwdose">${opt.dose}</div>
+        <div class="dwfact"><b>COVERS</b>${opt.covers}</div>
+        ${disc('Why this regimen?',opt.why)}
       </div>`;
     });
     html+=`</div>`;
@@ -1039,14 +1064,11 @@ function openAbxDrawer(key){
 
   // Pearls
   if(d.pearls && d.pearls.length){
-    html+=`<div style="margin:0 12px 24px;background:rgba(127,255,110,0.04);border:1px solid rgba(127,255,110,0.12);border-radius:var(--r);padding:14px 16px;">
-      <div style="font-family:var(--mono);font-size:10px;color:var(--g);letter-spacing:.1em;margin-bottom:10px;">CLINICAL PEARLS</div>`;
-    d.pearls.forEach(p=>{
-      html+=`<div style="font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:8px;padding-left:16px;position:relative;">
-        <span style="position:absolute;left:0;color:var(--g);font-family:var(--mono);font-size:13px;">›</span>${p}</div>`;
-    });
+    html+=`<div class="dwpearls"><div class="dwpearls-h">✦ CLINICAL PEARLS</div>`;
+    d.pearls.forEach(p=>{ html+=`<div class="dwpearl">${p}</div>`; });
     html+=`</div>`;
   }
+  html+=`<div style="height:30px;"></div>`;
 
   const backdrop=document.createElement('div');
   backdrop.id='abx-drawer-backdrop';
@@ -1815,7 +1837,7 @@ function clinicBuildList(q){
 }
 
 function riskTag(risk){
-  if(risk==='high') return '<span style="font-family:var(--mono);font-size:9px;background:rgba(239,83,80,.15);color:var(--red);padding:2px 6px;border-radius:5px;letter-spacing:.05em;margin-left:6px;vertical-align:middle;">CAN\'T MISS</span>';
+  if(risk==='high') return '<span style="font-family:var(--mono);font-size:11px;background:rgba(239,83,80,.15);color:var(--red);padding:2px 7px;border-radius:5px;letter-spacing:.05em;margin-left:8px;vertical-align:middle;white-space:nowrap;">CAN\'T MISS</span>';
   return '';
 }
 
@@ -1824,19 +1846,13 @@ function openClinicDrawer(sk,cid){
   const sys=CLINIC_DATA[sk];
   const c=sys.complaints.find(x=>x.id===cid);
   if(!c) return;
-  let html=`<div style="padding:20px 20px 0;">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;">
-      <div style="font-family:var(--mono);font-size:16px;color:var(--t);font-weight:600;line-height:1.3;flex:1;padding-right:12px;">${c.name}</div>
-      <button onclick="closeAnyDrawer()" style="background:transparent;border:none;color:var(--t3);font-size:24px;cursor:pointer;padding:2px 6px;line-height:1;flex-shrink:0;">×</button>
-    </div>
-    <div style="font-family:var(--mono);font-size:10px;color:${sys.color};letter-spacing:.1em;margin-bottom:18px;">${sys.name.toUpperCase()}</div>
-  </div>`;
+  let html=drawerHead(c.name,sys.name,sys.color,'closeAnyDrawer()');
 
   // Can't miss banner
   if(c.cantMiss&&c.cantMiss.length){
-    html+=`<div style="margin:0 12px 14px;background:rgba(239,83,80,.06);border:1px solid rgba(239,83,80,.25);border-radius:var(--r);padding:12px 14px;">
-      <div style="font-family:var(--mono);font-size:10px;color:var(--red);letter-spacing:.1em;margin-bottom:8px;">⚠ CAN'T-MISS DIAGNOSES</div>
-      <div style="font-size:13px;color:var(--t);line-height:1.7;">${c.cantMiss.join(' · ')}</div>
+    html+=`<div style="margin:14px 14px 4px;background:rgba(239,83,80,.07);border:1px solid rgba(239,83,80,.3);border-radius:var(--rl);padding:13px 15px;">
+      <div style="font-family:var(--mono);font-size:12px;color:var(--red);letter-spacing:.1em;margin-bottom:9px;">⚠ CAN'T-MISS DIAGNOSES</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">${c.cantMiss.map(x=>`<span style="font-size:13px;color:var(--t);background:rgba(239,83,80,.1);border:1px solid rgba(239,83,80,.2);border-radius:6px;padding:4px 9px;line-height:1.3;">${x}</span>`).join('')}</div>
     </div>`;
   }
 
@@ -1844,19 +1860,16 @@ function openClinicDrawer(sk,cid){
   html+=secHeader('DIFFERENTIAL');
   c.ddx.forEach(d=>{
     const bord=d.risk==='high'?'var(--red)':'var(--b2)';
-    html+=`<div style="margin:0 12px 8px;border:1px solid var(--b2);border-left:2px solid ${bord};border-radius:var(--r);padding:11px 14px;background:var(--s2);">
-      <div style="font-family:var(--mono);font-size:12px;color:var(--t);font-weight:600;margin-bottom:4px;">${d.dx}${riskTag(d.risk)}</div>
-      <div style="font-size:12px;color:var(--t2);line-height:1.6;">${d.features}</div>
+    html+=`<div style="margin:0 14px 9px;border:1px solid var(--b2);border-left:3px solid ${bord};border-radius:var(--rl);padding:12px 15px;background:var(--s2);">
+      <div style="font-family:var(--mono);font-size:15px;color:var(--t);font-weight:600;margin-bottom:5px;">${d.dx}${riskTag(d.risk)}</div>
+      <div style="font-size:15px;color:var(--t2);line-height:1.6;">${d.features}</div>
     </div>`;
   });
 
   // Questions to ask
   html+=secHeader('QUESTIONS TO ASK');
   c.questions.forEach(qq=>{
-    html+=`<div style="margin:0 12px 8px;background:var(--s2);border:1px solid var(--b2);border-radius:var(--r);padding:11px 14px;">
-      <div style="font-size:13px;color:var(--g2);font-weight:500;margin-bottom:4px;line-height:1.4;">${qq.q}</div>
-      <div style="font-size:12px;color:var(--t2);line-height:1.6;font-style:italic;"><span style="font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.06em;font-style:normal;">WHY  </span>${qq.why}</div>
-    </div>`;
+    html+=`<div class="dwqa"><div class="dwqa-q">${qq.q}</div>${disc('Why ask?',qq.why)}</div>`;
   });
 
   // Workup
@@ -1869,11 +1882,11 @@ function openClinicDrawer(sk,cid){
 
   // SOAP
   html+=secHeader('SOAP DOCUMENTATION');
-  html+=`<div style="margin:0 12px 8px;background:var(--s3);border:1px solid var(--b2);border-radius:var(--r);padding:12px 14px;">
-    <div style="font-family:var(--mono);font-size:10px;color:var(--g2);letter-spacing:.08em;margin-bottom:8px;">SUBJECTIVE</div>`;
-  c.soap.subjective.forEach(s=>{ html+=`<div style="font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--g2);">›</span>${s}</div>`; });
-  html+=`<div style="font-family:var(--mono);font-size:10px;color:var(--g3);letter-spacing:.08em;margin:12px 0 8px;">OBJECTIVE</div>`;
-  c.soap.objective.forEach(s=>{ html+=`<div style="font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:6px;padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--g3);">›</span>${s}</div>`; });
+  html+=`<div style="margin:0 14px 8px;background:var(--s3);border:1px solid var(--b2);border-radius:var(--rl);padding:14px 16px;">
+    <div style="font-family:var(--mono);font-size:12px;color:var(--g2);letter-spacing:.08em;margin-bottom:9px;">SUBJECTIVE</div>`;
+  c.soap.subjective.forEach(s=>{ html+=`<div style="font-size:15px;color:var(--t2);line-height:1.6;margin-bottom:7px;padding-left:18px;position:relative;"><span style="position:absolute;left:2px;color:var(--g2);">›</span>${s}</div>`; });
+  html+=`<div style="font-family:var(--mono);font-size:12px;color:var(--g3);letter-spacing:.08em;margin:14px 0 9px;">OBJECTIVE</div>`;
+  c.soap.objective.forEach(s=>{ html+=`<div style="font-size:15px;color:var(--t2);line-height:1.6;margin-bottom:7px;padding-left:18px;position:relative;"><span style="position:absolute;left:2px;color:var(--g3);">›</span>${s}</div>`; });
   html+=`</div>`;
   html+=`<div style="height:30px;"></div>`;
 
@@ -1925,42 +1938,33 @@ function openDataDrawer(ck,iid){
   const cat=DATA_DATA[ck];
   const it=cat.items.find(x=>x.id===iid);
   if(!it) return;
-  let html=`<div style="padding:20px 20px 0;">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;">
-      <div style="font-family:var(--mono);font-size:16px;color:var(--t);font-weight:600;line-height:1.3;flex:1;padding-right:12px;">${it.name}</div>
-      <button onclick="closeAnyDrawer()" style="background:transparent;border:none;color:var(--t3);font-size:24px;cursor:pointer;padding:2px 6px;line-height:1;flex-shrink:0;">×</button>
-    </div>
-    <div style="font-family:var(--mono);font-size:10px;color:${cat.color};letter-spacing:.1em;margin-bottom:4px;">${cat.name.toUpperCase()}</div>`;
-  if(it.normal){ html+=`<div style="font-size:12px;color:var(--t3);margin-bottom:16px;"><span style="font-family:var(--mono);font-size:9px;letter-spacing:.06em;">NORMAL  </span>${it.normal}</div>`; }
-  html+=`</div>`;
+  let html=drawerHead(it.name,cat.name,cat.color,'closeAnyDrawer()');
+  if(it.normal){ html+=`<div class="dwnormal" style="margin:13px 16px 2px;"><b>NORMAL </b>${it.normal}</div>`; }
 
   // Thresholds
   it.thresholds.forEach(t=>{
-    html+=`<div style="margin:0 12px 10px;border:1px solid var(--b2);border-radius:var(--r);overflow:hidden;">
-      <div style="background:var(--s3);border-bottom:1px solid var(--b);padding:9px 14px;">
-        <span style="font-family:var(--mono);font-size:12px;color:var(--g);font-weight:600;">${t.range}</span>
-      </div>
-      <div style="padding:12px 14px;background:var(--s2);">
-        <div style="font-size:12px;color:var(--t);line-height:1.6;margin-bottom:8px;">${t.meaning}</div>
-        <div style="font-size:12px;color:var(--t);line-height:1.6;margin-bottom:8px;padding:8px 10px;background:var(--s3);border-radius:8px;border-left:2px solid var(--g3);"><span style="font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.06em;">DO  </span>${t.action}</div>
-        <div style="font-size:11px;color:var(--g2);line-height:1.6;font-style:italic;"><span style="font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.06em;font-style:normal;">EVIDENCE  </span>${t.evidence}</div>
+    html+=`<div class="dwcard">
+      <div class="dwcard-h" style="color:var(--g);font-weight:600;">${t.range}</div>
+      <div class="dwcard-b">
+        <div style="font-size:16px;color:var(--t);line-height:1.55;margin-bottom:11px;">${t.meaning}</div>
+        <div class="dwdose" style="border-left-color:var(--g3);margin-bottom:0;"><span style="font-family:var(--mono);font-size:11px;color:var(--g3);letter-spacing:.07em;margin-right:6px;">DO</span>${t.action}</div>
+        ${disc('Evidence',t.evidence)}
       </div>
     </div>`;
   });
 
   // Trend
   if(it.trend){
-    html+=`<div style="margin:14px 12px 8px;background:rgba(79,195,247,.05);border:1px solid rgba(79,195,247,.18);border-radius:var(--r);padding:13px 15px;">
-      <div style="font-family:var(--mono);font-size:10px;color:var(--g2);letter-spacing:.1em;margin-bottom:8px;">↗ TREND / TRAJECTORY</div>
-      <div style="font-size:12px;color:var(--t2);line-height:1.7;">${it.trend}</div>
+    html+=`<div style="margin:16px 14px 4px;background:rgba(79,195,247,.06);border:1px solid rgba(79,195,247,.2);border-radius:var(--rl);padding:14px 16px;">
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g2);letter-spacing:.12em;margin-bottom:9px;">↗ TREND / TRAJECTORY</div>
+      <div style="font-size:15px;color:var(--t2);line-height:1.7;">${it.trend}</div>
     </div>`;
   }
 
   // Pearls
   if(it.pearls&&it.pearls.length){
-    html+=`<div style="margin:0 12px 8px;background:rgba(127,255,110,0.04);border:1px solid rgba(127,255,110,0.12);border-radius:var(--r);padding:13px 15px;">
-      <div style="font-family:var(--mono);font-size:10px;color:var(--g);letter-spacing:.1em;margin-bottom:9px;">PEARLS</div>`;
-    it.pearls.forEach(p=>{ html+=`<div style="font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:7px;padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:var(--g);">›</span>${p}</div>`; });
+    html+=`<div class="dwpearls"><div class="dwpearls-h">✦ PEARLS</div>`;
+    it.pearls.forEach(p=>{ html+=`<div class="dwpearl">${p}</div>`; });
     html+=`</div>`;
   }
   html+=`<div style="height:30px;"></div>`;
@@ -1968,10 +1972,20 @@ function openDataDrawer(ck,iid){
 }
 
 // ---------- shared drawer helpers ----------
-function secHeader(t){ return `<div style="font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.12em;margin:18px 12px 9px;">${t}</div>`; }
+function drawerHead(title,eyebrow,color,closeFn){
+  return `<div class="dwhead">
+    <button class="dwclose" onclick="${closeFn}" aria-label="Close">×</button>
+    <div class="dwtitle">${title}</div>
+    <div class="dweyebrow" style="color:${color}">${eyebrow}</div>
+  </div>`;
+}
+function disc(label,body){
+  return `<details class="disc"><summary><span class="chv">▸</span>${label}</summary><div class="disc-body">${body}</div></details>`;
+}
+function secHeader(t){ return `<div class="dwsec">${t}</div>`; }
 function listBlock(arr,color){
-  let h='<div style="margin:0 12px 8px;background:var(--s2);border:1px solid var(--b2);border-radius:var(--r);padding:12px 14px;">';
-  arr.forEach(x=>{ h+=`<div style="font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:7px;padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:${color};">›</span>${x}</div>`; });
+  let h='<div class="dwlist">';
+  arr.forEach(x=>{ h+=`<div class="dwlist-i" style="--bul:${color}">${x}</div>`; });
   return h+'</div>';
 }
 function buildDrawer(html){
