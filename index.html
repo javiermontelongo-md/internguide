@@ -1705,7 +1705,16 @@ var DATA_DATA={
         {range:'Direct (conjugated) predominant',meaning:'Hepatocellular dysfunction or biliary obstruction.',action:'Pair with the LFT pattern: obstruction (high alk phos) → RUQ US/MRCP; hepatocellular (high ALT/AST) → hepatitis workup.',evidence:'Conjugated bilirubin is water-soluble — dark urine signals hepatobiliary disease.'}
       ],
       trend:'A rising bilirubin with a rising INR in acute liver injury marks worsening synthetic function — escalate.',
-      pearls:['Indirect = think hemolysis or Gilbert; direct = think liver or ducts.','Dark urine = conjugated (water-soluble) bilirubinuria.','Isolated indirect hyperbilirubinemia with normal CBC is usually benign Gilbert.']}
+      pearls:['Indirect = think hemolysis or Gilbert; direct = think liver or ducts.','Dark urine = conjugated (water-soluble) bilirubinuria.','Isolated indirect hyperbilirubinemia with normal CBC is usually benign Gilbert.']},
+    {id:'ammonia',name:'Ammonia / Hepatic Encephalopathy',normal:'Ammonia ~15–45 µmol/L',
+      when:['Altered mental status in known liver disease, or new jaundice/coagulopathy','Suspected hepatic encephalopathy — but the diagnosis is CLINICAL'],
+      thresholds:[
+        {range:'Elevated ammonia + AMS',meaning:'Supports hepatic encephalopathy, but the level correlates POORLY with severity — do not titrate therapy to the number.',action:'Treat clinically: lactulose (titrate to 2–3 soft stools/day) ± rifaximin. Find and treat the PRECIPITANT.',evidence:'Hepatic encephalopathy is a clinical diagnosis; ammonia levels do not reliably track grade.'},
+        {range:'Hunt the precipitant',meaning:'Common triggers: GI bleed, infection (incl. SBP), constipation, dehydration/electrolytes (esp. hypokalemia), sedatives, dietary protein, TIPS.',action:'Check for GI bleed, do a diagnostic paracentesis (rule out SBP), correct electrolytes, stop sedatives, ensure bowel movements.',evidence:'Most episodes of HE are driven by an identifiable, reversible precipitant.'},
+        {range:'Normal ammonia',meaning:'A normal level does NOT exclude HE; an elevated level alone does not diagnose it.',action:'If the picture fits, treat empirically and find the precipitant; consider other causes of AMS.',evidence:'Ammonia has limited diagnostic utility — clinical context governs.'}
+      ],
+      trend:'Follow the mental status and stool output, NOT serial ammonia levels, to gauge the response to lactulose.',
+      pearls:['HE is clinical — do not chase the ammonia number.','Always hunt the precipitant (bleed, infection/SBP, constipation, hypokalemia, sedatives).','Titrate lactulose to 2–3 soft stools per day.']}
   ]},
   panc:{name:'Pancreas / Biliary',color:'var(--g4)',items:[
     {id:'lipase',name:'Lipase / Pancreatitis',normal:'Lipase <60 U/L (assay-dependent)',
@@ -1784,7 +1793,25 @@ var DATA_DATA={
         {range:'Elevated',meaning:'Nonspecific — VTE possible, but also infection, malignancy, pregnancy, surgery, trauma, inflammation, age.',action:'Does NOT confirm VTE — proceed to imaging (CTPA or US) if clinically warranted. Do not order in high pretest probability.',evidence:'D-dimer has high sensitivity but poor specificity; useful only to RULE OUT in low/intermediate probability.'}
       ],
       trend:'A single-use rule-out test — trending is not clinically useful for VTE.',
-      pearls:['Only order when pretest probability is low/intermediate (Wells/PERC).','Age-adjusted cutoff reduces unnecessary CTPAs in older patients.','High probability → skip D-dimer, image directly.']}
+      pearls:['Only order when pretest probability is low/intermediate (Wells/PERC).','Age-adjusted cutoff reduces unnecessary CTPAs in older patients.','High probability → skip D-dimer, image directly.']},
+    {id:'hemolysis',name:'Hemolysis Workup (LDH / Haptoglobin)',normal:'LDH 100–250; haptoglobin 30–200 mg/dL',
+      when:['Anemia with a high reticulocyte count','Jaundice with indirect hyperbilirubinemia','Suspected TTP/HUS, DIC, transfusion reaction, or autoimmune hemolysis'],
+      thresholds:[
+        {range:'Hemolysis labs',meaning:'HIGH LDH, LOW haptoglobin, HIGH indirect bilirubin, HIGH reticulocytes = hemolysis. Haptoglobin <25 is fairly specific.',action:'Confirm the pattern, then get a peripheral smear and a DAT (Coombs) to split the differential.',evidence:'Low haptoglobin + high LDH + high indirect bilirubin + reticulocytosis defines active hemolysis.'},
+        {range:'Smear: schistocytes (MAHA)',meaning:'Fragmented RBCs = microangiopathic hemolytic anemia: TTP, HUS, DIC, HELLP, malignant HTN.',action:'Schistocytes + thrombocytopenia → EMERGENCY. TTP → urgent plasma exchange and hematology NOW; do NOT transfuse platelets.',evidence:'Schistocytes + thrombocytopenia mandate urgent evaluation for TTP — plasma exchange is life-saving.'},
+        {range:'DAT (Coombs) positive',meaning:'Autoimmune hemolytic anemia — warm (IgG) or cold (IgM) agglutinin.',action:'Warm AIHA → steroids; identify triggers (drugs, lymphoproliferative, lupus). Transfuse cautiously (cross-match difficulty).',evidence:'A positive direct antiglobulin test confirms immune-mediated hemolysis.'}
+      ],
+      trend:'Trend LDH and haptoglobin to follow hemolytic activity and the response to treatment.',
+      pearls:['Low haptoglobin + high LDH + high indirect bili + reticulocytosis = hemolysis.','Schistocytes + low platelets = MAHA → think TTP/HUS/DIC (emergency).','Never transfuse platelets in TTP.']},
+    {id:'type_screen',name:'Type & Screen / Transfusion',normal:'Product thresholds below',
+      when:['Anticipated transfusion or significant bleeding risk (procedure, GI bleed, surgery)','Type & SCREEN for low-probability; type & CROSS when transfusion is likely or active'],
+      thresholds:[
+        {range:'Product thresholds',meaning:'pRBC: Hgb <7 (most), <8 (cardiac/symptomatic). Platelets: <10k prophylactic, <50k pre-procedure. FFP: bleeding + coagulopathy. Cryo: fibrinogen <100.',action:'Order the right product for the deficit. In massive hemorrhage, use a balanced 1:1:1 ratio (pRBC:FFP:platelets) and activate the massive transfusion protocol.',evidence:'Balanced 1:1:1 resuscitation (PROPPR) is standard for massive hemorrhage.'},
+        {range:'Transfusion reactions',meaning:'Febrile non-hemolytic (common, benign), allergic/urticarial, TACO (volume overload), TRALI (acute lung injury), acute hemolytic (ABO mismatch — fever, flank pain, dark urine).',action:'STOP the transfusion for any significant reaction. Acute hemolytic → fluids, support, notify blood bank. TACO → diurese/slow rate; TRALI → respiratory support.',evidence:'Acute hemolytic reactions (ABO incompatibility) are a clerical-error emergency — stop immediately.'},
+        {range:'Massive transfusion',meaning:'≥10 units/24h or ≥4 units/1h. Watch for citrate toxicity (hypocalcemia), hyperkalemia, hypothermia, dilutional coagulopathy.',action:'Activate the MTP; monitor and replete ionized calcium; warm products; trend coags/fibrinogen.',evidence:'Massive transfusion causes hypocalcemia (citrate) — monitor and replete ionized Ca.'}
+      ],
+      trend:'Recheck the Hgb after transfusion (or equilibration) and reassess for ongoing bleeding before giving more.',
+      pearls:['Type & screen if transfusion is possible; type & cross if it is likely.','Restrictive Hgb <7 trigger for most stable patients.','Any acute reaction → STOP the transfusion first, then evaluate.']}
   ]}
 };
 Object.assign(DATA_DATA,{
@@ -1820,7 +1847,39 @@ Object.assign(DATA_DATA,{
         {range:'3rd degree (complete) heart block',meaning:'AV dissociation — P waves and QRS independent. The escape rhythm determines stability.',action:'Transcutaneous/transvenous pacing, treat reversible causes, urgent EP for a permanent pacemaker.',evidence:'Complete heart block with symptoms/unstable escape requires pacing.'}
       ],
       trend:'Continuous telemetry to catch progression (Mobitz II → complete block) and assess escape reliability.',
-      pearls:['Mobitz I = node, usually benign; Mobitz II = below node, dangerous.','New block + inferior MI → often vagal/transient; anterior MI + block → ominous.','Atropine helps nodal (Mobitz I) but not infranodal (Mobitz II) blocks.']}
+      pearls:['Mobitz I = node, usually benign; Mobitz II = below node, dangerous.','New block + inferior MI → often vagal/transient; anterior MI + block → ominous.','Atropine helps nodal (Mobitz I) but not infranodal (Mobitz II) blocks.']},
+    {id:'afib',name:'Atrial Fibrillation / Flutter',normal:'Sinus rhythm with a P before every QRS',
+      thresholds:[
+        {range:'Atrial fibrillation',meaning:'Irregularly irregular rhythm, NO discernible P waves, fibrillatory baseline. The most common sustained arrhythmia.',action:'Assess stability FIRST. Unstable (hypotension, ischemia, pulmonary edema) → synchronized cardioversion. Stable → RATE control (beta-blocker or diltiazem; avoid diltiazem in HFrEF) and anticoagulation by CHA2DS2-VASc.',evidence:'Rate and rhythm control are similar for most patients (AFFIRM); anticoagulate per CHA2DS2-VASc regardless of strategy.'},
+        {range:'Atrial flutter',meaning:'Regular "sawtooth" flutter waves (best in II/III/aVF), atrial rate ~300 with block (often 2:1 → ventricular rate ~150).',action:'Same stability assessment; rate control is often harder; definitive treatment is ablation. Anticoagulate as for AF.',evidence:'A regular narrow tachycardia at exactly ~150 is flutter with 2:1 block until proven otherwise.'},
+        {range:'RVR causing instability',meaning:'Rapid ventricular response producing hypotension, chest pain, or pulmonary edema.',action:'Cardiovert if the AF is the CAUSE of instability. If AF is secondary (sepsis, PE, hypovolemia), treat the driver — cardioversion fails while the trigger persists.',evidence:'Cardiovert when the arrhythmia drives instability; otherwise fix the trigger first.'}
+      ],
+      trend:'New AF in a sick inpatient is usually secondary (sepsis, PE, post-op, hypoxia, electrolytes) — treat the trigger and the rate often follows.',
+      pearls:['Irregularly irregular + no P waves = AF.','Regular narrow tachy at ~150 = flutter with 2:1 block until proven otherwise.','Anticoagulate by CHA2DS2-VASc; weigh bleeding with HAS-BLED.']},
+    {id:'tachy',name:'Tachyarrhythmias (Wide vs Narrow)',normal:'Rate <100; QRS <120 ms',
+      thresholds:[
+        {range:'Narrow-complex (QRS <120)',meaning:'Supraventricular. Regular: sinus tach, SVT (AVNRT/AVRT), atrial flutter. Irregular: AF, MAT.',action:'Stable regular SVT → vagal maneuvers, then adenosine 6→12 mg. Sinus tach → find and treat the cause (do NOT cardiovert). Unstable → synchronized cardioversion.',evidence:'Adenosine terminates AV-nodal reentry and unmasks atrial flutter.'},
+        {range:'Wide-complex (QRS ≥120)',meaning:'Assume VENTRICULAR TACHYCARDIA until proven otherwise — especially with structural heart disease or prior MI.',action:'Unstable → cardiovert (pulse) / defibrillate (pulseless). Stable VT → amiodarone or procainamide; call cardiology. Do NOT give nodal blockers (CCB) to undifferentiated wide-complex — can be fatal in VT/WPW.',evidence:'Treating wide-complex tachycardia as VT is safest; verapamil can precipitate arrest in VT.'},
+        {range:'Unstable at any width',meaning:'Hypotension, altered mental status, ischemic chest pain, or pulmonary edema due to the rhythm.',action:'Synchronized cardioversion (or defibrillation if pulseless/VF). Do not delay for a perfect diagnosis in an unstable patient.',evidence:'ACLS: unstable tachycardia → immediate synchronized cardioversion.'}
+      ],
+      trend:'Capture a 12-lead during the tachycardia if stability allows — it guides definitive diagnosis far better than a rhythm strip.',
+      pearls:['Wide + regular + structural heart disease = VT.','Never give CCB to undifferentiated wide-complex tachycardia.','Sinus tachycardia is a symptom — treat the cause, not the rate.']},
+    {id:'pericarditis',name:'Pericarditis vs STEMI',normal:'No ST/PR changes',
+      thresholds:[
+        {range:'Pericarditis pattern',meaning:'DIFFUSE concave-up ST elevation + PR depression across many leads, with PR ELEVATION in aVR. No reciprocal changes, no vascular territory.',action:'NSAIDs + colchicine; find the cause (viral, uremic, post-MI/Dressler, autoimmune). Echo for effusion/tamponade.',evidence:'Diffuse STE with PR depression and no reciprocal changes distinguishes pericarditis from STEMI.'},
+        {range:'Versus STEMI',meaning:'STEMI: ST elevation in a vascular TERRITORY with RECIPROCAL depression, often convex. Pericarditis lacks both.',action:'When unsure, treat the higher-risk diagnosis (ACS) and get serial EKGs/troponin/echo.',evidence:'Reciprocal changes and a territorial distribution point to STEMI over pericarditis.'},
+        {range:'Watch for tamponade',meaning:'Low voltage + electrical alternans suggests a large effusion; Beck triad (hypotension, JVD, muffled heart sounds) = tamponade.',action:'Urgent echo; pericardiocentesis if tamponade physiology.',evidence:'Electrical alternans + low voltage suggests a large pericardial effusion.'}
+      ],
+      trend:'Pericarditis EKG evolves over days (STE → T-wave inversion → normalization), unlike the rapid territorial evolution of STEMI.',
+      pearls:['Diffuse STE + PR depression + PR elevation in aVR = pericarditis.','No reciprocal changes and no territory argues against STEMI.','New effusion with low voltage + electrical alternans → think tamponade.']},
+    {id:'lvh_bbb',name:'LVH & Bundle Branch Blocks',normal:'QRS <120 ms, normal voltage/axis',
+      thresholds:[
+        {range:'LVH',meaning:'Sokolow-Lyon: S in V1 + R in V5/V6 >35 mm. Often with a "strain" pattern (lateral ST depression/T inversion).',action:'Correlate with HTN, aortic stenosis, HCM; echo to confirm. LVH with strain can mimic ischemia — interpret troponin and symptoms in context.',evidence:'LVH voltage + strain can obscure or mimic ischemic ST-T changes.'},
+        {range:'RBBB',meaning:'QRS ≥120, rSR\' ("rabbit ears") in V1, wide slurred S in I/V6. Often benign; consider RV strain (PE) or ischemia.',action:'Usually does not block STEMI interpretation. New RBBB with chest pain/hypoxia → think PE or anterior ischemia.',evidence:'RBBB preserves the ability to read ST elevation for STEMI.'},
+        {range:'LBBB',meaning:'QRS ≥120, broad monophasic R in I/V6, deep QS in V1, discordant ST-T. Usually reflects underlying heart disease.',action:'A NEW LBBB with ischemic symptoms is a STEMI-equivalent — use Sgarbossa criteria to diagnose acute MI within an LBBB.',evidence:'Modified Sgarbossa criteria diagnose acute MI in the presence of LBBB or ventricular pacing.'}
+      ],
+      trend:'Compare to old EKGs — a "new" LBBB with symptoms is far more concerning than a known chronic LBBB.',
+      pearls:['New LBBB + ischemic symptoms = treat as STEMI-equivalent (Sgarbossa).','LVH with strain can both mimic and mask ischemia.','RBBB has rabbit ears in V1; LBBB has a broad R in I/V6.']}
   ]},
   chest_img:{name:'Chest Imaging',color:'var(--g2)',items:[
     {id:'cxr',name:'Chest X-ray (CXR)',normal:'Clear lungs, normal cardiac silhouette/mediastinum',
@@ -1856,7 +1915,16 @@ Object.assign(DATA_DATA,{
         {range:'Ancillary signs',meaning:'Hampton hump (wedge-shaped peripheral infarct), Westermark sign (focal oligemia on CXR).',action:'Support PE when present but are neither sensitive nor required for the diagnosis.',evidence:'Hampton hump and Westermark sign are specific but insensitive.'}
       ],
       trend:'In a hypotensive patient too unstable for CT, a bedside echo showing RV strain can justify empiric treatment for presumed massive PE.',
-      pearls:['Use Wells/PERC and D-dimer to avoid unnecessary CTPAs.','RV:LV >0.9 turns a "PE" into a "submassive PE" — it changes acuity.','Subsegmental PE in a low-risk patient may not need anticoagulation — individualize.']}
+      pearls:['Use Wells/PERC and D-dimer to avoid unnecessary CTPAs.','RV:LV >0.9 turns a "PE" into a "submassive PE" — it changes acuity.','Subsegmental PE in a low-risk patient may not need anticoagulation — individualize.']},
+    {id:'vq',name:'V/Q Scan (PE alternative)',normal:'Matched ventilation/perfusion; low probability',
+      when:['Suspected PE when CTPA is contraindicated — contrast allergy, renal failure, or to limit radiation (young, pregnant)','Best when the CXR is clear (an abnormal CXR degrades interpretation)'],
+      thresholds:[
+        {range:'High-probability scan',meaning:'Segmental perfusion defects with NORMAL ventilation (V/Q MISMATCH) in 2 or more segments.',action:'In the right clinical context, a high-probability scan is enough to treat for PE (anticoagulate).',evidence:'PIOPED: a high-probability V/Q scan with high clinical suspicion has a high positive predictive value for PE.'},
+        {range:'Normal / very low probability',meaning:'A normal perfusion scan effectively excludes clinically significant PE.',action:'A normal scan rules out PE — no anticoagulation needed.',evidence:'A normal perfusion scan has a very high negative predictive value for PE.'},
+        {range:'Intermediate / indeterminate',meaning:'Common (especially with abnormal CXR/lung disease) and unhelpful.',action:'Indeterminate → pursue further testing (CTPA, leg dopplers) guided by pretest probability.',evidence:'Many V/Q scans are nondiagnostic, especially with underlying lung disease — hence CTPA is usually preferred.'}
+      ],
+      trend:'Combine the scan with pretest probability (Wells) — concordant high/high or low/normal is conclusive; discordant needs more testing.',
+      pearls:['Best when the CXR is clear and CTPA is contraindicated.','A normal perfusion scan essentially rules out PE.','Many results are indeterminate — interpret with pretest probability.']}
   ]},
   abd_img:{name:'Abdominal Imaging',color:'var(--g3)',items:[
     {id:'axr',name:'Abdominal X-ray (KUB)',normal:'Normal bowel gas, no free air, no dilation',
@@ -1889,7 +1957,25 @@ Object.assign(DATA_DATA,{
         {range:'Biliary obstruction',meaning:'CBD >6 mm (dilated; allow +1 mm per decade over 60, and after cholecystectomy), with intrahepatic duct dilation.',action:'Dilated ducts + cholestatic LFTs → MRCP/ERCP for a stone or stricture. Fever + jaundice → cholangitis (urgent drainage).',evidence:'CBD dilation with cholestatic labs predicts a ductal stone or stricture.'}
       ],
       trend:'A normal US early does not fully exclude evolving cholecystitis — re-image or escalate to HIDA if pain and labs progress.',
-      pearls:['RUQ US is the workhorse first test for biliary disease.','Sonographic Murphy + wall thickening + pericholecystic fluid = cholecystitis.','A dilated CBD with cholestatic labs points to a ductal stone — get an MRCP.']}
+      pearls:['RUQ US is the workhorse first test for biliary disease.','Sonographic Murphy + wall thickening + pericholecystic fluid = cholecystitis.','A dilated CBD with cholestatic labs points to a ductal stone — get an MRCP.']},
+    {id:'renal_us',name:'Renal Ultrasound',normal:'Normal size, no hydronephrosis or stones',
+      when:['AKI of unclear cause (rule out obstruction — postrenal)','Suspected obstruction, stones, or complications of pyelonephritis','Hematuria, recurrent UTI in men, or to assess kidney size/chronicity'],
+      thresholds:[
+        {range:'Hydronephrosis (obstruction)',meaning:'A dilated collecting system = postrenal obstruction (stone, mass, BPH, clot). Bilateral or solitary-kidney obstruction → AKI.',action:'Relieve the obstruction: Foley (bladder outlet), urology for upper-tract obstruction (stent/nephrostomy). Postrenal AKI is reversible if decompressed early.',evidence:'Renal US is the first-line test to exclude obstruction in unexplained AKI.'},
+        {range:'Kidney size & echogenicity',meaning:'Small, echogenic kidneys = chronic disease. Normal/large = an acute process or infiltration (diabetes, amyloid, HIV).',action:'Small echogenic kidneys signal chronicity and a lower chance of renal recovery; set expectations accordingly.',evidence:'Kidney size and cortical echogenicity help distinguish acute from chronic disease.'},
+        {range:'Stones / other',meaning:'Stones with shadowing; simple vs complex cysts; masses. (CT is more sensitive for stones.)',action:'An obstructing stone with infection (fever, pyuria) is a urologic EMERGENCY → decompression + antibiotics.',evidence:'An obstructed, infected stone requires emergent decompression — it is a source of uncontrolled sepsis.'}
+      ],
+      trend:'Re-image if AKI persists despite decompression, or if a new obstruction is suspected.',
+      pearls:['Renal US is the go-to test to rule out obstruction in AKI.','Small echogenic kidneys = chronic; predicts poor recovery.','Obstruction + infection = emergency decompression.']},
+    {id:'leni',name:'Lower-Extremity Doppler (DVT)',normal:'Compressible veins, normal flow',
+      when:['Unilateral leg swelling/pain, suspected DVT','Confirmed PE looking for a source, or PE workup when CTPA is contraindicated','Use the Wells DVT score ± D-dimer to decide who needs the scan'],
+      thresholds:[
+        {range:'Non-compressible vein',meaning:'The diagnostic finding for DVT — a vein that does not collapse with probe compression. Proximal (popliteal/femoral) vs distal (calf).',action:'Proximal DVT → anticoagulate. Distal (calf) DVT → anticoagulate vs serial imaging depending on symptoms/risk.',evidence:'Loss of vein compressibility is the primary ultrasound criterion for DVT.'},
+        {range:'Negative study, ongoing suspicion',meaning:'A single negative scan does not fully exclude an evolving calf DVT.',action:'If pretest probability is high and the scan is negative, repeat in ~1 week or pursue further workup.',evidence:'Serial compression ultrasound catches propagating calf thrombi initially missed.'},
+        {range:'Provoked vs unprovoked',meaning:'Provoked (surgery, immobility, hormones, cancer) vs unprovoked changes the duration of anticoagulation.',action:'Determine provoking factors; unprovoked or cancer-associated VTE generally needs extended anticoagulation.',evidence:'Provoking context drives the duration-of-anticoagulation decision.'}
+      ],
+      trend:'In a high-probability patient with an initially negative study, repeat the ultrasound in ~1 week to catch a propagating clot.',
+      pearls:['Non-compressibility = DVT.','A negative scan with high suspicion → repeat in a week.','Provoked vs unprovoked determines how long to anticoagulate.']}
   ]},
   neuro_img:{name:'Neuro Imaging',color:'var(--g4)',items:[
     {id:'ct_head',name:'CT Head (Non-contrast)',normal:'No hemorrhage, mass effect, or midline shift',
@@ -1921,7 +2007,34 @@ Object.assign(DATA_DATA,{
         {range:'Asymptomatic bacteriuria',meaning:'A positive culture WITHOUT urinary symptoms.',action:'Do NOT treat — EXCEPT in pregnancy or before a urologic procedure with mucosal trauma. Treating otherwise drives resistance and C. diff.',evidence:'IDSA: screen/treat asymptomatic bacteriuria only in pregnancy and pre-urologic intervention.'}
       ],
       trend:'Routine test-of-cure is not recommended; re-culture only when clinically indicated (e.g., pregnancy).',
-      pearls:['Pyuria alone is not a UTI — treat the patient, not the dipstick.','In a delirious elder, a positive UA does not prove the UTI is the cause — exclude other sources first.','Catheter-associated: change/remove the catheter and treat only if symptomatic.']}
+      pearls:['Pyuria alone is not a UTI — treat the patient, not the dipstick.','In a delirious elder, a positive UA does not prove the UTI is the cause — exclude other sources first.','Catheter-associated: change/remove the catheter and treat only if symptomatic.']},
+    {id:'resp_cx',name:'Sputum & Respiratory Studies',normal:'Normal flora; no pathogen',
+      when:['Pneumonia (esp. HAP/VAP, severe CAP, immunocompromised)','Suspected TB (AFB), influenza/COVID, or atypical pathogens','Before or at the start of antibiotics when feasible'],
+      thresholds:[
+        {range:'Sputum Gram stain & culture',meaning:'An adequate specimen has many PMNs and few epithelial cells. The predominant organism guides therapy.',action:'Send before antibiotics if possible (esp. HAP/VAP). A poor-quality sample (many epithelial cells) = oral contamination — interpret cautiously.',evidence:'>25 PMNs and <10 epithelial cells per low-power field indicates a lower-respiratory (not oral) specimen.'},
+        {range:'Respiratory viral panel / flu / COVID',meaning:'PCR for influenza, RSV, SARS-CoV-2, and others.',action:'A positive viral PCR supports stopping/withholding antibiotics if there is no bacterial coinfection. Influenza → oseltamivir if within window or hospitalized.',evidence:'Confirming a viral etiology supports antibiotic de-escalation in the right context.'},
+        {range:'AFB smear & culture (TB)',meaning:'Three sputum samples; NAAT for rapid detection. Cavitary disease, weight loss, night sweats, risk factors.',action:'AIRBORNE ISOLATION immediately for suspected TB. The smear shows burden/infectivity; culture is definitive but slow.',evidence:'Suspected pulmonary TB requires airborne isolation pending negative AFB smears / NAAT.'}
+      ],
+      trend:'Use cultures to DE-ESCALATE — narrow empiric antibiotics to the identified organism and sensitivities at 48–72h.',
+      pearls:['Assess sputum adequacy (PMNs vs epithelial cells) before trusting the culture.','Isolate suspected TB immediately — do not wait for confirmation.','A positive respiratory viral PCR can justify stopping antibiotics.']},
+    {id:'cdiff',name:'C. difficile Testing',normal:'Negative',
+      when:['New ≥3 unformed stools/24h, especially with recent antibiotics or hospitalization','Do NOT test formed stool or asymptomatic patients (you will detect colonization)','Do NOT repeat within 7 days or as a test-of-cure'],
+      thresholds:[
+        {range:'GDH + toxin (or NAAT) algorithm',meaning:'GDH detects the organism (sensitive, not specific); toxin EIA detects active toxin (specific). NAAT/PCR detects the toxin GENE (may reflect colonization).',action:'GDH+/toxin+ = true infection, treat. GDH+/toxin− = indeterminate (often colonization) — judge clinically. Treat the patient, not the PCR alone.',evidence:'A positive NAAT/PCR with a negative toxin may represent colonization rather than active disease.'},
+        {range:'Severity & treatment',meaning:'Severe: WBC ≥15k or Cr >1.5. Fulminant: hypotension, ileus, or megacolon.',action:'Non-severe/severe → oral vancomycin (or fidaxomicin). Fulminant → high-dose oral vanc + IV metronidazole, surgery on board. STOP the inciting antibiotic; avoid antimotility agents.',evidence:'Oral vancomycin/fidaxomicin replaced metronidazole as first-line (IDSA).'},
+        {range:'Watch for complications',meaning:'Rising WBC (can reach 30–50k), rising lactate, abdominal distension → toxic megacolon / fulminant colitis.',action:'Serial exams, abdominal imaging, surgery consult for fulminant disease.',evidence:'Marked leukocytosis and rising lactate flag fulminant C. diff requiring surgical awareness.'}
+      ],
+      trend:'Do not repeat testing to confirm cure — the assay stays positive after clinical resolution. Follow the clinical course (stool frequency, WBC) instead.',
+      pearls:['Only test diarrhea (≥3 unformed stools/24h) — never formed stool.','PCR-positive/toxin-negative may be colonization; correlate clinically.','Oral vancomycin is first-line; stop the offending antibiotic.']},
+    {id:'fungal',name:'Fungal Markers & Cultures',normal:'Negative',
+      when:['Persistent fever/sepsis on broad antibiotics, esp. immunocompromised, TPN, or central lines','Candidemia risk (ICU, abdominal surgery) or invasive mold risk (neutropenia, transplant)'],
+      thresholds:[
+        {range:'Blood culture / Candida',meaning:'Candida in blood is NEVER a contaminant. Risk: central lines, TPN, broad antibiotics, abdominal surgery, neutropenia.',action:'Start an echinocandin empirically; remove/replace lines; OPHTHALMOLOGY exam (endophthalmitis); repeat cultures to document clearance; 14 days from the first negative culture.',evidence:'Candidemia mandates source control (line removal), an eye exam, and documented clearance.'},
+        {range:'Beta-D-glucan',meaning:'A broad fungal marker (Candida, Aspergillus, PCP) — NOT specific, and NOT for mucor/crypto.',action:'Use as an adjunct in high-risk hosts; a positive supports invasive fungal infection but needs correlation.',evidence:'Beta-D-glucan is sensitive but nonspecific; false positives are common.'},
+        {range:'Galactomannan',meaning:'Aspergillus antigen (serum or BAL); more specific for invasive aspergillosis in neutropenic/transplant patients.',action:'Positive serum/BAL galactomannan + a halo sign on CT in a neutropenic patient → treat invasive aspergillosis (voriconazole).',evidence:'Galactomannan + a radiographic halo sign supports invasive aspergillosis in high-risk hosts.'}
+      ],
+      trend:'In candidemia, repeat blood cultures daily until clearance — the 14-day clock starts at the first NEGATIVE culture.',
+      pearls:['Candida in blood is never a contaminant — treat, pull lines, exam the eyes.','Beta-D-glucan is broad and nonspecific; galactomannan is Aspergillus-specific.','Neutropenic fever + halo sign + galactomannan = invasive aspergillosis.']}
   ]},
   vent:{name:'Ventilator',color:'var(--g)',items:[
     {id:'pf',name:'P/F Ratio (Oxygenation)',normal:'PaO2/FiO2 >400',
@@ -1968,6 +2081,148 @@ Object.assign(DATA_DATA,{
       ],
       trend:'Track filling pressures and CO/CI in response to diuresis, fluids, inotropes, and vasodilators to guide titration.',
       pearls:['PCWP is the key fork: high = left heart (post-capillary); low = pulmonary vascular (pre-capillary).','Cardiac index (CO/BSA) personalizes output — CI <2.2 defines low-output states.','PVR = (mPAP − PCWP)/CO (Wood units) separates pulmonary vascular disease from left heart disease.']}
+  ]}
+});
+
+Object.assign(DATA_DATA,{
+  abg:{name:'Blood Gas / Acid-Base',color:'var(--g3)',items:[
+    {id:'abg_interp',name:'ABG / VBG Interpretation',normal:'pH 7.35–7.45; PaCO2 35–45; HCO3 22–26',
+      when:['Respiratory distress, hypoxia, or hypercapnia (ABG for accurate PaO2/PaCO2)','Shock, sepsis, DKA, toxic ingestion, or any severe acid-base disturbance','VBG is fine for pH/CO2/lactate trends; ABG when you need true oxygenation'],
+      thresholds:[
+        {range:'Step 1–2: acidemia vs alkalemia, primary process',meaning:'pH <7.35 acidemia, >7.45 alkalemia. Then look at CO2 and HCO3: low HCO3 = metabolic acidosis; high CO2 = respiratory acidosis (and vice versa).',action:'Identify the PRIMARY disorder by which value moves in the same direction as the pH, then check compensation.',evidence:'The value that shifts in the same direction as the pH is the primary driver.'},
+        {range:'Step 3: compensation',meaning:'Metabolic acidosis → Winter formula expected PaCO2 = 1.5×HCO3 + 8 (±2). If the actual CO2 differs, there is a second (respiratory) disorder.',action:'Compare expected vs actual compensation; a mismatch reveals a concurrent respiratory process.',evidence:'Winter formula defines the appropriate respiratory compensation for a metabolic acidosis.'},
+        {range:'Step 4: anion gap & delta-delta',meaning:'Compute the anion gap (correct for albumin). If a high-gap acidosis exists, use the delta ratio to detect a concurrent normal-gap acidosis or metabolic alkalosis.',action:'Always check the gap even if pH/HCO3 look normal — a mixed disorder can hide a normal pH.',evidence:'The delta-delta uncovers triple disorders that a single pH can mask.'},
+        {range:'Oxygenation (ABG only)',meaning:'PaO2 and the A-a gradient: a widened gradient = V/Q mismatch, shunt, or diffusion problem. Normal ≈ age/4 + 4.',action:'Hypoxia + widened A-a gradient → parenchymal/vascular cause (PNA, edema, PE). Normal A-a gradient → hypoventilation or low inspired O2.',evidence:'The A-a gradient separates hypoventilation from intrinsic lung/vascular causes of hypoxemia.'}
+      ],
+      trend:'Use VBG to trend pH/CO2/lactate (less painful, no arterial stick); switch to ABG when you truly need PaO2 or a precise PaCO2.',
+      pearls:['Walk the steps every time: pH → primary → compensation → gap → delta-delta.','VBG pH runs ~0.03–0.04 lower and CO2 ~3–8 higher than ABG — fine for trends.','A normal pH can hide a mixed disorder — always compute the gap.']},
+    {id:'osm_gap',name:'Osmolar Gap / Toxic Alcohols',normal:'Osmolar gap <10',
+      when:['High-anion-gap acidosis of unclear cause; suspected toxic ingestion','Altered mental status with metabolic acidosis, especially with an alcohol history'],
+      thresholds:[
+        {range:'Elevated osmolar gap (>10)',meaning:'Measured osm − calculated osm (2×Na + glucose/18 + BUN/2.8 + ethanol/3.7). A gap >10 suggests an unmeasured osmotically active substance.',action:'Suspect toxic alcohols (methanol, ethylene glycol); also acetone, propylene glycol. Pair with a high anion gap.',evidence:'A combined high osmolar gap AND high anion gap strongly suggests toxic alcohol ingestion.'},
+        {range:'Methanol vs ethylene glycol',meaning:'Methanol → visual changes ("snowfield"), putaminal injury. Ethylene glycol → calcium oxalate crystals in urine, renal failure, hypocalcemia.',action:'EMERGENT: fomepizole (blocks alcohol dehydrogenase), call poison control, hemodialysis for severe acidosis/end-organ injury.',evidence:'Fomepizole + dialysis are the mainstays for toxic alcohol poisoning; do not wait for confirmatory levels.'},
+        {range:'Timing caveat',meaning:'Early after ingestion the osmolar gap is high (parent alcohol) with a low anion gap; later it normalizes as toxic acid metabolites accumulate (rising anion gap).',action:'A normal osmolar gap LATE does not exclude ingestion — interpret with timing and the anion gap.',evidence:'The osmolar gap falls and the anion gap rises as the alcohol is metabolized.'}
+      ],
+      trend:'As metabolism proceeds, the osmolar gap falls while the anion gap climbs — track both over time.',
+      pearls:['High osmolar gap + high anion gap + AMS = toxic alcohol until proven otherwise.','Fomepizole early; call poison control; dialysis for severe cases.','A normal osmolar gap late does not rule out ingestion.']}
+  ]},
+  endo:{name:'Endocrine',color:'var(--g4)',items:[
+    {id:'glucose_dka',name:'Glucose / DKA vs HHS',normal:'Fasting 70–100 mg/dL',
+      when:['Hyperglycemia with AMS, polyuria, vomiting, or abdominal pain','A type 1 diabetic who is ill; new severe hyperglycemia','Hypoglycemia: any AMS, especially on insulin or sulfonylureas'],
+      thresholds:[
+        {range:'DKA',meaning:'Glucose >250, anion-gap metabolic acidosis (pH <7.3, HCO3 <18), and KETONES (beta-hydroxybutyrate). Usually type 1 or a sick type 2.',action:'IV FLUIDS first, then an insulin infusion; replete potassium BEFORE/with insulin (insulin drives K into cells). Track the ANION GAP for resolution; add dextrose when glucose ~200. Find the trigger (infection, missed insulin, MI).',evidence:'Give insulin only once K >3.3; track gap closure, not glucose, as the marker of resolution.'},
+        {range:'HHS',meaning:'Glucose often >600, very high osmolality, profound dehydration, minimal/no ketones, NO significant acidosis. AMS tracks with osmolality. Usually an older type 2.',action:'AGGRESSIVE fluid resuscitation is the priority (deficits often 8–10 L); insulin is secondary; replete K; correct slowly to avoid cerebral edema. High mortality.',evidence:'HHS is primarily a fluid-deficit emergency; correct osmolality gradually.'},
+        {range:'Hypoglycemia (<70)',meaning:'Sweating, tremor, confusion, seizure. Causes: insulin/sulfonylureas, sepsis, adrenal/liver failure, alcohol.',action:'Treat NOW: oral glucose if able, otherwise IV D50 (or glucagon if no access). Recheck in 15 min. Sulfonylurea/long-acting insulin → admit/observe for recurrence (octreotide for sulfonylurea).',evidence:'Sulfonylurea hypoglycemia recurs — octreotide and prolonged observation are indicated.'}
+      ],
+      trend:'In DKA, follow the ANION GAP and beta-hydroxybutyrate to gauge resolution — the glucose normalizes long before the ketoacidosis clears.',
+      pearls:['DKA: fluids + insulin + K; track the gap, not the glucose.','Never start insulin in DKA if K <3.3 — you will cause dangerous hypokalemia.','HHS is a fluid emergency; sulfonylurea hypoglycemia recurs — watch them.']},
+    {id:'thyroid',name:'Thyroid (TSH / Free T4)',normal:'TSH 0.4–4.0 mIU/L',
+      when:['Unexplained tachy/brady, weight change, AMS, AF, or fatigue','Suspected thyroid storm or myxedema coma (emergencies)','TSH is the best single screening test'],
+      thresholds:[
+        {range:'Low TSH (hyperthyroid)',meaning:'Low TSH + high free T4/T3 = primary hyperthyroidism (Graves, toxic nodule, thyroiditis).',action:'Beta-blocker for symptoms; antithyroid drugs (methimazole). Thyroid STORM (fever, tachy/AF, AMS, GI) → beta-blocker + PTU + iodine (after PTU) + steroids — ICU.',evidence:'In thyroid storm, give PTU BEFORE iodine (iodine first could fuel hormone synthesis); add steroids.'},
+        {range:'High TSH (hypothyroid)',meaning:'High TSH + low free T4 = primary hypothyroidism. Subclinical = high TSH with a normal T4.',action:'Levothyroxine replacement. Myxedema coma (hypothermia, bradycardia, AMS, hyponatremia) → IV levothyroxine + STRESS-DOSE STEROIDS (cover concurrent adrenal insufficiency) — ICU.',evidence:'Myxedema coma requires steroids alongside thyroid hormone until adrenal insufficiency is excluded.'},
+        {range:'Sick euthyroid (NTIS)',meaning:'Abnormal thyroid tests (often low T3, variable TSH) during acute illness WITHOUT true thyroid disease.',action:'Do NOT treat based on thyroid labs drawn during acute illness — recheck once recovered.',evidence:'Thyroid function tests are unreliable during acute illness (non-thyroidal illness syndrome).'}
+      ],
+      trend:'TSH lags ~6 weeks after a dose change — do not recheck or re-titrate sooner. Avoid screening thyroid function during acute hospitalization.',
+      pearls:['TSH is the best single screening test; confirm with free T4.','Thyroid storm: PTU before iodine, plus a beta-blocker and steroids.','Do not interpret thyroid labs during acute illness (sick euthyroid).']},
+    {id:'cortisol',name:'Cortisol / Adrenal Insufficiency',normal:'AM cortisol varies; concern is a low value with shock',
+      when:['Hypotension refractory to fluids and pressors (think adrenal crisis)','Hyponatremia + hyperkalemia + hypoglycemia, especially on chronic steroids','A patient on long-term steroids who is now acutely ill (suppressed axis)'],
+      thresholds:[
+        {range:'Adrenal crisis (suspected)',meaning:'Refractory hypotension, hyponatremia, hyperkalemia, hypoglycemia, abdominal pain. Often a steroid-dependent patient under stress, or pituitary/adrenal disease.',action:'TREAT EMPIRICALLY — do not wait for labs. Hydrocortisone 100 mg IV + aggressive fluids. Draw a random cortisol first only if it will not delay treatment.',evidence:'Adrenal crisis is treated empirically with stress-dose hydrocortisone; delay can be fatal.'},
+        {range:'Cosyntropin (ACTH) stimulation test',meaning:'Measure cortisol before and 30–60 min after synthetic ACTH; a poor rise suggests adrenal insufficiency.',action:'Use dexamethasone (does not cross-react with the cortisol assay) if you must treat before testing.',evidence:'The ACTH stimulation test confirms adrenal insufficiency; dexamethasone allows treatment without interfering.'},
+        {range:'Stress-dose steroids',meaning:'Patients on chronic steroids cannot mount a stress response and may decompensate during illness or surgery.',action:'Give stress-dose steroids for major illness/surgery in anyone on chronic glucocorticoids or with known adrenal insufficiency.',evidence:'Chronic glucocorticoid use suppresses the HPA axis, requiring stress dosing under physiologic stress.'}
+      ],
+      trend:'After starting hydrocortisone, a resolving pressor requirement supports the diagnosis.',
+      pearls:['Refractory shock + hyponatremia + hyperkalemia → think adrenal crisis and treat empirically.','Use dexamethasone if you must treat before the stim test.','Anyone on chronic steroids needs stress dosing when acutely ill.']}
+  ]},
+  renal_urine:{name:'Urine / Renal',color:'var(--g)',items:[
+    {id:'ua_micro',name:'Urinalysis & Microscopy',normal:'No blood, protein, casts, or crystals',
+      when:['AKI workup (intrinsic vs prerenal vs postrenal)','Hematuria, proteinuria, suspected UTI, or glomerular disease','Always look at the SEDIMENT yourself in unexplained AKI'],
+      thresholds:[
+        {range:'Casts',meaning:'Muddy-brown granular casts → ATN. RBC casts → glomerulonephritis. WBC casts → pyelonephritis or AIN. Hyaline casts → prerenal/normal. Broad/waxy → CKD.',action:'The cast tells you the compartment: glomerular (RBC casts + dysmorphic RBCs + protein), tubular (muddy brown = ATN), interstitial (WBC casts + eosinophils = AIN).',evidence:'Muddy-brown granular casts are highly specific for acute tubular necrosis.'},
+        {range:'Blood & protein',meaning:'Dysmorphic RBCs + RBC casts + proteinuria = glomerular (nephritic). A positive dipstick for blood with NO RBCs → myoglobin (rhabdo) or hemoglobin.',action:'Glomerular pattern → nephrology, consider serologies/biopsy. Dipstick-positive blood without RBCs → check a CK for rhabdomyolysis.',evidence:'A blood-positive dipstick with no RBCs on microscopy suggests myoglobinuria or hemoglobinuria.'},
+        {range:'Crystals',meaning:'Calcium oxalate (envelope-shaped) → ethylene glycol or stones. Uric acid → tumor lysis/gout. "Coffin-lid" struvite → urease-producing UTI (Proteus).',action:'Oxalate crystals + high-gap acidosis + AMS → ethylene glycol (treat with fomepizole). Struvite stones → treat the urease-producing infection.',evidence:'Calcium oxalate crystalluria with a high anion/osmolar gap suggests ethylene glycol poisoning.'},
+        {range:'Leukocyte esterase / nitrites',meaning:'LE = pyuria (WBCs); nitrites = Enterobacterales (specific). Together with symptoms → UTI.',action:'Treat symptomatic UTI per the ABX guide; do not treat asymptomatic bacteriuria except in pregnancy or before a urologic procedure.',evidence:'Nitrites are specific but insensitive; leukocyte esterase reflects pyuria.'}
+      ],
+      trend:'Repeat the sediment as AKI evolves — a shift to muddy-brown casts confirms ATN; new RBC casts suggest an evolving glomerular process.',
+      pearls:['Look at the sediment yourself in unexplained AKI — it localizes the injury.','Muddy brown casts = ATN; RBC casts = GN; WBC casts/eosinophils = AIN.','Dipstick blood without RBCs = myoglobin (check a CK).']},
+    {id:'urine_lytes',name:'Urine Electrolytes / FENa',normal:'Interpreted in context, not by an absolute value',
+      when:['Distinguishing prerenal AKI from ATN','Working up hyponatremia (urine Na + osmolality)','Assessing a renal vs GI source of electrolyte or acid-base loss'],
+      thresholds:[
+        {range:'FENa (prerenal vs ATN)',meaning:'FENa = (UNa×PCr)/(PNa×UCr)×100. <1% = prerenal (avid sodium retention); >2% = ATN. A urine Na <20 also suggests prerenal.',action:'Low FENa/UNa → optimize perfusion/volume (prerenal). High FENa with muddy-brown casts → ATN (supportive care).',evidence:'FENa <1% indicates intact tubular sodium avidity (prerenal); >2% indicates tubular injury (ATN).'},
+        {range:'FENa pitfalls',meaning:'Diuretics invalidate FENa (sodium is being excreted). Contrast nephropathy and some glomerular disease can show a low FENa despite intrinsic injury.',action:'On diuretics, use FEUrea instead: <35% suggests prerenal.',evidence:'FEUrea <35% identifies prerenal physiology in diuretic-treated patients where FENa is unreliable.'},
+        {range:'Urine Na in hyponatremia',meaning:'Urine Na <20 → hypovolemic (renal Na avidity) or hypervolemic (HF/cirrhosis). Urine Na >40 with euvolemia → SIADH.',action:'Combine urine Na + urine osm + clinical volume status to classify hyponatremia and choose therapy.',evidence:'Urine sodium and osmolality are central to the stepwise hyponatremia algorithm.'}
+      ],
+      trend:'A spot urine is a snapshot — interpret it alongside the clinical exam and the trajectory of the creatinine.',
+      pearls:['FENa <1% = prerenal; >2% = ATN — but useless on diuretics (use FEUrea <35%).','Urine Na <20 = sodium-avid (prerenal/hypervolemic).','Always pair urine studies with the volume exam.']},
+    {id:'ck_rhabdo',name:'CK / Rhabdomyolysis',normal:'CK ~30–200 U/L',
+      when:['Muscle pain/weakness, dark "tea-colored" urine, immobilization/down time, seizure, statins, compartment syndrome','AKI with a blood-positive dipstick but no RBCs on microscopy'],
+      thresholds:[
+        {range:'CK > 5× ULN (≈ >1000)',meaning:'Rhabdomyolysis — muscle breakdown releasing myoglobin, K, and phosphate. Risk of pigment-induced AKI, hyperkalemia, hypocalcemia.',action:'AGGRESSIVE IV fluids to maintain urine output (target ~200–300 mL/h); monitor K (life-threatening hyperkalemia), Ca, and phos; trend CK. Treat the cause (release pressure, stop the statin).',evidence:'Early aggressive fluid resuscitation is the cornerstone of preventing pigment nephropathy.'},
+        {range:'CK > 5000 (high AKI risk)',meaning:'A marked elevation strongly associated with acute kidney injury.',action:'Continue aggressive fluids; nephrology if AKI develops; watch electrolytes closely (hyperkalemia can be rapid and lethal).',evidence:'AKI risk rises substantially as CK exceeds ~5000 U/L.'},
+        {range:'Find the cause',meaning:'Trauma/crush, immobilization, seizures, extreme exertion, statins/fibrates, infections, toxins, NMS/serotonin syndrome, compartment syndrome.',action:'Identify and remove the trigger; have a low threshold for compartment syndrome (pain out of proportion, a tense compartment) → emergent fasciotomy.',evidence:'Compartment syndrome both causes and complicates rhabdomyolysis — it is a surgical emergency.'}
+      ],
+      trend:'Trend CK to confirm it is falling with treatment; a rising CK means ongoing muscle injury (recheck for compartment syndrome or a persistent trigger).',
+      pearls:['Dipstick blood without RBCs = myoglobin → check a CK.','Aggressive fluids are the main treatment; watch potassium closely.','Pain out of proportion + a tense compartment = compartment syndrome → fasciotomy.']}
+  ]},
+  fluids:{name:'Body Fluids',color:'var(--g2)',items:[
+    {id:'pleural',name:'Pleural Fluid (Thoracentesis)',normal:'Minimal fluid; transudate if present',
+      when:['New or symptomatic pleural effusion of unclear cause','Suspected empyema or complicated parapneumonic effusion (needs drainage)','Always send studies to apply Light criteria'],
+      thresholds:[
+        {range:'Light criteria (exudate vs transudate)',meaning:'EXUDATE if any: pleural/serum protein >0.5, pleural/serum LDH >0.6, or pleural LDH >2/3 the upper limit of normal serum LDH.',action:'Transudate (CHF, cirrhosis, nephrotic) → treat the systemic cause. Exudate (infection, malignancy, PE, TB) → broaden the workup (cytology, cultures).',evidence:'Light criteria are highly sensitive for exudates (they over-call some CHF effusions on diuretics).'},
+        {range:'Complicated parapneumonic / empyema',meaning:'Pleural pH <7.2, glucose <60, a positive Gram stain/culture, or frank pus = complicated/empyema.',action:'Needs CHEST-TUBE DRAINAGE plus antibiotics — antibiotics alone will not clear an empyema. Consider intrapleural tPA/DNase or surgery if loculated.',evidence:'A pleural fluid pH <7.2 in a parapneumonic effusion indicates the need for drainage.'},
+        {range:'Other clues',meaning:'Lymphocyte-predominant → TB or malignancy. Very high amylase → pancreatitis or esophageal rupture. Milky (chylothorax) → high triglycerides. Bloody → malignancy, PE, trauma.',action:'Send cell count/differential, protein, LDH, glucose, pH, cytology, and cultures; add amylase/triglycerides/ADA as the picture suggests.',evidence:'The fluid profile narrows the exudative differential.'}
+      ],
+      trend:'A non-draining or re-accumulating complicated effusion needs escalation (tPA/DNase or surgical decortication).',
+      pearls:['Light criteria: any one positive = exudate.','Parapneumonic effusion with pH <7.2 or pus = drain it.','A lymphocytic exudate → think TB or malignancy (send cytology/ADA).']},
+    {id:'ascites',name:'Ascitic Fluid (Paracentesis)',normal:'Minimal fluid',
+      when:['New ascites (a diagnostic tap to find the cause)','ANY cirrhotic admitted with ascites — rule out SBP, even without symptoms','Fever, abdominal pain, or encephalopathy in a patient with ascites'],
+      thresholds:[
+        {range:'SAAG (portal hypertension?)',meaning:'SAAG = serum albumin − ascites albumin. ≥1.1 g/dL = portal hypertension (cirrhosis, HF, Budd-Chiari). <1.1 = non-portal (malignancy, TB, pancreatic, nephrotic).',action:'High SAAG → manage portal hypertension (diuretics, sodium restriction). Low SAAG → pursue malignancy/TB/other (cytology, etc.).',evidence:'A SAAG ≥1.1 indicates portal hypertension with ~97% accuracy.'},
+        {range:'SBP (spontaneous bacterial peritonitis)',meaning:'An ascitic PMN count ≥250 cells/µL = SBP (treat regardless of culture). Usually a single organism (E. coli, Klebsiella, Strep).',action:'Start antibiotics (3rd-gen cephalosporin, e.g., ceftriaxone/cefotaxime) immediately; give ALBUMIN (1.5 g/kg day 1, 1 g/kg day 3) to prevent hepatorenal syndrome.',evidence:'PMN ≥250 defines SBP; albumin reduces renal failure and mortality.'},
+        {range:'Secondary peritonitis clues',meaning:'Polymicrobial, very high protein, low glucose, high LDH, or failure to improve → suspect a surgical source (perforation).',action:'Imaging (CT) and surgical evaluation; do not treat as simple SBP.',evidence:'Polymicrobial ascitic fluid with these features suggests secondary (surgical) peritonitis.'}
+      ],
+      trend:'In treated SBP, a repeat tap at 48h should show a >25% drop in PMNs; failure suggests resistance or secondary peritonitis.',
+      pearls:['Tap every cirrhotic with ascites on admission — SBP is often silent.','PMN ≥250 = SBP → antibiotics + albumin, do not wait for cultures.','SAAG ≥1.1 = portal hypertension.']},
+    {id:'csf',name:'CSF / Lumbar Puncture',normal:'Clear; WBC <5; protein <45; glucose ~2/3 serum',
+      when:['Suspected meningitis/encephalitis (fever, headache, neck stiffness, AMS)','Suspected SAH with a normal CT (look for xanthochromia)','Do not delay antibiotics for the LP in suspected bacterial meningitis'],
+      thresholds:[
+        {range:'Bacterial meningitis',meaning:'HIGH WBC (100s–1000s) with NEUTROPHIL predominance, HIGH protein, LOW glucose (<40 or CSF/serum <0.4), high opening pressure.',action:'EMERGENCY: do not wait for the LP — give empiric antibiotics (+ dexamethasone, + acyclovir if HSV is possible) immediately, then LP. Add ampicillin if Listeria risk (elderly/immunocompromised).',evidence:'A neutrophilic pleocytosis with low glucose and high protein is the classic bacterial profile; early dexamethasone reduces morbidity in pneumococcal meningitis.'},
+        {range:'Viral / aseptic',meaning:'A lymphocyte-predominant pleocytosis (10s–100s), NORMAL or mildly elevated protein, NORMAL glucose.',action:'Supportive care; add acyclovir for HSV encephalitis (temporal involvement, focal deficits, seizures) until excluded.',evidence:'A lymphocytic profile with normal glucose suggests viral/aseptic meningitis.'},
+        {range:'SAH (xanthochromia)',meaning:'Xanthochromia (yellow CSF from RBC breakdown) and a non-clearing RBC count from tube 1 to tube 4 suggest subarachnoid hemorrhage rather than a traumatic tap.',action:'Positive xanthochromia / non-clearing RBCs after a negative CT → CT angiography for an aneurysm; neurosurgery.',evidence:'Xanthochromia distinguishes true SAH from a traumatic tap, especially >6–12h after onset.'}
+      ],
+      trend:'Trends within the same LP matter: RBCs clearing from tube 1→4 favor a traumatic tap; a stable count favors SAH.',
+      pearls:['Suspected bacterial meningitis: antibiotics + dexamethasone FIRST, LP after.','Low CSF glucose with neutrophils = bacterial; normal glucose with lymphocytes = viral.','Xanthochromia (or non-clearing RBCs) = SAH until proven otherwise.']},
+    {id:'synovial',name:'Synovial Fluid (Arthrocentesis)',normal:'Clear, viscous; WBC <200',
+      when:['Acute monoarthritis — you MUST exclude septic arthritis','Suspected crystal arthropathy (gout/pseudogout) vs infection','A hot, swollen, painful joint is an emergency until septic is excluded'],
+      thresholds:[
+        {range:'Septic arthritis',meaning:'WBC typically >50,000 (often >100,000) with neutrophil predominance; a positive Gram stain/culture. A joint can be infected at a lower count — judge clinically.',action:'EMERGENCY: joint drainage/washout + empiric antibiotics (cover S. aureus; add GC coverage in young sexually active patients). Do not wait for cultures.',evidence:'A synovial WBC >50,000 strongly suggests septic arthritis; untreated, it destroys the joint within days.'},
+        {range:'Crystals (gout vs pseudogout)',meaning:'Gout: NEEDLE-shaped, NEGATIVELY birefringent monosodium urate crystals. Pseudogout: RHOMBOID, POSITIVELY birefringent calcium pyrophosphate crystals.',action:'Treat the flare (NSAIDs, colchicine, or steroids). Crystals do NOT exclude concurrent infection — if the picture is septic, treat for both.',evidence:'Crystal identification under polarized light distinguishes gout from pseudogout.'},
+        {range:'Inflammatory vs non-inflammatory',meaning:'Non-inflammatory (OA): WBC <2000. Inflammatory (RA, crystal, early septic): WBC 2000–50,000.',action:'Use the count + crystals + Gram stain together; the higher the count, the more you must exclude infection.',evidence:'Synovial WBC bands stratify non-inflammatory, inflammatory, and septic effusions.'}
+      ],
+      trend:'If septic arthritis is treated, serial exams and possibly repeat aspiration confirm the response; a persistent effusion may need repeat washout.',
+      pearls:['Any acute hot joint = exclude septic arthritis FIRST (tap it).','Gout = needle-shaped, negatively birefringent; pseudogout = rhomboid, positive.','Crystals being present does NOT rule out concurrent infection.']}
+  ]},
+  pocus:{name:'Echo / POCUS',color:'var(--g4)',items:[
+    {id:'tte',name:'Echocardiogram (TTE)',normal:'Normal EF (55–70%), no significant valve disease or effusion',
+      when:['New heart failure, cardiomyopathy, or a reduced-EF workup','Murmur, suspected endocarditis, or valve disease','Unexplained shock/hypotension, suspected tamponade, or PE strain'],
+      thresholds:[
+        {range:'Ejection fraction (EF)',meaning:'HFrEF (EF ≤40%) vs HFpEF (EF ≥50%) vs mid-range. Drives guideline-directed therapy.',action:'HFrEF → start GDMT (ARNI/ACEi, beta-blocker, MRA, SGLT2i). HFpEF → manage volume, BP, and comorbidities. A low EF changes which drugs help vs harm.',evidence:'GDMT improves mortality in HFrEF; many HFrEF drugs are not beneficial in HFpEF.'},
+        {range:'RV function & strain',meaning:'RV dilation/dysfunction, septal flattening ("D-sign"), McConnell sign (RV free-wall akinesis with apical sparing) → acute PE strain or pulmonary hypertension.',action:'Acute RV strain in a hypotensive patient supports massive/submassive PE — may justify treatment when CT is not feasible.',evidence:'McConnell sign and acute RV dilation support a hemodynamically significant PE.'},
+        {range:'Pericardial effusion / tamponade',meaning:'Effusion size plus tamponade physiology: RA/RV diastolic collapse, IVC plethora, respiratory variation in inflow.',action:'Tamponade is a CLINICAL + echo diagnosis → urgent pericardiocentesis. Beck triad (hypotension, JVD, muffled sounds) supports it.',evidence:'RV diastolic collapse with a plethoric IVC indicates tamponade physiology.'},
+        {range:'Valves & vegetations',meaning:'Stenosis/regurgitation severity; vegetations suggest endocarditis (TEE is more sensitive than TTE).',action:'Suspected endocarditis with a negative TTE but ongoing concern → TEE. Correlate with blood cultures and Duke criteria.',evidence:'TEE is far more sensitive than TTE for valvular vegetations and prosthetic valves.'}
+      ],
+      trend:'Repeat echo to follow EF recovery on GDMT, an enlarging effusion, or evolving valve disease.',
+      pearls:['EF splits HFrEF from HFpEF and dictates which drugs help.','Acute RV strain (D-sign/McConnell) → think a significant PE.','Negative TTE but high endocarditis suspicion → get a TEE.']},
+    {id:'pocus_bedside',name:'Bedside POCUS (Lung / IVC / FAST)',normal:'A-lines, collapsible IVC, no free fluid',
+      when:['Undifferentiated shock or dyspnea at the bedside','Volume assessment and procedural guidance (lines, taps)','As an extension of the exam — confirm with formal studies when it changes management'],
+      thresholds:[
+        {range:'Lung ultrasound',meaning:'A-lines = normal/dry. Diffuse B-lines ("lung rockets") = interstitial edema (CHF/ARDS). Lung point / absent lung sliding = pneumothorax. An anechoic space above the diaphragm = effusion.',action:'Bilateral B-lines + poor EF → treat as cardiogenic edema; absent lung sliding + a lung point → pneumothorax (decompress per clinical status).',evidence:'Diffuse B-lines correlate with extravascular lung water; absent sliding with a lung point is specific for pneumothorax.'},
+        {range:'IVC (volume / fluid responsiveness)',meaning:'A small, collapsing IVC → volume-responsive/hypovolemic. A plump, non-collapsing IVC → high right-sided pressures (overload, tamponade, RV failure).',action:'Use IVC + lung + cardiac views together to guide fluids vs diuresis — never on the IVC alone.',evidence:'IVC collapsibility estimates fluid responsiveness but is imperfect in isolation.'},
+        {range:'FAST exam (free fluid)',meaning:'Anechoic free fluid in Morrison pouch, the splenorenal recess, the pelvis, or the pericardium = hemoperitoneum/effusion in the right context.',action:'A positive FAST in unstable trauma → straight to the OR/resuscitation; pericardial fluid + instability → the tamponade pathway.',evidence:'A positive FAST in a hypotensive trauma patient indicates the need for operative intervention.'}
+      ],
+      trend:'Re-scan after interventions (fluids, diuresis, decompression) — POCUS shines as a dynamic, repeatable bedside trend.',
+      pearls:['Diffuse B-lines = wet lungs (edema); absent lung sliding + a lung point = pneumothorax.','Integrate the IVC with cardiac + lung views — do not decide on the IVC alone.','POCUS extends the exam; confirm with formal imaging when it changes management.']}
   ]}
 });
 
