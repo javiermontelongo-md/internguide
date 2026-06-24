@@ -305,7 +305,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   [style*="font-size:21px"]{font-size:14px !important;}
   [style*="font-size:20px"]{font-size:14px !important;}
   /* category labels (11px mono) inside the three panels */
-  #panel-abx [style*="font-size:11px"],#panel-clinic [style*="font-size:11px"],#panel-data [style*="font-size:11px"],#panel-dx [style*="font-size:11px"]{font-size:13px !important;letter-spacing:.12em !important;}
+  #panel-abx [style*="font-size:11px"],#panel-clinic [style*="font-size:11px"],#panel-data [style*="font-size:11px"],#panel-dx [style*="font-size:11px"],#panel-nursing [style*="font-size:11px"]{font-size:13px !important;letter-spacing:.12em !important;}
   .clinic-pill{font-size:13px !important;padding:7px 13px !important;}
 
   /* ── CARDS ── */
@@ -429,6 +429,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
     <button class="tab" onclick="gT('data',this)">DATA</button>
     <button class="tab" onclick="gT('dx',this)">CRITERIA</button>
     <button class="tab" onclick="gT('scores',this)">SCORES</button>
+    <button class="tab" onclick="gT('nursing',this)">NURSING</button>
   </div>
 </div>
 
@@ -598,6 +599,17 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   <div id="score-list"></div>
 </div>
 
+<div id="panel-nursing" class="panel">
+  <div class="h1">Nursing <span>calls</span></div>
+  <div style="font-size:24px;color:var(--t3);margin-bottom:14px;">Pick a <b>nursing concern</b> → how urgent, what to ask, what to check, and the orders to give</div>
+  <div style="position:relative;margin-bottom:12px;">
+    <input type="text" id="nurse-search" placeholder="Search concern, symptom, page..." oninput="nurseFilter()" autocomplete="off" style="width:100%;box-sizing:border-box;background:var(--s2);border:1px solid var(--b2);border-radius:var(--r);padding:10px 14px 10px 38px;font-family:var(--mono);font-size:13px;color:var(--t);outline:none;">
+    <span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:15px;">⌕</span>
+  </div>
+  <div id="nurse-pills" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;"></div>
+  <div id="nurse-list"></div>
+</div>
+
 </div><!-- .main -->
 
 <!-- Mobile bottom nav (3 tabs, no More) -->
@@ -608,6 +620,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   <button class="ni" id="ni-data" onclick="gM('data',this)"><span class="nicon">≡</span><span class="nlbl">Data</span></button>
   <button class="ni" id="ni-dx" onclick="gM('dx',this)"><span class="nicon">Δ</span><span class="nlbl">Criteria</span></button>
   <button class="ni" id="ni-scores" onclick="gM('scores',this)"><span class="nicon">Σ</span><span class="nlbl">Scores</span></button>
+  <button class="ni" id="ni-nursing" onclick="gM('nursing',this)"><span class="nicon">☎</span><span class="nlbl">Nursing</span></button>
 </nav>
 
 </div><!-- .app -->
@@ -3854,8 +3867,292 @@ function openScoreDrawer(ck,iid){
 // ============================================================
 // INIT
 // ============================================================
+// ============================================================
+// NURSING CALLS / CROSS-COVER
+// ============================================================
+// item model:
+//  { id, name, call, urgency:'now'|'soon'|'phone', ask:[], assess:[],
+//    cantMiss:[], orders:[], pearls:[] }
+var NURSE_DATA={
+  vitals:{name:'Vitals / Hemodynamics',color:'var(--g3)',items:[
+    {id:'fever',name:'Fever / Temp spike',call:'"Patient spiked a temp to 38.9°C."',urgency:'soon',
+      ask:['How high, and what is the trend? Rigors/chills?','Full vital set — HR, BP, RR, SpO₂ (fever + hypotension/tachycardia = possible sepsis)','New symptoms — cough, dysuria, line-site redness, diarrhea, AMS?','Any lines/catheters (central line, Foley)? Recent procedure/surgery?','Is the patient neutropenic? (ANC) — this changes everything'],
+      assess:['Full vitals + mental status','Exam to localize a source: lungs, abdomen, skin/wounds, line sites, CVA tenderness, calves','Review recent cultures, WBC/differential trend, current antibiotics'],
+      cantMiss:['Sepsis / septic shock','Neutropenic fever (ANC <500 → antibiotics within 1h)','Line infection (CLABSI)','Meningitis','Necrotizing skin/soft-tissue infection'],
+      orders:['If septic/unstable → sepsis pathway: lactate, blood cultures ×2 BEFORE antibiotics, broad-spectrum abx, 30 mL/kg crystalloid if hypotensive or lactate ≥4','Targeted workup: CBC w/ diff, blood cultures ×2 (peripheral + each lumen if a line), UA/urine culture, CXR, ± lactate','Acetaminophen 650 mg PO/IV for comfort (treats the symptom, not the cause)','Neutropenic fever → empiric anti-pseudomonal (cefepime or pip-tazo) within 60 min — do not wait for the workup'],
+      pearls:['Fever in a well-appearing patient is rarely an emergency — fever WITH hypotension/tachycardia/AMS is.','Always draw cultures BEFORE antibiotics.','New fever + central line → think the line.','Tylenol normalizes the number but masks the trend — find the source.']},
+    {id:'htn',name:'Hypertension',call:'"BP is 190/105."',urgency:'phone',
+      ask:['Is the patient SYMPTOMATIC? — chest pain, dyspnea, severe headache, vision changes, focal deficit, AMS','Recheck manually, correct cuff size, other arm — is it real?','Pain, anxiety, full bladder, missed home meds, recent steroids?','What is their baseline BP and home regimen?'],
+      assess:['Re-measure with a proper cuff','Brief screen for end-organ damage (neuro, cardiopulm)'],
+      cantMiss:['Hypertensive EMERGENCY (end-organ damage: ACS, flash pulmonary edema, aortic dissection, stroke, encephalopathy)','Pre-eclampsia (if pregnant/postpartum)'],
+      orders:['Asymptomatic (hypertensive URGENCY): do NOT acutely lower with IV pushes — treat the trigger (pain, anxiety, bladder), resume/optimize home oral meds, recheck. Avoid reflexive PRN IV hydralazine/labetalol.','Symptomatic (hypertensive EMERGENCY): ICU-level — IV agent (labetalol, nicardipine) to lower MAP ~10–20% in the first hour, workup end-organ damage (EKG, troponin, CXR, neuro exam), escalate.','Fix reversible triggers first: pain control, bladder scan/straight cath, anxiety'],
+      pearls:['Asymptomatic high BP almost never needs an IV push — rapid lowering can cause stroke/MI.','Hunt for the trigger: pain, full bladder, missed meds, white-coat.','Treat the patient, not the number.']},
+    {id:'hypotension',name:'Hypotension',call:'"BP is 82/50."',urgency:'now',
+      ask:['Symptomatic? — lightheaded, chest pain, dyspnea, confused, cool/clammy?','HR (tachy = compensating; brady + hypotension is ominous), MAP, SpO₂','Recent antihypertensives, opioids/sedatives, diuresis, bleeding, new fever?','Urine output trend?'],
+      assess:['GO SEE the patient. Repeat BP, full vitals, mental status, skin perfusion','Volume status: JVP, mucous membranes, lungs, edema','Source hunt: bleeding (GI, surgical site), sepsis, cardiac, anaphylaxis, adrenal'],
+      cantMiss:['Septic shock','Hemorrhage','Cardiogenic shock / massive PE','Anaphylaxis','Adrenal crisis'],
+      orders:['Two large-bore IVs; if no contraindication, fluid challenge 500 mL–1 L crystalloid and reassess','Hold offending meds (antihypertensives, sedatives)','Workup: CBC, BMP, lactate, type & screen if bleeding, EKG/troponin if cardiac, cultures if septic','Legs up as a temporizer; pressors + ICU if not fluid-responsive','Anaphylaxis → IM epinephrine immediately'],
+      pearls:['MAP <65 = organ hypoperfusion regardless of the systolic.','Bradycardia + hypotension → think beta-blocker/CCB excess, MI, or neurogenic.','A fluid bolus is both diagnostic and therapeutic in most undifferentiated hypotension.']},
+    {id:'tachy',name:'Tachycardia',call:'"Heart rate is 130."',urgency:'soon',
+      ask:['Regular or irregular? Narrow or wide (get a rhythm strip / 12-lead)?','Symptomatic — chest pain, dyspnea, syncope, hypotension?','Fever, pain, anxiety, hypovolemia, bleeding, missed beta-blocker, alcohol withdrawal?','SpO₂ (PE/hypoxia)?'],
+      assess:['12-lead EKG is the key step','Vitals, volume status, exam for a source (fever, bleeding, pain, withdrawal)'],
+      cantMiss:['Unstable tachyarrhythmia (→ synchronized cardioversion)','PE','Sepsis','Hemorrhage','Thyroid storm / alcohol withdrawal'],
+      orders:['Get a 12-lead EKG now','Sinus tach = a symptom → treat the CAUSE (fluids for hypovolemia, analgesia, antipyretics, CIWA protocol)','SVT: vagal maneuvers → adenosine. AF with RVR (stable): rate control with diltiazem or metoprolol','UNSTABLE (hypotension, chest pain, AMS, pulmonary edema) → synchronized cardioversion','Workup: EKG, electrolytes (K/Mg), CBC, TSH, consider PE evaluation'],
+      pearls:['Sinus tachycardia is almost always a clue to something else — find it, don\'t just slow it.','Don\'t rate-control a compensatory sinus tach (sepsis/bleeding) — you remove their compensation.','Irregularly irregular + narrow = AF until proven otherwise.']},
+    {id:'brady',name:'Bradycardia',call:'"Heart rate is 42."',urgency:'soon',
+      ask:['Symptomatic — hypotensive, lightheaded, chest pain, syncope, AMS?','Meds — beta-blocker, CCB, digoxin, recently given?','Baseline (athletes / during sleep can run in the 40s)'],
+      assess:['12-lead EKG (look for AV block, ischemia)','Vitals, mental status, perfusion'],
+      cantMiss:['High-grade AV block','MI (especially inferior)','Hyperkalemia','Drug toxicity (BB/CCB/digoxin)'],
+      orders:['Asymptomatic + stable: monitor, hold AV-nodal blockers, EKG, check K⁺ and a digoxin level','Symptomatic/unstable: atropine 1 mg IV (repeat to 3 mg max), set up transcutaneous pacing; consider epinephrine/dopamine infusion','Treat the cause: hyperkalemia, drug toxicity (glucagon for BB, calcium for CCB)','EKG + telemetry, electrolytes'],
+      pearls:['Stable + asymptomatic bradycardia needs monitoring, not atropine.','New bradycardia → check K⁺ and the med list first.','Inferior MI classically causes bradycardia / heart block.']},
+    {id:'hypoxia',name:'Hypoxia / desaturation',call:'"O₂ sat dropped to 86%."',urgency:'now',
+      ask:['On how much oxygen? Trend? Is the waveform reliable (cold/motion)?','Symptomatic — dyspnea, chest pain, AMS? What is the RR?','Acute event — aspiration, post-op, after fluids, with chest pain?'],
+      assess:['GO SEE. Apply/uptitrate oxygen first. Full vitals, lung exam, work of breathing','Recheck probe placement and waveform'],
+      cantMiss:['PE','Flash pulmonary edema','Pneumothorax','Mucus plug / aspiration','Anaphylaxis'],
+      orders:['Apply supplemental O₂, titrate to SpO₂ ≥92% (88–92% if COPD/CO₂ retainer)','Sit upright; suction if secretions','Workup: ABG, CXR, EKG, consider CTPA for PE','Treat the cause: diuresis (pulmonary edema), bronchodilators, needle decompression (tension PTX)','Not maintaining → escalate (NIV/HFNC, rapid response, ICU)'],
+      pearls:['Fix the oxygen before finishing the workup.','Sudden desat + clear lungs + tachycardia → think PE.','Post-op / post-fluid desat with crackles → pulmonary edema.']}
+  ]},
+
+  cardioresp:{name:'Cardiopulmonary',color:'var(--g4)',items:[
+    {id:'chestpain',name:'Chest pain (new)',call:'"Patient has new chest pain."',urgency:'now',
+      ask:['Character, onset, radiation, associated dyspnea/diaphoresis/nausea?','Vitals + SpO₂','Cardiac history and risk factors','Pleuritic? Positional? Reproducible on palpation?'],
+      assess:['GO SEE. 12-lead EKG within 10 minutes. Vitals','Exam: heart, lungs, chest wall, legs (DVT)'],
+      cantMiss:['ACS / STEMI','PE','Aortic dissection','Pneumothorax','Pericarditis / tamponade','Esophageal rupture'],
+      orders:['STAT 12-lead EKG + troponin (serial)','If ACS suspected: aspirin 325 mg chewed (unless contraindicated), telemetry, treat pain; nitroglycerin if NOT hypotensive, no inferior/RV MI, no recent PDE5 inhibitor','CXR; consider CTPA (PE) or CT aorta (dissection) per suspicion','Compare to a prior EKG; call cardiology for STEMI or dynamic changes'],
+      pearls:['EKG + troponin is the reflex for any new chest pain.','No nitro in inferior/RV MI or hypotension.','Tearing pain to the back + inter-arm BP difference → dissection (don\'t anticoagulate blindly).']},
+    {id:'dyspnea',name:'Acute shortness of breath',call:'"Patient is short of breath."',urgency:'now',
+      ask:['SpO₂ and O₂ requirement, RR, work of breathing','Acute vs gradual? Chest pain? Orthopnea? Wheeze?','Recent fluids, missed dialysis, possible aspiration?'],
+      assess:['GO SEE, oxygen, sit upright. Lung exam (crackles/wheeze/absent), JVP, edema','EKG, focused exam'],
+      cantMiss:['Pulmonary edema / CHF','PE','Pneumonia','COPD / asthma exacerbation','Pneumothorax','ACS'],
+      orders:['Oxygen to goal; upright positioning','CXR, EKG, troponin, BNP, ABG as indicated','Treat by cause: diuresis (CHF), bronchodilators ± steroids (COPD/asthma), antibiotics (PNA), CTPA (PE)','Escalate to NIV / ICU if failing'],
+      pearls:['Crackles + edema + orthopnea → CHF, diurese.','Wheeze isn\'t always asthma — "cardiac wheeze" occurs in CHF.','Clear lungs + hypoxia + tachycardia → PE.']}
+  ]},
+
+  neuro:{name:'Neuro / Behavioral',color:'var(--g)',items:[
+    {id:'ams',name:'Altered mental status / confusion',call:'"Patient is more confused."',urgency:'now',
+      ask:['Acute change from baseline? Time course?','Vitals INCLUDING glucose and SpO₂ — hypoglycemia and hypoxia are instant fixes','New meds (opioids, benzos, anticholinergics), pain, infection, full bladder/constipation?','Can they protect their airway?'],
+      assess:['GO SEE. Fingerstick glucose, SpO₂, full vitals, focused neuro exam','Review meds (deliriogenic), I/Os, last BM, recent labs'],
+      cantMiss:['Hypoglycemia','Hypoxia / hypercarbia','Stroke','Intracranial bleed (esp. on anticoagulation / after a fall)','Sepsis / meningitis','Drug overdose or withdrawal','Wernicke encephalopathy'],
+      orders:['Check & treat glucose immediately (D50 if low); O₂ if hypoxic','Delirium workup: CBC, BMP, Ca/Mg/Phos, UA, ± cultures, EKG; CT head if focal deficit, anticoagulated, post-fall, or unexplained','Remove/limit deliriogenic meds; treat pain, constipation, urinary retention','Non-pharmacologic measures first (reorient, sleep, mobilize, glasses/hearing aids); reserve low-dose antipsychotic for dangerous agitation','Thiamine before glucose if alcohol use / malnourished'],
+      pearls:['Check a glucose and a sat on every confused patient — both reverse in seconds.','Delirium is usually multifactorial — find and fix triggers rather than just sedating.','New focal deficit or a fall on anticoagulation → CT head.']},
+    {id:'agitation',name:'Agitation / combative',call:'"Patient is agitated and pulling at lines."',urgency:'now',
+      ask:['Danger to self or staff? Pulling lines/tubes?','Vitals, glucose, SpO₂','Substance withdrawal (alcohol/benzo)? Pain? Urinary retention?'],
+      assess:['Rule out hypoxia / hypoglycemia / retention / pain as drivers','Assess for withdrawal (CIWA)'],
+      cantMiss:['Hypoxia','Hypoglycemia','Alcohol / benzodiazepine withdrawal','Agitated delirium from sepsis'],
+      orders:['Address reversible causes first (O₂, glucose, pain, bladder)','Non-pharmacologic de-escalation, sitter, reorientation','Withdrawal → benzodiazepine (CIWA-triggered)','Dangerous agitation → low-dose haloperidol or an atypical antipsychotic (watch QTc); avoid benzos in non-withdrawal delirium (worsens it)','Restraints only if safety requires; reassess frequently'],
+      pearls:['Benzodiazepines worsen non-withdrawal delirium — antipsychotics for that, benzos for withdrawal.','Check a QTc before and after antipsychotics.','Agitation can be the only sign of hypoxia or a full bladder.']},
+    {id:'fall',name:'Fall',call:'"Patient had a fall."',urgency:'soon',
+      ask:['Witnessed? Head strike? Loss of consciousness?','On anticoagulation / antiplatelet?','Vitals, glucose; any injury, deformity, or pain?','What were they doing — syncope vs mechanical/tripped?'],
+      assess:['GO SEE. Full vitals incl. orthostatics + glucose','Neuro exam, head/spine/skin survey, palpate for fractures (esp. hip), check ROM','Review anticoagulation status'],
+      cantMiss:['Intracranial hemorrhage (esp. anticoagulated + head strike)','Hip or other fracture','Syncope from arrhythmia / MI / PE / bleed','C-spine injury'],
+      orders:['Neuro checks; CT head if head strike, anticoagulated, LOC, or focal/altered','Image any painful/deformed area (hip/wrist films)','EKG + orthostatics + glucose to work up a syncopal cause','Anticoagulated head strike → CT head and consider reversal if a bleed is found','Document a thorough exam; update fall precautions; notify attending/family'],
+      pearls:['Anticoagulated + head strike = CT head even if asymptomatic (delayed bleeds happen).','Ask "WHY did they fall?" — a syncopal fall needs a cardiac/syncope workup, not just an injury check.','Always document a complete post-fall neuro and MSK exam.']},
+    {id:'insomnia',name:'Insomnia / sleep aid request',call:'"Patient can\'t sleep, wants something."',urgency:'phone',
+      ask:['Why awake — pain, anxiety, dyspnea, noise, nocturia, delirium?','Age (avoid benzos / Z-drugs / anticholinergics in older adults — delirium and fall risk)','Home sleep medications?'],
+      assess:['Screen for a treatable cause (pain, dyspnea, full bladder)'],
+      cantMiss:['Delirium presenting as "can\'t sleep"','Untreated pain or dyspnea','Alcohol withdrawal'],
+      orders:['Non-pharmacologic first: reduce noise/light, cluster care, avoid unnecessary overnight vitals','Treat the cause (analgesia, anxiolysis, bladder)','If a med is needed: melatonin 3 mg is first-line and safe; low-dose trazodone as an alternative','AVOID diphenhydramine, benzodiazepines, and Z-drugs in older adults (delirium, falls)'],
+      pearls:['Melatonin first — safe and avoids the delirium/fall risk of "PM" antihistamines.','"Can\'t sleep" in an older inpatient can be early delirium.','Diphenhydramine is on the Beers list — don\'t reach for it.']},
+    {id:'headache',name:'Headache',call:'"Patient has a headache."',urgency:'phone',
+      ask:['Sudden / "worst of life" (thunderclap)? Trend?','Neuro symptoms — vision, weakness, AMS, neck stiffness, fever?','Anticoagulated? Recent LP/procedure? Elevated BP?','Known migraines / baseline?'],
+      assess:['Vitals including BP','Neuro exam; check for neck stiffness if febrile'],
+      cantMiss:['Subarachnoid hemorrhage (thunderclap)','Meningitis','Intracranial bleed','Hypertensive emergency','Mass / elevated ICP'],
+      orders:['Benign features: analgesia (acetaminophen; known migraine regimen), reduce stimuli, recheck','Red flags (thunderclap, focal deficit, fever + stiff neck, anticoagulated) → CT head ± LP, neuro exam, escalate','Treat associated HTN only if it is emergency-level with end-organ signs'],
+      pearls:['Thunderclap = SAH until proven otherwise (CT, then LP).','Fever + headache + stiff neck → don\'t delay antibiotics for meningitis.','New headache on anticoagulation → low threshold for imaging.']}
+  ]},
+
+  gi:{name:'GI',color:'var(--g2)',items:[
+    {id:'nv',name:'Nausea / vomiting',call:'"Patient is nauseous / vomiting."',urgency:'soon',
+      ask:['How many episodes? Any blood (hematemesis) or feculent emesis?','Abdominal pain/distension? Last BM/flatus (obstruction/ileus)?','New meds (opioids), post-op, chemo?','Able to protect the airway? Aspiration risk?'],
+      assess:['Vitals, abdominal exam, volume status','Review meds and surgical history'],
+      cantMiss:['Bowel obstruction / ileus','GI bleed (hematemesis)','Pancreatitis','Raised ICP','DKA','MI (atypical)'],
+      orders:['Antiemetic: ondansetron 4 mg IV/ODT first-line (check QTc); alternatives metoclopramide (NOT in obstruction) or prochlorperazine','NPO if obstruction suspected; consider NG decompression for obstruction or persistent vomiting','Workup if concerning: BMP (electrolytes), lipase, abdominal imaging (KUB/CT) for obstruction, EKG','IV fluids for volume/electrolyte losses; hold offending meds'],
+      pearls:['Vomiting + no flatus/BM + distension → obstruction; image and don\'t give prokinetics.','Check the QTc before stacking ondansetron with other QT-prolonging drugs.','Aspiration precautions for the vomiting, obtunded patient.']},
+    {id:'constipation',name:'Constipation',call:'"No bowel movement in several days."',urgency:'phone',
+      ask:['How many days? Passing flatus? Abdominal pain/distension/vomiting?','On opioids? Mobility level?','Last documented BM'],
+      assess:['Abdominal exam (distension, tenderness, bowel sounds) — rule out obstruction','DRE if impaction suspected (hard stool vs empty vault)'],
+      cantMiss:['Obstruction','Ileus','Impaction with overflow diarrhea','Opioid-induced constipation'],
+      orders:['Step up the bowel regimen: senna ± docusate → polyethylene glycol (MiraLAX) → bisacodyl suppository → enema','Impaction → manual disimpaction + enema','Opioids → ALWAYS co-prescribe a stimulant laxative (senna), not docusate alone','Obstruction suspected → NPO, imaging, hold laxatives','Encourage mobility and fluids'],
+      pearls:['Anyone on opioids needs a scheduled stimulant laxative from day one.','Docusate alone is essentially ineffective — pair it with senna.','Rule out obstruction before pushing aggressive laxatives.']},
+    {id:'diarrhea',name:'Diarrhea',call:'"Patient has had multiple loose stools."',urgency:'soon',
+      ask:['Frequency/volume? Any blood? Recent/current antibiotics (C. diff)?','Fever, abdominal pain? Tube feeds? Laxatives/softeners on board?','Immunocompromised?'],
+      assess:['Vitals (volume/sepsis), abdominal exam','Review meds (laxatives, antibiotics, magnesium), tube feeds'],
+      cantMiss:['C. difficile colitis','Sepsis / toxic megacolon','GI bleed','Ischemic colitis'],
+      orders:['Stop unnecessary laxatives/softeners; review antibiotics','C. diff testing if ≥3 unformed stools/24h + recent abx; empiric oral vancomycin if severe / high suspicion','Replace fluids and electrolytes (check K/Mg)','AVOID antimotility agents (loperamide) if C. diff / infectious colitis suspected','Contact (enteric) isolation if C. diff suspected'],
+      pearls:['New diarrhea + recent antibiotics = C. diff until tested.','Don\'t give loperamide if C. diff is possible — risk of toxic megacolon.','Make sure the "diarrhea" isn\'t just the bowel regimen or magnesium.']}
+  ]},
+
+  gu:{name:'GU / Renal',color:'var(--g3)',items:[
+    {id:'oliguria',name:'Low urine output',call:'"Only 100 mL out in 8 hours."',urgency:'soon',
+      ask:['Does the patient have a Foley? Is it kinked / clamped / flushing (post-renal at the catheter)?','Symptomatic — suprapubic pain/distension, hypotension?','I/Os and weight trend; recent fluids, diuretics, nephrotoxins, contrast?'],
+      assess:['GO SEE. Bladder-scan (or flush the Foley) FIRST to rule out obstruction','Volume status, BP, abdominal/suprapubic exam'],
+      cantMiss:['Obstructed / blocked Foley','Hypovolemia / shock','Post-renal obstruction (retention)','AKI (ATN, contrast)'],
+      orders:['FIRST: flush/replace the Foley or bladder-scan — a blocked catheter is the most common, instantly fixable cause','Pre-renal/hypovolemic → fluid challenge 500 mL crystalloid and reassess urine output','Check BMP/Cr trend; consider FENa/FEUrea if cause unclear; renal US if obstruction suspected','Hold nephrotoxins; review contrast exposure','Oliguria = <0.5 mL/kg/h — escalate if persistent despite fluids'],
+      pearls:['Always rule out a blocked Foley before working up "renal failure."','A fluid challenge is the fastest diagnostic + therapeutic test for oliguria.','Bladder scan + flush the catheter = two minutes that save a big workup.']},
+    {id:'retention',name:'Urinary retention / can\'t void',call:'"Patient hasn\'t voided and is uncomfortable."',urgency:'soon',
+      ask:['Suprapubic pain/distension? Time since last void?','Post-op? On opioids / anticholinergics? BPH history?','Recent Foley removal?'],
+      assess:['Bladder scan — the volume confirms retention','Suprapubic exam'],
+      cantMiss:['Acute retention (high bladder volumes injure the kidney)','Cauda equina (retention + saddle anesthesia / leg weakness / back pain)'],
+      orders:['Bladder scan; if >300–400 mL and unable to void → straight (in-and-out) catheterization, or Foley if recurrent','Review/limit anticholinergics and opioids','Consider tamsulosin in men with BPH','Retention + neuro deficits / back pain → urgent MRI for cauda equina'],
+      pearls:['Bladder scan before catheterizing — confirm it is retention.','Opioids and anticholinergics are common culprits.','Retention + saddle anesthesia / leg weakness = cauda equina emergency.']}
+  ]},
+
+  metab:{name:'Glycemic / Electrolytes',color:'var(--g2)',items:[
+    {id:'hypoglycemia',name:'Hypoglycemia',call:'"Fingerstick is 48."',urgency:'now',
+      ask:['Symptomatic? Able to take PO? Altered?','On insulin or a sulfonylurea? Last dose, last meal, NPO / held tube feeds?'],
+      assess:['Recheck the glucose and mental status','Review insulin / oral agents and nutrition status'],
+      cantMiss:['Severe hypoglycemia → seizure / coma','Sulfonylurea-induced (prolonged, recurrent)','Adrenal insufficiency'],
+      orders:['Awake & can eat: 15–20 g fast carbs (juice / glucose tabs), recheck in 15 min, repeat until >70, then a complex snack/meal','Can\'t take PO / altered: D50 25 g IV (1 amp); if no IV → glucagon 1 mg IM','Recheck glucose q15 min until stable; identify and hold/adjust the offending agent','Sulfonylurea or recurrent lows → admit/observe, dextrose infusion, consider octreotide for sulfonylurea overdose','Hold the next insulin dose if NPO / not eating'],
+      pearls:['Treat, recheck in 15 minutes, repeat — the "rule of 15."','Sulfonylurea hypoglycemia is prolonged and recurrent — one amp of D50 is not enough.','Always find the why: missed meal, NPO with standing insulin, renal failure.']},
+    {id:'hyperglycemia',name:'Hyperglycemia',call:'"Glucose is 380."',urgency:'phone',
+      ask:['Symptomatic? N/V, abdominal pain, AMS, deep (Kussmaul) breathing → DKA?','Type 1 or 2? On insulin? Steroids? Infection?','Any recent ketones / anion gap?'],
+      assess:['Vitals, mental status','Consider DKA/HHS if very high or symptomatic'],
+      cantMiss:['DKA','HHS','Underlying infection driving the hyperglycemia'],
+      orders:['Isolated high glucose, well patient: correctional (sliding-scale) insulin per protocol, recheck; adjust basal/scheduled insulin if there is a pattern','Suspect DKA (T1DM, ketones, gap acidosis): VBG, beta-hydroxybutyrate, BMP/anion gap → DKA protocol (IV fluids, insulin drip, K repletion)','Look for the trigger: infection, missed insulin, steroids','Recheck and trend; don\'t over-correct'],
+      pearls:['One high sugar in a well patient is not an emergency — screen the sick one for DKA/HHS.','Steroids cause predictable afternoon/evening hyperglycemia — adjust insulin timing.','Don\'t run an insulin drip on the floor — DKA needs the right setting.']},
+    {id:'hyperk',name:'Hyperkalemia (critical lab)',call:'"Potassium came back 6.5."',urgency:'now',
+      ask:['Could it be hemolyzed? (recheck if unexpected in a well patient) — but treat first if there are EKG changes','Symptoms, urine output, renal function?','Meds — ACEi/ARB, K-sparing diuretics, K supplements, recent blood transfusion?'],
+      assess:['STAT 12-lead EKG (peaked T waves, wide QRS, sine wave)','Repeat K (non-hemolyzed), BMP, renal function'],
+      cantMiss:['EKG changes → imminent arrhythmia / arrest','Renal failure','Tissue breakdown (rhabdomyolysis, tumor lysis)'],
+      orders:['EKG changes → calcium gluconate IV immediately (membrane stabilization)','Shift K intracellularly: insulin 10 units IV + D50, albuterol nebs (± bicarbonate if acidotic)','Remove K from the body: loop diuretic if making urine, GI binder (patiromer / SZC), dialysis if refractory/anuric','Stop all K sources and K-raising meds (ACEi/ARB, K-sparing diuretics, supplements)','Recheck K and glucose (watch for post-insulin hypoglycemia)'],
+      pearls:['Calcium protects the heart but doesn\'t lower K — you still must shift AND remove.','Always get an EKG; the EKG, not the number, drives urgency.','Recheck the sugar after insulin-glucose therapy.']},
+    {id:'hypok',name:'Hypokalemia / low Mg',call:'"Potassium is 2.9."',urgency:'soon',
+      ask:['Symptoms — weakness, palpitations, arrhythmia? On digoxin?','Losses — diuretics, vomiting, diarrhea, NG suction?','Magnesium level (you can\'t fix K without Mg)?'],
+      assess:['EKG if significant (U waves, flat T, arrhythmia)','Check Mg and renal function'],
+      cantMiss:['Arrhythmia (especially on digoxin)','Concurrent hypomagnesemia preventing correction'],
+      orders:['Replete K (oral preferred if able; IV for severe/symptomatic, max ~10 mEq/h peripherally) and recheck','ALWAYS check and replete magnesium — hypomagnesemia causes refractory hypokalemia','Telemetry if severe/symptomatic or on digoxin','Identify and treat the cause (diuretics, GI losses)'],
+      pearls:['You cannot correct potassium without correcting magnesium first.','Each 10 mEq of KCl raises serum K roughly 0.1 mEq/L.','IV potassium burns and is dangerous if pushed fast — oral whenever you can.']}
+  ]},
+
+  sxaccess:{name:'Symptom / Access',color:'var(--g4)',items:[
+    {id:'pain',name:'Pain',call:'"Patient is in pain / wants pain meds."',urgency:'soon',
+      ask:['New vs chronic? Location/character/severity — is this a NEW pain that needs a workup (chest, abdomen, leg)?','Current regimen and last dose? Allergies?','Vitals (pain drives tachycardia/HTN)'],
+      assess:['Distinguish "needs analgesia" from "new pain = new diagnosis" (chest/abdomen/calf)','Review current orders, renal/hepatic function'],
+      cantMiss:['New chest pain (ACS/PE)','Acute abdomen','Compartment syndrome / limb ischemia','Pain out of proportion (necrotizing infection, ischemia)'],
+      orders:['New/concerning pain → assess and work up the cause first, don\'t just medicate','Multimodal: scheduled acetaminophen, NSAID if safe (renal/GI/bleed risk), opioid for moderate–severe breakthrough','Match route to severity (IV for severe/acute); reassess after dosing','Add a bowel regimen with opioids; watch sedation and respiratory rate'],
+      pearls:['New, severe, or out-of-proportion pain is a diagnosis to make, not just a symptom to cover.','Start multimodal — acetaminophen + NSAID spares opioids.','Reassess pain after treating it, and watch the RR with opioids.']},
+    {id:'pruritus',name:'Itching / pruritus',call:'"Patient is itchy."',urgency:'phone',
+      ask:['Rash? Localized vs diffuse? New med / contrast / blood product (allergic)?','Any lip/airway swelling, wheeze, hypotension (anaphylaxis)?','Jaundice (cholestasis)? Renal failure (uremic)?'],
+      assess:['Skin exam for rash / urticaria','Vitals — rule out anaphylaxis'],
+      cantMiss:['Anaphylaxis / drug reaction','Transfusion reaction','SJS / DRESS (mucosal involvement, systemic illness)'],
+      orders:['New drug/transfusion + urticaria → STOP the agent; antihistamine; watch for anaphylaxis (epinephrine + escalate if airway/BP)','Symptomatic relief: antihistamine (cetirizine; diphenhydramine sparingly, avoid in elderly), topical emollients','Cholestatic itch → cholestyramine; uremic → optimize dialysis/management','Find and treat the cause'],
+      pearls:['Itching with any airway/BP change = anaphylaxis — epinephrine, not just Benadryl.','New itch after a new drug → suspect the drug.','Mucosal involvement or systemic illness → think SJS/DRESS, escalate.']},
+    {id:'ivaccess',name:'IV infiltrated / lost access',call:'"The IV infiltrated / we lost access."',urgency:'soon',
+      ask:['What is/was running through it? (vesicant, pressor, critical drip?)','How urgently is access needed? Any other working lines?','Signs of infiltration/phlebitis — swelling, pain, redness, streaking?'],
+      assess:['Assess the site (infiltration vs phlebitis vs extravasation)','Determine access urgency based on the therapies needed'],
+      cantMiss:['Vesicant / pressor extravasation (tissue necrosis)','Loss of access in an unstable patient','Line infection (phlebitis / streaking → CLABSI risk)'],
+      orders:['Stop the infusion, remove the peripheral IV (unless needed to give an extravasation antidote), elevate; warm/cold compress per agent','Vesicant/pressor extravasation → extravasation protocol (e.g., phentolamine for pressors); consider surgery/plastics','Re-establish access: new PIV, ultrasound-guided, or escalate to midline/PICC/central for difficult access or vesicants/pressors','Unstable + no access → IO access or central line urgently'],
+      pearls:['Pressors and vesicants belong in a central line — peripheral extravasation can necrose tissue.','In an unstable patient, IO access is fast and reliable when you can\'t get a vein.','Phlebitis with streaking/fever → pull the line and think infection.']},
+    {id:'transfusion',name:'Transfusion reaction',call:'"Patient feels bad / spiked a fever during a transfusion."',urgency:'now',
+      ask:['Vitals — fever, chills, hypotension, dyspnea, back/flank pain, dark urine?','How far into the unit? Which blood product?','New rash/urticaria or airway symptoms?'],
+      assess:['STOP the transfusion immediately; keep the line open with normal saline','Recheck vitals; assess for hemolytic / anaphylactic / TRALI / TACO features'],
+      cantMiss:['Acute hemolytic reaction (fever, flank pain, dark urine, hypotension — often an ABO/clerical error)','Anaphylaxis','TRALI (hypoxia / pulmonary edema within 6h)','TACO (volume overload)','Sepsis from a contaminated unit'],
+      orders:['STOP the transfusion, maintain IV saline, repeat the clerical/identity check','Notify the blood bank; return the unit + tubing; send labs (DAT/Coombs, repeat type & cross, CBC, LDH, haptoglobin, bilirubin, UA for hemoglobinuria)','Treat by type: fluids ± pressors and protect the kidneys (hemolytic); epinephrine (anaphylaxis); respiratory support (TRALI); diuresis (TACO); antipyretic for a simple febrile reaction','Monitor closely; escalate as needed'],
+      pearls:['First move for ANY transfusion reaction: STOP the unit and keep the line open with saline.','Fever + flank pain + dark urine during a transfusion = acute hemolytic reaction (often a clerical/ABO error) — emergency.','TACO vs TRALI: TACO = volume overload (diurese); TRALI = inflammatory lung injury (support, don\'t just diurese).']}
+  ]}
+};
+
+function nurseUrg(u){
+  const m={now:{t:'⚑ SEE NOW',c:'var(--red)',bg:'rgba(239,83,80,.15)',bd:'rgba(239,83,80,.35)'},
+           soon:{t:'ASSESS SOON',c:'var(--g3)',bg:'rgba(255,183,77,.13)',bd:'rgba(255,183,77,.3)'},
+           phone:{t:'PHONE TRIAGE OK',c:'var(--g)',bg:'rgba(127,255,110,.12)',bd:'rgba(127,255,110,.28)'}};
+  const x=m[u]||m.soon;
+  return `<span style="font-family:var(--mono);font-size:12px;background:${x.bg};color:${x.c};border:1px solid ${x.bd};padding:3px 10px;border-radius:6px;letter-spacing:.06em;white-space:nowrap;">${x.t}</span>`;
+}
+
+var nurseActiveCat='all';
+function nurseRender(){
+  const pills=document.getElementById('nurse-pills');
+  if(pills){
+    let h=`<button class="clinic-pill${nurseActiveCat==='all'?' on':''}" onclick="nurseSetCat('all')">ALL</button>`;
+    Object.keys(NURSE_DATA).forEach(k=>{
+      h+=`<button class="clinic-pill${nurseActiveCat===k?' on':''}" onclick="nurseSetCat('${k}')">${NURSE_DATA[k].name}</button>`;
+    });
+    pills.innerHTML=h;
+  }
+  const q=(document.getElementById('nurse-search')||{}).value||'';
+  nurseBuildList(q.toLowerCase());
+}
+function nurseSetCat(k){ nurseActiveCat=k; nurseRender(); }
+function nurseFilter(){ const q=(document.getElementById('nurse-search')||{}).value||''; nurseBuildList(q.toLowerCase()); }
+function nurseBuildList(q){
+  const list=document.getElementById('nurse-list');
+  if(!list) return;
+  let h='';
+  Object.keys(NURSE_DATA).forEach(ck=>{
+    if(nurseActiveCat!=='all' && nurseActiveCat!==ck) return;
+    const cat=NURSE_DATA[ck];
+    const matches=cat.items.filter(it=>{
+      if(!q) return true;
+      const hay=(it.name+' '+(it.call||'')+' '+(it.cantMiss||[]).join(' ')+' '+(it.orders||[]).join(' ')).toLowerCase();
+      return hay.indexOf(q)>=0;
+    });
+    if(!matches.length) return;
+    h+=`<div class="card" style="margin-bottom:14px;">
+      <div style="font-family:var(--mono);font-size:11px;color:${cat.color};letter-spacing:.1em;margin-bottom:10px;">${cat.name.toUpperCase()}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">`;
+    matches.forEach(it=>{
+      h+=`<button class="btn bs" onclick="openNurseDrawer('${ck}','${it.id}')" style="font-size:22px;padding:8px 14px;">${it.name}</button>`;
+    });
+    h+=`</div></div>`;
+  });
+  if(!h) h='<div style="font-size:24px;color:var(--t3);font-style:italic;padding:20px 0;">No matching concerns.</div>';
+  list.innerHTML=h;
+}
+
+function openNurseDrawer(ck,iid){
+  closeAnyDrawer();
+  const cat=NURSE_DATA[ck];
+  const it=cat.items.find(x=>x.id===iid);
+  if(!it) return;
+  let html=drawerHead(it.name,cat.name,cat.color,'closeAnyDrawer()');
+
+  // What the nurse reports + urgency
+  html+=`<div style="margin:14px 14px 2px;background:var(--s3);border:1px solid var(--b2);border-radius:var(--rl);padding:13px 16px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:9px;">
+      <span style="font-family:var(--mono);font-size:12px;color:var(--t2);letter-spacing:.12em;">☎ NURSE REPORTS</span>${nurseUrg(it.urgency)}
+    </div>
+    <div style="font-size:17px;color:var(--t);line-height:1.45;font-style:italic;">${it.call}</div>
+  </div>`;
+
+  // Ask the nurse (phone triage)
+  if(it.ask&&it.ask.length){
+    html+=secHeader('ASK THE NURSE');
+    html+=listBlock(it.ask,'var(--g2)');
+  }
+
+  // At the bedside / assess
+  if(it.assess&&it.assess.length){
+    html+=secHeader('AT THE BEDSIDE');
+    html+=listBlock(it.assess,'var(--g3)');
+  }
+
+  // Can't-miss banner
+  if(it.cantMiss&&it.cantMiss.length){
+    html+=`<div style="margin:16px 14px 4px;background:rgba(239,83,80,.07);border:1px solid rgba(239,83,80,.3);border-radius:var(--rl);padding:13px 15px;">
+      <div style="font-family:var(--mono);font-size:12px;color:var(--red);letter-spacing:.1em;margin-bottom:9px;">⚠ CAN'T-MISS CAUSES</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">${it.cantMiss.map(x=>`<span style="font-size:13px;color:var(--t);background:rgba(239,83,80,.1);border:1px solid rgba(239,83,80,.2);border-radius:6px;padding:4px 9px;line-height:1.3;">${x}</span>`).join('')}</div>
+    </div>`;
+  }
+
+  // Orders / your response
+  if(it.orders&&it.orders.length){
+    html+=secHeader('ORDERS / YOUR RESPONSE');
+    html+=listBlock(it.orders,'var(--g)');
+  }
+
+  // Pearls
+  if(it.pearls&&it.pearls.length){
+    html+=`<div class="dwpearls"><div class="dwpearls-h">✦ PEARLS</div>`;
+    it.pearls.forEach(p=>{ html+=`<div class="dwpearl">${p}</div>`; });
+    html+=`</div>`;
+  }
+  html+=`<div style="height:30px;"></div>`;
+  buildDrawer(html);
+}
+
 function onLoad(){
-  try{ clinicRender(); dataRender(); drugRender(); dxRender(); scoreRender(); clinicBuildList(''); dataBuildList(''); dxBuildList(''); scoreBuildList(''); }catch(e){ console.error('init',e); }
+  try{ clinicRender(); dataRender(); drugRender(); dxRender(); scoreRender(); nurseRender(); clinicBuildList(''); dataBuildList(''); dxBuildList(''); scoreBuildList(''); nurseBuildList(''); }catch(e){ console.error('init',e); }
 }
 
 window.addEventListener('DOMContentLoaded', onLoad);
