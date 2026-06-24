@@ -273,6 +273,8 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   .ni.scores{background:rgba(76,175,80,.15);border-color:rgba(76,175,80,.4);}.ni.scores .nicon{color:#4caf50;}
   .ni.nursing{background:rgba(244,67,54,.15);border-color:rgba(244,67,54,.4);}.ni.nursing .nicon{color:#f44336;}
   .ni.icu{background:rgba(255,235,59,.15);border-color:rgba(255,235,59,.4);}.ni.icu .nicon{color:#ffd700;}
+  .ni.soap{background:rgba(79,195,247,.15);border-color:rgba(79,195,247,.4);}.ni.soap .nicon{color:var(--g2);}
+  .ni.trials{background:rgba(186,104,200,.15);border-color:rgba(186,104,200,.4);}.ni.trials .nicon{color:#ce93d8;}
   .nicon{font-size:24px;color:var(--t2);line-height:1;font-weight:700;}
   .nlbl{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;margin-top:2px;}
   .ni.on{border:2px solid var(--g);box-shadow:0 0 8px rgba(127,255,110,.3);}
@@ -446,6 +448,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
     <button class="tab" onclick="gT('nursing',this)">NURSING</button>
     <button class="tab" onclick="gT('icu',this)">ICU ORDERS</button>
     <button class="tab" onclick="gT('soap',this)">SOAP NOTE</button>
+    <button class="tab" onclick="gT('trials',this)">TRIALS</button>
   </div>
 </div>
 
@@ -637,6 +640,17 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   <div id="icu-list"></div>
 </div>
 
+
+<div id="panel-trials" class="panel">
+  <div class="h1">Practice-Changing <span>Trials</span></div>
+  <div style="font-size:24px;color:var(--t3);margin-bottom:14px;">The landmark &amp; recent studies behind the orders you'll see. Pick a trial → the question, the numbers, and exactly what changed at the bedside.</div>
+  <div style="position:relative;margin-bottom:12px;">
+    <input type="text" id="trials-search" placeholder="Search trial, drug, topic (e.g. steroids pneumonia)..." oninput="trialsFilter()" autocomplete="off" style="width:100%;box-sizing:border-box;background:var(--s2);border:1px solid var(--b2);border-radius:var(--r);padding:10px 14px 10px 38px;font-family:var(--mono);font-size:13px;color:var(--t);outline:none;">
+    <span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:15px;">⌕</span>
+  </div>
+  <div id="trials-pills" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;"></div>
+  <div id="trials-list"></div>
+</div>
 
 <div id="panel-soap" class="panel">
   <div class="h1">Problem-Based <span>SOAP Note</span></div>
@@ -1050,6 +1064,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   <button class="ni nursing" id="ni-nursing" onclick="gM('nursing',this)"><span class="nicon">🏥</span><span class="nlbl">Nursing</span></button>
   <button class="ni icu" id="ni-icu" onclick="gM('icu',this)"><span class="nicon">⚠️</span><span class="nlbl">ICU</span></button>
   <button class="ni soap" id="ni-soap" onclick="gM('soap',this)"><span class="nicon">📝</span><span class="nlbl">SOAP</span></button>
+  <button class="ni trials" id="ni-trials" onclick="gM('trials',this)"><span class="nicon">📚</span><span class="nlbl">Trials</span></button>
 </nav>
 
 </div><!-- .app -->
@@ -4460,19 +4475,19 @@ var NURSE_DATA={
       ask:['Symptomatic? — lightheaded, chest pain, dyspnea, confused, cool/clammy?','HR (tachy = compensating; brady + hypotension is ominous), MAP, SpO₂','Recent antihypertensives, opioids/sedatives, diuresis, bleeding, new fever?','Urine output trend?'],
       assess:['GO SEE the patient. Repeat BP, full vitals, mental status, skin perfusion','Volume status: JVP, mucous membranes, lungs, edema','Source hunt: bleeding (GI, surgical site), sepsis, cardiac, anaphylaxis, adrenal'],
       cantMiss:['Septic shock','Hemorrhage','Cardiogenic shock / massive PE','Anaphylaxis','Adrenal crisis'],
-      orders:['Two large-bore IVs; if no contraindication, fluid challenge 500 mL–1 L crystalloid and reassess','Hold offending meds (antihypertensives, sedatives)','Workup: CBC, BMP, lactate, type & screen if bleeding, EKG/troponin if cardiac, cultures if septic','Legs up as a temporizer; pressors + ICU if not fluid-responsive','Anaphylaxis → IM epinephrine immediately'],
-      pearls:['MAP <65 = organ hypoperfusion regardless of the systolic.','Bradycardia + hypotension → think beta-blocker/CCB excess, MI, or neurogenic.','A fluid bolus is both diagnostic and therapeutic in most undifferentiated hypotension.']},
+      orders:['<b>Two large-bore IVs (≥18 gauge.)</b> If no pulmonary edema/cardiogenic concern → crystalloid bolus <b>500 mL–1 L LR (or NS) wide open</b>, reassess BP/perfusion; in septic/distributive shock target <b>30 mL/kg</b> over the first 3 h.','<b>MAP goal ≥65.</b> Fluid-refractory → start <b>norepinephrine 0.05–0.1 µg/kg/min IV</b>, titrate up (first-line pressor; ideally central, but OK short-term through a good large peripheral IV while you escalate to ICU).','<b>Anaphylaxis → epinephrine 0.3–0.5 mg IM of 1 mg/mL (1:1000) into the anterolateral thigh NOW, repeat q5–15 min.</b> (See the Anaphylaxis card for the full sequence.)','<b>Adrenal crisis → hydrocortisone 100 mg IV push</b> (don\'t wait for the cortisol level if you suspect it).','Hold offending meds (antihypertensives, opioids/sedatives, recent diuretics).','Workup: CBC, BMP, lactate, VBG, type &amp; screen if bleeding, EKG + troponin if cardiac, blood cultures ×2 if septic.','Legs up (passive leg raise) as a temporizer; pressors + ICU if not fluid-responsive after ~30 mL/kg.'],
+      pearls:['MAP <65 = organ hypoperfusion regardless of the systolic — MAP ≈ (SBP + 2×DBP)/3.','Bradycardia + hypotension → think beta-blocker/CCB excess (glucagon/calcium), inferior MI, or neurogenic shock.','A 500 mL fluid challenge is both diagnostic and therapeutic in most undifferentiated hypotension — but reassess after EACH bolus for crackles/hypoxia.','Norepinephrine is the default first-line pressor for almost all undifferentiated shock.']},
     {id:'tachy',name:'Tachycardia',call:'"Heart rate is 130."',urgency:'soon',
       ask:['Regular or irregular? Narrow or wide (get a rhythm strip / 12-lead)?','Symptomatic — chest pain, dyspnea, syncope, hypotension?','Fever, pain, anxiety, hypovolemia, bleeding, missed beta-blocker, alcohol withdrawal?','SpO₂ (PE/hypoxia)?'],
       assess:['12-lead EKG is the key step','Vitals, volume status, exam for a source (fever, bleeding, pain, withdrawal)'],
       cantMiss:['Unstable tachyarrhythmia (→ synchronized cardioversion)','PE','Sepsis','Hemorrhage','Thyroid storm / alcohol withdrawal'],
-      orders:['Get a 12-lead EKG now','Sinus tach = a symptom → treat the CAUSE (fluids for hypovolemia, analgesia, antipyretics, CIWA protocol)','SVT: vagal maneuvers → adenosine. AF with RVR (stable): rate control with diltiazem or metoprolol','UNSTABLE (hypotension, chest pain, AMS, pulmonary edema) → synchronized cardioversion','Workup: EKG, electrolytes (K/Mg), CBC, TSH, consider PE evaluation'],
+      orders:['Get a <b>12-lead EKG now</b> + continuous telemetry, IV access.','<b>Sinus tach = a symptom</b> → treat the CAUSE (fluids for hypovolemia, analgesia, antipyretics, CIWA for withdrawal). Do NOT rate-control a compensatory sinus tach.','<b>Stable SVT:</b> vagal maneuvers → <b>adenosine 6 mg rapid IV push</b> (proximal large vein + immediate 20 mL saline flush) → if no conversion, <b>12 mg</b> (may repeat 12 mg once).','<b>Stable AF/flutter with RVR:</b> <b>diltiazem 0.25 mg/kg IV (~15–20 mg) over 2 min</b>, may repeat 0.35 mg/kg (~20–25 mg) in 15 min, then infusion 5–15 mg/h; OR <b>metoprolol 5 mg IV q5min ×3</b>.','<b>UNSTABLE (hypotension, ischemia, AMS, pulmonary edema) → synchronized cardioversion</b> (narrow-regular 50–100 J; AF 120–200 J biphasic; sedate first if time allows).','Workup: EKG, K/Mg, CBC, TSH, troponin; consider PE evaluation if hypoxic/clear lungs.'],
       pearls:['Sinus tachycardia is almost always a clue to something else — find it, don\'t just slow it.','Don\'t rate-control a compensatory sinus tach (sepsis/bleeding) — you remove their compensation.','Irregularly irregular + narrow = AF until proven otherwise.']},
     {id:'brady',name:'Bradycardia',call:'"Heart rate is 42."',urgency:'soon',
       ask:['Symptomatic — hypotensive, lightheaded, chest pain, syncope, AMS?','Meds — beta-blocker, CCB, digoxin, recently given?','Baseline (athletes / during sleep can run in the 40s)'],
       assess:['12-lead EKG (look for AV block, ischemia)','Vitals, mental status, perfusion'],
       cantMiss:['High-grade AV block','MI (especially inferior)','Hyperkalemia','Drug toxicity (BB/CCB/digoxin)'],
-      orders:['Asymptomatic + stable: monitor, hold AV-nodal blockers, EKG, check K⁺ and a digoxin level','Symptomatic/unstable: atropine 1 mg IV (repeat to 3 mg max), set up transcutaneous pacing; consider epinephrine/dopamine infusion','Treat the cause: hyperkalemia, drug toxicity (glucagon for BB, calcium for CCB)','EKG + telemetry, electrolytes'],
+      orders:['<b>Asymptomatic + stable:</b> monitor on telemetry, hold AV-nodal blockers, EKG, check K⁺, Mg, digoxin level, TSH.','<b>Symptomatic/unstable: atropine 1 mg IV q3–5 min, max 3 mg.</b> No response → <b>transcutaneous pacing</b> and/or <b>dopamine 5–20 µg/kg/min</b> or <b>epinephrine 2–10 µg/min</b> infusion; call for transvenous pacing.','Treat the cause: hyperkalemia (per protocol); <b>beta-blocker overdose → glucagon 3–10 mg IV</b>; <b>CCB overdose → calcium gluconate</b> ± high-dose insulin euglycemia; digoxin toxicity → digoxin-specific Fab.','EKG + continuous telemetry, electrolytes.'],
       pearls:['Stable + asymptomatic bradycardia needs monitoring, not atropine.','New bradycardia → check K⁺ and the med list first.','Inferior MI classically causes bradycardia / heart block.']},
     {id:'hypoxia',name:'Hypoxia / desaturation',call:'"O₂ sat dropped to 86%."',urgency:'now',
       ask:['On how much oxygen? Trend? Is the waveform reliable (cold/motion)?','Symptomatic — dyspnea, chest pain, AMS? What is the RR?','Acute event — aspiration, post-op, after fluids, with chest pain?'],
@@ -4487,7 +4502,7 @@ var NURSE_DATA={
       ask:['Character, onset, radiation, associated dyspnea/diaphoresis/nausea?','Vitals + SpO₂','Cardiac history and risk factors','Pleuritic? Positional? Reproducible on palpation?'],
       assess:['GO SEE. 12-lead EKG within 10 minutes. Vitals','Exam: heart, lungs, chest wall, legs (DVT)'],
       cantMiss:['ACS / STEMI','PE','Aortic dissection','Pneumothorax','Pericarditis / tamponade','Esophageal rupture'],
-      orders:['STAT 12-lead EKG + troponin (serial)','If ACS suspected: aspirin 325 mg chewed (unless contraindicated), telemetry, treat pain; nitroglycerin if NOT hypotensive, no inferior/RV MI, no recent PDE5 inhibitor','CXR; consider CTPA (PE) or CT aorta (dissection) per suspicion','Compare to a prior EKG; call cardiology for STEMI or dynamic changes'],
+      orders:['<b>STAT 12-lead EKG within 10 min</b> + troponin (serial q3–6h); IV access, continuous telemetry.','If ACS suspected: <b>aspirin 325 mg chewed</b> (non-enteric, unless contraindicated); <b>nitroglycerin 0.4 mg SL q5 min ×3</b> ONLY if SBP >90–100, no inferior/RV MI, and no PDE5 inhibitor (sildenafil/tadalafil) in 24–48h.','O₂ only if SpO₂ <90% (routine O₂ in normoxic ACS is harmful).','CXR; consider CTPA (PE) or CT aorta (dissection) per suspicion.','Compare to a prior EKG; <b>STEMI or dynamic changes → activate cath lab / call cardiology now</b>; anticoagulate per ACS protocol.'],
       pearls:['EKG + troponin is the reflex for any new chest pain.','No nitro in inferior/RV MI or hypotension.','Tearing pain to the back + inter-arm BP difference → dissection (don\'t anticoagulate blindly).']},
     {id:'dyspnea',name:'Acute shortness of breath',call:'"Patient is short of breath."',urgency:'now',
       ask:['SpO₂ and O₂ requirement, RR, work of breathing','Acute vs gradual? Chest pain? Orthopnea? Wheeze?','Recent fluids, missed dialysis, possible aspiration?'],
@@ -4498,6 +4513,12 @@ var NURSE_DATA={
   ]},
 
   neuro:{name:'Neuro / Behavioral',color:'var(--g)',items:[
+    {id:'seizure',name:'Seizure',call:'"Patient is seizing."',urgency:'now',
+      ask:['Still seizing right now, or postictal? When did it start (time it)?','<b>Glucose</b> — check a fingerstick immediately. SpO₂?','Known epilepsy / missed antiseizure meds? Alcohol/benzo withdrawal? New meds (lowering threshold)?','Anticoagulated, recent head trauma, brain tumor/mets, hyponatremia?'],
+      assess:['<b>GO NOW.</b> Protect the airway (roll to side, suction, O₂), don\'t restrain limbs or put anything in the mouth. Pad rails, time the seizure.','Fingerstick glucose, full vitals, IV access. Postictal exam once it stops (focal deficit → Todd\'s vs stroke).','<b>Status epilepticus = ≥5 min of continuous seizure OR ≥2 seizures without recovery between.</b>'],
+      cantMiss:['Status epilepticus (→ permanent injury, time-critical)','Hypoglycemia','Hyponatremia','Intracranial bleed / mass','Alcohol/benzo withdrawal','Eclampsia (pregnant/postpartum → magnesium)'],
+      orders:['<b>Hypoglycemia → dextrose 25 g IV (1 amp D50) now</b> (give thiamine 100 mg IV first if malnourished/alcohol).','<b>Seizing ≥5 min (status): lorazepam 4 mg IV over 2 min (0.1 mg/kg), may repeat ×1 in 5–10 min.</b> No IV → <b>midazolam 10 mg IM</b> (or intranasal/buccal).','<b>Load an antiseizure med:</b> levetiracetam 60 mg/kg IV (max 4.5 g), OR fosphenytoin 20 mg PE/kg IV, OR valproate 40 mg/kg IV.','Labs: glucose, Na, Ca, Mg, BMP, tox screen, antiseizure-drug levels, ± LFTs/ammonia; CT head if first seizure, focal, trauma, or anticoagulated.','<b>Eclampsia → magnesium sulfate 4–6 g IV load.</b>','Refractory status → intubate + continuous infusion (midazolam/propofol), ICU, continuous EEG.'],
+      pearls:['Most seizures self-terminate in 1–2 min — the dangerous one is the seizure that won\'t stop (status). Time it.','Check a glucose on every seizure — it\'s instantly reversible.','Benzo first (lorazepam), then a loading agent — don\'t skip straight to the load.','A new focal deficit after a seizure may be Todd\'s paralysis (transient) — but image to exclude a stroke/bleed.']},
     {id:'ams',name:'Altered mental status / confusion',call:'"Patient is more confused."',urgency:'now',
       ask:['Acute change from baseline? Time course?','Vitals INCLUDING glucose and SpO₂ — hypoglycemia and hypoxia are instant fixes','New meds (opioids, benzos, anticholinergics), pain, infection, full bladder/constipation?','Can they protect their airway?'],
       assess:['GO SEE. Fingerstick glucose, SpO₂, full vitals, focused neuro exam','Review meds (deliriogenic), I/Os, last BM, recent labs'],
@@ -4583,7 +4604,7 @@ var NURSE_DATA={
       ask:['Could it be hemolyzed? (recheck if unexpected in a well patient) — but treat first if there are EKG changes','Symptoms, urine output, renal function?','Meds — ACEi/ARB, K-sparing diuretics, K supplements, recent blood transfusion?'],
       assess:['STAT 12-lead EKG (peaked T waves, wide QRS, sine wave)','Repeat K (non-hemolyzed), BMP, renal function'],
       cantMiss:['EKG changes → imminent arrhythmia / arrest','Renal failure','Tissue breakdown (rhabdomyolysis, tumor lysis)'],
-      orders:['EKG changes → calcium gluconate IV immediately (membrane stabilization)','Shift K intracellularly: insulin 10 units IV + D50, albuterol nebs (± bicarbonate if acidotic)','Remove K from the body: loop diuretic if making urine, GI binder (patiromer / SZC), dialysis if refractory/anuric','Stop all K sources and K-raising meds (ACEi/ARB, K-sparing diuretics, supplements)','Recheck K and glucose (watch for post-insulin hypoglycemia)'],
+      orders:['<b>EKG changes → calcium gluconate 10% 10–30 mL IV over 2–3 min</b> (or calcium chloride 10% 10 mL via central line). Onset 1–3 min, lasts 30–60 min — repeat if EKG unchanged at 5 min. <i>Stabilizes the membrane; does NOT lower K.</i>','<b>Shift K into cells: regular insulin 10 units IV + dextrose 25 g (1 amp D50)</b> — give the dextrose if glucose <250. Plus <b>albuterol 10–20 mg nebulized</b> (4–8× the usual dose). Add sodium bicarbonate only if metabolically acidotic.','<b>Remove K from the body: furosemide 40 mg IV</b> if making urine; GI cation binder (patiromer or sodium zirconium cyclosilicate); <b>hemodialysis</b> if refractory, anuric, or severe.','Stop ALL K sources: ACEi/ARB, K-sparing diuretics (spironolactone), KCl, NSAIDs, trimethoprim, salt substitutes.','Recheck K <b>q2–4h</b> and glucose <b>q1h ×4–6h</b> (insulin causes delayed hypoglycemia).'],
       pearls:['Calcium protects the heart but doesn\'t lower K — you still must shift AND remove.','Always get an EKG; the EKG, not the number, drives urgency.','Recheck the sugar after insulin-glucose therapy.']},
     {id:'hypok',name:'Hypokalemia / low Mg',call:'"Potassium is 2.9."',urgency:'soon',
       ask:['Symptoms — weakness, palpitations, arrhythmia? On digoxin?','Losses — diuretics, vomiting, diarrhea, NG suction?','Magnesium level (you can\'t fix K without Mg)?'],
@@ -4594,6 +4615,12 @@ var NURSE_DATA={
   ]},
 
   sxaccess:{name:'Symptom / Access',color:'var(--g4)',items:[
+    {id:'anaphylaxis',name:'Anaphylaxis / allergic reaction',call:'"Patient broke out in hives / lips are swelling after the new med."',urgency:'now',
+      ask:['<b>Airway/breathing:</b> lip/tongue/throat swelling, stridor, wheeze, voice change, drooling?','Vitals — hypotension, tachycardia? SpO₂?','What was just given (antibiotic, contrast, blood product, new drug)? How long ago?','Skin — hives/flushing? GI — vomiting, cramping?'],
+      assess:['<b>GO NOW.</b> Stop any infusion. Assess airway, breathing, circulation, skin.','Anaphylaxis = acute onset + EITHER (a) skin/mucosal involvement + respiratory or BP compromise, OR (b) ≥2 systems (skin, resp, GI, cardiovascular) after a likely allergen.','Don\'t wait for "all" criteria — hypotension or airway involvement alone after an allergen is enough.'],
+      cantMiss:['Airway obstruction (angioedema)','Anaphylactic shock','Biphasic reaction (recurs 4–72h later)'],
+      orders:['<b>EPINEPHRINE 0.3–0.5 mg IM of 1 mg/mL (1:1000) into the anterolateral thigh (vastus lateralis) IMMEDIATELY.</b> Repeat <b>q5–15 min</b> as needed. This is the only first-line treatment — antihistamines/steroids do NOT replace it.','Stop the trigger (the infusion/drug). Position supine + legs up (unless vomiting or in respiratory distress → sit up). High-flow O₂.','<b>IV fluids: 1–2 L LR/NS bolus</b> for hypotension (distributive shock).','Adjuncts (do NOT delay epi): <b>diphenhydramine 25–50 mg IV</b> (H1), <b>famotidine 20 mg IV</b> (H2), <b>albuterol neb</b> for bronchospasm, <b>methylprednisolone 125 mg IV</b> (may blunt a biphasic reaction).','<b>Refractory:</b> epinephrine infusion <b>0.05–0.1 µg/kg/min</b>, escalate to ICU; if on a beta-blocker and not responding → <b>glucagon 1–5 mg IV</b>.','Observe <b>4–6h minimum</b> (longer if severe) for a biphasic reaction; document the allergy prominently.'],
+      pearls:['IM epi in the THIGH (not the deltoid) is first-line and life-saving — there is no dose of Benadryl that treats anaphylaxis.','When in doubt, give the epi — delay is the main cause of anaphylaxis deaths.','Patients on beta-blockers may be refractory to epi → glucagon.','Always counsel about and watch for the biphasic reaction.']},
     {id:'pain',name:'Pain',call:'"Patient is in pain / wants pain meds."',urgency:'soon',
       ask:['New vs chronic? Location/character/severity — is this a NEW pain that needs a workup (chest, abdomen, leg)?','Current regimen and last dose? Allergies?','Vitals (pain drives tachycardia/HTN)'],
       assess:['Distinguish "needs analgesia" from "new pain = new diagnosis" (chest/abdomen/calf)','Review current orders, renal/hepatic function'],
@@ -4926,8 +4953,292 @@ function openIcuDrawer(ck,iid){
   buildDrawer(html);
 }
 
+// ============================================================
+// PRACTICE-CHANGING TRIALS
+// item model: { id, name, year, journal, pop, q, did, result, bottom, caveat, cite }
+// ============================================================
+var TRIALS_DATA={
+  sepsis:{name:'Sepsis & Shock',color:'var(--g4)',items:[
+    {id:'capecod',name:'CAPE COD — Steroids in severe CAP',year:2023,journal:'NEJM',
+      pop:'800 ICU adults with severe community-acquired pneumonia (on mechanical ventilation, high-flow O₂, or with a high pneumonia severity index).',
+      q:'Does hydrocortisone reduce death in severe CAP requiring ICU-level respiratory support?',
+      did:'Hydrocortisone 200 mg/day IV (continuous infusion) for 4 or 7 days based on improvement, then tapered — total 8 or 14 days — vs placebo, on top of standard antibiotics.',
+      result:'28-day mortality <b>6.2% vs 11.9%</b> (HR 0.46). Less need for intubation and vasopressors. No excess of GI bleeding or hospital-acquired infection.',
+      bottom:'In <b>severe CAP needing ICU-level O₂/ventilatory support</b>, start hydrocortisone <b>200 mg/day IV</b> early (within ~24h). This is almost certainly the "shock-dose steroids for 4–7 days" you saw ordered.',
+      caveat:'Excludes influenza, aspiration, and septic shock from other sources. Not the same as the old steroids-in-all-CAP question — this is specifically the sickest, ICU patients.',
+      cite:'Dequin PF et al. Hydrocortisone in Severe Community-Acquired Pneumonia. NEJM 2023;388:1931–1941.'},
+    {id:'adrenal',name:'ADRENAL / APROCCHSS — Steroids in septic shock',year:2018,journal:'NEJM',
+      pop:'ADRENAL: 3,800 and APROCCHSS: 1,241 adults with septic shock on vasopressors + mechanical ventilation.',
+      q:'Do corticosteroids reduce mortality in vasopressor-dependent septic shock?',
+      did:'Hydrocortisone 200 mg/day (ADRENAL: continuous infusion; APROCCHSS: 50 mg IV q6h + fludrocortisone 50 µg PO daily) vs placebo.',
+      result:'ADRENAL: no 90-day mortality difference (27.9% vs 28.8%) but <b>faster shock reversal</b>, less transfusion, faster vent liberation. APROCCHSS: <b>lower 90-day mortality (43.0% vs 49.1%)</b>.',
+      bottom:'Add <b>hydrocortisone 200 mg/day</b> (e.g., 50 mg IV q6h) for septic shock that is <b>not responding to fluids + vasopressors</b>. At minimum it speeds shock resolution.',
+      cite:'Venkatesh B et al. NEJM 2018;378:797–808 (ADRENAL); Annane D et al. NEJM 2018;378:809–818 (APROCCHSS).'},
+    {id:'andromeda',name:'ANDROMEDA-SHOCK — Cap refill vs lactate',year:2019,journal:'JAMA',
+      pop:'424 adults with septic shock.',
+      q:'Should you resuscitate to a normal capillary refill time or to lactate clearance?',
+      did:'Resuscitation targeting capillary refill ≤3 s vs targeting a 20% lactate drop every 2h.',
+      result:'28-day mortality <b>34.9% (cap refill) vs 43.4% (lactate)</b>, p=0.06 (not statistically significant) — but less organ dysfunction at 72h and less fluid in the cap-refill arm.',
+      bottom:'<b>Capillary refill is a legitimate, fluid-sparing resuscitation target.</b> Don\'t chase lactate with endless boluses — a normalizing exam (warm, cap refill <3 s, good urine output) matters more.',
+      cite:'Hernández G et al. JAMA 2019;321:654–664.'},
+    {id:'clovers',name:'CLOVERS — Restrictive vs liberal fluids',year:2023,journal:'NEJM',
+      pop:'1,563 adults with sepsis-induced hypotension after ~1–3 L fluid.',
+      q:'In septic shock, give more fluid first or reach for vasopressors earlier?',
+      did:'Restrictive fluids with early norepinephrine vs liberal fluids (more boluses, later pressors).',
+      result:'90-day mortality <b>14.0% vs 14.9%</b> — no significant difference. No difference in ventilator-free or ICU-free days.',
+      bottom:'After initial resuscitation, <b>early norepinephrine is safe</b> — you do not have to pour in liters before starting pressors. Either strategy is acceptable; don\'t over-resuscitate.',
+      cite:'NHLBI PETAL Network. NEJM 2023;388:499–510.'},
+    {id:'process',name:'ProCESS / ARISE / ProMISe — EGDT debunked',year:2014,journal:'NEJM',
+      pop:'~4,200 adults across 3 trials with early septic shock.',
+      q:'Is protocolized early goal-directed therapy (ScvO₂-guided, mandatory central line) better than good usual care?',
+      did:'Rivers-style EGDT (CVP/ScvO₂ targets, transfusion, inotropes) vs usual care.',
+      result:'<b>No mortality benefit</b> from strict EGDT protocols (ProCESS 60-day mortality 21.0% vs 18.9%, NS). Equivalent outcomes with less invasive monitoring.',
+      bottom:'You do <b>not</b> need a central line + ScvO₂ targets to manage sepsis. <b>Early antibiotics, cultures, lactate, and adequate fluids/pressors</b> are what matter.',
+      cite:'ProCESS NEJM 2014;370:1683; ARISE NEJM 2014;371:1496; ProMISe NEJM 2015;372:1301.'},
+    {id:'smart',name:'SMART — Balanced fluids vs saline',year:2018,journal:'NEJM',
+      pop:'15,802 ICU adults.',
+      q:'Does balanced crystalloid (LR/Plasma-Lyte) beat 0.9% saline?',
+      did:'Balanced crystalloid vs normal saline as primary ICU fluid.',
+      result:'Major adverse kidney events (death, new dialysis, persistent renal dysfunction) <b>14.3% vs 15.4%</b> (favoring balanced). Effect strongest in sepsis.',
+      bottom:'<b>Default to LR or Plasma-Lyte</b> for resuscitation. Save normal saline for specific cases (hyponatremia, hypochloremic alkalosis, TBI).',
+      cite:'Semler MW et al. NEJM 2018;378:829–839.'}
+  ]},
+
+  pulm:{name:'Pulmonary & Critical Care',color:'var(--g2)',items:[
+    {id:'ardsnet',name:'ARMA / ARDSnet — Low tidal volume',year:2000,journal:'NEJM',
+      pop:'861 patients with ARDS.',
+      q:'Does a lower tidal volume protect the lungs?',
+      did:'Tidal volume 6 mL/kg predicted body weight (plateau pressure <30) vs traditional 12 mL/kg.',
+      result:'In-hospital mortality <b>31.0% vs 39.8%</b> (ARR ~9%, NNT ~11). Established lung-protective ventilation.',
+      bottom:'<b>6 mL/kg of predicted (not actual) body weight, plateau pressure &lt;30.</b> One of the few vent settings proven to save lives — know it cold.',
+      cite:'ARDS Network. NEJM 2000;342:1301–1308.'},
+    {id:'proseva',name:'PROSEVA — Proning in ARDS',year:2013,journal:'NEJM',
+      pop:'466 patients with severe ARDS (P/F &lt;150).',
+      q:'Does prone positioning reduce death in severe ARDS?',
+      did:'Prone ≥16 h/day vs supine, both with lung-protective ventilation.',
+      result:'28-day mortality <b>16.0% vs 32.8%</b>; 90-day 23.6% vs 41.0%. Large, durable benefit.',
+      bottom:'<b>Prone early</b> in moderate-severe ARDS (P/F &lt;150) for ≥16 h/day. A core reason ICU teams flip hypoxemic patients.',
+      cite:'Guérin C et al. NEJM 2013;368:2159–2168.'},
+    {id:'recovery',name:'RECOVERY — Dexamethasone in COVID',year:2021,journal:'NEJM',
+      pop:'6,425 hospitalized COVID-19 patients.',
+      q:'Do steroids help in COVID-19?',
+      did:'Dexamethasone 6 mg daily ×10 days vs usual care.',
+      result:'28-day mortality lower in those needing O₂: <b>ventilated 29.3% vs 41.4%</b>, O₂-only 23.3% vs 26.2%. <b>No benefit (possible harm) if NOT hypoxemic.</b>',
+      bottom:'Dexamethasone <b>only for hypoxemic COVID</b> (needs supplemental O₂). Giving steroids to non-hypoxemic patients can hurt — the oxygen requirement is the trigger.',
+      cite:'RECOVERY Collaborative Group. NEJM 2021;384:693–704.'},
+    {id:'ttm2',name:'TTM2 — Temperature after cardiac arrest',year:2021,journal:'NEJM',
+      pop:'1,900 comatose adults after out-of-hospital cardiac arrest.',
+      q:'Cool to 33°C or just prevent fever?',
+      did:'Targeted hypothermia 33°C vs targeted normothermia (treat fever, keep ≤37.5°C).',
+      result:'6-month mortality <b>50% vs 48%</b> — no difference. No functional benefit to 33°C.',
+      bottom:'<b>Target normothermia and aggressively prevent fever</b> post-arrest — routine deep cooling to 33°C is not required.',
+      cite:'Dankiewicz J et al. NEJM 2021;384:2283–2294.'},
+    {id:'peitho',name:'PEITHO — Lytics in submassive PE',year:2014,journal:'NEJM',
+      pop:'1,006 normotensive PE patients with RV strain + positive troponin (intermediate-risk).',
+      q:'Should you thrombolyse "submassive" PE before they crash?',
+      did:'Tenecteplase + heparin vs heparin alone.',
+      result:'Death/decompensation <b>2.6% vs 5.6%</b> (benefit) BUT major extracranial bleeding <b>6.3% vs 1.2%</b> and stroke <b>2.4% vs 0.2%</b>.',
+      bottom:'<b>Do NOT routinely lyse intermediate-risk PE.</b> Anticoagulate and watch closely; reserve thrombolytics for hemodynamic decompensation (true massive PE).',
+      cite:'Meyer G et al. NEJM 2014;370:1402–1411.'}
+  ]},
+
+  cards:{name:'Cardiology',color:'var(--red)',items:[
+    {id:'ischemia',name:'ISCHEMIA — Stable CAD, cath vs meds',year:2020,journal:'NEJM',
+      pop:'5,179 patients with stable CAD and moderate-severe ischemia on stress testing.',
+      q:'Does early catheterization/revascularization beat optimal medical therapy in stable CAD?',
+      did:'Routine invasive strategy (angio + revascularization) vs optimal medical therapy first.',
+      result:'<b>No reduction</b> in cardiovascular death or MI over ~3 years. Invasive helped angina-related quality of life only.',
+      bottom:'In <b>stable</b> CAD, medical therapy first — a positive stress test alone does not mandate the cath lab. (Does NOT apply to ACS.)',
+      cite:'Maron DJ et al. NEJM 2020;382:1395–1407.'},
+    {id:'poise',name:'POISE — Perioperative beta-blockers',year:2008,journal:'Lancet',
+      pop:'8,351 patients undergoing non-cardiac surgery.',
+      q:'Should you start beta-blockers around surgery to prevent cardiac events?',
+      did:'High-dose metoprolol succinate started just before surgery vs placebo.',
+      result:'Fewer MIs (HR 0.73) BUT <b>more deaths (HR 1.33) and more strokes (HR 2.17)</b> — driven by hypotension/bradycardia.',
+      bottom:'<b>Do not acutely start beta-blockers perioperatively.</b> Continue chronic beta-blockers, but don\'t initiate them fresh around surgery.',
+      cite:'POISE Study Group. Lancet 2008;371:1839–1847.'},
+    {id:'paradigm',name:'PARADIGM-HF — ARNI in HFrEF',year:2014,journal:'NEJM',
+      pop:'8,442 patients with HFrEF (EF ≤40%, NYHA II–IV).',
+      q:'Is sacubitril/valsartan better than an ACE inhibitor?',
+      did:'Sacubitril/valsartan vs enalapril.',
+      result:'CV death or HF hospitalization reduced <b>20%</b> (HR 0.80); all-cause mortality HR 0.84. Trial stopped early for benefit.',
+      bottom:'<b>ARNI (sacubitril/valsartan) over ACEi/ARB</b> in HFrEF. One of the four GDMT pillars (ARNI, beta-blocker, MRA, SGLT2i).',
+      caveat:'36-hour washout from any ACEi before starting (angioedema risk). Needs adequate BP and K⁺.',
+      cite:'McMurray JJV et al. NEJM 2014;371:993–1004.'},
+    {id:'dapahf',name:'DAPA-HF — SGLT2i in heart failure',year:2019,journal:'NEJM',
+      pop:'4,744 patients with HFrEF, with and without diabetes.',
+      q:'Do SGLT2 inhibitors help heart failure even without diabetes?',
+      did:'Dapagliflozin vs placebo on top of standard HF therapy.',
+      result:'Worsening HF or CV death reduced <b>26%</b> (HR 0.74) — <b>regardless of diabetes status</b>.',
+      bottom:'<b>SGLT2 inhibitors are heart-failure drugs</b>, not just diabetes drugs — a pillar of GDMT for HFrEF (and now HFpEF too).',
+      cite:'McMurray JJV et al. NEJM 2019;381:1995–2008.'},
+    {id:'sprint',name:'SPRINT — Intensive BP control',year:2015,journal:'NEJM',
+      pop:'9,361 high-CV-risk adults (non-diabetic) with hypertension.',
+      q:'Target SBP &lt;120 or &lt;140?',
+      did:'Intensive SBP &lt;120 vs standard &lt;140.',
+      result:'Primary CV composite reduced (HR 0.75) and all-cause mortality (HR 0.73) — but <b>more AKI, hypotension, and syncope</b>.',
+      bottom:'Tighter BP targets help selected high-risk patients, but <b>watch for AKI, orthostasis, and falls</b> when you push BP down in the hospital. (BP measured with strict protocol — real-world readings run higher.)',
+      cite:'SPRINT Research Group. NEJM 2015;373:2103–2116.'},
+    {id:'eastafnet',name:'EAST-AFNET 4 — Early rhythm control',year:2020,journal:'NEJM',
+      pop:'2,789 patients with recently diagnosed AF (≤1 year) + CV risk factors.',
+      q:'Early rhythm control or just rate control?',
+      did:'Early rhythm control (antiarrhythmics/ablation) vs usual rate control.',
+      result:'CV death, stroke, or hospitalization reduced (HR 0.79).',
+      bottom:'Consider <b>early rhythm control in newly diagnosed AF</b>. Rate control remains fine for many — but the old "rate = rhythm" (AFFIRM) thinking is softening for new-onset AF.',
+      cite:'Kirchhof P et al. NEJM 2020;383:1305–1316.'}
+  ]},
+
+  renal:{name:'Renal, Fluids & Transfusion',color:'var(--g3)',items:[
+    {id:'starrt',name:'STARRT-AKI — When to start dialysis',year:2020,journal:'NEJM',
+      pop:'3,019 critically ill adults with severe AKI.',
+      q:'Start RRT early/accelerated or wait for a hard indication?',
+      did:'Accelerated RRT initiation vs standard (wait unless urgent indication develops).',
+      result:'90-day mortality identical (43.9% vs 43.7%) and <b>more dialysis dependence with early start</b> (10.4% vs 6.0%).',
+      bottom:'<b>Don\'t start dialysis just for a number.</b> Wait for true indications — <b>AEIOU</b>: Acidosis, Electrolytes (refractory K⁺), Intoxication, Overload (refractory), Uremia (encephalopathy/pericarditis).',
+      cite:'STARRT-AKI Investigators. NEJM 2020;383:240–251.'},
+    {id:'triss',name:'TRICC / TRISS — Restrictive transfusion',year:1999,journal:'NEJM',
+      pop:'TRICC: 838 ICU patients; TRISS: 998 septic shock patients.',
+      q:'Transfuse at Hgb 7 or 9–10?',
+      did:'Restrictive threshold (Hgb &lt;7) vs liberal (Hgb &lt;9–10).',
+      result:'Restrictive was <b>non-inferior to better</b> — equal or lower mortality with far less blood used.',
+      bottom:'Transfuse at <b>Hgb &lt;7</b> for most inpatients; <b>&lt;8</b> for active cardiac ischemia/cardiac surgery. More blood is not safer.',
+      cite:'Hébert PC et al. NEJM 1999;340:409 (TRICC); Holst LB et al. NEJM 2014;371:1381 (TRISS).'},
+    {id:'villanueva',name:'Villanueva — Restrictive transfusion in GI bleed',year:2013,journal:'NEJM',
+      pop:'921 patients with acute upper GI bleeding.',
+      q:'In active GI bleeding, what Hgb threshold to transfuse?',
+      did:'Restrictive (transfuse at Hgb &lt;7) vs liberal (&lt;9).',
+      result:'6-week survival <b>95% vs 91%</b> (better with restrictive); less rebleeding (10% vs 16%). Over-transfusing raises portal pressure and worsens variceal bleeding.',
+      bottom:'Even in <b>active</b> upper GI bleeding, hold transfusion until <b>Hgb &lt;7</b> (target 7–9) unless hemodynamically unstable/exsanguinating.',
+      cite:'Villanueva C et al. NEJM 2013;368:11–21.'},
+    {id:'haltit',name:'HALT-IT — TXA for GI bleed (negative)',year:2020,journal:'Lancet',
+      pop:'12,009 patients with acute GI bleeding.',
+      q:'Does tranexamic acid reduce death in GI bleeding (like it does in trauma)?',
+      did:'High-dose TXA vs placebo.',
+      result:'<b>No reduction in bleeding death</b> (3.7% vs 3.8%) and <b>more venous thromboembolism and seizures</b>.',
+      bottom:'<b>Do not give TXA for GI bleeding.</b> (Contrast with CRASH-2, where TXA helps in trauma — different setting.)',
+      cite:'HALT-IT Trial Collaborators. Lancet 2020;395:1927–1936.'},
+    {id:'nicesugar',name:'NICE-SUGAR — Glucose targets in the ICU',year:2009,journal:'NEJM',
+      pop:'6,104 ICU patients.',
+      q:'Tight glucose control (81–108) or looser (&lt;180)?',
+      did:'Intensive insulin (81–108 mg/dL) vs conventional (&lt;180).',
+      result:'90-day mortality <b>higher with tight control (27.5% vs 24.9%)</b>; severe hypoglycemia 6.8% vs 0.5%.',
+      bottom:'Target inpatient glucose <b>140–180 mg/dL</b> — do not chase tight numbers. Hypoglycemia kills.',
+      cite:'NICE-SUGAR Investigators. NEJM 2009;360:1283–1297.'}
+  ]},
+
+  id:{name:'Infectious Disease',color:'var(--g)',items:[
+    {id:'poet',name:'POET — Oral antibiotics for endocarditis',year:2019,journal:'NEJM',
+      pop:'400 stabilized patients with left-sided endocarditis.',
+      q:'Can you step down to oral antibiotics after initial IV in endocarditis?',
+      did:'After ≥10 days IV and stabilization: switch to oral vs continue IV.',
+      result:'Composite outcome <b>9.0% (oral) vs 12.1% (IV)</b> — oral was non-inferior, with shorter hospital stays.',
+      bottom:'In <b>selected, stabilized</b> endocarditis, oral step-down is reasonable — challenges the dogma of full-course IV. (Specialist-guided.)',
+      cite:'Iversen K et al. NEJM 2019;380:415–424.'},
+    {id:'oviva',name:'OVIVA — Oral vs IV for bone/joint infection',year:2019,journal:'NEJM',
+      pop:'1,054 patients with bone or joint infection.',
+      q:'Is oral antibiotic therapy as good as IV for osteomyelitis?',
+      did:'Oral vs IV antibiotics for the first 6 weeks.',
+      result:'Treatment failure <b>13.2% (oral) vs 14.6% (IV)</b> — oral non-inferior, fewer line complications.',
+      bottom:'<b>Oral antibiotics can match IV</b> for many bone/joint infections — challenges automatic PICC lines for osteomyelitis.',
+      cite:'Li HK et al. NEJM 2019;380:425–436.'},
+    {id:'caravaggio',name:'Caravaggio — DOAC for cancer-associated VTE',year:2020,journal:'NEJM',
+      pop:'1,170 patients with cancer-associated venous thromboembolism.',
+      q:'Can oral apixaban replace injectable LMWH in cancer VTE?',
+      did:'Apixaban vs dalteparin (LMWH).',
+      result:'Recurrent VTE <b>5.6% vs 7.9%</b> (apixaban non-inferior) with <b>no increase in major bleeding</b> (unlike edoxaban, which raised GI bleeding).',
+      bottom:'<b>Apixaban is a reasonable oral option for cancer-associated VTE</b> — patients don\'t all need LMWH injections. (Caution with luminal GI/GU tumors.)',
+      cite:'Agnelli G et al. NEJM 2020;382:1599–1607.'}
+  ]},
+
+  neuro:{name:'Neurology',color:'#ce93d8',items:[
+    {id:'dawn',name:'DAWN / DEFUSE-3 — Late-window thrombectomy',year:2018,journal:'NEJM',
+      pop:'DAWN: 206 and DEFUSE-3: 182 patients with large-vessel stroke 6–24 h from onset.',
+      q:'Can thrombectomy still help beyond 6 hours if imaging shows salvageable brain?',
+      did:'Mechanical thrombectomy + medical therapy vs medical therapy alone, selected by perfusion/clinical mismatch.',
+      result:'90-day functional independence <b>49% vs 13% (DAWN)</b> and <b>45% vs 17% (DEFUSE-3)</b> — dramatic benefit.',
+      bottom:'A large-vessel stroke up to <b>24 hours</b> out can still be a thrombectomy candidate if perfusion imaging shows a mismatch — <b>"time is brain" but imaging now extends the window.</b> Call stroke neuro fast.',
+      cite:'Nogueira RG et al. NEJM 2018;378:11 (DAWN); Albers GW et al. NEJM 2018;378:708 (DEFUSE-3).'},
+    {id:'tpa',name:'NINDS / ECASS-3 — tPA windows in stroke',year:1995,journal:'NEJM',
+      pop:'NINDS: 624 and ECASS-3: 821 acute ischemic stroke patients.',
+      q:'How late can IV thrombolysis still help?',
+      did:'IV alteplase vs placebo within 3 h (NINDS) and 3–4.5 h (ECASS-3).',
+      result:'Better functional outcomes with tPA in both windows; symptomatic ICH ~6% (the key risk to counsel).',
+      bottom:'IV thrombolysis benefits ischemic stroke up to <b>4.5 hours</b> from last-known-well (after excluding hemorrhage and contraindications). Every minute counts.',
+      cite:'NINDS rt-PA Study Group. NEJM 1995;333:1581; Hacke W et al. NEJM 2008;359:1317 (ECASS-3).'}
+  ]}
+};
+
+var trialsActiveCat='all';
+function trialsRender(){
+  const pills=document.getElementById('trials-pills');
+  if(pills){
+    let h=`<button class="clinic-pill${trialsActiveCat==='all'?' on':''}" onclick="trialsSetCat('all')">ALL</button>`;
+    Object.keys(TRIALS_DATA).forEach(k=>{ h+=`<button class="clinic-pill${trialsActiveCat===k?' on':''}" onclick="trialsSetCat('${k}')">${TRIALS_DATA[k].name}</button>`; });
+    pills.innerHTML=h;
+  }
+  const q=(document.getElementById('trials-search')||{}).value||'';
+  trialsBuildList(q.toLowerCase());
+}
+function trialsSetCat(k){ trialsActiveCat=k; trialsRender(); }
+function trialsFilter(){ const q=(document.getElementById('trials-search')||{}).value||''; trialsBuildList(q.toLowerCase()); }
+function trialsBuildList(q){
+  const list=document.getElementById('trials-list'); if(!list) return;
+  let h='';
+  Object.keys(TRIALS_DATA).forEach(ck=>{
+    if(trialsActiveCat!=='all' && trialsActiveCat!==ck) return;
+    const cat=TRIALS_DATA[ck];
+    const matches=cat.items.filter(it=>{
+      if(!q) return true;
+      const hay=(it.name+' '+(it.q||'')+' '+(it.bottom||'')+' '+(it.did||'')+' '+(it.journal||'')).toLowerCase();
+      return hay.indexOf(q)>=0;
+    });
+    if(!matches.length) return;
+    h+=`<div class="card" style="margin-bottom:14px;">
+      <div style="font-family:var(--mono);font-size:11px;color:${cat.color};letter-spacing:.1em;margin-bottom:10px;">${cat.name.toUpperCase()}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">`;
+    matches.forEach(it=>{
+      h+=`<button class="btn bs" onclick="openTrialDrawer('${ck}','${it.id}')" style="font-size:22px;padding:8px 14px;">${it.name}</button>`;
+    });
+    h+=`</div></div>`;
+  });
+  if(!h) h='<div style="font-size:24px;color:var(--t3);font-style:italic;padding:20px 0;">No matching trials.</div>';
+  list.innerHTML=h;
+}
+function trialBlock(label,body,color){
+  return `<div style="margin:14px 14px 2px;background:var(--s3);border:1px solid var(--b2);border-radius:var(--rl);padding:13px 16px;">
+    <div style="font-family:var(--mono);font-size:12px;color:${color||'var(--t2)'};letter-spacing:.12em;margin-bottom:8px;">${label}</div>
+    <div style="font-size:16px;color:var(--t);line-height:1.6;">${body}</div>
+  </div>`;
+}
+function openTrialDrawer(ck,iid){
+  closeAnyDrawer();
+  const cat=TRIALS_DATA[ck];
+  const it=cat.items.find(x=>x.id===iid);
+  if(!it) return;
+  const eyebrow=(it.year?it.year+' · ':'')+(it.journal||cat.name);
+  let html=drawerHead(it.name,eyebrow,cat.color,'closeAnyDrawer()');
+  if(it.pop) html+=trialBlock('POPULATION',it.pop,'var(--t2)');
+  if(it.q) html+=trialBlock('THE QUESTION',it.q,'var(--g2)');
+  if(it.did) html+=trialBlock('WHAT THEY DID',it.did,'var(--g3)');
+  if(it.result) html+=trialBlock('KEY RESULT',it.result,'var(--g4)');
+  if(it.bottom){
+    html+=`<div style="margin:18px 14px 4px;background:rgba(127,255,110,.07);border:1px solid rgba(127,255,110,.3);border-radius:var(--rl);padding:14px 16px;">
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g);letter-spacing:.1em;margin-bottom:8px;">✦ WHAT YOU DO NOW</div>
+      <div style="font-size:16px;color:var(--t);line-height:1.65;">${it.bottom}</div>
+    </div>`;
+  }
+  if(it.caveat){
+    html+=`<div style="margin:12px 14px 2px;">${disc('Caveats &amp; nuance',it.caveat)}</div>`;
+  }
+  if(it.cite){
+    html+=`<div style="margin:16px 14px 4px;font-family:var(--mono);font-size:12px;color:var(--t3);line-height:1.6;border-top:1px solid var(--b);padding-top:12px;">${it.cite}</div>`;
+  }
+  html+=`<div style="height:30px;"></div>`;
+  buildDrawer(html);
+}
+
 function onLoad(){
-  try{ clinicRender(); dataRender(); drugRender(); dxRender(); scoreRender(); nurseRender(); icuRender(); clinicBuildList(''); dataBuildList(''); dxBuildList(''); scoreBuildList(''); nurseBuildList(''); icuBuildList(''); }catch(e){ console.error('init',e); }
+  try{ clinicRender(); dataRender(); drugRender(); dxRender(); scoreRender(); nurseRender(); icuRender(); trialsRender(); clinicBuildList(''); dataBuildList(''); dxBuildList(''); scoreBuildList(''); nurseBuildList(''); icuBuildList(''); trialsBuildList(''); }catch(e){ console.error('init',e); }
 }
 
 window.addEventListener('DOMContentLoaded', onLoad);
