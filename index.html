@@ -445,6 +445,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
     <button class="tab" onclick="gT('scores',this)">SCORES</button>
     <button class="tab" onclick="gT('nursing',this)">NURSING</button>
     <button class="tab" onclick="gT('icu',this)">ICU ORDERS</button>
+    <button class="tab" onclick="gT('soap',this)">SOAP NOTE</button>
   </div>
 </div>
 
@@ -636,6 +637,406 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   <div id="icu-list"></div>
 </div>
 
+
+<div id="panel-soap" class="panel">
+  <div class="h1">Problem-Based <span>SOAP Note</span></div>
+  <div style="font-size:24px;color:var(--t3);margin-bottom:18px;">Tap a section to expand. Each problem gets its own S/O/A/P block.</div>
+
+  <!-- OVERVIEW CARD -->
+  <div class="card" style="margin-bottom:14px;border-left:3px solid var(--g);">
+    <div style="font-family:var(--mono);font-size:11px;color:var(--g);letter-spacing:.1em;margin-bottom:10px;">WHAT IS A PROBLEM-BASED NOTE?</div>
+    <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:8px;">Unlike a single-block SOAP, the <b>problem-based format</b> lists each active issue separately — each with its own mini-assessment and plan. This is how attendings think, how notes are graded, and how you avoid burying the chest pain under the UTI.</p>
+    <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:0;">Structure: <span style="color:var(--g);font-family:var(--mono);">S</span> once (shared) → <span style="color:var(--g2);font-family:var(--mono);">O</span> once (shared) → <span style="color:var(--g3);font-family:var(--mono);">A/P</span> per problem, numbered and prioritized by severity.</p>
+  </div>
+
+  <!-- SECTION: SUBJECTIVE -->
+  <div class="card soap-section" style="margin-bottom:10px;cursor:pointer;" onclick="toggleSoap('soap-s')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g);letter-spacing:.1em;">S — SUBJECTIVE</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="soap-s-chevron">▸</div>
+    </div>
+    <div style="font-size:16px;color:var(--t2);margin-top:4px;">Patient's story, overnight events, symptoms</div>
+  </div>
+  <div id="soap-s" style="display:none;margin-bottom:14px;">
+    <div class="card" style="border-left:3px solid var(--g);">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g);letter-spacing:.1em;margin-bottom:10px;">WHAT GOES IN SUBJECTIVE</div>
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:10px;">One shared S block at the top — you don't repeat it per problem.</p>
+
+      <div style="font-family:var(--mono);font-size:11px;color:var(--t2);letter-spacing:.1em;margin-bottom:6px;">ELEMENTS TO INCLUDE</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:4px;">OVERNIGHT EVENTS</div>
+          <div style="font-size:15px;color:var(--t);line-height:1.6;">New fevers, desats, rhythm changes, falls, new complaints, nursing concerns. If nothing: <span style="color:var(--g2);font-family:var(--mono);">"No acute overnight events."</span></div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:4px;">HOW THE PATIENT FEELS TODAY</div>
+          <div style="font-size:15px;color:var(--t);line-height:1.6;">Quote them directly when helpful: <span style="color:var(--g2);font-family:var(--mono);">"Patient reports feeling better, pain now 3/10 vs 8/10 yesterday."</span> Always note trajectory — better, worse, or same.</div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:4px;">SYMPTOM REVIEW FOR ACTIVE PROBLEMS</div>
+          <div style="font-size:15px;color:var(--t);line-height:1.6;">Brief symptom check relevant to your problem list — not a full ROS. Chest pain, dyspnea, nausea, bowel/urine output, ambulation.</div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:4px;">COMMON INTERN MISTAKE</div>
+          <div style="font-size:15px;color:var(--t);line-height:1.6;">Writing a full HPI here. The S in a daily progress note is brief — 3–5 lines. Save the full narrative for admissions and H&Ps.</div>
+        </div>
+      </div>
+
+      <div style="font-family:var(--mono);font-size:11px;color:var(--t2);letter-spacing:.1em;margin-bottom:6px;">EXAMPLE SUBJECTIVE</div>
+      <div style="background:var(--s2);border:1px solid var(--b2);border-radius:8px;padding:13px 15px;font-family:var(--mono);font-size:14px;color:var(--t);line-height:1.7;">
+        55M HD#3 for CAP / sepsis.<br>
+        No acute overnight events per nursing. Afebrile overnight.<br>
+        Patient reports improved dyspnea — "breathing is easier." Cough productive, less than yesterday. Appetite returning. No new chest pain or hemoptysis. No diarrhea.
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION: OBJECTIVE -->
+  <div class="card soap-section" style="margin-bottom:10px;cursor:pointer;" onclick="toggleSoap('soap-o')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g2);letter-spacing:.1em;">O — OBJECTIVE</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="soap-o-chevron">▸</div>
+    </div>
+    <div style="font-size:16px;color:var(--t2);margin-top:4px;">Vitals, exam, labs, imaging — what you measured</div>
+  </div>
+  <div id="soap-o" style="display:none;margin-bottom:14px;">
+    <div class="card" style="border-left:3px solid var(--g2);">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g2);letter-spacing:.1em;margin-bottom:10px;">WHAT GOES IN OBJECTIVE</div>
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:10px;">Also one shared O block. Present it in a logical order: vitals → I/Os → exam → relevant labs → imaging. Don't bury critical values.</p>
+
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:6px;">VITALS — INCLUDE ALL 24H</div>
+          <div style="font-size:15px;color:var(--t);line-height:1.6;margin-bottom:6px;">Report Tmax (not just current), HR range, BP range, SpO₂ (and O₂ requirement). Always contextualize: <span style="color:var(--g2);font-family:var(--mono);">Tmax 38.4°C at 02:00, currently 37.1°C.</span></div>
+          <div style="font-size:14px;color:var(--t3);line-height:1.5;">T: Tmax / current &nbsp;·&nbsp; HR: range &nbsp;·&nbsp; BP: range &nbsp;·&nbsp; RR &nbsp;·&nbsp; SpO₂ on [device/FiO₂] &nbsp;·&nbsp; Weight</div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:6px;">I/Os (INPUTS / OUTPUTS)</div>
+          <div style="font-size:15px;color:var(--t);line-height:1.6;">24h I/O and cumulative balance when relevant (sepsis, CHF, AKI, post-op). <span style="color:var(--g2);font-family:var(--mono);">I: 1800mL · O: 1200mL · Net: +600mL · Cumulative: +2.4L</span></div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:6px;">PHYSICAL EXAM — PROBLEM-FOCUSED</div>
+          <div style="font-size:15px;color:var(--t);line-height:1.6;margin-bottom:8px;">Lead with general, then systems relevant to your problems. You don't need to document every system every day — focus on what changed and what's pertinent.</div>
+          <div style="font-size:14px;color:var(--t3);line-height:1.8;">
+            <b style="color:var(--t2);">Gen:</b> Alert, NAD, sitting up in bed<br>
+            <b style="color:var(--t2);">HEENT:</b> Sclera non-icteric, MM moist<br>
+            <b style="color:var(--t2);">CV:</b> RRR, no murmurs, no JVD, no peripheral edema<br>
+            <b style="color:var(--t2);">Pulm:</b> Decreased BS at R base, dullness to percussion, no wheeze<br>
+            <b style="color:var(--t2);">Abd:</b> Soft, non-tender, non-distended, BS present<br>
+            <b style="color:var(--t2);">Ext:</b> Warm, no calf tenderness, no edema<br>
+            <b style="color:var(--t2);">Neuro:</b> A+Ox3, CN grossly intact<br>
+            <b style="color:var(--t2);">Skin:</b> No new rashes, wound clean/dry/intact
+          </div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:6px;">LABS — TREND, DON'T JUST LIST</div>
+          <div style="font-size:15px;color:var(--t);line-height:1.6;margin-bottom:6px;">Report today's value with yesterday's in parentheses. This shows trajectory at a glance. Bold or flag critical values.</div>
+          <div style="font-size:14px;color:var(--t3);font-family:var(--mono);line-height:1.8;">
+            WBC 11.2 (↓ from 18.4) · Hgb 9.1 (stable) · Plt 210<br>
+            Na 138 · K 3.8 · Cl 104 · HCO₃ 24 · BUN 22 · Cr 1.1 (↓ from 1.6)<br>
+            Lactate 1.2 (↓ from 3.8) · Procalcitonin 1.4 (↓ from 14.2)<br>
+            Blood cultures: NGTD × 48h
+          </div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:4px;">COMMON INTERN MISTAKE</div>
+          <div style="font-size:15px;color:var(--t);line-height:1.6;">Copy-pasting a wall of labs without interpretation. Your attendings skim — put the signal up front. Abnormals and trends > a full panel.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION: ASSESSMENT -->
+  <div class="card soap-section" style="margin-bottom:10px;cursor:pointer;" onclick="toggleSoap('soap-a')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g3);letter-spacing:.1em;">A/P — ASSESSMENT & PLAN (per problem)</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="soap-a-chevron">▸</div>
+    </div>
+    <div style="font-size:16px;color:var(--t2);margin-top:4px;">The intellectual core of your note — your thinking</div>
+  </div>
+  <div id="soap-a" style="display:none;margin-bottom:14px;">
+    <div class="card" style="border-left:3px solid var(--g3);">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g3);letter-spacing:.1em;margin-bottom:10px;">HOW TO STRUCTURE EACH PROBLEM</div>
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">Number your problems. Put the most acute/life-threatening issue <b>first</b>, not the admitting diagnosis if something more urgent is happening. Each problem block has: <span style="color:var(--g3);">name → one-line assessment → plan bullets.</span></p>
+
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:6px;">PROBLEM BLOCK ANATOMY</div>
+          <div style="background:var(--s2);border:1px solid var(--b2);border-radius:8px;padding:13px 15px;font-family:var(--mono);font-size:14px;color:var(--t);line-height:1.8;margin-bottom:10px;">
+            <span style="color:var(--g3);">#1. Community-Acquired Pneumonia</span><br>
+            <span style="color:var(--t2);">— Clinically improving: Tmax trending down, WBC 11 from 18, CXR stable R lower lobe infiltrate. Day 3 of CTX/azithromycin.</span><br>
+            &nbsp;&nbsp;• Continue ceftriaxone 1g IV q24h + azithromycin 500mg PO q24h<br>
+            &nbsp;&nbsp;• Target 5-day course — plan PO step-down tomorrow if tolerating<br>
+            &nbsp;&nbsp;• Follow up sputum culture — no growth at 48h<br>
+            &nbsp;&nbsp;• Maintain O₂ sat >94%, wean supplemental O₂ as tolerated<br>
+            &nbsp;&nbsp;• Repeat CXR in 6 weeks to confirm resolution (outpatient)
+          </div>
+          <div style="background:var(--s2);border:1px solid var(--b2);border-radius:8px;padding:13px 15px;font-family:var(--mono);font-size:14px;color:var(--t);line-height:1.8;margin-bottom:10px;">
+            <span style="color:var(--g3);">#2. Sepsis — resolving</span><br>
+            <span style="color:var(--t2);">— Source = CAP. Lactate normalized (1.2), hemodynamically stable, no pressors. MAP >65 throughout.</span><br>
+            &nbsp;&nbsp;• No further fluid boluses — net positive 2.4L, monitor for fluid overload<br>
+            &nbsp;&nbsp;• Blood cultures NGTD — continue to monitor<br>
+            &nbsp;&nbsp;• Daily lactate if clinical concern recurs
+          </div>
+          <div style="background:var(--s2);border:1px solid var(--b2);border-radius:8px;padding:13px 15px;font-family:var(--mono);font-size:14px;color:var(--t);line-height:1.8;">
+            <span style="color:var(--g3);">#3. AKI — resolving</span><br>
+            <span style="color:var(--t2);">— Cr trending down (1.1 from 1.6 peak). Likely prerenal in setting of sepsis + poor PO. Improving with hydration.</span><br>
+            &nbsp;&nbsp;• Continue IVF at reduced rate — transition to PO intake<br>
+            &nbsp;&nbsp;• Trend Cr daily<br>
+            &nbsp;&nbsp;• Avoid nephrotoxins — hold NSAIDs, dose-adjust renally cleared meds<br>
+            &nbsp;&nbsp;• Reassess need for BMP tomorrow
+          </div>
+        </div>
+
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:6px;">HOW TO WRITE THE ONE-LINE ASSESSMENT</div>
+          <div style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:8px;">This is the hardest part for interns. It should answer: <i>"What is going on with this problem and why?"</i> It should NOT just restate what you'll do.</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="background:var(--s2);border-radius:6px;padding:9px 12px;">
+              <div style="font-family:var(--mono);font-size:10px;color:var(--g4);margin-bottom:3px;">✗ WEAK (no thinking)</div>
+              <div style="font-size:14px;color:var(--t3);font-family:var(--mono);">CAP — will continue antibiotics.</div>
+            </div>
+            <div style="background:var(--s2);border-radius:6px;padding:9px 12px;">
+              <div style="font-family:var(--mono);font-size:10px;color:var(--g);margin-bottom:3px;">✓ STRONG (shows synthesis)</div>
+              <div style="font-size:14px;color:var(--t);font-family:var(--mono);">CAP — improving clinically and biochemically (WBC ↓, Tmax ↓, lactate normalized). Likely typical bacterial pathogen (rapid antigen neg for flu, minimal atypical risk). On track for 5-day course.</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:6px;">PROBLEM PRIORITIZATION — HOW TO ORDER</div>
+          <div style="font-size:15px;color:var(--t);line-height:1.65;">
+            <b>1. Most life-threatening active problem first</b> (sepsis, hemodynamic instability, ACS, airway)<br>
+            <b>2. Admitting diagnosis</b> (if not already #1)<br>
+            <b>3. Active medical issues</b> (AKI, electrolyte derangements, anemia)<br>
+            <b>4. Chronic disease management</b> (DM, HTN, COPD — relevant to hospitalization)<br>
+            <b>5. Prophylaxis &amp; disposition</b> (DVT ppx, foley removal, diet, PT/OT, discharge planning)
+          </div>
+        </div>
+
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:6px;">STANDING PROBLEMS — ALWAYS ADDRESS</div>
+          <div style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:6px;">Even if "unchanged," briefly note status so readers know you checked:</div>
+          <div style="font-size:14px;color:var(--t3);font-family:var(--mono);line-height:1.8;">
+            #N. DVT prophylaxis — Enoxaparin 40mg SQ qd. No contraindications.<br>
+            #N. Diet / nutrition — Advanced to regular diet, tolerating POs.<br>
+            #N. Lines / catheters — PIV only. No Foley. Remove PIV if d/c tomorrow.<br>
+            #N. Disposition — Target discharge HD#4 if continued improvement. PCP follow-up arranged.
+          </div>
+        </div>
+
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:4px;">COMMON INTERN MISTAKES</div>
+          <div style="font-size:15px;color:var(--t);line-height:1.65;">
+            • <b>Listing plans without assessments</b> — every problem needs a one-line "why" before the bullets<br>
+            • <b>Forgetting discharge planning</b> — start from day 1; attendings will ask every round<br>
+            • <b>Not addressing chronic meds</b> — held home meds must appear and have a reason<br>
+            • <b>Missing the safety net</b> — add what you'd watch for: "if worsening X → escalate to Y"
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION: DAILY STRUCTURE -->
+  <div class="card soap-section" style="margin-bottom:10px;cursor:pointer;" onclick="toggleSoap('soap-daily')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g2);letter-spacing:.1em;">DAILY WORKFLOW — MORNING TO NOTE</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="soap-daily-chevron">▸</div>
+    </div>
+    <div style="font-size:16px;color:var(--t2);margin-top:4px;">How to pre-round, present, and get your notes done</div>
+  </div>
+  <div id="soap-daily" style="display:none;margin-bottom:14px;">
+    <div class="card" style="border-left:3px solid var(--g2);">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g2);letter-spacing:.1em;margin-bottom:10px;">PRE-ROUND SEQUENCE</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:16px;">
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;display:flex;gap:12px;align-items:flex-start;">
+          <div style="font-family:var(--mono);font-size:13px;color:var(--g);min-width:28px;margin-top:1px;">①</div>
+          <div>
+            <div style="font-size:15px;color:var(--t);font-weight:500;margin-bottom:2px;">Pull overnight vitals & I/Os</div>
+            <div style="font-size:13px;color:var(--t3);line-height:1.5;">Tmax, HR/BP ranges, O₂ req, fluid balance. Flag anything that changed overnight before you walk in the room.</div>
+          </div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;display:flex;gap:12px;align-items:flex-start;">
+          <div style="font-family:var(--mono);font-size:13px;color:var(--g);min-width:28px;margin-top:1px;">②</div>
+          <div>
+            <div style="font-size:15px;color:var(--t);font-weight:500;margin-bottom:2px;">Review morning labs</div>
+            <div style="font-size:13px;color:var(--t3);line-height:1.5;">BMP, CBC, any cultures back, any new results. Note trends vs yesterday — that's the story.</div>
+          </div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;display:flex;gap:12px;align-items:flex-start;">
+          <div style="font-family:var(--mono);font-size:13px;color:var(--g);min-width:28px;margin-top:1px;">③</div>
+          <div>
+            <div style="font-size:15px;color:var(--t);font-weight:500;margin-bottom:2px;">Read nursing notes</div>
+            <div style="font-size:13px;color:var(--t3);line-height:1.5;">Nurses document what they see hourly. Overnight events, behavior changes, patient complaints — often the most useful S data.</div>
+          </div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;display:flex;gap:12px;align-items:flex-start;">
+          <div style="font-family:var(--mono);font-size:13px;color:var(--g);min-width:28px;margin-top:1px;">④</div>
+          <div>
+            <div style="font-size:15px;color:var(--t);font-weight:500;margin-bottom:2px;">See the patient — exam & brief interview</div>
+            <div style="font-size:13px;color:var(--t3);line-height:1.5;">"How did you sleep? Any new symptoms overnight? Pain now vs yesterday?" Then your exam. Takes 5–8 min. Don't skip it for notes.</div>
+          </div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;display:flex;gap:12px;align-items:flex-start;">
+          <div style="font-family:var(--mono);font-size:13px;color:var(--g);min-width:28px;margin-top:1px;">⑤</div>
+          <div>
+            <div style="font-size:15px;color:var(--t);font-weight:500;margin-bottom:2px;">Build your problem list & formulate plans</div>
+            <div style="font-size:13px;color:var(--t3);line-height:1.5;">Before writing a word: decide your problems in priority order and your one-sentence assessment for each. Know your plan before you type it.</div>
+          </div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;display:flex;gap:12px;align-items:flex-start;">
+          <div style="font-family:var(--mono);font-size:13px;color:var(--g);min-width:28px;margin-top:1px;">⑥</div>
+          <div>
+            <div style="font-size:15px;color:var(--t);font-weight:500;margin-bottom:2px;">Write the note</div>
+            <div style="font-size:13px;color:var(--t3);line-height:1.5;">S → O → A/P per problem. Target: note done before rounds so your attending can read it. A note on rounds is better than no note, but barely.</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g2);letter-spacing:.1em;margin-bottom:8px;">PRESENTATION FORMAT (1-LINER THEN SYSTEMS)</div>
+      <div style="background:var(--s3);border-radius:8px;padding:12px 14px;margin-bottom:10px;">
+        <div style="font-size:15px;color:var(--t);line-height:1.7;margin-bottom:8px;"><b>Opening sentence:</b> <span style="color:var(--g2);font-family:var(--mono);">[Name], [age][sex], HD#[X] for [primary diagnosis], now presenting with [major overnight development or "no acute overnight events"].</span></div>
+        <div style="background:var(--s2);border:1px solid var(--b2);border-radius:6px;padding:10px 13px;font-family:var(--mono);font-size:14px;color:var(--t);line-height:1.7;">
+          "Mr. Smith is a 55-year-old man, hospital day 3 for community-acquired pneumonia with sepsis, who has no acute overnight events and reports improvement in dyspnea."
+        </div>
+      </div>
+      <div style="font-size:15px;color:var(--t3);line-height:1.65;">Then: vitals → I/Os → exam findings → labs → plan per problem. Keep it to 3–4 minutes per patient or you will lose your team.</div>
+    </div>
+  </div>
+
+  <!-- SECTION: FULL EXAMPLE -->
+  <div class="card soap-section" style="margin-bottom:10px;cursor:pointer;" onclick="toggleSoap('soap-ex')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g);letter-spacing:.1em;">FULL EXAMPLE NOTE — CAP / SEPSIS / AKI</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="soap-ex-chevron">▸</div>
+    </div>
+    <div style="font-size:16px;color:var(--t2);margin-top:4px;">Complete annotated progress note you can model</div>
+  </div>
+  <div id="soap-ex" style="display:none;margin-bottom:14px;">
+    <div class="card" style="border-left:3px solid var(--g);">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g);letter-spacing:.1em;margin-bottom:12px;">INTERNAL MEDICINE PROGRESS NOTE — HD#3</div>
+      <div style="background:var(--s2);border:1px solid var(--b2);border-radius:10px;padding:16px 18px;font-family:var(--mono);font-size:14px;color:var(--t);line-height:1.85;">
+
+        <div style="color:var(--g);margin-bottom:4px;">SUBJECTIVE</div>
+        55M HD#3 for CAP with sepsis and AKI.<br>
+        No acute overnight events per nursing. Afebrile since 0200.<br>
+        Patient reports significant improvement in breathing — "I feel much better." Cough productive with decreased frequency. Tolerating oral fluids. No new chest pain, hemoptysis, or diarrhea. Ambulated to bathroom independently this morning.<br><br>
+
+        <div style="color:var(--g2);margin-bottom:4px;">OBJECTIVE</div>
+        <span style="color:var(--t2);">Vitals (24h):</span> Tmax 38.4°C (0200) → 37.1°C now | HR 78–102 | BP 112–134/70–84 | RR 18 | SpO₂ 95% on 2L NC (was 4L) | Wt 82kg<br>
+        <span style="color:var(--t2);">I/O (24h):</span> In 2100mL / Out 1750mL / Net +350mL / Cumulative +2.8L<br><br>
+        <span style="color:var(--t2);">Exam:</span><br>
+        Gen: Alert, NAD, conversational, sitting up eating breakfast<br>
+        HEENT: MM moist, no LAD<br>
+        CV: RRR, no murmurs/rubs/gallops, no JVD<br>
+        Pulm: Dullness to percussion at R base, decreased BS R>L, no wheeze, improved from yesterday<br>
+        Abd: Soft, non-tender, non-distended, normoactive BS<br>
+        Ext: Warm, well-perfused, trace bilateral ankle edema (new — likely resuscitation-related), no calf tenderness<br>
+        Neuro: A+Ox3, appropriate<br><br>
+        <span style="color:var(--t2);">Labs:</span><br>
+        WBC 11.2 (↓18.4) | Hgb 9.8 (stable) | Plt 210<br>
+        Na 138 | K 4.1 | Cr 1.1 (↓1.6 peak) | BUN 24 | HCO₃ 23<br>
+        Lactate 1.2 (↓3.8) | Procalcitonin 1.4 (↓14.2)<br>
+        BCx ×2: NGTD at 60h | Sputum: GPC in pairs, moderate PMNs, final pending<br><br>
+        <span style="color:var(--t2);">Imaging:</span> CXR (AM): R lower lobe consolidation, stable vs yesterday. No new effusion.<br><br>
+
+        <div style="color:var(--g3);margin-bottom:4px;">ASSESSMENT & PLAN</div>
+
+        <span style="color:var(--g3);">#1. Community-Acquired Pneumonia — Clinically improving</span><br>
+        Tmax trending down, WBC halved, O₂ requirement reduced from 4L→2L NC. Sputum Gram stain with GPC — S. pneumoniae most likely. On track for 5-day course.<br>
+        &nbsp;&nbsp;• Continue ceftriaxone 1g IV q24h; plan PO amoxicillin 1g TID step-down tomorrow if tolerating<br>
+        &nbsp;&nbsp;• Continue azithromycin 500mg PO q24h (day 3 of 5)<br>
+        &nbsp;&nbsp;• Titrate O₂ to SpO₂ >94%; wean to RA as tolerated<br>
+        &nbsp;&nbsp;• Await final sputum cultures — narrow if sensitivities available<br>
+        &nbsp;&nbsp;• Repeat CXR at discharge; outpatient follow-up CXR in 6 weeks<br><br>
+
+        <span style="color:var(--g3);">#2. Sepsis — Resolved</span><br>
+        Source = CAP. Lactate normal, hemodynamically stable ×24h, no vasopressors. Fluid resuscitation complete.<br>
+        &nbsp;&nbsp;• Antibiotics as above<br>
+        &nbsp;&nbsp;• Hold further IVF — cumulative positive 2.8L, note trace edema<br>
+        &nbsp;&nbsp;• Blood cultures NGTD — no source control issue<br><br>
+
+        <span style="color:var(--g3);">#3. AKI (Cr 1.6 → 1.1) — Resolving</span><br>
+        Prerenal etiology in setting of sepsis-related hypoperfusion and poor PO intake. Responding to IV hydration. No contrast, no nephrotoxin exposure.<br>
+        &nbsp;&nbsp;• Advance diet — encourage oral fluids; d/c maintenance IVF<br>
+        &nbsp;&nbsp;• Trend Cr daily; target BMP tomorrow<br>
+        &nbsp;&nbsp;• Hold NSAIDs indefinitely; renally dose any new meds<br>
+        &nbsp;&nbsp;• If Cr not trending to baseline by discharge → outpatient nephrology referral<br><br>
+
+        <span style="color:var(--g3);">#4. New trace bilateral ankle edema</span><br>
+        Likely resuscitation-related fluid shift rather than cardiac decompensation — no JVD, no new dyspnea, HR controlled. Low suspicion for new CHF in this context.<br>
+        &nbsp;&nbsp;• No diuresis at this time — will reassess in 24h<br>
+        &nbsp;&nbsp;• If respiratory status worsens or edema increases → repeat BNP, consider echo<br><br>
+
+        <span style="color:var(--g3);">#5. DM Type 2 (home: metformin)</span><br>
+        Metformin held on admission (AKI + contrast risk). Fingersticks 120–180 range on hospital insulin protocol.<br>
+        &nbsp;&nbsp;• Continue sliding scale insulin<br>
+        &nbsp;&nbsp;• Resume metformin at discharge once Cr at baseline<br><br>
+
+        <span style="color:var(--g3);">#6. Prophylaxis / Safety</span><br>
+        &nbsp;&nbsp;• DVT ppx: Enoxaparin 40mg SQ qd — no contraindications<br>
+        &nbsp;&nbsp;• GI ppx: Not indicated (no high-risk features, not on steroids)<br>
+        &nbsp;&nbsp;• Lines: PIV only. No Foley. No central line.<br>
+        &nbsp;&nbsp;• Diet: Regular diet; advance as tolerated<br>
+        &nbsp;&nbsp;• Activity: Ambulate TID with nursing<br><br>
+
+        <span style="color:var(--g3);">#7. Disposition</span><br>
+        Target discharge HD#4 pending: continued clinical improvement, Cr trending to baseline, O₂ wean to RA, tolerating PO antibiotics. PCP follow-up within 1 week. Discharge CXR planned.
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION: COMMON PITFALLS -->
+  <div class="card soap-section" style="margin-bottom:10px;cursor:pointer;" onclick="toggleSoap('soap-pitfalls')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g4);letter-spacing:.1em;">PEARLS & PITFALLS</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="soap-pitfalls-chevron">▸</div>
+    </div>
+    <div style="font-size:16px;color:var(--t2);margin-top:4px;">What separates a good intern note from a bad one</div>
+  </div>
+  <div id="soap-pitfalls" style="display:none;margin-bottom:14px;">
+    <div class="card" style="border-left:3px solid var(--g4);">
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:5px;">✦ THINK IN PROBLEMS, NOT SYSTEMS</div>
+          <div style="font-size:15px;color:var(--t);line-height:1.65;">A system-based note (CV, Pulm, Renal…) forces the reader to mentally regroup. A problem-based note mirrors how consultants and attendings think — and it makes your reasoning visible.</div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:5px;">✦ YOUR ASSESSMENT IS YOUR MOST IMPORTANT SENTENCE</div>
+          <div style="font-size:15px;color:var(--t);line-height:1.65;">Anyone can copy-paste labs. The one-line synthesis ("improving/worsening/stable because X") is what demonstrates you understand the patient. This is what attendings evaluate.</div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:5px;">✦ TREND EVERYTHING</div>
+          <div style="font-size:15px;color:var(--t);line-height:1.65;">Cr 1.1 means nothing. Cr 1.1 (↓ from 1.6 yesterday, peak 2.2 on admission) tells the whole story. Always show direction and time context.</div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:5px;">✦ HELD HOME MEDS MUST APPEAR</div>
+          <div style="font-size:15px;color:var(--t);line-height:1.65;">Every held home medication needs to show up on your problem list — with a reason (AKI, NPO, renal dosing) and a plan to restart. Missing this is a patient safety issue and a billing issue.</div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:5px;">✦ DISCHARGE PLANNING STARTS ON DAY 1</div>
+          <div style="font-size:15px;color:var(--t);line-height:1.65;">What criteria need to be met for discharge? What follow-up does the patient need? Who needs to be notified (PCP, subspecialty)? Write this on every note — even day 1. It forces you to define your endpoint.</div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:5px;">✦ ADDRESS THE INCIDENTAL FINDINGS</div>
+          <div style="font-size:15px;color:var(--t);line-height:1.65;">Lung nodule on CT done for another reason. Mildly elevated ALT. Incidentaloma. These must appear in your note — even if just "incidentally noted, will follow up outpatient." Ignoring them creates medicolegal exposure.</div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:5px;">✦ NEVER SIGN A NOTE YOU HAVEN'T ACTED ON</div>
+          <div style="font-size:15px;color:var(--t);line-height:1.65;">If you write "check BMP tomorrow" — order it. If you write "discuss with cardiology" — call them. Your note is a contract. Your attending will verify your actions match your note on rounds.</div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:5px;">✦ THE "IF/THEN" RULE</div>
+          <div style="font-size:15px;color:var(--t);line-height:1.65;">For any unstable problem, include what you're watching for and what you'll do: <span style="color:var(--g2);font-family:var(--mono);">"If respiratory status worsens or O₂ req increases → CXR, consider HFNC, pulm consult."</span> This shows anticipatory thinking — attendings love it.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:40px;"></div>
+</div>
+
 </div><!-- .main -->
 
 <!-- Mobile top nav (periodic table) -->
@@ -648,6 +1049,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   <button class="ni scores" id="ni-scores" onclick="gM('scores',this)"><span class="nicon">📈</span><span class="nlbl">Scores</span></button>
   <button class="ni nursing" id="ni-nursing" onclick="gM('nursing',this)"><span class="nicon">🏥</span><span class="nlbl">Nursing</span></button>
   <button class="ni icu" id="ni-icu" onclick="gM('icu',this)"><span class="nicon">⚠️</span><span class="nlbl">ICU</span></button>
+  <button class="ni soap" id="ni-soap" onclick="gM('soap',this)"><span class="nicon">📝</span><span class="nlbl">SOAP</span></button>
 </nav>
 
 </div><!-- .app -->
@@ -661,6 +1063,14 @@ function gT(n,el){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
   const p=document.getElementById('panel-'+n); if(p) p.classList.add('on');
   if(el) el.classList.add('on');
+}
+function toggleSoap(id){
+  const el=document.getElementById(id);
+  const chev=document.getElementById(id+'-chevron');
+  if(!el) return;
+  const open=el.style.display==='block';
+  el.style.display=open?'none':'block';
+  if(chev) chev.textContent=open?'▸':'▾';
 }
 function gM(n,el){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
