@@ -305,7 +305,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   [style*="font-size:21px"]{font-size:14px !important;}
   [style*="font-size:20px"]{font-size:14px !important;}
   /* category labels (11px mono) inside the three panels */
-  #panel-abx [style*="font-size:11px"],#panel-clinic [style*="font-size:11px"],#panel-data [style*="font-size:11px"]{font-size:13px !important;letter-spacing:.12em !important;}
+  #panel-abx [style*="font-size:11px"],#panel-clinic [style*="font-size:11px"],#panel-data [style*="font-size:11px"],#panel-dx [style*="font-size:11px"]{font-size:13px !important;letter-spacing:.12em !important;}
   .clinic-pill{font-size:13px !important;padding:7px 13px !important;}
 
   /* ── CARDS ── */
@@ -575,6 +575,17 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   <div id="data-list"></div>
 </div>
 
+<div id="panel-dx" class="panel">
+  <div class="h1">Diagnostic <span>criteria</span></div>
+  <div style="font-size:24px;color:var(--t3);margin-bottom:14px;">Hard criteria, scores &amp; cutoffs — what defines it, what to order, how to grade severity</div>
+  <div style="position:relative;margin-bottom:12px;">
+    <input type="text" id="dx-search" placeholder="Search disease, criterion, score..." oninput="dxFilter()" autocomplete="off" style="width:100%;box-sizing:border-box;background:var(--s2);border:1px solid var(--b2);border-radius:var(--r);padding:10px 14px 10px 38px;font-family:var(--mono);font-size:13px;color:var(--t);outline:none;">
+    <span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:15px;">⌕</span>
+  </div>
+  <div id="dx-pills" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;"></div>
+  <div id="dx-list"></div>
+</div>
+
 </div><!-- .main -->
 
 <!-- Mobile bottom nav (3 tabs, no More) -->
@@ -583,6 +594,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   <button class="ni" id="ni-drugs" onclick="gM('drugs',this)"><span class="nicon">℞</span><span class="nlbl">By Drug</span></button>
   <button class="ni" id="ni-clinic" onclick="gM('clinic',this)"><span class="nicon">Hx</span><span class="nlbl">Clinic</span></button>
   <button class="ni" id="ni-data" onclick="gM('data',this)"><span class="nicon">≡</span><span class="nlbl">Data</span></button>
+  <button class="ni" id="ni-dx" onclick="gM('dx',this)"><span class="nicon">Δ</span><span class="nlbl">Dx</span></button>
 </nav>
 
 </div><!-- .app -->
@@ -1830,6 +1842,26 @@ var DATA_DATA={
 };
 Object.assign(DATA_DATA,{
   ekg:{name:'EKG',color:'var(--g4)',items:[
+    {id:'sinus',name:'Normal Sinus Rhythm — Definition',normal:'Rate 60–100; upright P in I, II, aVF; INVERTED P in aVR; 1:1 P–QRS; PR 120–200 ms',
+      when:['Every EKG read — establish the rhythm before anything else','The classic pimp question: "How do you know this is sinus?"'],
+      thresholds:[
+        {range:'The criteria for sinus rhythm',meaning:'(1) Rate 60–100 bpm. (2) A P wave before EVERY QRS and a QRS after every P (1:1 conduction). (3) Normal P-wave axis — P UPRIGHT in I, II, and aVF, and INVERTED in aVR. (4) Constant, normal PR interval (120–200 ms). (5) A single, constant P-wave morphology.',action:'Confirm all of these before calling a rhythm "sinus." The single most useful lead is II — a clear upright P before every QRS in lead II is the fastest confirmation.',evidence:'Atrial depolarization spreads from the SA node (high right atrium) downward and leftward — toward the positive pole of lead II and AWAY from aVR — so a normal sinus P is positive in II and negative in aVR.'},
+        {range:'Why aVR is the key teaching point',meaning:'In normal sinus the P wave is NEGATIVE (inverted) in aVR and POSITIVE in I and II. aVR points at the right shoulder, opposite the normal P-wave axis, so a sinus P always points away from it.',action:'If P is UPRIGHT in aVR or INVERTED in II → it is NOT sinus. Think ectopic atrial rhythm, low-atrial/junctional rhythm, or reversed limb leads (a globally inverted P/QRS/T in lead I suggests left–right arm reversal).',evidence:'An inverted P in aVR is the rule in sinus rhythm, not the exception — it is the detail most commonly missed under pressure.'},
+        {range:'Sinus rhythm vs brady / tachy / arrhythmia',meaning:'Sinus rhythm with rate <60 = sinus bradycardia; >100 = sinus tachycardia; beat-to-beat rate variation that tracks respiration = sinus arrhythmia (a normal variant, especially in the young).',action:'Sinus brady is often benign (athletes, sleep, vagal tone, nodal drugs) — treat only if symptomatic. Sinus tach is a SYMPTOM — find the cause (pain, fever, hypovolemia, PE, hyperthyroid, anemia); do not "treat the number."',evidence:'Respiratory sinus arrhythmia reflects normal vagal tone; isolated sinus brady/tachy are sinus rhythms at abnormal rates, not separate arrhythmias.'}
+      ],
+      trend:'When in doubt, hunt the P waves in lead II and on the rhythm strip — a consistent upright P marching out 1:1 before each QRS confirms sinus. Compare to a prior EKG to anchor what is "normal for this patient."',
+      pearls:['Upright P in I, II, aVF + INVERTED P in aVR = sinus.','Lead II is the go-to lead to see sinus P waves.','Upright P in aVR or inverted P in II → ectopic/junctional rhythm or reversed leads.','No P + irregularly irregular = AF; sawtooth = flutter.','Sinus tachycardia is a symptom — treat the cause, not the rate.']},
+    {id:'ekg_read',name:'Systematic 12-Lead Read (the order)',normal:'Rate 60–100, regular, normal axis, PR 120–200, QRS <120, QTc <450/460',
+      when:['Every EKG — read in the SAME order every time so nothing is missed','Always read against the patient\'s prior EKG to define "new"'],
+      thresholds:[
+        {range:'1 · Rate',meaning:'For a regular rhythm: 300 ÷ number of big boxes between R waves (300-150-100-75-60-50). For an irregular rhythm: count R waves on the 10-second strip × 6.',action:'<60 brady, >100 tachy — then look for the why on the rest of the read.',evidence:'The "300 rule" is fast for regular rhythms; the 6-second method handles irregular ones.'},
+        {range:'2 · Rhythm',meaning:'P before every QRS and QRS after every P? Regular or irregular? Is the P axis sinus (see Normal Sinus Rhythm)?',action:'Irregularly irregular + no P = AF; regular narrow at ~150 = flutter with 2:1 block; P and QRS dissociated = complete heart block.',evidence:'Defining the rhythm first prevents misreading ischemia on a chaotic baseline.'},
+        {range:'3 · Axis',meaning:'Look at leads I and aVF. Both UP = normal. I up / aVF down = left axis. I down / aVF up = right axis. Both down = extreme axis.',action:'Left axis → LVH, LAFB, inferior MI. Right axis → RVH, PE, lateral MI, LPFB.',evidence:'The I/aVF quadrant method localizes the axis in seconds.'},
+        {range:'4 · Intervals',meaning:'PR 120–200 ms (long = AV block; short = pre-excitation/WPW). QRS <120 ms (wide = BBB, hyperK, VT, paced). QTc <450 (M)/460 (F) ms.',action:'Long PR → AV block. Wide QRS → BBB vs VT vs hyperkalemia. Long QT → torsades risk; fix K/Mg and stop QT-prolonging drugs.',evidence:'Intervals screen for conduction disease and torsades risk in a single pass.'},
+        {range:'5 · Chambers & ischemia',meaning:'Hypertrophy (Sokolow LVH; RAE/LAE in II and V1), then ST/T changes: elevation (STEMI/pericarditis), depression or T-inversion (ischemia), Q waves (old infarct).',action:'Walk the territories — inferior (II/III/aVF), anterior (V1–V4), lateral (I/aVL/V5–V6) — and compare to a prior.',evidence:'A fixed order ensures hypertrophy and subtle ischemia are not overlooked.'}
+      ],
+      trend:'Read every EKG in the same order every time, and always against the patient\'s prior — pattern recognition is built from the discipline of the sequence, not from guessing.',
+      pearls:['Rate → Rhythm → Axis → Intervals → Chambers → Ischemia, every single time.','Always compare to an old EKG to define what is "new."','A normal EKG never excludes ACS — serial EKGs + troponin if the story fits.']},
     {id:'stemi',name:'ST Elevation / STEMI Criteria',normal:'Isoelectric ST segment',
       thresholds:[
         {range:'STEMI criteria (J-point elevation)',meaning:'New ST elevation at the J point in ≥2 contiguous leads: ≥1 mm in all leads EXCEPT V2–V3; in V2–V3 ≥2 mm (men ≥40), ≥2.5 mm (men <40), ≥1.5 mm (women).',action:'Activate cath lab. Goal door-to-balloon <90 min (or transfer for PCI <120 min, else thrombolytics). ASA + anticoagulation per protocol.',evidence:'4th Universal Definition of MI / ACC-AHA STEMI criteria with sex- and age-specific V2–V3 thresholds.'},
@@ -2429,6 +2461,381 @@ function openDataDrawer(ck,iid){
   buildDrawer(html);
 }
 
+// ============================================================
+// DX — diagnostic criteria, scores & cutoffs
+// ============================================================
+var DX_DATA={
+  crit:{name:'Sepsis & Critical Care',color:'var(--red)',items:[
+    {id:'sepsis',name:'Sepsis & Septic Shock',def:'Life-threatening organ dysfunction from a dysregulated host response to infection (Sepsis-3).',
+      suspect:['Suspected/confirmed infection PLUS new organ dysfunction (hypotension, AMS, oliguria, hypoxia, ileus)','Bedside screen qSOFA ≥2, or unexplained lactate elevation'],
+      criteria:[
+        {label:'Sepsis (Sepsis-3)',detail:'Suspected/documented infection <b>PLUS an acute rise in SOFA ≥2 points</b> from baseline (assume baseline 0 if no known organ dysfunction). Reflects ~10% in-hospital mortality.'},
+        {label:'Septic shock',detail:'Sepsis with BOTH: <b>vasopressors required to keep MAP ≥65 mmHg</b> AND <b>lactate >2 mmol/L</b>, despite adequate fluid resuscitation. ~40% mortality.'},
+        {label:'qSOFA (bedside screen — ≥2 = high risk)',detail:'<b>RR ≥22/min</b> · <b>SBP ≤100 mmHg</b> · <b>altered mentation (GCS <15)</b>. A SCREEN only — does not define sepsis; positive qSOFA prompts full SOFA/workup.'},
+        {label:'SOFA components',detail:'PaO₂/FiO₂, platelets, bilirubin, MAP/pressors, GCS, creatinine/UOP — each scored 0–4. A 2-point acute rise across any = organ dysfunction.',evidence:'Singer et al. The Third International Consensus (Sepsis-3). JAMA 2016.'}
+      ],
+      order:['Lactate now + repeat at 2–4h if >2','Blood cultures ×2 BEFORE antibiotics','CBC, CMP, LFTs, coags/INR, procalcitonin','UA/urine cx, CXR, source-specific imaging','VBG/ABG; central access if shock'],
+      severity:[{label:'Hour-1 bundle',detail:'Measure lactate · blood cultures before abx · broad-spectrum antibiotics · 30 mL/kg crystalloid for hypotension or lactate ≥4 · norepinephrine for MAP <65 after fluids.'}],
+      pearls:['SIRS is no longer required for the definition (Sepsis-3).','Lactate >2 means hypoperfusion even with a normal BP ("cryptic shock").','Norepinephrine is first-line pressor; target MAP ≥65.','Antibiotics within 1 hour — each hour of delay in septic shock raises mortality.']},
+    {id:'ards',name:'ARDS (Berlin)',def:'Acute diffuse inflammatory lung injury → hypoxemia + bilateral infiltrates not explained by cardiac failure.',
+      criteria:[
+        {label:'1. Timing',detail:'Onset <b>within 1 week</b> of a known insult or new/worsening respiratory symptoms.'},
+        {label:'2. Imaging',detail:'<b>Bilateral opacities</b> on CXR/CT not fully explained by effusions, lobar/lung collapse, or nodules.'},
+        {label:'3. Origin of edema',detail:'Respiratory failure <b>not fully explained by cardiac failure or fluid overload</b>; need objective assessment (e.g., echo) to exclude hydrostatic edema if no ARDS risk factor.'},
+        {label:'4. Oxygenation (on PEEP ≥5)',detail:'<b>Mild</b> P/F 200–300 · <b>Moderate</b> P/F 100–200 · <b>Severe</b> P/F ≤100.',evidence:'ARDS Definition Task Force. Berlin Definition. JAMA 2012.'}
+      ],
+      order:['ABG for PaO₂/FiO₂','CXR/CT chest','Echo/BNP to exclude cardiogenic edema','Infectious + inciting-cause workup'],
+      pearls:['Lung-protective vent: Vt 6 mL/kg IBW, plateau pressure <30.','P/F must be measured on PEEP ≥5 cmH₂O.','Prone positioning for P/F <150 reduces mortality.']}
+  ]},
+  cards:{name:'Cardiology',color:'var(--g4)',items:[
+    {id:'mi',name:'Acute MI (4th Universal Def.)',def:'Myocardial injury (troponin) with clinical evidence of acute ischemia.',
+      criteria:[
+        {label:'Core definition',detail:'<b>Rise and/or fall of troponin with ≥1 value >99th percentile URL</b> PLUS ≥1 of: ischemic symptoms, new ischemic ECG changes, new pathologic Q waves, imaging loss of viable myocardium, or thrombus on angiography.'},
+        {label:'STEMI ECG criteria',detail:'New <b>ST elevation at the J point in ≥2 contiguous leads</b>: ≥1 mm everywhere except V2–V3, where threshold is <b>≥2 mm (men ≥40), ≥2.5 mm (men <40), or ≥1.5 mm (women)</b>. New LBBB → apply Sgarbossa.'},
+        {label:'NSTEMI',detail:'Troponin rise/fall with ischemia but <b>no persistent ST elevation</b> — ST depression, T-wave inversion, or even a normal ECG.'},
+        {label:'Type 1 vs Type 2',detail:'<b>Type 1</b> = atherothrombotic plaque rupture. <b>Type 2</b> = supply–demand mismatch (tachycardia, anemia, hypotension, hypoxia) without acute thrombus.',evidence:'Thygesen et al. Fourth Universal Definition of MI. 2018.'}
+      ],
+      order:['Serial high-sensitivity troponin (0 and 1–3h)','12-lead ECG within 10 min; repeat serially','CBC, BMP, lipids, coags','Echo for wall-motion / EF'],
+      pearls:['STEMI = cath lab now (door-to-balloon <90 min).','hs-troponin: a rise/fall pattern separates acute MI from chronic elevation (CKD, HF).','Posterior MI: ST depression V1–V3 with tall R — get posterior leads V7–V9.']},
+    {id:'hf',name:'Heart Failure (Framingham)',def:'Clinical syndrome of congestion/hypoperfusion from impaired filling or ejection.',
+      criteria:[
+        {label:'Framingham — need 2 major OR 1 major + 2 minor',detail:'Validated clinical criteria for CHF.'},
+        {label:'Major criteria',detail:'PND/orthopnea · JVD · rales · cardiomegaly · acute pulmonary edema · S3 gallop · <b>hepatojugular reflux</b> · weight loss ≥4.5 kg in 5d with treatment · CVP >16 cmH₂O.'},
+        {label:'Minor criteria',detail:'Bilateral ankle edema · nocturnal cough · DOE · hepatomegaly · pleural effusion · <b>tachycardia ≥120</b> · vital capacity ↓⅓.'},
+        {label:'BNP / NT-proBNP',detail:'<b>BNP <100</b> (NT-proBNP <300) makes acute HF unlikely; <b>BNP >400</b> (NT-proBNP >900, age-adjusted) supports it. Grey zone 100–400.',evidence:'Framingham Heart Study; BNP per ACC/ESC HF guidelines.'}
+      ],
+      order:['BNP/NT-proBNP','Echo for EF (HFrEF ≤40, HFmrEF 41–49, HFpEF ≥50)','CXR, ECG, troponin','BMP, CBC, TSH, iron studies'],
+      pearls:['HFrEF vs HFpEF defined by EF on echo.','BNP raised by AKI/age/AF; lowered by obesity.','Always name the precipitant: ischemia, AF, dietary/med noncompliance, infection.']},
+    {id:'pericarditis',name:'Acute Pericarditis',def:'Inflammation of the pericardium — diagnose with ≥2 of 4 features.',
+      criteria:[
+        {label:'Need ≥2 of 4',detail:'Diagnosis requires at least two of the following.'},
+        {label:'1. Chest pain',detail:'<b>Pleuritic, sharp, improved by sitting up / leaning forward.</b>'},
+        {label:'2. Friction rub',detail:'Pericardial friction rub on auscultation.'},
+        {label:'3. ECG',detail:'<b>Diffuse (concave-up) ST elevation</b> and/or <b>PR depression</b>.'},
+        {label:'4. Effusion',detail:'New or worsening pericardial effusion on echo.',evidence:'2015 ESC Guidelines on Pericardial Diseases.'}
+      ],
+      order:['ECG','Echo','Troponin (myopericarditis), CRP/ESR','CBC, BMP'],
+      pearls:['High-risk/admit markers: ↑CRP, fever, large effusion, immunosuppression.','NSAIDs + colchicine; colchicine cuts recurrence.','Diffuse ST elevation + PR depression distinguishes from regional STEMI.']},
+    {id:'ie',name:'Infective Endocarditis (Duke)',def:'Infection of endocardium/valves — Modified Duke criteria.',
+      criteria:[
+        {label:'Definite IE',detail:'<b>2 major</b>, OR <b>1 major + 3 minor</b>, OR <b>5 minor</b> criteria.'},
+        {label:'Major #1 — blood cultures',detail:'Typical organism in <b>2 separate cultures</b> (viridans strep, S. gallolyticus/bovis, HACEK, S. aureus, community enterococcus) OR persistently positive cultures.'},
+        {label:'Major #2 — endocardial involvement',detail:'Echo with <b>vegetation, abscess, or new partial dehiscence of a prosthetic valve</b>, OR new valvular regurgitation.'},
+        {label:'Minor criteria',detail:'Predisposition (heart condition/IVDU) · <b>fever ≥38°C</b> · vascular phenomena (emboli, Janeway lesions, mycotic aneurysm) · immunologic phenomena (Osler nodes, Roth spots, RF) · positive culture not meeting major.',evidence:'Li et al. Modified Duke Criteria. Clin Infect Dis 2000.'}
+      ],
+      order:['3 sets blood cultures from separate sites BEFORE abx','TTE then TEE (TEE far more sensitive)','CBC, CRP/ESR, RF, UA','ECG — monitor for new AV block (abscess)'],
+      pearls:['Get 3 culture sets spaced over time before antibiotics.','New AV block suggests perivalvular abscess — surgical.','Surgical indications: HF, uncontrolled infection, large mobile vegetation/embolization.']}
+  ]},
+  pulm:{name:'Pulmonary & VTE',color:'var(--g2)',items:[
+    {id:'pe',name:'Pulmonary Embolism (Wells/PERC)',def:'Thrombus occluding pulmonary arteries — risk-stratify, then image.',
+      criteria:[
+        {label:'Wells score',detail:'Clinical signs of DVT <b>+3</b> · PE most likely dx <b>+3</b> · HR >100 <b>+1.5</b> · immobilization/surgery <4 wk <b>+1.5</b> · prior DVT/PE <b>+1.5</b> · hemoptysis <b>+1</b> · malignancy <b>+1</b>.'},
+        {label:'Wells interpretation',detail:'<b>≤4 = PE unlikely</b> → D-dimer; <b>>4 = PE likely</b> → CT pulmonary angiogram.'},
+        {label:'PERC (rule-OUT, low-risk only)',detail:'If clinically low-risk AND all 8 negative → no testing: <b>age <50, HR <100, SaO₂ ≥95%, no hemoptysis, no estrogen, no prior VTE, no unilateral leg swelling, no recent surgery/trauma</b>.'},
+        {label:'Age-adjusted D-dimer',detail:'For age >50, cutoff = <b>age × 10 µg/L</b> (FEU). A negative D-dimer in the unlikely/low-risk group excludes PE.',evidence:'Wells 2000; Kline PERC 2008; ADJUST-PE JAMA 2014.'}
+      ],
+      order:['D-dimer (if PE unlikely)','CTPA (if PE likely or +D-dimer)','V/Q scan if contrast contraindicated','ECG (S1Q3T3, sinus tach), troponin/BNP + RV on echo/CT for risk'],
+      severity:[{label:'Massive vs submassive',detail:'<b>Massive</b> = sustained hypotension (SBP <90 ≥15 min) → consider systemic thrombolysis. <b>Submassive</b> = RV strain (↑troponin/BNP, RV dilation) but normotensive.'}],
+      pearls:['Use the YEARS algorithm in pregnancy.','Start anticoagulation empirically if high pretest probability and no contraindication while awaiting imaging.']},
+    {id:'dvt',name:'DVT (Wells)',def:'Deep venous thrombosis — Wells score guides US vs D-dimer.',
+      criteria:[
+        {label:'Wells DVT score (1 pt each unless noted)',detail:'Active cancer · paralysis/immobilization · bedridden >3d or surgery <12 wk · tenderness along deep veins · entire leg swollen · <b>calf >3 cm larger than other side</b> · pitting edema · collateral superficial veins · prior DVT · <b>alternative dx as likely −2</b>.'},
+        {label:'Interpretation',detail:'<b>≥2 = DVT likely</b> → compression US. <b><2 = unlikely</b> → D-dimer; if negative, excluded.',evidence:'Wells PS et al. NEJM 2003.'}
+      ],
+      order:['Compression ultrasound (proximal veins)','D-dimer in the unlikely group','Thrombophilia workup if unprovoked/recurrent (after acute phase)'],
+      pearls:['Negative US + negative D-dimer essentially excludes; repeat US in ~1 wk if isolated distal.','Phlegmasia cerulea dolens = limb-threatening emergency.']},
+    {id:'copd_ex',name:'COPD Exacerbation',def:'Acute worsening of respiratory symptoms beyond day-to-day variation requiring added therapy.',
+      criteria:[
+        {label:'Anthonisen cardinal symptoms',detail:'<b>↑ dyspnea, ↑ sputum volume, ↑ sputum purulence.</b> Type 1 = all 3; Type 2 = 2 of 3; Type 3 = 1 + URI/fever. Antibiotics benefit Type 1–2 (especially purulence).'},
+        {label:'Severe markers',detail:'Accessory-muscle use, paradoxical chest wall, <b>RR >25</b>, new cyanosis, hemodynamic instability, AMS, <b>SpO₂ <90%</b>.',evidence:'Anthonisen NR et al. Ann Intern Med 1987; GOLD report.'}
+      ],
+      order:['ABG (CO₂ retention), CXR','CBC, BMP; consider BNP/troponin/D-dimer to exclude mimics','Sputum/viral testing if indicated'],
+      pearls:['Target SpO₂ 88–92% — avoid over-oxygenation (CO₂ narcosis).','BiPAP for hypercapnic respiratory acidosis (pH <7.35).','Prednisone 40 mg ×5d; antibiotics if purulent.']}
+  ]},
+  gi:{name:'GI & Hepatology',color:'var(--g3)',items:[
+    {id:'pancreatitis',name:'Acute Pancreatitis (Atlanta)',def:'Acute pancreatic inflammation — Revised Atlanta requires 2 of 3.',
+      criteria:[
+        {label:'Need 2 of 3',detail:'Diagnosis requires any two of the following.'},
+        {label:'1. Pain',detail:'Characteristic <b>epigastric pain radiating to the back</b>, acute onset.'},
+        {label:'2. Enzymes',detail:'<b>Lipase (or amylase) ≥3× the upper limit of normal.</b> Lipase is more specific and stays elevated longer.'},
+        {label:'3. Imaging',detail:'Characteristic findings on <b>contrast CT, MRI, or US</b> (edema, peripancreatic fat stranding, necrosis).'},
+        {label:'Severity (Atlanta)',detail:'<b>Mild</b>: no organ failure/complications. <b>Moderate</b>: transient organ failure <48h or local complications. <b>Severe</b>: persistent organ failure >48h.',evidence:'Banks PA et al. Revised Atlanta Classification. Gut 2013.'}
+      ],
+      order:['Lipase','CMP, calcium, triglycerides, LFTs (ALT >3× suggests gallstone etiology)','CBC, BUN (prognostic), CRP at 48h','RUQ US for stones; CT at 48–72h if severe/unclear'],
+      severity:[
+        {label:'BISAP (≥3 = severe)',detail:'<b>B</b>UN >25 · <b>I</b>mpaired mental status · <b>S</b>IRS · <b>A</b>ge >60 · <b>P</b>leural effusion. 1 point each.'},
+        {label:'Ranson (admission)',detail:'Age >55, WBC >16k, glucose >200, AST >250, LDH >350 (plus 48h criteria).'}
+      ],
+      pearls:['A rising BUN at 24h is the single best predictor of mortality.','Causes: gallstones & alcohol ≈ 80%; also TG >1000, hypercalcemia, post-ERCP, drugs.','Early goal-directed fluids (LR preferred); no prophylactic antibiotics without infected necrosis.']},
+    {id:'sbp',name:'Spontaneous Bacterial Peritonitis',def:'Infection of ascitic fluid without a surgical source.',
+      criteria:[
+        {label:'Diagnostic threshold',detail:'Ascitic fluid <b>PMN (neutrophil) count ≥250 cells/mm³</b> — diagnostic regardless of culture.'},
+        {label:'Culture',detail:'Positive ascitic culture (usually monomicrobial — E. coli, Klebsiella, Strep) supports but is NOT required; ~40% are culture-negative.'},
+        {label:'Correct for a bloody tap',detail:'Subtract <b>1 PMN per 250 RBCs</b> if the tap is traumatic/bloody.'},
+        {label:'Suspect SECONDARY peritonitis',detail:'If <b>≥2 of</b>: total protein >1 g/dL, glucose <50, LDH > serum ULN; or polymicrobial → get CT, surgery.',evidence:'AASLD Guidance on ascites/SBP.'}
+      ],
+      order:['Diagnostic paracentesis: cell count + diff, culture (into blood-culture bottles at bedside), albumin, total protein','Serum albumin (SAAG ≥1.1 = portal HTN)','CBC, CMP, INR, blood cultures'],
+      pearls:['Tap EVERY cirrhotic with ascites on admission or with any deterioration.','Treat empirically (ceftriaxone) once PMN ≥250 — do not wait for culture.','Albumin 1.5 g/kg day 1 + 1 g/kg day 3 if Cr >1, BUN >30, or bili >4.']},
+    {id:'cholangitis',name:'Acute Cholangitis (Tokyo)',def:'Biliary obstruction + infection — Tokyo Guidelines (TG18).',
+      criteria:[
+        {label:'Suspected vs Definite',detail:'<b>Suspected</b> = 1 item from A + 1 from B or C. <b>Definite</b> = 1 item from each of A, B and C.'},
+        {label:'A — Systemic inflammation',detail:'<b>Fever >38°C / rigors</b>, OR labs <b>WBC <4 or >10</b>, <b>CRP ≥1</b>.'},
+        {label:'B — Cholestasis',detail:'<b>Jaundice (total bili ≥2)</b>, OR LFTs >1.5× ULN (ALP, GGT, AST, ALT).'},
+        {label:'C — Imaging',detail:'<b>Biliary dilation</b>, OR evidence of etiology (stone, stricture, stent).'},
+        {label:'Charcot triad / Reynolds pentad',detail:'Charcot = <b>fever + RUQ pain + jaundice</b>. Reynolds adds <b>hypotension + AMS</b> → suppurative cholangitis, emergency.',evidence:'Tokyo Guidelines 2018 (TG18).'}
+      ],
+      order:['CBC, CMP, LFTs, CRP, lipase, blood cultures','RUQ US first → MRCP/CT; ERCP is diagnostic + therapeutic'],
+      severity:[{label:'TG18 Grade III (severe)',detail:'Organ dysfunction — cardiovascular (pressors), neuro, respiratory (P/F<300), renal (Cr>2), hepatic (INR>1.5), or heme (plt<100k). Needs urgent biliary drainage.'}],
+      pearls:['Definitive treatment is biliary decompression (ERCP) + antibiotics.','Reynolds pentad → decompress emergently.']},
+    {id:'ugib',name:'Upper GI Bleed (Blatchford)',def:'Bleeding proximal to the ligament of Treitz — risk-stratify with GBS.',
+      criteria:[
+        {label:'Glasgow-Blatchford Score (GBS)',detail:'Scores BUN, hemoglobin, SBP, HR ≥100, melena, syncope, liver disease, heart failure — predicts need for intervention.'},
+        {label:'Key cutoff',detail:'<b>GBS 0–1 = very low risk</b> → consider outpatient management. Higher → admit + endoscopy.'},
+        {label:'Upper vs lower clue',detail:'<b>BUN:Cr ratio >30</b> and melena favor an UPPER source; hematochezia is usually lower (but brisk upper can cause it).',evidence:'Blatchford O et al. Lancet 2000.'}
+      ],
+      order:['CBC (serial H/H), BMP, LFTs, coags/INR, type & cross','Lactate if unstable','EGD within 24h (urgent if hemodynamically unstable)'],
+      pearls:['Hemoglobin lags acute bleeding — resuscitate to clinical status, not a single number.','Restrictive transfusion (goal Hgb >7) unless active/massive bleed or cardiac disease.','Variceal bleed: octreotide + ceftriaxone + urgent EGD.']},
+    {id:'hep_enc',name:'Hepatic Encephalopathy',def:'Reversible neuropsychiatric dysfunction in liver failure/shunting.',
+      criteria:[
+        {label:'West Haven grading',detail:'<b>Grade 1</b> mild confusion, ↓attention, sleep reversal. <b>Grade 2</b> lethargy, disorientation to time, <b>asterixis</b>. <b>Grade 3</b> somnolent but rousable, gross disorientation. <b>Grade 4</b> coma.'},
+        {label:'Diagnosis is clinical',detail:'AMS in a cirrhotic/shunt patient after <b>excluding other causes</b>. Ammonia supports but a normal level does NOT exclude, and the level does not track severity.'},
+        {label:'Always find the precipitant',detail:'Infection/SBP, GI bleed, constipation, hypokalemia/alkalosis, dehydration/diuretics, TIPS, sedatives, renal failure.',evidence:'AASLD/EASL HE practice guideline.'}
+      ],
+      order:['Ammonia (supportive only), CMP, CBC','Diagnostic paracentesis to rule out SBP, cultures','Assess for GI bleed; review meds/electrolytes'],
+      pearls:['Lactulose titrated to 2–3 soft stools/day; add rifaximin for recurrence.','Do NOT protein-restrict.','Asterixis is nonspecific (also uremia, CO₂ retention).']}
+  ]},
+  renal:{name:'Renal & Endocrine',color:'var(--g)',items:[
+    {id:'aki',name:'Acute Kidney Injury (KDIGO)',def:'Abrupt decline in kidney function over hours–days.',
+      criteria:[
+        {label:'KDIGO — any one',detail:'<b>↑ Cr ≥0.3 mg/dL within 48h</b>, OR <b>↑ Cr ≥1.5× baseline</b> within 7 days, OR <b>urine output <0.5 mL/kg/h for ≥6h</b>.'},
+        {label:'Staging',detail:'<b>Stage 1</b>: Cr 1.5–1.9× or ↑≥0.3; UOP <0.5 for 6–12h. <b>Stage 2</b>: Cr 2.0–2.9×; UOP <0.5 for ≥12h. <b>Stage 3</b>: Cr ≥3× or ≥4.0, or RRT started, or UOP <0.3 for ≥24h / anuria ≥12h.'},
+        {label:'Localize: pre / intra / post',detail:'<b>FENa <1%</b> (or FEUrea <35% on diuretics) + BUN:Cr >20 → prerenal. <b>FENa >2%</b> + muddy-brown casts → ATN. Bland sediment + obstruction on US → postrenal.',evidence:'KDIGO Clinical Practice Guideline for AKI 2012.'}
+      ],
+      order:['BMP (Cr trend), urinalysis + microscopy (casts), urine lytes for FENa/FEUrea','Renal US (hydronephrosis), bladder scan / post-void residual','Review nephrotoxins/contrast/volume; CK if rhabdo suspected'],
+      severity:[{label:'Emergent dialysis — AEIOU',detail:'<b>A</b>cidosis (refractory) · <b>E</b>lectrolytes (refractory hyperK) · <b>I</b>ntoxications · <b>O</b>verload (refractory pulmonary edema) · <b>U</b>remia (encephalopathy, pericarditis, bleeding).'}],
+      pearls:['Compare to the patient\'s OWN baseline creatinine, not the lab reference.','Muddy-brown granular casts = ATN; RBC casts = GN; WBC casts = AIN/pyelo.','Hold ACEi/ARB/NSAIDs; renally dose all drugs.']},
+    {id:'dka',name:'Diabetic Ketoacidosis',def:'Insulin deficiency → hyperglycemia, ketosis, anion-gap acidosis.',
+      criteria:[
+        {label:'Triad — all three',detail:'<b>Glucose >250 mg/dL</b> (can be lower in euglycemic DKA) · <b>anion-gap metabolic acidosis (pH <7.30, HCO₃ <18)</b> · <b>ketosis (↑β-hydroxybutyrate / + serum/urine ketones)</b>.'},
+        {label:'Severity by pH / HCO₃ / mentation',detail:'<b>Mild</b> pH 7.25–7.30, HCO₃ 15–18, alert. <b>Moderate</b> pH 7.00–7.24, HCO₃ 10–14, drowsy. <b>Severe</b> pH <7.00, HCO₃ <10, stupor/coma.'},
+        {label:'Anion gap',detail:'AG = Na − (Cl + HCO₃); <b>>12</b> = elevated. Track gap closure to gauge resolution.',evidence:'ADA hyperglycemic crises consensus.'}
+      ],
+      order:['BMP (gap, K), VBG/ABG, β-hydroxybutyrate','CBC, phosphate, magnesium','Trigger search: infection (cultures, UA, CXR), troponin/ECG, A1c, lipase'],
+      severity:[{label:'Resolution criteria',detail:'Glucose <200 AND two of: HCO₃ ≥15, venous pH >7.3, anion gap ≤12. Overlap SQ insulin ≥1–2h before stopping the drip.'}],
+      pearls:['Replace K with insulin: if K <3.3, HOLD insulin and replete first.','Fluids first (NS), then insulin drip; add D5 once glucose <200 to keep clearing ketones.','Euglycemic DKA: SGLT2 inhibitors, pregnancy, starvation — glucose can be near-normal.']},
+    {id:'hhs',name:'Hyperosmolar Hyperglycemic State',def:'Severe hyperglycemia + hyperosmolarity without significant ketosis.',
+      criteria:[
+        {label:'Defining features',detail:'<b>Glucose >600 mg/dL</b> · <b>serum osmolality >320 mOsm/kg</b> · <b>minimal ketones, pH >7.30, HCO₃ >18</b> · profound dehydration & AMS.'},
+        {label:'Effective osmolality',detail:'2×Na + glucose/18. Correlates with mental status — coma usually >320–330.',evidence:'ADA hyperglycemic crises consensus.'}
+      ],
+      order:['Glucose, BMP, calculated osmolality, ketones','Trigger workup (infection, MI, stroke, meds)'],
+      pearls:['Fluid deficit (~8–10 L) is larger than DKA — aggressive isotonic fluids are the priority.','Less acidosis/ketosis than DKA but higher mortality.','Correct Na for hyperglycemia.']},
+    {id:'adrenal',name:'Adrenal Insufficiency / Crisis',def:'Inadequate cortisol production — life-threatening when acute.',
+      criteria:[
+        {label:'Random / morning cortisol',detail:'<b>AM cortisol <3 µg/dL</b> strongly suggests AI; <b>>15–18</b> essentially excludes. In shock, an inappropriately low cortisol is telling.'},
+        {label:'Cosyntropin (ACTH) stim test',detail:'250 µg ACTH → cortisol at 30/60 min; <b>peak <18 µg/dL = inadequate</b> = adrenal insufficiency.'},
+        {label:'Primary vs secondary',detail:'<b>Primary (Addison)</b>: ↑ACTH, hyperpigmentation, <b>hyperkalemia + hyponatremia</b>. <b>Secondary</b>: ↓/normal ACTH, no hyperK (aldosterone intact).',evidence:'Endocrine Society guideline on primary AI.'}
+      ],
+      order:['Random cortisol + ACTH BEFORE steroids if possible','Cosyntropin stimulation test','BMP (Na/K/glucose), CBC (eosinophilia)'],
+      pearls:['If crisis suspected, give hydrocortisone 100 mg IV NOW — do not wait for tests.','Dexamethasone does not interfere with the cortisol assay if you must treat before the stim test.']},
+    {id:'thyroid_storm',name:'Thyroid Storm (Burch-Wartofsky)',def:'Decompensated, life-threatening thyrotoxicosis.',
+      criteria:[
+        {label:'Burch-Wartofsky Point Scale',detail:'<b>≥45 = highly suggestive</b> · 25–44 = impending · <25 unlikely. Scores thermoregulation (temp), CNS (agitation→coma), GI/hepatic, cardiovascular (tachycardia, CHF, AF), and a precipitant.'},
+        {label:'Labs',detail:'Suppressed TSH with ↑ free T4/T3 — but storm is a <b>CLINICAL diagnosis</b>; lab values do not differ from uncomplicated thyrotoxicosis.',evidence:'Burch HB, Wartofsky L. Endocrinol Metab Clin 1993.'}
+      ],
+      order:['TSH, free T4, total T3','CBC, CMP, LFTs','Trigger: infection, surgery, iodine/contrast, DKA, amiodarone'],
+      pearls:['Order of treatment: beta-blocker (propranolol) → thionamide (PTU) → iodine (SSKI ≥1h AFTER thionamide) → hydrocortisone.','Never give iodine before the thionamide — it fuels hormone synthesis.']}
+  ]},
+  id:{name:'Infectious Disease',color:'var(--g2)',items:[
+    {id:'meningitis',name:'Bacterial Meningitis (CSF)',def:'Infection of the meninges — CSF profile drives the diagnosis.',
+      criteria:[
+        {label:'CSF in BACTERIAL meningitis',detail:'<b>Opening pressure >25 cmH₂O</b> · <b>WBC 1,000–5,000, neutrophil-predominant</b> · <b>glucose <40 (CSF:serum <0.4)</b> · <b>protein >200 mg/dL</b>.'},
+        {label:'CSF in VIRAL (aseptic)',detail:'WBC 10–500 lymphocytic · <b>normal glucose</b> · mildly ↑ protein · negative Gram stain.'},
+        {label:'Gram stain / culture',detail:'Gram stain positive in 60–90%; culture is the gold standard. Add multiplex PCR panel.'},
+        {label:'CT before LP if',detail:'Immunocompromised, known CNS disease, new seizure, papilledema, focal deficit, or ↓consciousness — image first to avoid herniation.',evidence:'IDSA Practice Guidelines for Bacterial Meningitis.'}
+      ],
+      order:['LP: cell count/diff, glucose, protein, Gram stain, culture, PCR','Blood cultures, CBC, BMP, coags','Do NOT delay antibiotics for imaging/LP'],
+      pearls:['Give dexamethasone + empiric ceftriaxone + vancomycin (± ampicillin for Listeria if >50/immunocompromised) BEFORE or with the first antibiotic dose.','CSF chemistry stays abnormal for hours after antibiotics — cultures may sterilize but CSF is still useful.']},
+    {id:'cdiff',name:'C. difficile Infection',def:'Toxin-mediated colitis, usually post-antibiotic.',
+      criteria:[
+        {label:'Definition',detail:'<b>≥3 unformed stools in 24h</b> PLUS a positive test, in the absence of laxatives.'},
+        {label:'Testing algorithm',detail:'<b>GDH + toxin EIA</b>, with NAAT/PCR to adjudicate discordant results. <b>Do not test formed stool</b> and do not test-of-cure.'},
+        {label:'Severity',detail:'<b>Severe</b> = <b>WBC ≥15k</b> OR <b>Cr ≥1.5 mg/dL</b>. <b>Fulminant</b> = hypotension/shock, ileus, or megacolon.',evidence:'IDSA/SHEA 2021 update.'}
+      ],
+      order:['Stool GDH / toxin / NAAT','CBC (WBC), BMP (Cr)','Abdominal imaging if fulminant (megacolon, ileus)'],
+      pearls:['First-line: oral fidaxomicin or vancomycin (metronidazole only if those are unavailable).','Fulminant: high-dose PO/PR vancomycin + IV metronidazole; surgery consult.','Avoid antimotility agents in severe disease.']},
+    {id:'pyelo',name:'Pyelonephritis',def:'Upper-tract UTI involving the renal parenchyma.',
+      criteria:[
+        {label:'Clinical',detail:'<b>Fever >38°C, flank pain / CVA tenderness, ± nausea/vomiting</b> with pyuria/bacteriuria — distinguishes upper-tract from simple cystitis.'},
+        {label:'UA findings',detail:'<b>Pyuria (≥10 WBC/hpf or + leukocyte esterase)</b> · + nitrites (Enterobacteriaceae) · <b>WBC casts</b> (specific for renal origin) · bacteriuria.'},
+        {label:'Culture',detail:'<b>≥10⁵ CFU/mL</b> (or ≥10⁴ with symptoms) confirms. Always culture in pyelonephritis.',evidence:'IDSA UTI guidelines.'}
+      ],
+      order:['UA + micro, urine culture (before abx)','CBC, BMP, blood cultures if ill','CT/US if obstruction, abscess, or no improvement at 48–72h'],
+      pearls:['An obstructed, infected kidney is an emergency → decompress.','Image if not improving by 48–72h (abscess, stone, emphysematous pyelo).']},
+    {id:'nec_fasc',name:'Necrotizing Fasciitis (LRINEC)',def:'Rapidly spreading deep soft-tissue infection — a surgical emergency.',
+      criteria:[
+        {label:'LRINEC score (≥6 suspicious, ≥8 high risk)',detail:'<b>CRP ≥150</b> (+4) · <b>WBC 15–25</b> (+1) / >25 (+2) · <b>Hgb 11–13.5</b> (+1) / <11 (+2) · <b>Na <135</b> (+2) · <b>Cr >1.6</b> (+2) · <b>glucose >180</b> (+1).'},
+        {label:'Red-flag clinical signs',detail:'<b>Pain out of proportion</b>, rapid progression, skin necrosis/bullae, crepitus, systemic toxicity, "dishwater" discharge.'},
+        {label:'Definitive diagnosis',detail:'<b>Surgical exploration</b> — do NOT let imaging or the score delay the OR when clinical suspicion is high.',evidence:'Wong CH et al. LRINEC. Crit Care Med 2004.'}
+      ],
+      order:['CBC, CMP, CRP, lactate, coags, CK','Blood cultures','Imaging (CT/X-ray for gas) only if it will not delay surgery'],
+      pearls:['Early debridement saves lives — surgery is both diagnostic and therapeutic.','A LOW LRINEC does not rule it out; clinical suspicion overrides.','Broad antibiotics + clindamycin (toxin suppression).']}
+  ]},
+  heme:{name:'Heme-Onc Emergencies',color:'var(--g4)',items:[
+    {id:'dic',name:'DIC (ISTH score)',def:'Systemic activation of coagulation → simultaneous clotting + bleeding.',
+      criteria:[
+        {label:'ISTH score (≥5 = overt DIC)',detail:'<b>Platelets</b> <100k (+1), <50k (+2). <b>D-dimer/FDP</b> moderate↑ (+2), strong↑ (+3). <b>PT prolongation</b> 3–6s (+1), >6s (+2). <b>Fibrinogen <100</b> (+1).'},
+        {label:'Pattern',detail:'Consumption: <b>↓ platelets, ↑ PT/PTT, ↓ fibrinogen, ↑ D-dimer</b>, schistocytes on smear.',evidence:'ISTH DIC scoring system, Thromb Haemost 2001.'}
+      ],
+      order:['CBC + smear, PT/INR, aPTT, fibrinogen, D-dimer','Identify the trigger: sepsis, malignancy, OB catastrophe, trauma'],
+      pearls:['Treat the underlying cause — that is the cure.','Support: FFP/cryo for bleeding, platelets if <50k and bleeding.','Falling fibrinogen + rising D-dimer is the classic trend.']},
+    {id:'hit',name:'HIT (4T score)',def:'Heparin-induced thrombocytopenia — a prothrombotic, immune drug reaction.',
+      criteria:[
+        {label:'4T score (each 0–2)',detail:'<b>Thrombocytopenia</b>: >50% fall & nadir ≥20k = +2. <b>Timing</b>: 5–10 days (or <1d with recent heparin) = +2. <b>Thrombosis</b>: new, confirmed = +2. <b>oTher cause</b>: none apparent = +2.'},
+        {label:'Interpretation',detail:'<b>0–3 low</b> (HIT unlikely, high NPV) · <b>4–5 intermediate</b> · <b>6–8 high</b>. Score decides whether to send the antibody.'},
+        {label:'Confirmatory testing',detail:'<b>PF4 ELISA</b> (sensitive screen) → <b>serotonin release assay (SRA)</b> = gold-standard functional confirmation.',evidence:'Warkentin 4Ts; ASH HIT guideline.'}
+      ],
+      order:['CBC platelet trend; PF4 antibody if 4T ≥4; SRA to confirm','Duplex/imaging for thrombosis'],
+      pearls:['Stop ALL heparin (including flushes) and start a non-heparin anticoagulant (argatroban/fondaparinux).','Do NOT transfuse platelets — prothrombotic.','Do NOT start warfarin until platelets recover (limb-gangrene risk).']},
+    {id:'ttp',name:'TTP (PLASMIC score)',def:'Thrombotic microangiopathy from ADAMTS13 deficiency.',
+      criteria:[
+        {label:'Pentad (rarely all present)',detail:'<b>MAHA + thrombocytopenia</b> (the two essentials) + fever + renal + neuro. Don\'t wait for all five.'},
+        {label:'PLASMIC score (≥6 = high risk)',detail:'Platelets <30k · hemolysis (retic >2.5%, undetectable haptoglobin, indirect bili >2) · no active cancer · no transplant · <b>MCV <90</b> · <b>INR <1.5</b> · <b>Cr <2.0</b>.'},
+        {label:'Confirmatory',detail:'<b>ADAMTS13 activity <10%</b> confirms (± inhibitor). Smear shows schistocytes.',evidence:'Bendapudi PK et al. PLASMIC. Lancet Haematol 2017.'}
+      ],
+      order:['CBC + smear (schistocytes), retic, LDH, haptoglobin, bilirubin','ADAMTS13 BEFORE plasma exchange','Coags (normal PT/PTT separates it from DIC), Cr'],
+      pearls:['Plasma exchange is emergent and lifesaving — start before ADAMTS13 returns if suspicion is high.','Normal PT/PTT with MAHA + low platelets favors TTP over DIC.','Do NOT transfuse platelets unless life-threatening bleed.']},
+    {id:'tls',name:'Tumor Lysis Syndrome',def:'Massive tumor-cell turnover → metabolic derangements (Cairo-Bishop).',
+      criteria:[
+        {label:'Laboratory TLS — ≥2, within −3 to +7 days of therapy',detail:'<b>Uric acid ≥8</b> (or 25%↑) · <b>K ≥6</b> · <b>phosphate ≥4.5</b> · <b>calcium ≤7</b> (or 25% change).'},
+        {label:'Clinical TLS',detail:'Lab TLS PLUS <b>AKI (Cr ≥1.5× ULN)</b>, cardiac arrhythmia/sudden death, or seizure.',evidence:'Cairo MS, Bishop M. Br J Haematol 2004.'}
+      ],
+      order:['Uric acid, K, phosphate, calcium, Cr, LDH q6–8h','ECG / telemetry for hyperkalemia','Identify high-risk tumor (bulky lymphoma, acute leukemia)'],
+      pearls:['Aggressive IV hydration + rasburicase (high risk) or allopurinol (lower risk).','Hyperphosphatemia drives hypocalcemia — don\'t give calcium unless symptomatic.','Hyperkalemia is the immediate killer — treat fast.']}
+  ]},
+  neuro:{name:'Neuro & Rheum',color:'var(--g3)',items:[
+    {id:'stroke',name:'Acute Ischemic Stroke',def:'Sudden focal neuro deficit from cerebral ischemia.',
+      criteria:[
+        {label:'Diagnosis',detail:'Sudden focal deficit + <b>non-contrast head CT to exclude hemorrhage</b>. CT is often normal early in ischemia — the clinical picture + time drive treatment.'},
+        {label:'IV thrombolysis window',detail:'tPA/TNK ≤<b>4.5h</b> from last-known-well if no contraindication (recent surgery, active bleeding, BP >185/110, etc.).'},
+        {label:'Thrombectomy',detail:'Large-vessel occlusion up to <b>24h</b> in selected patients with a perfusion mismatch (DAWN / DEFUSE-3).'},
+        {label:'NIHSS',detail:'0–42 scale quantifies severity, guides thrombolysis/thrombectomy decisions, and tracks change.',evidence:'AHA/ASA Acute Ischemic Stroke guidelines.'}
+      ],
+      order:['STAT non-contrast head CT; CTA head/neck; CT perfusion','Glucose (mimic), BMP, CBC, coags, troponin, ECG','Bedside NIHSS'],
+      pearls:['Check glucose immediately — hypoglycemia is a classic stroke mimic.','BP must be <185/110 before tPA; otherwise permissive hypertension.','Time is brain — last-known-well time is the critical history.']},
+    {id:'status',name:'Status Epilepticus',def:'Prolonged or recurrent seizures without recovery.',
+      criteria:[
+        {label:'Operational definition',detail:'<b>≥5 minutes of continuous seizure</b>, OR ≥2 seizures without recovery of consciousness between them. (5 min = treat now.)'},
+        {label:'Nonconvulsive SE',detail:'Altered mental status without overt convulsions — needs <b>EEG</b> to diagnose; suspect in persistent unexplained coma.',evidence:'Neurocritical Care Society guideline.'}
+      ],
+      order:['Fingerstick glucose immediately','BMP, Ca, Mg, CBC, AED levels, tox screen','EEG; head CT; consider LP'],
+      pearls:['Benzodiazepine first (IV lorazepam / IM midazolam) → then a loading AED (levetiracetam, fosphenytoin, or valproate).','Treat at 5 minutes — don\'t wait.','Give thiamine before glucose in possible alcohol use/malnutrition.']},
+    {id:'gca',name:'Giant Cell Arteritis',def:'Large-vessel vasculitis threatening vision — treat before biopsy.',
+      criteria:[
+        {label:'ACR classification (≥3 of 5)',detail:'<b>Age ≥50</b> · <b>new headache</b> · <b>temporal artery abnormality</b> (tender / ↓pulse) · <b>ESR ≥50</b> · <b>abnormal biopsy</b> (vasculitis with giant cells).'},
+        {label:'Alarm features',detail:'Jaw claudication, vision loss/amaurosis, scalp tenderness, PMR overlap, <b>markedly ↑ ESR/CRP</b>.'},
+        {label:'Biopsy',detail:'Temporal artery biopsy is the gold standard but treatment must NOT wait for it.',evidence:'ACR 1990 classification criteria.'}
+      ],
+      order:['ESR AND CRP, CBC','Temporal artery biopsy (within ~2 wks of steroids)','Temporal/axillary artery ultrasound'],
+      pearls:['Suspected GCA with visual symptoms = high-dose steroids IMMEDIATELY to prevent blindness — don\'t wait for biopsy.','Biopsy stays positive for ~2 weeks after starting steroids.']},
+    {id:'gout',name:'Gout (synovial fluid)',def:'Monosodium-urate crystal arthritis.',
+      criteria:[
+        {label:'Gold standard',detail:'Synovial fluid with <b>negatively birefringent, needle-shaped MSU crystals</b> (yellow when parallel to the compensator).'},
+        {label:'Synovial fluid (inflammatory range)',detail:'WBC typically <b>2,000–50,000</b> (sometimes >50k), neutrophil-predominant — always also send <b>Gram stain + culture</b> to exclude septic joint.'},
+        {label:'Serum urate caveat',detail:'May be <b>normal or low during an acute flare</b> — a normal level does NOT exclude gout.'},
+        {label:'Pseudogout contrast',detail:'CPPD crystals are <b>rhomboid, positively birefringent</b>; X-ray shows chondrocalcinosis.',evidence:'ACR/EULAR gout classification.'}
+      ],
+      order:['Arthrocentesis: crystals, cell count, Gram stain, culture','Serum urate (recheck weeks later), BMP','X-ray if chronic/tophaceous'],
+      pearls:['Always exclude septic arthritis — they can coexist; culture every tapped joint.','Don\'t start or stop urate-lowering therapy during a flare (but don\'t stop it if already established).']}
+  ]}
+};
+var dxActiveCat='all';
+function dxRender(){
+  const pills=document.getElementById('dx-pills');
+  if(pills){
+    let h=`<button class="clinic-pill${dxActiveCat==='all'?' on':''}" onclick="dxSetCat('all')">ALL</button>`;
+    Object.keys(DX_DATA).forEach(k=>{ h+=`<button class="clinic-pill${dxActiveCat===k?' on':''}" onclick="dxSetCat('${k}')">${DX_DATA[k].name}</button>`; });
+    pills.innerHTML=h;
+  }
+  const q=(document.getElementById('dx-search')||{}).value||'';
+  dxBuildList(q.toLowerCase());
+}
+function dxSetCat(k){ dxActiveCat=k; dxRender(); }
+function dxFilter(){ const q=(document.getElementById('dx-search')||{}).value||''; dxBuildList(q.toLowerCase()); }
+function dxBuildList(q){
+  const list=document.getElementById('dx-list'); if(!list) return;
+  let h='';
+  Object.keys(DX_DATA).forEach(ck=>{
+    if(dxActiveCat!=='all' && dxActiveCat!==ck) return;
+    const cat=DX_DATA[ck];
+    const matches=cat.items.filter(it=>{
+      if(!q) return true;
+      const hay=(it.name+' '+(it.def||'')+' '+(it.criteria||[]).map(c=>c.label+' '+c.detail).join(' ')).toLowerCase();
+      return hay.indexOf(q)>=0;
+    });
+    if(!matches.length) return;
+    h+=`<div class="card" style="margin-bottom:14px;"><div style="font-family:var(--mono);font-size:11px;color:${cat.color};letter-spacing:.1em;margin-bottom:10px;">${cat.name.toUpperCase()}</div><div style="display:flex;flex-wrap:wrap;gap:8px;">`;
+    matches.forEach(it=>{ h+=`<button class="btn bs" onclick="openDxDrawer('${ck}','${it.id}')" style="font-size:22px;padding:8px 14px;">${it.name}</button>`; });
+    h+=`</div></div>`;
+  });
+  if(!h) h='<div style="font-size:24px;color:var(--t3);font-style:italic;padding:20px 0;">No matching diagnosis.</div>';
+  list.innerHTML=h;
+}
+function openDxDrawer(ck,iid){
+  closeAnyDrawer();
+  const cat=DX_DATA[ck];
+  const it=cat.items.find(x=>x.id===iid);
+  if(!it) return;
+  let html=drawerHead(it.name,cat.name,cat.color,'closeAnyDrawer()');
+  if(it.def){ html+=`<div class="dwnormal" style="margin:13px 16px 2px;"><b>DEFINITION </b>${it.def}</div>`; }
+
+  // When to suspect
+  if(it.suspect&&it.suspect.length){
+    html+=`<div style="margin:14px 14px 2px;background:rgba(79,195,247,.05);border:1px solid rgba(79,195,247,.2);border-radius:var(--rl);padding:14px 16px;">
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g2);letter-spacing:.12em;margin-bottom:10px;">⊕ WHEN TO SUSPECT</div>`;
+    it.suspect.forEach(w=>{ html+=`<div style="font-size:15px;color:var(--t2);line-height:1.6;margin-bottom:9px;padding-left:20px;position:relative;"><span style="position:absolute;left:4px;color:var(--g2);font-family:var(--mono);font-weight:600;">›</span>${w}</div>`; });
+    html+=`</div>`;
+  }
+
+  // Diagnostic criteria — the centerpiece (gold accent)
+  html+=secHeader('DIAGNOSTIC CRITERIA');
+  it.criteria.forEach(c=>{
+    html+=`<div class="dwcard" style="border-left:3px solid var(--g3);">
+      <div class="dwcard-h" style="color:var(--g3);font-weight:600;">${c.label}</div>
+      <div class="dwcard-b">
+        <div style="font-size:16px;color:var(--t);line-height:1.6;">${c.detail}</div>
+        ${c.evidence?disc('Source',c.evidence):''}
+      </div>
+    </div>`;
+  });
+
+  // Workup / what to order
+  if(it.order&&it.order.length){
+    html+=secHeader('WORKUP · WHAT TO ORDER');
+    html+=listBlock(it.order,'var(--g2)');
+  }
+
+  // Severity / scoring
+  if(it.severity&&it.severity.length){
+    html+=secHeader('SEVERITY · SCORING');
+    it.severity.forEach(s=>{
+      html+=`<div class="dwcard">
+        <div class="dwcard-h" style="color:var(--g);font-weight:600;">${s.label}</div>
+        <div class="dwcard-b"><div style="font-size:16px;color:var(--t);line-height:1.6;">${s.detail}</div></div>
+      </div>`;
+    });
+  }
+
+  // Pearls
+  if(it.pearls&&it.pearls.length){
+    html+=`<div class="dwpearls"><div class="dwpearls-h">✦ PEARLS</div>`;
+    it.pearls.forEach(p=>{ html+=`<div class="dwpearl">${p}</div>`; });
+    html+=`</div>`;
+  }
+  html+=`<div style="height:30px;"></div>`;
+  buildDrawer(html);
+}
+
 // ---------- shared drawer helpers ----------
 function drawerHead(title,eyebrow,color,closeFn){
   return `<div class="dwhead">
@@ -2830,10 +3237,612 @@ var DRUG_DATA={
 };
 
 // ============================================================
+// DX · CRITERIA / SCORES / DECISION RULES
+// ============================================================
+// item model:
+//  { id, name, use, when:[], pathway:[], formula, criteria:[{item,points}],
+//    scoring:[{range,meaning,action}], pearls:[] }
+var DX_DATA={
+  pulm:{name:'Pulm / VTE',color:'var(--g2)',items:[
+    {id:'perc',name:'PERC Rule (rule OUT PE)',
+      use:'8-criterion rule to rule OUT PE in a LOW pretest-probability patient WITHOUT any testing (no D-dimer, no imaging).',
+      when:['Use ONLY when your unstructured clinical gestalt for PE is already LOW (<15%). PERC is a gate that lets you avoid even sending a D-dimer.','Do NOT apply if gestalt is moderate/high — go straight to Wells ± D-dimer/CT instead.'],
+      pathway:['Step 1 — Is there any clinical suspicion for PE at all? (pleuritic chest pain, unexplained dyspnea, tachycardia, hypoxia, risk factors). No suspicion → no workup.','Step 2 — Gestalt LOW? If yes, apply PERC.','Step 3 — All 8 criteria absent → PE ruled out (<2% risk). STOP. No D-dimer.','Step 4 — Any 1 criterion present → PERC fails; proceed to Wells + D-dimer pathway.'],
+      criteria:[
+        {item:'Age ≥ 50',points:'1'},
+        {item:'Heart rate ≥ 100',points:'1'},
+        {item:'SaO₂ < 95% on room air',points:'1'},
+        {item:'Unilateral leg swelling',points:'1'},
+        {item:'Hemoptysis',points:'1'},
+        {item:'Recent surgery or trauma (≤4 wk, needing general anesthesia)',points:'1'},
+        {item:'Prior DVT or PE',points:'1'},
+        {item:'Exogenous estrogen (OCP, HRT)',points:'1'}
+      ],
+      scoring:[
+        {range:'All 8 absent (PERC-negative)',meaning:'In a low-gestalt patient, post-test probability of PE <2% — below the testing threshold.',action:'PE excluded clinically. Do NOT order D-dimer or CT. Look for another cause of the symptoms.'},
+        {range:'Any criterion present (PERC-positive)',meaning:'PERC cannot exclude PE. This does NOT mean the patient has PE.',action:'Move to the Wells pathway: risk-stratify, then D-dimer (if unlikely/low–intermediate) vs CTPA (if likely/high).'}
+      ],
+      pearls:['PERC is only valid when applied to LOW-risk patients — applying it to higher-risk patients causes missed PEs.','It replaces the D-dimer in the lowest-risk group, sparing false-positive D-dimers and unnecessary CTs.','A single positive criterion does not diagnose PE — it just means you cannot stop here.']},
+
+    {id:'wells_pe',name:'Wells Score — PE',
+      use:'Pretest-probability score that decides whether you can use a D-dimer to exclude PE or must go straight to CT pulmonary angiography.',
+      when:['Patient with symptoms concerning for PE (dyspnea, pleuritic chest pain, tachycardia, hypoxia) in whom PERC failed or gestalt is not low.','Drives the order: D-dimer vs CTPA. This is the heart of the PE workup.'],
+      pathway:['Clinical suspicion → (gestalt low? try PERC first).','Calculate Wells.','LOW / "PE unlikely" → D-dimer. Use AGE-ADJUSTED cutoff if >50 (age ×10 ng/mL FEU). Negative D-dimer rules OUT PE — stop. Positive → CTPA.','HIGH / "PE likely" → go straight to CTPA. Do NOT order a D-dimer (a negative result will not change management and wastes time).','If CTPA contraindicated (renal failure, contrast allergy, pregnancy) → V/Q scan.'],
+      criteria:[
+        {item:'Clinical signs/symptoms of DVT (leg swelling + pain on palpation)',points:'+3'},
+        {item:'PE is the #1 diagnosis OR equally likely',points:'+3'},
+        {item:'Heart rate > 100',points:'+1.5'},
+        {item:'Immobilization ≥3 days OR surgery in previous 4 weeks',points:'+1.5'},
+        {item:'Previous objectively diagnosed DVT/PE',points:'+1.5'},
+        {item:'Hemoptysis',points:'+1'},
+        {item:'Malignancy (treatment ongoing, within 6 mo, or palliative)',points:'+1'}
+      ],
+      scoring:[
+        {range:'Three-tier — Low (0–1)',meaning:'~1–3% PE prevalence.',action:'D-dimer first. Negative (age-adjusted) → PE excluded, stop. Positive → CTPA.'},
+        {range:'Three-tier — Intermediate (2–6)',meaning:'~16% PE prevalence.',action:'D-dimer to triage. Negative → excluded. Positive → CTPA. (Use clinical judgment; many go straight to CT if D-dimer likely positive — inpatient, cancer, post-op.)'},
+        {range:'Three-tier — High (≥7)',meaning:'~40% PE prevalence — too high for a D-dimer to safely exclude.',action:'Go directly to CTPA. Skip the D-dimer entirely.'},
+        {range:'Two-tier — "PE unlikely" (≤4)',meaning:'Dichotomized rule used with D-dimer.',action:'D-dimer; if negative, PE excluded without imaging.'},
+        {range:'Two-tier — "PE likely" (>4)',meaning:'Dichotomized high-risk group.',action:'CTPA directly.'}
+      ],
+      pearls:['The criteria to even justify a D-dimer = PE-specific symptoms (dyspnea/pleuritic pain + risk factors), not chest pain alone. Do not send D-dimers blindly.','Age-adjusted D-dimer (age ×10 ng/mL FEU for age >50) raises the cutoff and reduces false positives in older patients.','D-dimer is sensitive but NOT specific — elevated in infection, malignancy, post-op, pregnancy, age. A positive result only means "image," never "diagnosed."','High Wells + negative D-dimer is NOT reassuring — that is exactly why you skip the D-dimer when Wells is high.','PERC vs Wells: PERC decides "do I test at all?"; Wells decides "D-dimer or straight to CT?"']},
+
+    {id:'wells_dvt',name:'Wells Score — DVT',
+      use:'Pretest-probability for lower-extremity DVT; decides D-dimer vs compression ultrasound.',
+      when:['Unilateral leg swelling/pain, suspected DVT.'],
+      pathway:['Calculate Wells-DVT.','"DVT unlikely" (≤1) → D-dimer. Negative → excluded. Positive → compression US.','"DVT likely" (≥2) → compression ultrasound directly.'],
+      criteria:[
+        {item:'Active cancer (treatment within 6 mo / palliative)',points:'+1'},
+        {item:'Paralysis, paresis, or recent plaster immobilization of leg',points:'+1'},
+        {item:'Recently bedridden ≥3 days OR major surgery within 12 wk',points:'+1'},
+        {item:'Localized tenderness along deep venous system',points:'+1'},
+        {item:'Entire leg swollen',points:'+1'},
+        {item:'Calf swelling >3 cm vs asymptomatic side',points:'+1'},
+        {item:'Pitting edema confined to symptomatic leg',points:'+1'},
+        {item:'Collateral superficial (non-varicose) veins',points:'+1'},
+        {item:'Previously documented DVT',points:'+1'},
+        {item:'Alternative diagnosis at least as likely as DVT',points:'−2'}
+      ],
+      scoring:[
+        {range:'≤ 0  (Low)',meaning:'~5% DVT.',action:'D-dimer; if negative, DVT excluded.'},
+        {range:'1–2  (Moderate)',meaning:'~17% DVT.',action:'D-dimer or proceed to US per local pathway.'},
+        {range:'≥ 3  (High) / two-tier ≥2 "likely"',meaning:'~17–53% DVT.',action:'Compression ultrasound. If negative but suspicion high, repeat US in 1 week or do whole-leg US.'}
+      ],
+      pearls:['Same logic as PE: high pretest probability → image, do not rely on D-dimer.','A negative whole-leg ultrasound is more definitive than proximal-only when D-dimer is positive.']},
+
+    {id:'curb65',name:'CURB-65 (pneumonia admission)',
+      use:'Severity score for community-acquired pneumonia — guides outpatient vs admission vs ICU.',
+      when:['Confirmed/suspected CAP, deciding disposition.'],
+      criteria:[
+        {item:'Confusion (new disorientation)',points:'1'},
+        {item:'Urea / BUN > 19 mg/dL (>7 mmol/L)',points:'1'},
+        {item:'Respiratory rate ≥ 30',points:'1'},
+        {item:'Blood pressure: SBP < 90 or DBP ≤ 60',points:'1'},
+        {item:'Age ≥ 65',points:'1'}
+      ],
+      scoring:[
+        {range:'0–1',meaning:'30-day mortality ~1.5%.',action:'Outpatient treatment usually appropriate.'},
+        {range:'2',meaning:'Mortality ~9%.',action:'Consider short inpatient stay or closely supervised outpatient care.'},
+        {range:'3–5',meaning:'Mortality 14–40%.',action:'Admit; score 4–5 → assess for ICU.'}
+      ],
+      pearls:['CRB-65 (drops urea) can be used where labs are unavailable.','PSI/PORT is more discriminating but more complex; CURB-65 is the fast bedside tool.','The score guides disposition, not antibiotic choice — and never overrides clinical judgment (hypoxia, comorbidities, social factors).']},
+
+    {id:'lights',name:"Light's Criteria (pleural effusion)",
+      use:'Classifies a pleural effusion as exudate vs transudate to direct the workup.',
+      when:['After thoracentesis, to interpret pleural fluid. Always send paired SERUM protein + LDH at the same time.'],
+      criteria:[
+        {item:'Pleural / serum protein ratio > 0.5',points:'exudate'},
+        {item:'Pleural / serum LDH ratio > 0.6',points:'exudate'},
+        {item:'Pleural LDH > ⅔ upper limit of normal serum LDH',points:'exudate'}
+      ],
+      scoring:[
+        {range:'Exudate — ANY one criterion met',meaning:'Suggests local pleural pathology: infection (parapneumonic/empyema), malignancy, PE, TB, pancreatitis, RA.',action:'Workup the fluid: cell count/diff, Gram stain & culture, cytology, pH & glucose, ± adenosine deaminase. pH <7.2 in parapneumonic → drain.'},
+        {range:'Transudate — NO criteria met',meaning:'Systemic Starling-force problem: heart failure, cirrhosis, nephrotic syndrome.',action:'Treat the underlying cause; no further pleural fluid analysis usually needed.'}
+      ],
+      pearls:['Light\'s criteria are very sensitive for exudate but mis-label ~25% of transudates (esp. diuretic-treated HF) as exudates.','If clinically a transudate but labeled exudate, check serum–pleural albumin gradient >1.2 g/dL → transudate.']}
+  ]},
+
+  cards:{name:'Cardiac',color:'var(--g4)',items:[
+    {id:'heart',name:'HEART Score (chest pain)',
+      use:'Risk-stratifies undifferentiated ED chest pain for 6-week major adverse cardiac events (MACE) → disposition.',
+      when:['Chest pain workup once ACS is on the differential. Pairs with serial troponins.'],
+      criteria:[
+        {item:'History: slightly / moderately / highly suspicious',points:'0 / 1 / 2'},
+        {item:'EKG: normal / nonspecific repolarization / significant ST deviation',points:'0 / 1 / 2'},
+        {item:'Age: <45 / 45–64 / ≥65',points:'0 / 1 / 2'},
+        {item:'Risk factors: none / 1–2 / ≥3 or known atherosclerotic disease',points:'0 / 1 / 2'},
+        {item:'Troponin: ≤normal / 1–3× normal / >3× normal',points:'0 / 1 / 2'}
+      ],
+      scoring:[
+        {range:'0–3  (Low)',meaning:'MACE ~1–2%.',action:'Consider discharge with outpatient follow-up after negative serial troponins.'},
+        {range:'4–6  (Moderate)',meaning:'MACE ~12–17%.',action:'Admit/observe, serial troponins, stress test or further evaluation.'},
+        {range:'7–10  (High)',meaning:'MACE ~50–65%.',action:'Aggressive management; cardiology, consider early invasive strategy.'}
+      ],
+      pearls:['HEART outperforms TIMI and GRACE for undifferentiated ED chest pain.','"Risk factors" = HTN, hyperlipidemia, DM, smoking, family history, obesity.','Use the HEART pathway (HEART score + 0/3h troponins) to safely discharge low-risk patients.']},
+
+    {id:'timi',name:'TIMI Risk Score (UA/NSTEMI)',
+      use:'14-day risk of death, MI, or urgent revascularization in unstable angina / NSTEMI.',
+      when:['Confirmed UA/NSTEMI, to gauge benefit of early invasive strategy.'],
+      criteria:[
+        {item:'Age ≥ 65',points:'1'},
+        {item:'≥3 CAD risk factors',points:'1'},
+        {item:'Known CAD (stenosis ≥50%)',points:'1'},
+        {item:'Aspirin use in past 7 days',points:'1'},
+        {item:'Severe angina (≥2 episodes in 24 h)',points:'1'},
+        {item:'ST deviation ≥ 0.5 mm',points:'1'},
+        {item:'Positive cardiac biomarker',points:'1'}
+      ],
+      scoring:[
+        {range:'0–1',meaning:'~5% event rate.',action:'Lower risk; conservative strategy often reasonable.'},
+        {range:'2–3',meaning:'~8–13%.',action:'Intermediate; consider early invasive.'},
+        {range:'4–5',meaning:'~20–26%.',action:'Higher risk; early invasive strategy favored.'},
+        {range:'6–7',meaning:'~41%.',action:'High risk; early invasive strategy.'}
+      ],
+      pearls:['Higher TIMI = greater absolute benefit from early invasive management and from LMWH/GP IIb-IIIa.','For STEMI there is a separate TIMI STEMI score.']},
+
+    {id:'chadsvasc',name:'CHA₂DS₂-VASc (AF stroke risk)',
+      use:'Annual ischemic stroke risk in non-valvular atrial fibrillation — decides anticoagulation.',
+      when:['Any non-valvular AF/flutter, deciding whether to start an oral anticoagulant.'],
+      criteria:[
+        {item:'Congestive heart failure / LV dysfunction',points:'1'},
+        {item:'Hypertension',points:'1'},
+        {item:'Age ≥ 75',points:'2'},
+        {item:'Diabetes',points:'1'},
+        {item:'Stroke / TIA / thromboembolism (prior)',points:'2'},
+        {item:'Vascular disease (MI, PAD, aortic plaque)',points:'1'},
+        {item:'Age 65–74',points:'1'},
+        {item:'Sex category female',points:'1'}
+      ],
+      scoring:[
+        {range:'0 (man) / 1 (woman, sex-only)',meaning:'Truly low risk.',action:'No antithrombotic therapy.'},
+        {range:'1 (man) / 2 (woman)',meaning:'Intermediate.',action:'Consider oral anticoagulation (clinical judgment / shared decision).'},
+        {range:'≥2 (man) / ≥3 (woman)',meaning:'Elevated stroke risk.',action:'Oral anticoagulation recommended (DOAC preferred over warfarin in non-valvular AF).'}
+      ],
+      pearls:['Pair with HAS-BLED to discuss bleeding risk — but bleeding risk rarely outweighs stroke benefit; instead modify bleeding risk factors.','Female sex is a risk modifier, not an independent risk factor at a score of 1 alone.']},
+
+    {id:'hasbled',name:'HAS-BLED (bleeding risk on AC)',
+      use:'1-year major bleeding risk in AF patients on anticoagulation — flags modifiable factors.',
+      when:['Alongside CHA₂DS₂-VASc when starting anticoagulation.'],
+      criteria:[
+        {item:'Hypertension (uncontrolled, SBP >160)',points:'1'},
+        {item:'Abnormal renal function (dialysis, transplant, Cr >2.26)',points:'1'},
+        {item:'Abnormal liver function (cirrhosis, bili >2× / AST-ALT-ALP >3×)',points:'1'},
+        {item:'Stroke (prior)',points:'1'},
+        {item:'Bleeding history or predisposition',points:'1'},
+        {item:'Labile INR (TTR <60% on warfarin)',points:'1'},
+        {item:'Elderly (>65)',points:'1'},
+        {item:'Drugs (antiplatelet/NSAID)',points:'1'},
+        {item:'Alcohol (≥8 drinks/wk)',points:'1'}
+      ],
+      scoring:[
+        {range:'0–2',meaning:'Low–moderate bleeding risk.',action:'Anticoagulate as indicated; routine follow-up.'},
+        {range:'≥3',meaning:'High bleeding risk.',action:'Anticoagulate but address MODIFIABLE factors (BP control, stop NSAIDs/EtOH, INR management) and follow more closely. A high score is NOT a reason to withhold indicated anticoagulation.'}
+      ],
+      pearls:['HAS-BLED identifies fixable bleeding risks; it should not by itself deny stroke-preventing therapy.','Many risk factors overlap with CHA₂DS₂-VASc (HTN, age, stroke) — the same patient is often high-risk for both.']}
+  ]},
+
+  gi:{name:'GI / Hepatic',color:'var(--g3)',items:[
+    {id:'gbs',name:'Glasgow-Blatchford (UGIB)',
+      use:'Pre-endoscopy score for upper GI bleed — identifies who can be managed as an outpatient vs who needs intervention.',
+      when:['Suspected upper GI bleed at first assessment, BEFORE endoscopy (uses only clinical + lab data).'],
+      criteria:[
+        {item:'BUN 18.2–22.3 / 22.4–27.9 / 28–69.9 / ≥70 mg/dL',points:'2 / 3 / 4 / 6'},
+        {item:'Hgb (men) 12–13 / 10–12 / <10',points:'1 / 3 / 6'},
+        {item:'Hgb (women) 10–12 / <10',points:'1 / 6'},
+        {item:'SBP 100–109 / 90–99 / <90',points:'1 / 2 / 3'},
+        {item:'Heart rate ≥ 100',points:'1'},
+        {item:'Melena',points:'1'},
+        {item:'Syncope',points:'2'},
+        {item:'Hepatic disease',points:'2'},
+        {item:'Cardiac failure',points:'2'}
+      ],
+      scoring:[
+        {range:'0 (or ≤1)',meaning:'Very low risk of needing intervention or dying.',action:'Consider outpatient management / early discharge with follow-up — no urgent inpatient endoscopy required.'},
+        {range:'≥7',meaning:'High likelihood of needing endoscopic intervention/transfusion.',action:'Admit, resuscitate, urgent endoscopy, transfuse to target, hold/consider reversal of anticoagulation.'}
+      ],
+      pearls:['GBS is best at identifying the LOW-risk patient safe for discharge (score 0).','Use the full Rockall score after endoscopy for mortality prognostication; AIMS65 is a simpler mortality predictor.']},
+
+    {id:'meld',name:'MELD-Na (cirrhosis severity)',
+      use:'90-day mortality in chronic liver disease; drives transplant priority and peri-procedure risk.',
+      when:['Cirrhosis prognostication, transplant listing, assessing risk before procedures/surgery, TIPS evaluation.'],
+      formula:'MELD = 3.78·ln(bilirubin) + 11.2·ln(INR) + 9.57·ln(Cr) + 6.43.  MELD-Na adds a sodium correction. (Use an EHR/online calculator; Cr capped at 4.0 and set to 4.0 if on dialysis ≥2× in past week; min values of 1.0 to avoid negative logs.)',
+      scoring:[
+        {range:'< 10',meaning:'Low short-term mortality.',action:'Routine outpatient hepatology follow-up.'},
+        {range:'15+',meaning:'Transplant benefit generally exceeds risk around here.',action:'Transplant evaluation/listing consideration.'},
+        {range:'≥ 20',meaning:'High 90-day mortality.',action:'Higher transplant priority; careful peri-procedural risk discussion.'}
+      ],
+      pearls:['MELD-Na replaced MELD for allocation because hyponatremia independently predicts mortality.','MELD also stratifies surgical and procedural risk in cirrhotics.']},
+
+    {id:'childpugh',name:'Child-Pugh (cirrhosis class)',
+      use:'Classifies cirrhosis severity (A/B/C) — surgical risk and prognosis.',
+      when:['Chronic liver disease, esp. estimating operative risk or drug dosing in cirrhosis.'],
+      criteria:[
+        {item:'Total bilirubin <2 / 2–3 / >3 mg/dL',points:'1 / 2 / 3'},
+        {item:'Albumin >3.5 / 2.8–3.5 / <2.8 g/dL',points:'1 / 2 / 3'},
+        {item:'INR <1.7 / 1.7–2.3 / >2.3',points:'1 / 2 / 3'},
+        {item:'Ascites: none / mild (controlled) / moderate-severe (refractory)',points:'1 / 2 / 3'},
+        {item:'Encephalopathy: none / grade 1–2 / grade 3–4',points:'1 / 2 / 3'}
+      ],
+      scoring:[
+        {range:'A (5–6)',meaning:'~100% 1-yr survival.',action:'Relatively preserved; surgery lower risk.'},
+        {range:'B (7–9)',meaning:'~80% 1-yr survival.',action:'Significant compromise; surgery intermediate risk.'},
+        {range:'C (10–15)',meaning:'~45% 1-yr survival.',action:'Decompensated; high surgical/procedural risk — usually defer elective surgery.'}
+      ],
+      pearls:['Two of five components are subjective (ascites, encephalopathy) — MELD-Na is more objective for allocation.']},
+
+    {id:'maddrey',name:"Maddrey's DF (alcoholic hepatitis)",
+      use:'Discriminant function for severity of alcoholic hepatitis — decides whether to give corticosteroids.',
+      when:['Suspected severe alcoholic hepatitis (jaundice, recent heavy use, AST:ALT >2 with AST usually <300).'],
+      formula:'DF = 4.6 × (patient PT − control PT) + total bilirubin (mg/dL).',
+      scoring:[
+        {range:'< 32',meaning:'Mild–moderate alcoholic hepatitis; lower short-term mortality.',action:'Supportive care, nutrition, abstinence; steroids generally not indicated.'},
+        {range:'≥ 32',meaning:'Severe alcoholic hepatitis; 28-day mortality ~30–50%.',action:'Consider corticosteroids (prednisolone 40 mg/d) if no contraindication (active GI bleed, uncontrolled infection, AKI). Reassess with Lille score at day 7 — stop steroids if Lille >0.45 (non-responder).'}
+      ],
+      pearls:['Rule out infection before steroids; GI bleed and sepsis are contraindications.','MELD also predicts mortality in alcoholic hepatitis and is increasingly used.']},
+
+    {id:'bisap',name:'BISAP (pancreatitis severity)',
+      use:'Early (24 h) mortality predictor in acute pancreatitis — flags who needs higher level of care.',
+      when:['Acute pancreatitis within first 24 h.'],
+      criteria:[
+        {item:'BUN > 25 mg/dL',points:'1'},
+        {item:'Impaired mental status',points:'1'},
+        {item:'SIRS (≥2 SIRS criteria)',points:'1'},
+        {item:'Age > 60',points:'1'},
+        {item:'Pleural effusion on imaging',points:'1'}
+      ],
+      scoring:[
+        {range:'0–2',meaning:'Mortality <2%.',action:'Usually floor-level care; aggressive fluids, analgesia, monitor.'},
+        {range:'≥3',meaning:'Mortality ~5–20%, rising with score.',action:'Consider ICU/step-down, aggressive resuscitation, close monitoring for organ failure.'}
+      ],
+      pearls:['Simpler than Ranson\'s (which needs 48 h) and APACHE II.','A rising/elevated BUN is the strongest single early predictor of severity — trend it.']}
+  ]},
+
+  neuro:{name:'Neuro',color:'var(--g)',items:[
+    {id:'gcs',name:'Glasgow Coma Scale',
+      use:'Standardized level-of-consciousness score; the ≤8 threshold drives airway decisions.',
+      when:['Any acute neuro/trauma/altered patient; serial GCS tracks trajectory.'],
+      criteria:[
+        {item:'Eye opening: none / to pain / to voice / spontaneous',points:'1–4'},
+        {item:'Verbal: none / sounds / words / confused / oriented',points:'1–5'},
+        {item:'Motor: none / extension / abnormal flexion / withdraws / localizes / obeys',points:'1–6'}
+      ],
+      scoring:[
+        {range:'13–15',meaning:'Mild impairment.',action:'Observe; reassess; consider CT per head-injury rule.'},
+        {range:'9–12',meaning:'Moderate.',action:'Close monitoring, imaging, frequent reassessment.'},
+        {range:'≤ 8',meaning:'Severe — cannot reliably protect airway.',action:'"GCS ≤8 → intubate." Secure the airway; urgent imaging/neuro involvement.'}
+      ],
+      pearls:['Always report the breakdown (E_V_M_), not just the total — e.g. GCS 10 = E3V3M4.','Score the BEST response; document if intubated (V = "T").']},
+
+    {id:'ciwa',name:'CIWA-Ar (alcohol withdrawal)',
+      use:'Quantifies alcohol-withdrawal severity to drive symptom-triggered benzodiazepine dosing.',
+      when:['Patient at risk of alcohol withdrawal; reassess on a schedule (e.g. q1–2h) to titrate.'],
+      criteria:[
+        {item:'10 items, each 0–7: nausea/vomiting, tremor, paroxysmal sweats, anxiety, agitation, tactile, auditory, visual disturbances, headache',points:'0–7 each'},
+        {item:'Orientation / clouding of sensorium',points:'0–4'}
+      ],
+      scoring:[
+        {range:'< 8–10',meaning:'Minimal/absent withdrawal.',action:'No medication usually needed; continue monitoring.'},
+        {range:'8–15',meaning:'Moderate withdrawal.',action:'Symptom-triggered benzodiazepine (e.g. diazepam/lorazepam) per protocol; reassess.'},
+        {range:'≥ 15',meaning:'Severe — high risk of seizures/DTs.',action:'Aggressive benzodiazepine dosing, frequent reassessment, consider higher level of care.'}
+      ],
+      pearls:['Requires a communicative patient — invalid in intubated/non-verbal patients; use RASS-based protocols instead.','Symptom-triggered dosing beats fixed-schedule dosing (less benzo, shorter treatment).','Give thiamine before glucose; replete Mg/K/Phos.']},
+
+    {id:'abcd2',name:'ABCD² (TIA → stroke risk)',
+      use:'2-day risk of stroke after a TIA — informs admission vs expedited outpatient workup.',
+      when:['After a transient ischemic attack.'],
+      criteria:[
+        {item:'Age ≥ 60',points:'1'},
+        {item:'Blood pressure ≥ 140/90 at presentation',points:'1'},
+        {item:'Clinical: unilateral weakness (2) / speech disturbance without weakness (1)',points:'1–2'},
+        {item:'Duration ≥60 min (2) / 10–59 min (1)',points:'1–2'},
+        {item:'Diabetes',points:'1'}
+      ],
+      scoring:[
+        {range:'0–3 (Low)',meaning:'2-day stroke risk ~1%.',action:'Expedited outpatient workup may be reasonable.'},
+        {range:'4–5 (Moderate)',meaning:'~4%.',action:'Strongly consider admission / urgent evaluation.'},
+        {range:'6–7 (High)',meaning:'~8%.',action:'Admit; urgent neuroimaging, vessel imaging, antithrombotics.'}
+      ],
+      pearls:['Modern practice increasingly admits/urgently evaluates most TIAs regardless of score (MRI, carotid imaging, cardiac monitoring).','Do not use ABCD² to withhold workup in a clearly high-risk presentation (crescendo TIA, known carotid stenosis, AF).']},
+
+    {id:'cchr',name:'Canadian CT Head Rule (when to image)',
+      use:'Decides who with minor head injury (GCS 13–15) needs a head CT.',
+      when:['Blunt minor head injury with witnessed LOC, amnesia, or confusion; GCS 13–15. (Excludes anticoagulated patients, age <16, seizure — image those.)'],
+      criteria:[
+        {item:'HIGH RISK (neurosurgical intervention): GCS <15 at 2 h post-injury',points:'CT'},
+        {item:'HIGH RISK: suspected open or depressed skull fracture',points:'CT'},
+        {item:'HIGH RISK: any sign of basal skull fracture (hemotympanum, raccoon eyes, CSF oto/rhinorrhea, Battle sign)',points:'CT'},
+        {item:'HIGH RISK: ≥2 episodes of vomiting',points:'CT'},
+        {item:'HIGH RISK: age ≥ 65',points:'CT'},
+        {item:'MEDIUM RISK (clinically important injury): amnesia before impact ≥30 min',points:'CT'},
+        {item:'MEDIUM RISK: dangerous mechanism (pedestrian, ejection, fall >3 ft / 5 stairs)',points:'CT'}
+      ],
+      scoring:[
+        {range:'Any criterion present',meaning:'Risk of clinically important injury justifies imaging.',action:'Order non-contrast head CT.'},
+        {range:'None present',meaning:'Very low risk of injury needing intervention.',action:'CT can be safely deferred; observe and give return precautions.'}
+      ],
+      pearls:['Applies only to the defined minor-head-injury population — anticoagulated/antiplatelet patients fall outside the rule and generally get CT.','PECARN is the analogous rule for pediatric head injury.']}
+  ]},
+
+  heme:{name:'Heme / Coags',color:'var(--g2)',items:[
+    {id:'4t',name:'4T Score (HIT)',
+      use:'Pretest probability of heparin-induced thrombocytopenia — decides whether to stop heparin and test.',
+      when:['Platelet drop in a patient on (or recently on) heparin.'],
+      criteria:[
+        {item:'Thrombocytopenia: fall >50% & nadir ≥20 (2) / 30–50% or nadir 10–19 (1) / <30% or nadir <10 (0)',points:'0–2'},
+        {item:'Timing: clear onset day 5–10 or ≤1 d with heparin in past 30 d (2) / >10 d or unclear (1) / <4 d, no recent heparin (0)',points:'0–2'},
+        {item:'Thrombosis: new confirmed thrombosis / skin necrosis (2) / progressive or suspected (1) / none (0)',points:'0–2'},
+        {item:'oTher cause of thrombocytopenia: none apparent (2) / possible (1) / definite (0)',points:'0–2'}
+      ],
+      scoring:[
+        {range:'0–3 (Low)',meaning:'HIT very unlikely — high negative predictive value.',action:'HIT essentially excluded; do NOT need to stop heparin or send antibody on this basis alone.'},
+        {range:'4–5 (Intermediate)',meaning:'HIT possible.',action:'Stop heparin, start a non-heparin anticoagulant (argatroban/fondaparinux/DOAC), send HIT antibody (PF4 ELISA); confirm with serotonin release assay (SRA).'},
+        {range:'6–8 (High)',meaning:'HIT probable.',action:'Stop ALL heparin (including flushes/lines), start non-heparin anticoagulation, send PF4 + SRA. Do NOT transfuse platelets.'}
+      ],
+      pearls:['HIT is PROthrombotic — never give platelet transfusions, and do not just "stop heparin" (must start an alternative anticoagulant).','Low 4T score is the most useful result: its high NPV lets you avoid unnecessary testing and drug changes.']},
+
+    {id:'padua',name:'Padua Prediction (VTE prophylaxis)',
+      use:'VTE risk in hospitalized MEDICAL patients — decides pharmacologic prophylaxis.',
+      when:['On admission of a medical inpatient, to decide chemoprophylaxis.'],
+      criteria:[
+        {item:'Active cancer',points:'3'},
+        {item:'Previous VTE',points:'3'},
+        {item:'Reduced mobility (bedrest ≥3 d)',points:'3'},
+        {item:'Known thrombophilia',points:'3'},
+        {item:'Recent (≤1 mo) trauma or surgery',points:'2'},
+        {item:'Age ≥ 70',points:'1'},
+        {item:'Heart and/or respiratory failure',points:'1'},
+        {item:'Acute MI or ischemic stroke',points:'1'},
+        {item:'Acute infection or rheumatologic disorder',points:'1'},
+        {item:'BMI ≥ 30',points:'1'},
+        {item:'Ongoing hormonal treatment',points:'1'}
+      ],
+      scoring:[
+        {range:'< 4 (Low risk)',meaning:'Low VTE risk.',action:'Pharmacologic prophylaxis generally NOT indicated; consider mechanical (SCDs) if immobile.'},
+        {range:'≥ 4 (High risk)',meaning:'Elevated VTE risk.',action:'Pharmacologic prophylaxis (LMWH/UFH/fondaparinux) unless contraindicated by bleeding risk.'}
+      ],
+      pearls:['Caprini score is the analogous tool for SURGICAL patients.','Always weigh against bleeding risk (e.g. IMPROVE bleeding score) before prophylactic anticoagulation.']},
+
+    {id:'dic',name:'ISTH DIC Score',
+      use:'Diagnoses overt disseminated intravascular coagulation.',
+      when:['Suspected DIC (sepsis, malignancy, OB emergency, trauma) with abnormal coags — requires an underlying disorder known to cause DIC.'],
+      criteria:[
+        {item:'Platelets >100 (0) / 50–100 (1) / <50 (2)',points:'0–2'},
+        {item:'D-dimer/FDP: no rise (0) / moderate rise (2) / strong rise (3)',points:'0,2,3'},
+        {item:'PT prolongation <3 s (0) / 3–6 s (1) / >6 s (2)',points:'0–2'},
+        {item:'Fibrinogen ≥100 (0) / <100 mg/dL (1)',points:'0–1'}
+      ],
+      scoring:[
+        {range:'≥ 5',meaning:'Compatible with OVERT DIC.',action:'Treat the underlying cause (the only definitive therapy); support with platelets/FFP/cryoprecipitate guided by bleeding and labs. Repeat score daily.'},
+        {range:'< 5',meaning:'Not overt DIC (may be non-overt/evolving).',action:'Repeat scoring in 1–2 days if suspicion persists.'}
+      ],
+      pearls:['Falling fibrinogen + rising D-dimer + falling platelets + prolonging PT is the classic evolving picture — trend them.','Schistocytes on smear support a microangiopathic process.']}
+  ]},
+
+  sepsis:{name:'ID / Sepsis',color:'var(--g4)',items:[
+    {id:'qsofa',name:'qSOFA',
+      use:'Rapid bedside flag for poor outcome in suspected infection (not a sepsis diagnosis).',
+      when:['Suspected infection outside the ICU; a quick prompt to escalate assessment.'],
+      criteria:[
+        {item:'Respiratory rate ≥ 22',points:'1'},
+        {item:'Altered mentation (GCS <15)',points:'1'},
+        {item:'Systolic BP ≤ 100',points:'1'}
+      ],
+      scoring:[
+        {range:'≥ 2',meaning:'Higher risk of in-hospital mortality / prolonged ICU stay.',action:'Escalate: full sepsis assessment, lactate, cultures, consider Sepsis-3 (SOFA) and early resuscitation.'},
+        {range:'0–1',meaning:'Lower (but not zero) risk.',action:'Continue evaluation; do not use qSOFA to rule out sepsis.'}
+      ],
+      pearls:['Sepsis-3 defines sepsis as infection + SOFA rise ≥2; qSOFA is only a prompt, with low sensitivity for early sepsis.','Do not delay antibiotics/fluids waiting on a score — clinical concern drives the bundle.']},
+
+    {id:'sirs',name:'SIRS Criteria',
+      use:'Systemic inflammatory response — sensitive (non-specific) trigger for infection workup.',
+      when:['Any acutely ill patient; ≥2 = SIRS, prompts source evaluation.'],
+      criteria:[
+        {item:'Temperature > 38°C or < 36°C',points:'1'},
+        {item:'Heart rate > 90',points:'1'},
+        {item:'Respiratory rate > 20 or PaCO₂ < 32',points:'1'},
+        {item:'WBC > 12k, < 4k, or > 10% bands',points:'1'}
+      ],
+      scoring:[
+        {range:'≥ 2',meaning:'SIRS present — may be infectious (sepsis) or non-infectious (pancreatitis, trauma, burns).',action:'Look for a source; if infection suspected, treat as sepsis (cultures, lactate, fluids, antibiotics).'}
+      ],
+      pearls:['Sensitive but not specific — many non-infected patients meet SIRS.','SIRS is a component of older sepsis definitions and of BISAP for pancreatitis.']},
+
+    {id:'centor',name:'Centor / McIsaac (strep pharyngitis)',
+      use:'Probability of group A strep pharyngitis — decides who to test/treat.',
+      when:['Acute sore throat, deciding on rapid strep testing vs symptomatic care.'],
+      criteria:[
+        {item:'Tonsillar exudates',points:'1'},
+        {item:'Tender anterior cervical lymphadenopathy',points:'1'},
+        {item:'Fever > 38°C (history)',points:'1'},
+        {item:'Absence of cough',points:'1'},
+        {item:'McIsaac age modifier: 3–14 (+1) / 15–44 (0) / ≥45 (−1)',points:'−1 to +1'}
+      ],
+      scoring:[
+        {range:'0–1',meaning:'Low probability of strep.',action:'No testing or antibiotics; symptomatic care.'},
+        {range:'2–3',meaning:'Intermediate.',action:'Rapid antigen test (± culture if negative in children); treat if positive.'},
+        {range:'4–5',meaning:'Higher probability.',action:'Test and treat if positive; some treat empirically (guidelines still favor testing to avoid unnecessary antibiotics).'}
+      ],
+      pearls:['Even at high scores, most adults benefit from confirmatory testing — viral causes dominate.','Treat confirmed GAS to prevent rheumatic fever and suppurative complications (penicillin/amoxicillin first-line).']},
+
+    {id:'alvarado',name:'Alvarado Score (appendicitis)',
+      use:'Probability of acute appendicitis — guides imaging vs surgical consult vs discharge.',
+      when:['Suspected appendicitis (RLQ pain).'],
+      criteria:[
+        {item:'Migration of pain to RLQ',points:'1'},
+        {item:'Anorexia',points:'1'},
+        {item:'Nausea / vomiting',points:'1'},
+        {item:'Tenderness in RLQ',points:'2'},
+        {item:'Rebound tenderness',points:'1'},
+        {item:'Elevated temperature ≥ 37.3°C',points:'1'},
+        {item:'Leukocytosis > 10k',points:'2'},
+        {item:'Left shift (neutrophils > 75%)',points:'1'}
+      ],
+      scoring:[
+        {range:'1–4',meaning:'Appendicitis unlikely.',action:'Consider discharge with return precautions or observation; appendicitis less likely.'},
+        {range:'5–6',meaning:'Compatible — equivocal.',action:'Imaging (CT abd/pelvis, or US/MRI in children/pregnancy).'},
+        {range:'7–10',meaning:'Probable appendicitis.',action:'Surgical consultation ± imaging depending on local pathway.'}
+      ],
+      pearls:['Imaging (CT) is the modern arbiter in adults; the score helps decide when imaging/consult is warranted.','Lower threshold to image women (ovarian/gyn mimics) and use US/MRI in pregnancy and children.']}
+  ]},
+
+  metab:{name:'Renal / Metabolic',color:'var(--g3)',items:[
+    {id:'fena',name:'FENa / FEUrea (AKI)',
+      use:'Distinguishes prerenal azotemia from intrinsic renal injury (ATN) in AKI.',
+      when:['Oliguric AKI when the cause (volume vs ATN) is unclear. Send a spot urine + serum Na, Cr, (urea).'],
+      formula:'FENa (%) = (U_Na × P_Cr) / (P_Na × U_Cr) × 100.   FEUrea (%) = (U_urea × P_Cr) / (BUN × U_Cr) × 100.',
+      scoring:[
+        {range:'FENa < 1%',meaning:'Avid sodium reabsorption — prerenal (hypovolemia, HF, cirrhosis) or early obstruction/contrast/glomerulonephritis.',action:'Treat the prerenal cause (fluids if hypovolemic; address forward flow in cardiorenal/hepatorenal).'},
+        {range:'FENa > 2%',meaning:'Tubules cannot conserve sodium — intrinsic injury (ATN).',action:'Supportive management of ATN; remove nephrotoxins; avoid further insults.'},
+        {range:'FEUrea < 35% (use if on diuretics)',meaning:'Prerenal physiology despite diuretic use (which falsely raises FENa).',action:'Prefer FEUrea whenever the patient is on loop/thiazide diuretics.'}
+      ],
+      pearls:['FENa is unreliable on diuretics, in CKD, and in non-oliguric states — use FEUrea on diuretics.','Low FENa is not exclusively prerenal: contrast nephropathy, early obstruction, rhabdomyolysis, and acute GN can all be <1%.']},
+
+    {id:'gaps',name:'Anion / Osmolar / Delta Gap',
+      use:'Acid-base workup: identify a high-gap metabolic acidosis and screen for toxic alcohols / mixed disorders.',
+      when:['Any metabolic acidosis or unexplained acid-base disturbance.'],
+      formula:'Anion gap = Na − (Cl + HCO₃)  [normal 8–12].  Corrected AG = AG + 2.5 × (4 − albumin).  Delta ratio = (AG − 12) / (24 − HCO₃).  Osmolar gap = measured − calculated osm; calc osm = 2·Na + glucose/18 + BUN/2.8 (+ EtOH/3.7).',
+      scoring:[
+        {range:'High anion gap',meaning:'HAGMA — mnemonic GOLD MARK: Glycols, Oxoproline, L-lactate, D-lactate, Methanol, Aspirin, Renal failure, Ketoacidosis.',action:'Identify and treat the specific cause (lactate, ketones, toxic alcohol levels, renal function).'},
+        {range:'Delta ratio < 0.4 / 1–2 / > 2',meaning:'<0.4 → concurrent normal-gap (hyperchloremic) acidosis; 1–2 → pure HAGMA; >2 → concurrent metabolic alkalosis or pre-existing high HCO₃ (e.g. chronic resp acidosis).',action:'Use the delta ratio to unmask mixed disorders the pH/HCO₃ alone hide.'},
+        {range:'Osmolar gap > 10',meaning:'Unmeasured osmoles — suspect toxic alcohol (methanol, ethylene glycol); also consider ethanol, isopropanol, mannitol.',action:'If toxic alcohol suspected: send levels, treat with fomepizole ± dialysis; do not wait for confirmation if high suspicion.'}
+      ],
+      pearls:['Always correct the anion gap for albumin — every 1 g/dL drop in albumin lowers the apparent gap by ~2.5.','A normal osmolar gap does not fully exclude toxic alcohol late in the course (parent alcohol metabolized to acids → gap closes, anion gap opens).']},
+
+    {id:'corrected',name:'Corrected Na / Ca',
+      use:'Adjust sodium for hyperglycemia and calcium for hypoalbuminemia before acting on the raw value.',
+      when:['Hyponatremia with hyperglycemia; hypo/hypercalcemia with abnormal albumin.'],
+      formula:'Corrected Na = measured Na + 0.024 × (glucose − 100)  (≈ +1.6–2.4 mEq per 100 mg/dL glucose >100).   Corrected Ca = measured Ca + 0.8 × (4.0 − albumin g/dL).',
+      scoring:[
+        {range:'Hyponatremia + hyperglycemia',meaning:'Glucose pulls water intravascularly, diluting sodium (translocational/pseudohyponatremia).',action:'Correct the Na for glucose first — the corrected value may be normal, changing management. Treat the hyperglycemia.'},
+        {range:'Abnormal Ca + low albumin',meaning:'Total calcium tracks albumin; low albumin lowers total Ca without changing ionized (active) Ca.',action:'Use corrected Ca, or measure IONIZED calcium (the gold standard, esp. in critical illness / acid-base shifts).'}
+      ],
+      pearls:['Ionized calcium is preferred over corrected calcium in ICU patients, transfusion, and acid-base derangements.','In true hyperglycemic hyponatremia, fixing the glucose corrects the sodium.']}
+  ]}
+};
+
+var dxActiveCat='all';
+function dxRender(){
+  const pills=document.getElementById('dx-pills');
+  if(pills){
+    let h=`<button class="clinic-pill${dxActiveCat==='all'?' on':''}" onclick="dxSetCat('all')">ALL</button>`;
+    Object.keys(DX_DATA).forEach(k=>{
+      h+=`<button class="clinic-pill${dxActiveCat===k?' on':''}" onclick="dxSetCat('${k}')">${DX_DATA[k].name}</button>`;
+    });
+    pills.innerHTML=h;
+  }
+  const q=(document.getElementById('dx-search')||{}).value||'';
+  dxBuildList(q.toLowerCase());
+}
+function dxSetCat(k){ dxActiveCat=k; dxRender(); }
+function dxFilter(){ const q=(document.getElementById('dx-search')||{}).value||''; dxBuildList(q.toLowerCase()); }
+function dxBuildList(q){
+  const list=document.getElementById('dx-list');
+  if(!list) return;
+  let h='';
+  Object.keys(DX_DATA).forEach(ck=>{
+    if(dxActiveCat!=='all' && dxActiveCat!==ck) return;
+    const cat=DX_DATA[ck];
+    const matches=cat.items.filter(it=>{
+      if(!q) return true;
+      const hay=(it.name+' '+(it.use||'')+' '+(it.criteria||[]).map(c=>c.item).join(' ')+' '+(it.scoring||[]).map(s=>s.range+' '+s.meaning).join(' ')).toLowerCase();
+      return hay.indexOf(q)>=0;
+    });
+    if(!matches.length) return;
+    h+=`<div class="card" style="margin-bottom:14px;">
+      <div style="font-family:var(--mono);font-size:11px;color:${cat.color};letter-spacing:.1em;margin-bottom:10px;">${cat.name.toUpperCase()}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">`;
+    matches.forEach(it=>{
+      h+=`<button class="btn bs" onclick="openDxDrawer('${ck}','${it.id}')" style="font-size:22px;padding:8px 14px;">${it.name}</button>`;
+    });
+    h+=`</div></div>`;
+  });
+  if(!h) h='<div style="font-size:24px;color:var(--t3);font-style:italic;padding:20px 0;">No matching criteria.</div>';
+  list.innerHTML=h;
+}
+
+function openDxDrawer(ck,iid){
+  closeAnyDrawer();
+  const cat=DX_DATA[ck];
+  const it=cat.items.find(x=>x.id===iid);
+  if(!it) return;
+  let html=drawerHead(it.name,cat.name,cat.color,'closeAnyDrawer()');
+
+  // What it's for
+  if(it.use){
+    html+=`<div style="margin:14px 14px 2px;background:var(--s3);border:1px solid var(--b2);border-radius:var(--rl);padding:13px 16px;">
+      <div style="font-family:var(--mono);font-size:12px;color:var(--t2);letter-spacing:.12em;margin-bottom:8px;">WHAT IT'S FOR</div>
+      <div style="font-size:16px;color:var(--t);line-height:1.55;">${it.use}</div>
+    </div>`;
+  }
+
+  // When to use
+  if(it.when&&it.when.length){
+    html+=`<div style="margin:14px 14px 2px;background:rgba(79,195,247,.05);border:1px solid rgba(79,195,247,.2);border-radius:var(--rl);padding:14px 16px;">
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g2);letter-spacing:.12em;margin-bottom:10px;">⊕ WHEN TO USE</div>`;
+    it.when.forEach(w=>{ html+=`<div style="font-size:15px;color:var(--t2);line-height:1.6;margin-bottom:9px;padding-left:20px;position:relative;"><span style="position:absolute;left:4px;color:var(--g2);font-family:var(--mono);font-weight:600;">›</span>${w}</div>`; });
+    html+=`</div>`;
+  }
+
+  // Decision pathway (numbered)
+  if(it.pathway&&it.pathway.length){
+    html+=secHeader('DECISION PATHWAY');
+    html+=`<div style="margin:0 14px 8px;background:rgba(127,255,110,.05);border:1px solid rgba(127,255,110,.2);border-radius:var(--rl);padding:14px 16px;">`;
+    it.pathway.forEach((p,i)=>{
+      html+=`<div style="display:flex;gap:11px;margin-bottom:${i===it.pathway.length-1?'0':'11px'};align-items:flex-start;">
+        <span style="flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--g);color:var(--bg);font-family:var(--mono);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;margin-top:1px;">${i+1}</span>
+        <span style="font-size:15px;color:var(--t);line-height:1.55;">${p}</span>
+      </div>`;
+    });
+    html+=`</div>`;
+  }
+
+  // Formula
+  if(it.formula){
+    html+=secHeader('FORMULA');
+    html+=`<div style="margin:0 14px 8px;background:var(--s3);border:1px solid var(--b2);border-left:3px solid var(--g3);border-radius:9px;padding:13px 15px;font-family:var(--mono);font-size:14px;color:var(--t);line-height:1.7;">${it.formula}</div>`;
+  }
+
+  // Criteria with point values
+  if(it.criteria&&it.criteria.length){
+    html+=secHeader('CRITERIA');
+    html+=`<div style="margin:0 14px 8px;border:1px solid var(--b2);border-radius:var(--rl);overflow:hidden;background:var(--s2);">`;
+    it.criteria.forEach((c,i)=>{
+      html+=`<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:11px 14px;${i<it.criteria.length-1?'border-bottom:1px solid var(--b);':''}">
+        <span style="font-size:15px;color:var(--t);line-height:1.5;">${c.item}</span>
+        <span style="flex-shrink:0;font-family:var(--mono);font-size:13px;font-weight:600;color:var(--g);background:rgba(127,255,110,.1);border:1px solid rgba(127,255,110,.2);border-radius:7px;padding:3px 9px;white-space:nowrap;">${c.points}</span>
+      </div>`;
+    });
+    html+=`</div>`;
+  }
+
+  // Scoring / interpretation → action
+  if(it.scoring&&it.scoring.length){
+    html+=secHeader('INTERPRETATION → ACTION');
+    it.scoring.forEach(s=>{
+      html+=`<div class="dwcard">
+        <div class="dwcard-h" style="color:var(--g);font-weight:600;">${s.range}</div>
+        <div class="dwcard-b">
+          <div style="font-size:16px;color:var(--t);line-height:1.55;margin-bottom:11px;">${s.meaning}</div>
+          <div class="dwdose" style="border-left-color:var(--g3);margin-bottom:0;"><span style="font-family:var(--mono);font-size:11px;color:var(--g3);letter-spacing:.07em;margin-right:6px;">DO</span>${s.action}</div>
+        </div>
+      </div>`;
+    });
+  }
+
+  // Pearls
+  if(it.pearls&&it.pearls.length){
+    html+=`<div class="dwpearls"><div class="dwpearls-h">✦ PEARLS</div>`;
+    it.pearls.forEach(p=>{ html+=`<div class="dwpearl">${p}</div>`; });
+    html+=`</div>`;
+  }
+  html+=`<div style="height:30px;"></div>`;
+  buildDrawer(html);
+}
+
+// ============================================================
 // INIT
 // ============================================================
 function onLoad(){
-  try{ clinicRender(); dataRender(); drugRender(); clinicBuildList(''); dataBuildList(''); }catch(e){ console.error('init',e); }
+  try{ clinicRender(); dataRender(); drugRender(); dxRender(); clinicBuildList(''); dataBuildList(''); dxBuildList(''); }catch(e){ console.error('init',e); }
 }
 
 window.addEventListener('DOMContentLoaded', onLoad);
