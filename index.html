@@ -275,6 +275,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   .ni.icu{background:rgba(255,235,59,.15);border-color:rgba(255,235,59,.4);}.ni.icu .nicon{color:#ffd700;}
   .ni.soap{background:rgba(79,195,247,.15);border-color:rgba(79,195,247,.4);}.ni.soap .nicon{color:var(--g2);}
   .ni.trials{background:rgba(186,104,200,.15);border-color:rgba(186,104,200,.4);}.ni.trials .nicon{color:#ce93d8;}
+  .ni.lang{background:rgba(38,198,218,.15);border-color:rgba(38,198,218,.4);}.ni.lang .nicon{color:#26c6da;}
   .nicon{font-size:24px;color:var(--t2);line-height:1;font-weight:700;}
   .nlbl{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;margin-top:2px;}
   .ni.on{border:2px solid var(--g);box-shadow:0 0 8px rgba(127,255,110,.3);}
@@ -449,6 +450,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
     <button class="tab" onclick="gT('icu',this)">ICU ORDERS</button>
     <button class="tab" onclick="gT('soap',this)">SOAP NOTE</button>
     <button class="tab" onclick="gT('trials',this)">TRIALS</button>
+    <button class="tab" onclick="gT('lang',this)">LANGUAGE</button>
   </div>
 </div>
 
@@ -1051,6 +1053,71 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   <div style="height:40px;"></div>
 </div>
 
+<div id="panel-lang" class="panel">
+  <div class="h1">Medical <span>language</span></div>
+  <div style="font-size:24px;color:var(--t3);margin-bottom:14px;">Pick a <b>system</b> → the precise, codeable diagnosis name, the numbers that define it, and a sample A&amp;P sentence you can copy.</div>
+
+  <!-- CONNECTOR REFERENCE (applies to all systems) -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g2);" onclick="toggleSoap('lang-connectors')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g2);letter-spacing:.1em;">⇄ CONNECTOR SHORTHAND — read me first</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="lang-connectors-chevron">▸</div>
+    </div>
+  </div>
+  <div id="lang-connectors" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <div style="font-size:15px;color:var(--t2);line-height:1.6;margin-bottom:12px;">These are the glue words that turn a list of findings into a real assessment. Master these and your one-liner reads like a senior's.</div>
+      <table style="width:100%;border-collapse:collapse;font-size:14px;">
+        <thead><tr style="text-align:left;color:var(--g2);font-family:var(--mono);font-size:11px;letter-spacing:.08em;">
+          <th style="padding:6px 8px;border-bottom:1px solid var(--b2);">TERM</th>
+          <th style="padding:6px 8px;border-bottom:1px solid var(--b2);">MEANING</th>
+          <th style="padding:6px 8px;border-bottom:1px solid var(--b2);">EXAMPLE</th>
+        </tr></thead>
+        <tbody style="color:var(--t);">
+          <tr><td style="padding:7px 8px;border-bottom:1px solid var(--b);font-family:var(--mono);color:var(--g);">2/2</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);">Secondary to / due to</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);color:var(--t3);">"Hypoxic resp failure 2/2 PNA"</td></tr>
+          <tr><td style="padding:7px 8px;border-bottom:1px solid var(--b);font-family:var(--mono);color:var(--g);">s/p</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);">Status post</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);color:var(--t3);">"s/p intubation"</td></tr>
+          <tr><td style="padding:7px 8px;border-bottom:1px solid var(--b);font-family:var(--mono);color:var(--g);">r/o</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);">Rule out</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);color:var(--t3);">"R/o PE"</td></tr>
+          <tr><td style="padding:7px 8px;border-bottom:1px solid var(--b);font-family:var(--mono);color:var(--g);">c/w</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);">Consistent with</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);color:var(--t3);">"Labs c/w DKA"</td></tr>
+          <tr><td style="padding:7px 8px;border-bottom:1px solid var(--b);font-family:var(--mono);color:var(--g);">vs</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);">Versus (differential)</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);color:var(--t3);">"PNA vs aspiration vs HAP"</td></tr>
+          <tr><td style="padding:7px 8px;border-bottom:1px solid var(--b);font-family:var(--mono);color:var(--g);">in setting of</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);">Context / backdrop</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);color:var(--t3);">"Hyperglycemia in setting of sepsis"</td></tr>
+          <tr><td style="padding:7px 8px;border-bottom:1px solid var(--b);font-family:var(--mono);color:var(--g);">likely</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);">Most probable</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);color:var(--t3);">"Likely UTI source"</td></tr>
+          <tr><td style="padding:7px 8px;border-bottom:1px solid var(--b);font-family:var(--mono);color:var(--g);">possibly</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);">Less certain</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);color:var(--t3);">"Possibly aspiration"</td></tr>
+          <tr><td style="padding:7px 8px;border-bottom:1px solid var(--b);font-family:var(--mono);color:var(--g);">complicating</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);">Resulting from</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);color:var(--t3);">"AKI complicating sepsis"</td></tr>
+          <tr><td style="padding:7px 8px;font-family:var(--mono);color:var(--g);">per</td><td style="padding:7px 8px;">According to</td><td style="padding:7px 8px;color:var(--t3);">"Per attending..."</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PRESENTATION FORMAT + SPECIFICITY NOTE -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g3);" onclick="toggleSoap('lang-format')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g3);letter-spacing:.1em;">▤ THE ONE-LINER FORMULA — read me first</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="lang-format-chevron">▸</div>
+    </div>
+  </div>
+  <div id="lang-format" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <div style="background:var(--s3);border-radius:8px;padding:13px 15px;margin-bottom:12px;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:7px;">MODEL EVERY ASSESSMENT ON THIS</div>
+        <div style="font-size:16px;color:var(--t);line-height:1.7;font-family:var(--mono);">"[Age/gender] with <b style="color:var(--g3);">[CDI-specific condition]</b> <b style="color:var(--g2);">2/2</b> [etiology], <b style="color:var(--g2);">c/w</b> [supporting finding]. <b style="color:var(--g2);">Likely</b> [most probable] <b style="color:var(--g2);">vs</b> [alternative] <b style="color:var(--g2);">vs</b> [cannot rule out]."</div>
+      </div>
+      <div style="background:rgba(127,255,110,.06);border:1px solid rgba(127,255,110,.25);border-radius:8px;padding:13px 15px;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:7px;">⚑ ABOUT SPECIFICITY — don't overdo it</div>
+        <div style="font-size:15px;color:var(--t);line-height:1.65;">Use the most specific <b>codeable</b> diagnosis <b>when one exists</b> — capture acuity + chronicity + severity (this drives Severity-of-Illness / Risk-of-Mortality). "Acute hypoxic respiratory failure," not "hypoxia." "Acute on chronic systolic HF exacerbation," not "CHF." <b>But not every diagnosis has a special "specific version"</b> — many are just stated plainly (e.g. "acute appendicitis," "cellulitis"). Don't force specificity where it doesn't apply or invent severity you can't support.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="position:relative;margin-bottom:12px;">
+    <input type="text" id="lang-search" placeholder="Search diagnosis, term, or system..." oninput="langFilter()" autocomplete="off" style="width:100%;box-sizing:border-box;background:var(--s2);border:1px solid var(--b2);border-radius:var(--r);padding:10px 14px 10px 38px;font-family:var(--mono);font-size:13px;color:var(--t);outline:none;">
+    <span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:15px;">⌕</span>
+  </div>
+  <div id="lang-pills" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;"></div>
+  <div id="lang-list"></div>
+  <div style="height:40px;"></div>
+</div>
+
 </div><!-- .main -->
 
 <!-- Mobile top nav (periodic table) -->
@@ -1065,6 +1132,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   <button class="ni icu" id="ni-icu" onclick="gM('icu',this)"><span class="nicon">⚠️</span><span class="nlbl">ICU</span></button>
   <button class="ni soap" id="ni-soap" onclick="gM('soap',this)"><span class="nicon">📝</span><span class="nlbl">SOAP</span></button>
   <button class="ni trials" id="ni-trials" onclick="gM('trials',this)"><span class="nicon">📚</span><span class="nlbl">Trials</span></button>
+  <button class="ni lang" id="ni-lang" onclick="gM('lang',this)"><span class="nicon">🗣️</span><span class="nlbl">Lang</span></button>
 </nav>
 
 </div><!-- .app -->
@@ -5237,8 +5305,482 @@ function openTrialDrawer(ck,iid){
   buildDrawer(html);
 }
 
+// ============================================================
+// MEDICAL LANGUAGE — CDI-specific dx names, numeric criteria, sample one-liners
+// ============================================================
+var LANG_DATA={
+  pulm:{name:'Pulmonary',color:'var(--g2)',items:[
+    {id:'hypoxic_rf',name:'Acute hypoxic respiratory failure',
+      upgrade:{vague:'"Hypoxia" / "desatting" / "on oxygen"',specific:'Acute hypoxic (Type 1) respiratory failure'},
+      criteria:[
+        {label:'Defining numbers',detail:'<b>PaO₂ <60 mmHg</b> on room air, OR <b>SpO₂ ≤91%</b>, OR <b>P/F ratio <300</b>, requiring supplemental O₂. Type 1 = hypoxemic with normal/low CO₂.'},
+        {label:'Acuity / chronicity',detail:'<b>Acute</b> if new; <b>acute on chronic</b> if home O₂ or chronic hypoxemia at baseline.'},
+        {label:'Separate from Type 2',detail:'Type 1: PaCO₂ normal or low. Type 2 (hypercapnic): PaCO₂ >45. Always say which.'}
+      ],
+      sample:'68M with <b>acute hypoxic respiratory failure 2/2</b> multifocal pneumonia, <b>c/w</b> bilateral infiltrates and P/F 210. <b>Likely</b> bacterial PNA <b>vs</b> aspiration <b>vs</b> evolving ARDS.',
+      pearls:['"Hypoxia" is not codeable; "acute hypoxic respiratory failure" is — and it captures acuity for SOI/ROM.','Name the O₂ device + flow ("on 4L NC") to support the severity.']},
+    {id:'hypercapnic_rf',name:'Acute hypercapnic respiratory failure',
+      upgrade:{vague:'"CO₂ retention" / "drowsy COPDer"',specific:'Acute (or acute on chronic) hypercapnic (Type 2) respiratory failure'},
+      criteria:[
+        {label:'Defining numbers',detail:'<b>PaCO₂ >45 mmHg WITH pH <7.35</b> = acute uncompensated.'},
+        {label:'Acute on chronic',detail:'↑PaCO₂ with near-normal pH (7.30–7.35) + compensatory <b>HCO₃ >26–30</b> = chronic retainer with an acute bump.'},
+        {label:'Severity / action',detail:'pH <7.25 or somnolence → trial NIPPV / consider intubation.'}
+      ],
+      sample:'72F with <b>acute on chronic hypercapnic respiratory failure 2/2</b> COPD exacerbation, <b>c/w</b> pH 7.28 / PaCO₂ 78. <b>Likely</b> viral-triggered AECOPD <b>vs</b> PNA. Trial BiPAP.',
+      pearls:['The ABG (not the SpO₂) makes this diagnosis — get a gas.','A high HCO₃ on the BMP hints the patient is a chronic retainer before you even draw a gas.']},
+    {id:'ards',name:'ARDS (Berlin)',
+      criteria:[
+        {label:'1. Timing',detail:'Within <b>1 week</b> of a known insult or new/worsening respiratory symptoms.'},
+        {label:'2. Imaging',detail:'<b>Bilateral opacities</b> not fully explained by effusion, collapse, or nodules.'},
+        {label:'3. Origin',detail:'Not fully explained by cardiac failure / fluid overload (objective assessment, e.g. echo).'},
+        {label:'4. Oxygenation (PEEP ≥5)',detail:'<b>Mild</b> P/F 200–300 · <b>Moderate</b> P/F 100–200 · <b>Severe</b> P/F ≤100.'}
+      ],
+      sample:'55M with <b>moderate ARDS (P/F 140) 2/2</b> septic shock from urosepsis, <b>c/w</b> bilateral infiltrates and no cardiogenic cause on echo. Lung-protective ventilation (6 mL/kg IBW).',
+      pearls:['Always state the severity tier (mild/moderate/severe) — it is the P/F band on PEEP ≥5.']},
+    {id:'copd_exac',name:'Acute COPD exacerbation',
+      upgrade:{vague:'"SOB" / "COPD flare"',specific:'Acute exacerbation of COPD (AECOPD), Anthonisen type __'},
+      criteria:[
+        {label:'Anthonisen cardinal symptoms',detail:'↑dyspnea, ↑sputum volume, ↑sputum purulence. <b>Type 1</b>=all 3 · <b>Type 2</b>=2 of 3 · <b>Type 3</b>=1 + URI/fever. Antibiotics benefit type 1–2.'},
+        {label:'Severity markers',detail:'Accessory-muscle use, <b>RR >25</b>, <b>SpO₂ <90%</b>, hypercapnia, AMS.'},
+        {label:'Document baseline',detail:'Home O₂, prior intubations, GOLD grade if known.'}
+      ],
+      sample:'70M with <b>acute COPD exacerbation, Anthonisen type 1, 2/2</b> likely viral URI, <b>c/w</b> increased purulent sputum and diffuse wheeze. <b>Possibly</b> superimposed bacterial. Steroids + bronchodilators.'},
+    {id:'aspiration',name:'Aspiration pneumonia vs pneumonitis',
+      upgrade:{vague:'"Aspiration"',specific:'Aspiration pneumonia (infectious) vs aspiration pneumonitis (chemical / Mendelson)'},
+      criteria:[
+        {label:'Pneumonitis (chemical)',detail:'Injury within <b>hours</b> of the event, often resolves in <b>24–48h</b>; NO antibiotics initially.'},
+        {label:'Pneumonia (infectious)',detail:'Develops over <b>days</b>, infiltrate in dependent segments (<b>RLL</b> if upright, posterior segments if supine); needs antibiotics.'},
+        {label:'Risk factors',detail:'Dysphagia, reduced consciousness, post-extubation, poor dentition, tube feeds.'}
+      ],
+      sample:'81F with <b>aspiration pneumonia 2/2</b> post-stroke dysphagia, <b>c/w</b> RLL consolidation and a witnessed aspiration event 3 days ago. <b>Likely</b> anaerobic/polymicrobial <b>vs</b> chemical pneumonitis. NPO, speech eval.'},
+    {id:'pleural_effusion',name:'Pleural effusion (exudate vs transudate)',
+      criteria:[
+        {label:'Light criteria — EXUDATE if any',detail:'pleural/serum <b>protein >0.5</b>, pleural/serum <b>LDH >0.6</b>, or pleural <b>LDH >⅔ the upper-normal serum LDH</b>.'},
+        {label:'Transudate causes',detail:'CHF, cirrhosis, nephrotic syndrome — treat the systemic cause.'},
+        {label:'Complicated parapneumonic / empyema',detail:'pleural <b>pH <7.20</b>, glucose <60, or frank pus → drain (chest tube).'}
+      ],
+      sample:'64M with <b>exudative pleural effusion 2/2</b> a parapneumonic process, <b>c/w</b> Light criteria positive (pleural LDH 320) and pH 7.18. <b>Likely</b> complicated parapneumonic effusion → chest tube.'},
+    {id:'pe_acute',name:'Acute pulmonary embolism',
+      upgrade:{vague:'"PE"',specific:'Acute PE — low-risk vs submassive (intermediate) vs massive (high-risk)'},
+      criteria:[
+        {label:'Massive (high-risk)',detail:'Sustained hypotension (<b>SBP <90 ≥15 min</b>) or requiring pressors → consider thrombolysis.'},
+        {label:'Submassive (intermediate)',detail:'Normotensive + <b>RV strain</b> (↑troponin/BNP, RV dilation on CT/echo).'},
+        {label:'Low-risk',detail:'No hypotension, no RV strain; risk-stratify with PESI / sPESI.'}
+      ],
+      sample:'59F with <b>acute submassive PE 2/2</b> recent immobilization, <b>c/w</b> RV strain on CTA and troponin elevation while normotensive. Anticoagulation; monitor for decompensation.'}
+  ]},
+  cards:{name:'Cardiovascular',color:'var(--g4)',items:[
+    {id:'adhf',name:'Acute decompensated systolic HF',
+      upgrade:{vague:'"CHF" / "fluid overload"',specific:'Acute on chronic systolic (HFrEF) heart failure exacerbation'},
+      criteria:[
+        {label:'EF categories',detail:'<b>HFrEF ≤40%</b> · HFmrEF 41–49% · HFpEF ≥50%. Quote the echo EF.'},
+        {label:'Supporting data',detail:'<b>BNP >400</b> (NT-proBNP age-adjusted: >450 if <50y, >900 if 50–75y, >1800 if >75y); CXR congestion; weight gain.'},
+        {label:'Always include',detail:'Chronicity ("acute on chronic") + the <b>precipitant</b> (ischemia, AF, nonadherence, infection).'}
+      ],
+      sample:'74M with <b>acute on chronic systolic heart failure exacerbation (EF 30%) 2/2</b> dietary indiscretion, <b>c/w</b> BNP 1850, bilateral edema, and pulmonary congestion. <b>Likely</b> nonadherence <b>vs</b> ischemia. Diurese.'},
+    {id:'hfpef',name:'Acute decompensated HFpEF',
+      upgrade:{vague:'"Diastolic dysfunction"',specific:'Acute decompensated diastolic (HFpEF) heart failure'},
+      criteria:[
+        {label:'Defining',detail:'<b>EF ≥50%</b> with HF signs/symptoms + evidence of elevated filling pressures (↑BNP, diastolic dysfunction, <b>E/e\' >14</b>).'},
+        {label:'Common drivers',detail:'Hypertension, tachyarrhythmia (AF with RVR), volume/dietary, ischemia.'}
+      ],
+      sample:'80F with <b>acute decompensated HFpEF (EF 60%) 2/2</b> hypertensive emergency, <b>c/w</b> BNP 1200 and grade-2 diastolic dysfunction on echo. Afterload reduction + diuresis.'},
+    {id:'nstemi',name:'NSTEMI / Type 2 MI',
+      upgrade:{vague:'"Troponin bump"',specific:'Type 1 NSTEMI (plaque rupture) vs Type 2 MI (supply–demand mismatch)'},
+      criteria:[
+        {label:'MI definition',detail:'<b>Rise/fall of troponin with ≥1 value >99th percentile URL</b> PLUS ischemia (symptoms, ECG, imaging).'},
+        {label:'NSTEMI',detail:'No persistent ST elevation — ST depression, T-wave inversion, or even normal ECG.'},
+        {label:'Type 2 MI',detail:'Demand ischemia from tachycardia, anemia, hypotension, hypoxia — <b>no acute thrombus</b>. Name the stressor.'}
+      ],
+      sample:'77M with <b>Type 2 NSTEMI 2/2</b> demand ischemia from sepsis/tachycardia, <b>c/w</b> a troponin rise/fall (peak 0.8) without dynamic ECG changes. <b>Likely</b> supply–demand <b>vs</b> ACS. Treat the underlying driver.',
+      pearls:['A "troponin bump" with no rise/fall and no ischemia is chronic myocardial injury (CKD, HF) — not an MI.']},
+    {id:'htn_emergency',name:'Hypertensive emergency vs urgency',
+      criteria:[
+        {label:'Emergency',detail:'<b>SBP >180 and/or DBP >120 WITH acute end-organ damage</b>: encephalopathy, ICH, ACS, flash pulmonary edema, AKI, aortic dissection, eclampsia.'},
+        {label:'Urgency',detail:'Same BP range but <b>NO</b> end-organ damage.'},
+        {label:'Target',detail:'Emergency → lower MAP <b>≤25%</b> in the first hour (exceptions: dissection faster/lower; ischemic stroke per protocol).'}
+      ],
+      sample:'61M with <b>hypertensive emergency 2/2</b> medication nonadherence, <b>c/w</b> BP 224/128 and acute pulmonary edema. <b>Likely</b> nonadherence. IV antihypertensive, MAP reduction ≤25%.'},
+    {id:'afib_rvr',name:'Atrial fibrillation with RVR',
+      upgrade:{vague:'"AFib" / "irregular"',specific:'Atrial fibrillation with rapid ventricular response (new-onset vs paroxysmal vs persistent)'},
+      criteria:[
+        {label:'RVR',detail:'Ventricular rate typically <b>>110</b> (often 120–160).'},
+        {label:'Classify chronicity',detail:'New-onset · paroxysmal (<7d, self-terminating) · persistent (>7d) · permanent.'},
+        {label:'Stability',detail:'Hypotension, ischemia, HF, or chest pain from the AF → unstable → synchronized cardioversion.'}
+      ],
+      sample:'68F with <b>new-onset atrial fibrillation with RVR (rate 140s) 2/2</b> sepsis, <b>c/w</b> an irregularly irregular rhythm with absent P waves. <b>Likely</b> sepsis-triggered. Rate control; anticoagulate per CHA₂DS₂-VASc.'},
+    {id:'cardiogenic_shock',name:'Cardiogenic shock',
+      criteria:[
+        {label:'Defining numbers',detail:'<b>SBP <90</b> (or MAP drop ≥30) for >30 min, <b>cardiac index <2.2 L/min/m²</b>, <b>PCWP >15</b>, with hypoperfusion (cool extremities, oliguria, ↑lactate).'},
+        {label:'Common cause',detail:'Acute MI with LV failure; also fulminant myocarditis, decompensated HF, arrhythmia.'}
+      ],
+      sample:'60M with <b>cardiogenic shock 2/2</b> acute anterior STEMI, <b>c/w</b> CI 1.8, lactate 5.2, and cool extremities. Inotropes/pressors, urgent revascularization, consider mechanical support.'}
+  ]},
+  renal:{name:'Renal / GU',color:'var(--g)',items:[
+    {id:'aki',name:'AKI (KDIGO staging)',
+      upgrade:{vague:'"Elevated creatinine" / "Cr bump"',specific:'Acute kidney injury, KDIGO stage __ (prerenal vs intrinsic/ATN vs postrenal)'},
+      criteria:[
+        {label:'KDIGO definition (any one)',detail:'<b>↑Cr ≥0.3 mg/dL within 48h</b>, OR <b>↑Cr ≥1.5× baseline within 7 days</b>, OR <b>UOP <0.5 mL/kg/h for ≥6h</b>.'},
+        {label:'Staging',detail:'<b>1</b>: Cr 1.5–1.9× or ↑≥0.3 / UOP <0.5 ×6–12h. <b>2</b>: Cr 2.0–2.9× / UOP <0.5 ×≥12h. <b>3</b>: Cr ≥3× or ≥4.0, RRT, or UOP <0.3 ×≥24h / anuria ≥12h.'},
+        {label:'Localize',detail:'<b>FENa <1%</b> (FEUrea <35% on diuretics) + BUN:Cr >20 → prerenal · <b>FENa >2%</b> + muddy-brown casts → ATN · hydronephrosis → postrenal.'}
+      ],
+      sample:'70M with <b>KDIGO stage 2 AKI 2/2</b> prerenal azotemia from hypovolemia, <b>c/w</b> FENa 0.4%, BUN:Cr 28, and bland sediment. <b>Likely</b> prerenal <b>vs</b> early ATN. IVF, hold nephrotoxins.',
+      pearls:['Always stage it and name the bucket (pre/intra/post) — "AKI stage 2, prerenal" beats "Cr up."','Compare to the patient\'s OWN baseline, not the lab reference range.']},
+    {id:'aki_on_ckd',name:'AKI on CKD',
+      upgrade:{vague:'"Worsening renal function"',specific:'Acute kidney injury on chronic kidney disease, stage __'},
+      criteria:[
+        {label:'Defining',detail:'Acute rise from the patient\'s <b>known baseline</b> superimposed on CKD (eGFR <60 for ≥3 months).'},
+        {label:'Stage both',detail:'Name the CKD GFR category (<b>G1–G5</b>) AND the acute insult.'}
+      ],
+      sample:'66F with <b>AKI on CKD stage 3b</b> (baseline Cr 1.8, now 3.2) <b>2/2</b> contrast + NSAID use, <b>c/w</b> a 1.8× rise over 4 days. Hold offending agents, renal US.'},
+    {id:'atn',name:'Acute tubular necrosis',
+      upgrade:{vague:'"Intrinsic AKI"',specific:'Intrinsic AKI 2/2 acute tubular necrosis (ischemic vs nephrotoxic)'},
+      criteria:[
+        {label:'Sediment / indices',detail:'<b>Muddy-brown granular casts</b>, <b>FENa >2%</b>, urine osm <350 (isosthenuria).'},
+        {label:'Causes',detail:'Ischemic (prolonged prerenal, sepsis, hypotension) or nephrotoxic (contrast, aminoglycosides, vancomycin, myoglobin).'}
+      ],
+      sample:'58M with <b>intrinsic AKI 2/2 ischemic ATN</b>, <b>c/w</b> muddy-brown casts and FENa 3.1% after prolonged hypotension. Supportive care, avoid further insults.'},
+    {id:'obstructive_uropathy',name:'Postrenal (obstructive) AKI',
+      criteria:[
+        {label:'Defining',detail:'<b>Hydronephrosis</b> on US + elevated <b>post-void residual (>300 mL)</b> / bladder distention.'},
+        {label:'Mechanism',detail:'Needs bilateral obstruction (or a solitary kidney) to raise creatinine. Common: BPH, malignancy, stones, clot.'}
+      ],
+      sample:'82M with <b>postrenal AKI 2/2</b> BPH/bladder-outlet obstruction, <b>c/w</b> PVR 700 mL and bilateral hydronephrosis. Foley placed with large output; monitor post-obstructive diuresis.'},
+    {id:'urinary_retention',name:'Acute urinary retention',
+      criteria:[
+        {label:'Defining',detail:'Inability to void with a palpable/distended bladder; <b>PVR >300 mL</b> on bladder scan or catheterization.'},
+        {label:'Causes',detail:'BPH, anticholinergic/opioid meds, post-op, neurogenic, fecal impaction, UTI.'}
+      ],
+      sample:'75M with <b>acute urinary retention 2/2</b> BPH, <b>c/w</b> a PVR of 850 mL relieved by catheter. <b>Likely</b> BPH <b>vs</b> medication-induced.'},
+    {id:'esrd',name:'ESRD on hemodialysis',
+      upgrade:{vague:'"Renal failure"',specific:'End-stage renal disease on hemodialysis (document modality, schedule, access)'},
+      criteria:[
+        {label:'Defining',detail:'<b>CKD stage 5 (eGFR <15)</b> on renal replacement therapy.'},
+        {label:'Document',detail:'Modality (HD vs PD), schedule (e.g. MWF), and access (AVF, graft, tunneled catheter).'}
+      ],
+      sample:'54F with <b>ESRD on HD (MWF)</b> presenting after a missed session, <b>c/w</b> hyperkalemia (K 6.8) and volume overload. Urgent dialysis.'}
+  ]},
+  neuro:{name:'Neurology',color:'var(--g3)',items:[
+    {id:'encephalopathy',name:'Toxic-metabolic encephalopathy',
+      upgrade:{vague:'"AMS" / "altered" / "confused"',specific:'Acute encephalopathy (toxic-metabolic) — name the driver'},
+      criteria:[
+        {label:'Defining',detail:'Acute change in mentation/attention with a metabolic/toxic driver: hypoxia, hypercapnia, uremia, <b>hyperammonemia</b>, hypo/hyperglycemia, hypo/hypernatremia, sepsis, drugs.'},
+        {label:'Document',detail:'GCS and the suspected cause. <b>"Encephalopathy" is codeable; "AMS" is not.</b>'}
+      ],
+      sample:'78F with <b>acute toxic-metabolic encephalopathy 2/2</b> UTI + hyponatremia (Na 122), <b>c/w</b> fluctuating attention and lethargy. <b>Likely</b> infection/metabolic <b>vs</b> medication effect. Treat the drivers.'},
+    {id:'delirium',name:'Delirium (CAM)',
+      criteria:[
+        {label:'CAM diagnosis',detail:'<b>(1) acute onset + fluctuating course</b> AND <b>(2) inattention</b>, PLUS either <b>(3) disorganized thinking</b> OR <b>(4) altered level of consciousness</b>.'},
+        {label:'Subtype',detail:'Hyperactive, hypoactive (often missed), or mixed. Name contributing factors.'}
+      ],
+      sample:'84M with <b>hyperactive delirium 2/2</b> multifactorial causes (infection, opioids, sleep disruption), CAM-positive, <b>c/w</b> acute fluctuating inattention. Reorient, treat causes, minimize deliriogenic meds.'},
+    {id:'ischemic_stroke',name:'Acute ischemic stroke',
+      upgrade:{vague:'"Stroke" / "weakness"',specific:'Acute ischemic stroke (vascular territory), NIHSS __'},
+      criteria:[
+        {label:'Diagnosis',detail:'Sudden focal deficit + <b>non-contrast CT to exclude hemorrhage</b> (CT often normal early in ischemia).'},
+        {label:'Treatment windows',detail:'IV thrombolysis <b>≤4.5h</b> from last-known-well; thrombectomy up to <b>24h</b> for large-vessel occlusion with perfusion mismatch.'},
+        {label:'Severity',detail:'<b>NIHSS 0–42</b> quantifies severity and guides treatment.'}
+      ],
+      sample:'67M with <b>acute ischemic stroke, left MCA territory, NIHSS 12, 2/2</b> cardioembolism from AFib, <b>c/w</b> right hemiparesis and aphasia at 2h from LKW. <b>Likely</b> cardioembolic. Thrombolysis evaluation.'},
+    {id:'status_epilepticus',name:'Status epilepticus',
+      criteria:[
+        {label:'Operational definition',detail:'<b>≥5 minutes of continuous seizure</b>, OR ≥2 seizures without recovery of consciousness between them.'},
+        {label:'Nonconvulsive SE',detail:'Altered mentation without overt convulsions — needs <b>EEG</b>; suspect in unexplained persistent coma.'}
+      ],
+      sample:'45F with <b>convulsive status epilepticus 2/2</b> subtherapeutic AED levels, <b>c/w</b> >10 minutes of continuous generalized activity. Benzodiazepine then loading AED.'},
+    {id:'ich',name:'Intracerebral hemorrhage',
+      upgrade:{vague:'"Brain bleed"',specific:'Acute intracerebral hemorrhage (location, volume), with/without IVH'},
+      criteria:[
+        {label:'Diagnosis',detail:'Non-contrast CT hyperdensity. <b>ICH score</b> (GCS, volume >30 cc, IVH, infratentorial, age ≥80) predicts mortality.'},
+        {label:'BP target',detail:'Acute <b>SBP goal ~140–160</b>; reverse coagulopathy emergently.'}
+      ],
+      sample:'72M with <b>acute intraparenchymal hemorrhage (right basal ganglia, ~25 cc) 2/2</b> uncontrolled HTN, <b>c/w</b> CT hyperdensity and SBP 210. BP control, reverse coagulopathy, neurosurgery consult.'}
+  ]},
+  gi:{name:'GI / Hepatic',color:'var(--g3)',items:[
+    {id:'gib',name:'GI bleed (upper vs lower)',
+      upgrade:{vague:'"GI bleed" / "melena"',specific:'Acute upper GI bleed vs lower GI bleed (overt, with/without hemodynamic instability)'},
+      criteria:[
+        {label:'Upper clues',detail:'Melena, hematemesis, <b>BUN:Cr >30</b>; source proximal to the ligament of Treitz.'},
+        {label:'Lower',detail:'Hematochezia (but a brisk upper bleed can also present this way).'},
+        {label:'Severity',detail:'HR >100, SBP <90, Hgb drop, transfusion need. <b>Glasgow-Blatchford 0–1</b> = very low risk.'}
+      ],
+      sample:'63M with <b>acute upper GI bleed 2/2</b> likely peptic ulcer disease, <b>c/w</b> melena, BUN:Cr 42, and Hgb drop to 7.1. <b>Likely</b> PUD <b>vs</b> variceal. IV PPI, urgent EGD, type & cross.'},
+    {id:'pancreatitis',name:'Acute pancreatitis (Atlanta)',
+      criteria:[
+        {label:'Need 2 of 3',detail:'<b>Epigastric pain radiating to back</b>, <b>lipase ≥3× ULN</b>, characteristic imaging.'},
+        {label:'Severity (Atlanta)',detail:'<b>Mild</b> no organ failure · <b>Moderate</b> transient organ failure <48h / local complication · <b>Severe</b> persistent organ failure >48h. BISAP ≥3 predicts severe.'}
+      ],
+      sample:'49M with <b>acute pancreatitis 2/2</b> gallstones, <b>c/w</b> lipase 1100 (>3× ULN) and epigastric pain radiating to the back. <b>Likely</b> biliary <b>vs</b> alcohol. Aggressive LR, RUQ US.'},
+    {id:'hepatic_enceph',name:'Hepatic encephalopathy (West Haven)',
+      criteria:[
+        {label:'West Haven grades',detail:'<b>1</b> mild confusion, sleep reversal · <b>2</b> lethargy, disorientation, <b>asterixis</b> · <b>3</b> somnolent, gross disorientation · <b>4</b> coma.'},
+        {label:'Diagnosis',detail:'Clinical. Ammonia supports but a normal level does not exclude and the level does not track severity. <b>Always name the precipitant</b> (infection/SBP, GIB, constipation, hypokalemia).'}
+      ],
+      sample:'58M with cirrhosis and <b>grade 2 hepatic encephalopathy 2/2</b> constipation + SBP, <b>c/w</b> asterixis and disorientation. <b>Likely</b> infection/constipation. Lactulose, rule out SBP.'},
+    {id:'acute_liver_failure',name:'Acute liver failure',
+      upgrade:{vague:'"Liver failure" / "high LFTs"',specific:'Acute liver failure (no prior cirrhosis) vs acute-on-chronic liver failure'},
+      criteria:[
+        {label:'ALF definition',detail:'<b>INR ≥1.5 + any encephalopathy</b> in a patient WITHOUT pre-existing cirrhosis, illness <26 weeks.'},
+        {label:'ACLF',detail:'Acute decompensation of known cirrhosis with one or more organ failures.'}
+      ],
+      sample:'33F with <b>acute liver failure 2/2</b> acetaminophen toxicity, <b>c/w</b> INR 3.2, AST/ALT >5000, and grade 2 encephalopathy. N-acetylcysteine; notify transplant center.'},
+    {id:'sbp',name:'Spontaneous bacterial peritonitis',
+      criteria:[
+        {label:'Diagnostic threshold',detail:'Ascitic <b>PMN ≥250 cells/mm³</b> — diagnostic regardless of culture.'},
+        {label:'Bloody tap correction',detail:'Subtract <b>1 PMN per 250 RBCs</b>.'}
+      ],
+      sample:'60M with cirrhosis and <b>spontaneous bacterial peritonitis 2/2</b> ascitic PMN 480, <b>c/w</b> abdominal pain and fever. Ceftriaxone + albumin (1.5 g/kg day 1).'},
+    {id:'sbo',name:'Small bowel obstruction',
+      upgrade:{vague:'"Obstruction"',specific:'Acute small bowel obstruction (partial vs complete), with/without ischemia'},
+      criteria:[
+        {label:'Imaging',detail:'Dilated loops <b>>3 cm</b>, air-fluid levels, a <b>transition point</b> on CT; complete = no distal gas.'},
+        {label:'Ischemia concern',detail:'Rising lactate, peritonitis, closed-loop obstruction → surgical emergency.'}
+      ],
+      sample:'70F with <b>acute partial small bowel obstruction 2/2</b> adhesions (prior surgery), <b>c/w</b> dilated loops to 4 cm and a transition point on CT. NPO, NG decompression, surgery consult.'}
+  ]},
+  heme:{name:'Heme / Onc',color:'var(--g4)',items:[
+    {id:'anemia',name:'Anemia (acute vs chronic)',
+      upgrade:{vague:'"Anemia" / "low blood count"',specific:'Acute blood-loss anemia vs chronic anemia (classify by MCV); state severity + source'},
+      criteria:[
+        {label:'Thresholds',detail:'Hgb <13 (men) / <12 (women). <b>Transfuse for Hgb <7</b> (<8 if active ACS / cardiac).'},
+        {label:'Classify by MCV',detail:'<b><80</b> microcytic · 80–100 normocytic · <b>>100</b> macrocytic. Pair with reticulocyte count.'}
+      ],
+      sample:'64M with <b>acute blood-loss anemia 2/2</b> upper GI bleed, <b>c/w</b> Hgb 6.8 (down from 11) and melena. Transfuse to >7, urgent EGD.'},
+    {id:'thrombocytopenia',name:'Thrombocytopenia',
+      criteria:[
+        {label:'Severity',detail:'Platelets <b><150k</b>; <50k = procedural bleeding risk; <b><20k</b> spontaneous bleed risk; <10k high risk.'},
+        {label:'Mechanism',detail:'↓production (marrow), ↑destruction (ITP, TTP, DIC, HIT), or sequestration (splenomegaly). Always r/o TTP (smear) and HIT (4T).'}
+      ],
+      sample:'55F with <b>thrombocytopenia (plt 18k) 2/2</b> likely ITP, <b>c/w</b> isolated thrombocytopenia and a normal smear. <b>Possibly</b> drug-induced <b>vs</b> TTP (r/o with smear). Hold offending drugs.'},
+    {id:'febrile_neutropenia',name:'Febrile neutropenia',
+      upgrade:{vague:'"Fever on chemo"',specific:'Febrile neutropenia'},
+      criteria:[
+        {label:'Defining numbers',detail:'<b>ANC <500 cells/µL</b> (or <1000 expected to fall below 500) PLUS <b>single temp ≥38.3°C (101°F)</b> OR ≥38.0°C (100.4°F) sustained ≥1h.'},
+        {label:'ANC calculation',detail:'ANC = WBC × (% neutrophils + % bands).'}
+      ],
+      sample:'48M with <b>febrile neutropenia (ANC 200) 2/2</b> recent chemotherapy, <b>c/w</b> temp 38.6°C without a localizing source. Empiric cefepime within 1h, pan-culture.',
+      pearls:['This is an emergency — antibiotics within 60 minutes, before imaging.']},
+    {id:'dic',name:'DIC (ISTH)',
+      criteria:[
+        {label:'ISTH score ≥5 = overt DIC',detail:'Scores platelets, D-dimer/FDP, PT prolongation, fibrinogen.'},
+        {label:'Pattern',detail:'<b>↓platelets, ↑PT/PTT, ↓fibrinogen, ↑D-dimer</b>, schistocytes on smear. Treat the underlying cause.'}
+      ],
+      sample:'62F with <b>disseminated intravascular coagulation 2/2</b> gram-negative sepsis, <b>c/w</b> plt 60k, fibrinogen 90, ↑D-dimer, and PT prolongation. Treat sepsis; products only if bleeding.'},
+    {id:'vte',name:'Acute VTE (DVT/PE)',
+      upgrade:{vague:'"Clot"',specific:'Acute proximal vs distal DVT / acute PE — provoked vs unprovoked'},
+      criteria:[
+        {label:'Confirmation',detail:'DVT by compression ultrasound; PE by CTPA.'},
+        {label:'Provoked vs unprovoked',detail:'Provoked (surgery, immobilization, malignancy, estrogen) vs unprovoked — drives anticoagulation duration.'}
+      ],
+      sample:'59M with <b>acute proximal DVT (right femoral) 2/2</b> recent surgery (provoked), <b>c/w</b> a non-compressible vein on US. Anticoagulation × 3 months.'},
+    {id:'tls',name:'Tumor lysis syndrome',
+      criteria:[
+        {label:'Laboratory TLS (≥2, within −3 to +7 days of therapy)',detail:'<b>Uric acid ≥8</b> (or 25%↑), <b>K ≥6</b>, <b>phosphate ≥4.5</b>, <b>calcium ≤7</b>.'},
+        {label:'Clinical TLS',detail:'Lab TLS PLUS AKI, cardiac arrhythmia, or seizure.'}
+      ],
+      sample:'40M with <b>tumor lysis syndrome 2/2</b> induction chemo for ALL, <b>c/w</b> K 6.4, uric acid 11, phosphate 6.0, and rising Cr. IV fluids, rasburicase, telemetry.'}
+  ]},
+  id:{name:'Infectious Disease',color:'var(--g2)',items:[
+    {id:'sepsis',name:'Sepsis (Sepsis-3)',
+      upgrade:{vague:'"Infection" / "SIRS"',specific:'Sepsis (Sepsis-3) — name the source AND the organ dysfunction'},
+      criteria:[
+        {label:'Sepsis-3',detail:'Suspected/confirmed infection PLUS an acute <b>SOFA rise ≥2</b>.'},
+        {label:'qSOFA (bedside screen, ≥2)',detail:'<b>RR ≥22</b> · <b>SBP ≤100</b> · altered mentation. A screen, not the definition.'},
+        {label:'SIRS (older, ≥2 of 4)',detail:'Temp >38 or <36 · HR >90 · RR >20 or PaCO₂ <32 · WBC >12k, <4k, or >10% bands.'}
+      ],
+      sample:'71M with <b>sepsis 2/2</b> community-acquired pneumonia, <b>c/w</b> a SOFA rise of 3 (hypotension, AKI, ↑bili) and lactate 3.1. <b>Likely</b> bacterial PNA. Cultures, broad antibiotics within 1h, 30 mL/kg fluids.'},
+    {id:'septic_shock',name:'Septic shock',
+      criteria:[
+        {label:'Defining numbers',detail:'Sepsis + <b>vasopressors to keep MAP ≥65</b> AND <b>lactate >2 mmol/L</b> despite adequate fluid resuscitation. ~40% mortality.'}
+      ],
+      sample:'66F with <b>septic shock 2/2</b> urosepsis, <b>c/w</b> pressor-dependent hypotension (MAP <65) and lactate 4.5 after 30 mL/kg. <b>Likely</b> obstructing stone <b>vs</b> pyelonephritis. Norepinephrine, source control.'},
+    {id:'bacteremia',name:'Bacteremia',
+      upgrade:{vague:'"Positive blood culture"',specific:'Bacteremia (organism) — uncomplicated vs complicated; primary vs secondary source'},
+      criteria:[
+        {label:'Defining',detail:'Positive blood culture(s). Name the organism + suspected source (line, GU, endocarditis, abdomen).'},
+        {label:'S. aureus rule',detail:'<b>S. aureus bacteremia is complicated until proven otherwise</b> — TEE, repeat cultures to document clearance, 4–6 weeks.'}
+      ],
+      sample:'59M with <b>MSSA bacteremia 2/2</b> a likely central-line source, <b>c/w</b> 2/2 positive blood cultures. r/o endocarditis (TEE), remove line, repeat cultures to document clearance.'},
+    {id:'cellulitis',name:'Cellulitis / SSTI',
+      upgrade:{vague:'"Cellulitis" / "red leg"',specific:'Acute cellulitis (non-purulent vs purulent); r/o necrotizing infection'},
+      criteria:[
+        {label:'Non-purulent vs purulent',detail:'Non-purulent (strep) vs purulent (staph/MRSA, abscess → I&D).'},
+        {label:'Necrotizing red flags',detail:'Pain out of proportion, crepitus, bullae, rapid spread, systemic toxicity (<b>LRINEC ≥6</b>) → surgical emergency.'}
+      ],
+      sample:'57M with <b>acute non-purulent cellulitis of the left lower extremity 2/2</b> likely streptococcal, <b>c/w</b> warmth, erythema, and demarcation. <b>Possibly</b> purulent (no drainable collection). Cefazolin.'},
+    {id:'uti_pyelo',name:'UTI / pyelonephritis / urosepsis',
+      upgrade:{vague:'"UTI" / "dirty urine"',specific:'Acute uncomplicated cystitis vs complicated UTI vs acute pyelonephritis vs urosepsis'},
+      criteria:[
+        {label:'UA findings',detail:'Pyuria (<b>≥10 WBC/hpf</b> or +LE), +nitrites, <b>WBC casts</b> (renal origin); culture <b>≥10⁵ CFU/mL</b> (or ≥10⁴ with symptoms).'},
+        {label:'Localize',detail:'Pyelonephritis = fever + flank/CVA tenderness. Urosepsis = UTI + sepsis criteria.'}
+      ],
+      sample:'78F with <b>acute pyelonephritis with associated sepsis (urosepsis) 2/2</b> E. coli, <b>c/w</b> CVA tenderness, pyuria, and a SOFA rise. Cultures, ceftriaxone, assess for obstruction.'},
+    {id:'cdiff',name:'C. difficile colitis',
+      criteria:[
+        {label:'Definition',detail:'<b>≥3 unformed stools in 24h</b> + a positive test, no laxatives.'},
+        {label:'Severity',detail:'<b>Severe</b> = WBC ≥15k OR Cr ≥1.5. <b>Fulminant</b> = hypotension/shock, ileus, or megacolon.'}
+      ],
+      sample:'68M with <b>non-severe C. difficile colitis 2/2</b> recent antibiotics, <b>c/w</b> 5 unformed stools/day and a positive toxin/NAAT (WBC 12). Oral vancomycin or fidaxomicin.'}
+  ]},
+  endo:{name:'Endocrine',color:'var(--g)',items:[
+    {id:'dka',name:'Diabetic ketoacidosis',
+      upgrade:{vague:'"High sugar" / "hyperglycemia"',specific:'Diabetic ketoacidosis (mild / moderate / severe)'},
+      criteria:[
+        {label:'Triad — all three',detail:'<b>Glucose >250</b> (can be lower in euglycemic DKA) · <b>anion-gap acidosis (pH <7.30, HCO₃ <18)</b> · <b>ketosis</b> (↑β-hydroxybutyrate / +ketones).'},
+        {label:'Anion gap',detail:'AG = Na − (Cl + HCO₃); <b>>10–12</b> = elevated. Track gap closure for resolution.'},
+        {label:'Severity by pH / HCO₃',detail:'<b>Mild</b> pH 7.25–7.30, HCO₃ 15–18 · <b>Moderate</b> pH 7.00–7.24, HCO₃ 10–14 · <b>Severe</b> pH <7.00, HCO₃ <10.'}
+      ],
+      sample:'24F with <b>moderate diabetic ketoacidosis 2/2</b> insulin nonadherence + UTI, <b>c/w</b> glucose 480, pH 7.15, HCO₃ 11, AG 24, and positive ketones. IVF, insulin drip, replete K, treat trigger.'},
+    {id:'hhs',name:'Hyperosmolar hyperglycemic state',
+      criteria:[
+        {label:'Defining features',detail:'<b>Glucose >600</b> · <b>effective osm >320 mOsm/kg</b> (2×Na + glucose/18) · <b>minimal ketones, pH >7.30, HCO₃ >18</b> · profound dehydration + AMS.'}
+      ],
+      sample:'73M with <b>hyperosmolar hyperglycemic state 2/2</b> pneumonia + poor intake, <b>c/w</b> glucose 920, osm 345, minimal ketones, and pH 7.34. Aggressive isotonic fluids, insulin after volume, treat infection.'},
+    {id:'thyroid_storm',name:'Thyroid storm (Burch-Wartofsky)',
+      criteria:[
+        {label:'Burch-Wartofsky',detail:'<b>≥45 highly suggestive</b>, 25–44 impending. Scores thermoregulation, CNS, GI/hepatic, cardiovascular, and a precipitant.'},
+        {label:'Labs',detail:'Suppressed TSH + ↑free T4/T3, but storm is a <b>CLINICAL diagnosis</b>.'}
+      ],
+      sample:'44F with <b>thyroid storm 2/2</b> Graves disease + infection, <b>c/w</b> BWPS 60 (temp 40°C, AF with RVR, agitation). Propranolol → PTU → iodine (≥1h after PTU) → hydrocortisone.'},
+    {id:'adrenal_crisis',name:'Adrenal crisis',
+      upgrade:{vague:'"Hypotension" / "low cortisol"',specific:'Acute adrenal insufficiency (adrenal crisis)'},
+      criteria:[
+        {label:'Defining',detail:'Refractory hypotension/shock + <b>AM cortisol <3 µg/dL</b> (>15–18 excludes); cosyntropin <b>peak <18</b> = inadequate.'},
+        {label:'Primary clue',detail:'Primary (Addison): <b>hyperkalemia + hyponatremia</b>, hyperpigmentation.'}
+      ],
+      sample:'52F with <b>adrenal crisis 2/2</b> abrupt steroid withdrawal, <b>c/w</b> refractory hypotension, hyponatremia, and a low random cortisol. Hydrocortisone 100 mg IV now, fluids.'},
+    {id:'hyperglycemia',name:'Uncontrolled DM (non-emergent)',
+      upgrade:{vague:'"High sugars"',specific:'Uncontrolled type 2 diabetes mellitus with hyperglycemia (no acidosis / hyperosmolarity)'},
+      criteria:[
+        {label:'Defining',detail:'Persistent hyperglycemia <b>WITHOUT</b> DKA (no gap acidosis/ketosis) or HHS (osm <320).'},
+        {label:'Chronicity',detail:'Quote the <b>A1c</b> for control/chronicity.'}
+      ],
+      sample:'61M with <b>uncontrolled type 2 DM (A1c 11.2) with hyperglycemia in setting of</b> steroid therapy, <b>c/w</b> glucose 320 without gap or ketones. Adjust insulin; this is not DKA.'}
+  ]},
+  lytes:{name:'Fluids / Lytes / Acid-Base',color:'var(--g3)',items:[
+    {id:'hyponatremia',name:'Hyponatremia',
+      upgrade:{vague:'"Low sodium"',specific:'Hyponatremia (hypo- / eu- / hypervolemic; acute vs chronic; severity)'},
+      criteria:[
+        {label:'Severity',detail:'Na <135; <b>moderate 125–129</b>; <b>severe <120</b> or symptomatic (seizure, coma).'},
+        {label:'Workup',detail:'Serum osm → urine osm → urine Na + volume status. <b>SIADH</b>: euvolemic, urine osm >100, urine Na >30.'},
+        {label:'Correction limit',detail:'<b>≤8 mEq/L per 24h</b> to avoid osmotic demyelination.'}
+      ],
+      sample:'70F with <b>severe hypotonic hyponatremia (Na 118), euvolemic, 2/2</b> SIADH from pneumonia, <b>c/w</b> urine osm 420 and urine Na 55. <b>Likely</b> SIADH <b>vs</b> hypovolemia. Correct ≤8 mEq/24h.'},
+    {id:'hypernatremia',name:'Hypernatremia',
+      upgrade:{vague:'"High sodium"',specific:'Hypernatremia — usually a free-water deficit'},
+      criteria:[
+        {label:'Defining',detail:'<b>Na >145</b>; almost always water deficit (impaired access/thirst, diabetes insipidus, osmotic diuresis).'},
+        {label:'Replace + correct',detail:'Free-water deficit = TBW × (Na/140 − 1). Correct <b>≤10–12 mEq/L per 24h</b>.'}
+      ],
+      sample:'84M with <b>hypernatremia (Na 158) 2/2</b> poor PO intake / free-water deficit, <b>c/w</b> hypovolemia and concentrated urine. Free-water replacement, correct ≤10–12 mEq/24h.'},
+    {id:'hyperkalemia',name:'Hyperkalemia',
+      criteria:[
+        {label:'Severity',detail:'K >5.0–5.5; <b>moderate 6.0–6.4</b>; <b>severe ≥6.5</b> or ANY ECG change (peaked T → wide QRS → sine wave).'},
+        {label:'Treatment ladder',detail:'<b>Stabilize</b> (calcium) → <b>shift</b> (insulin/D50, albuterol, bicarb if acidotic) → <b>eliminate</b> (diuretics, K-binders, dialysis).'}
+      ],
+      sample:'55M with <b>severe hyperkalemia (K 7.1) with peaked T waves 2/2</b> AKI + ACEi, <b>c/w</b> ECG changes. Calcium gluconate, insulin/D50, albuterol; hold ACEi; urgent HD if refractory.'},
+    {id:'hypokalemia',name:'Hypokalemia',
+      criteria:[
+        {label:'Severity',detail:'K <3.5; <b>moderate 2.5–3.0</b>; <b>severe <2.5</b> or symptomatic (arrhythmia, weakness, U waves).'},
+        {label:'Key pearl',detail:'<b>Replete magnesium concurrently</b> — refractory hypokalemia is often 2/2 hypomagnesemia.'}
+      ],
+      sample:'60F with <b>severe hypokalemia (K 2.3) 2/2</b> diuretics + GI losses, <b>c/w</b> U waves on ECG. <b>Likely</b> diuretic <b>vs</b> GI loss. Replete K + Mg, telemetry.'},
+    {id:'metabolic_acidosis',name:'Metabolic acidosis (gap vs non-gap)',
+      criteria:[
+        {label:'Anion gap',detail:'AG = Na − (Cl + HCO₃); <b>>12</b> = high-gap. HAGMA: lactate, ketones, toxins, uremia (GOLDMARK/MUDPILES). NAGMA: diarrhea, RTA.'},
+        {label:'Check compensation (Winter formula)',detail:'Expected PaCO₂ = <b>1.5×HCO₃ + 8 ± 2</b>. Higher → concomitant respiratory acidosis; lower → respiratory alkalosis.'}
+      ],
+      sample:'48M with <b>high anion-gap metabolic acidosis (AG 26) 2/2</b> lactic acidosis from septic shock, <b>c/w</b> HCO₃ 10 and lactate 7, with appropriate respiratory compensation (Winter). Treat the shock.'},
+    {id:'metabolic_alkalosis',name:'Metabolic alkalosis',
+      criteria:[
+        {label:'Defining',detail:'<b>HCO₃ >26 with pH >7.45</b>.'},
+        {label:'Urine chloride splits it',detail:'<b>Urine Cl <20</b> = chloride-responsive (vomiting, diuretics, NG suction → give saline). <b>>20</b> = chloride-resistant (hyperaldosteronism, severe hypokalemia).'}
+      ],
+      sample:'62F with <b>chloride-responsive metabolic alkalosis 2/2</b> vomiting + diuretics, <b>c/w</b> HCO₃ 38 and urine Cl 12. Volume + KCl repletion.'},
+    {id:'hypovolemia',name:'Hypovolemia / volume depletion',
+      upgrade:{vague:'"Dehydration"',specific:'Hypovolemia / volume depletion (name the cause)'},
+      criteria:[
+        {label:'Clinical + labs',detail:'Tachycardia, orthostasis, dry mucous membranes, <b>UOP <0.5 mL/kg/h</b>, <b>BUN:Cr >20</b>, <b>FENa <1%</b>.'},
+        {label:'Word precision',detail:'<b>Dehydration</b> = free-water loss (→ hypernatremia); <b>volume depletion</b> = salt + water loss. Use the right one.'}
+      ],
+      sample:'77M with <b>hypovolemia 2/2</b> poor PO intake and diarrhea, <b>c/w</b> orthostasis, BUN:Cr 30, and FENa 0.5%. Isotonic fluid resuscitation.'},
+    {id:'hypercalcemia',name:'Hypercalcemia',
+      criteria:[
+        {label:'Severity',detail:'Corrected Ca >10.5; <b>severe >14</b> or symptomatic ("stones, bones, groans, psychiatric overtones"). Correct for albumin: <b>+0.8 per 1 g/dL below 4</b>.'},
+        {label:'PTH splits it',detail:'<b>↑/inappropriately normal PTH</b> = hyperparathyroidism. <b>Suppressed PTH</b> = malignancy (PTHrP), granulomatous, vitamin D.'}
+      ],
+      sample:'66F with <b>severe hypercalcemia (corrected Ca 14.8) 2/2</b> malignancy (PTHrP), <b>c/w</b> a suppressed PTH and AKI. Aggressive IVF, calcitonin, bisphosphonate.'}
+  ]}
+};
+var langActiveCat='all';
+function langRender(){
+  const pills=document.getElementById('lang-pills');
+  if(pills){
+    let h=`<button class="clinic-pill${langActiveCat==='all'?' on':''}" onclick="langSetCat('all')">ALL</button>`;
+    Object.keys(LANG_DATA).forEach(k=>{ h+=`<button class="clinic-pill${langActiveCat===k?' on':''}" onclick="langSetCat('${k}')">${LANG_DATA[k].name}</button>`; });
+    pills.innerHTML=h;
+  }
+  const q=(document.getElementById('lang-search')||{}).value||'';
+  langBuildList(q.toLowerCase());
+}
+function langSetCat(k){ langActiveCat=k; langRender(); }
+function langFilter(){ const q=(document.getElementById('lang-search')||{}).value||''; langBuildList(q.toLowerCase()); }
+function langBuildList(q){
+  const list=document.getElementById('lang-list'); if(!list) return;
+  let h='';
+  Object.keys(LANG_DATA).forEach(ck=>{
+    if(langActiveCat!=='all' && langActiveCat!==ck) return;
+    const cat=LANG_DATA[ck];
+    const matches=cat.items.filter(it=>{
+      if(!q) return true;
+      const hay=(it.name+' '+(it.upgrade?it.upgrade.vague+' '+it.upgrade.specific:'')+' '+(it.criteria||[]).map(c=>c.label+' '+c.detail).join(' ')+' '+(it.sample||'')).toLowerCase();
+      return hay.indexOf(q)>=0;
+    });
+    if(!matches.length) return;
+    h+=`<div class="card" style="margin-bottom:14px;"><div style="font-family:var(--mono);font-size:11px;color:${cat.color};letter-spacing:.1em;margin-bottom:10px;">${cat.name.toUpperCase()}</div><div style="display:flex;flex-wrap:wrap;gap:8px;">`;
+    matches.forEach(it=>{ h+=`<button class="btn bs" onclick="openLangDrawer('${ck}','${it.id}')" style="font-size:22px;padding:8px 14px;">${it.name}</button>`; });
+    h+=`</div></div>`;
+  });
+  if(!h) h='<div style="font-size:24px;color:var(--t3);font-style:italic;padding:20px 0;">No matching diagnosis.</div>';
+  list.innerHTML=h;
+}
+function openLangDrawer(ck,iid){
+  closeAnyDrawer();
+  const cat=LANG_DATA[ck];
+  const it=cat.items.find(x=>x.id===iid);
+  if(!it) return;
+  let html=drawerHead(it.name,cat.name,cat.color,'closeAnyDrawer()');
+  if(it.upgrade){
+    html+=`<div style="margin:14px 14px 2px;background:rgba(239,83,80,.05);border:1px solid rgba(239,83,80,.2);border-radius:var(--rl);padding:14px 16px;">
+      <div style="font-family:var(--mono);font-size:12px;color:#ef5350;letter-spacing:.1em;margin-bottom:10px;">⇪ SAY THIS, NOT THAT</div>
+      <div style="font-size:15px;line-height:1.6;margin-bottom:7px;color:#ef9a9a;"><span style="text-decoration:line-through;">${it.upgrade.vague}</span></div>
+      <div style="font-size:16px;line-height:1.6;color:var(--g);font-weight:600;">→ ${it.upgrade.specific}</div>
+    </div>`;
+  }
+  html+=secHeader('HOW IT IS DEFINED — THE NUMBERS');
+  it.criteria.forEach(c=>{
+    html+=`<div class="dwcard" style="border-left:3px solid var(--g3);">
+      <div class="dwcard-h" style="color:var(--g3);font-weight:600;">${c.label}</div>
+      <div class="dwcard-b"><div style="font-size:16px;color:var(--t);line-height:1.6;">${c.detail}</div></div>
+    </div>`;
+  });
+  if(it.sample){
+    html+=secHeader('SAMPLE PRESENTATION');
+    html+=`<div style="margin:2px 14px;background:rgba(38,198,218,.07);border:1px solid rgba(38,198,218,.3);border-radius:var(--rl);padding:14px 16px;">
+      <div style="font-size:16px;color:var(--t);line-height:1.7;">${it.sample}</div>
+    </div>`;
+  }
+  if(it.pearls&&it.pearls.length){
+    html+=`<div class="dwpearls"><div class="dwpearls-h">✦ TERMINOLOGY PEARLS</div>`;
+    it.pearls.forEach(p=>{ html+=`<div class="dwpearl">${p}</div>`; });
+    html+=`</div>`;
+  }
+  html+=`<div style="height:30px;"></div>`;
+  buildDrawer(html);
+}
+
 function onLoad(){
-  try{ clinicRender(); dataRender(); drugRender(); dxRender(); scoreRender(); nurseRender(); icuRender(); trialsRender(); clinicBuildList(''); dataBuildList(''); dxBuildList(''); scoreBuildList(''); nurseBuildList(''); icuBuildList(''); trialsBuildList(''); }catch(e){ console.error('init',e); }
+  try{ clinicRender(); dataRender(); drugRender(); dxRender(); scoreRender(); nurseRender(); icuRender(); trialsRender(); langRender(); clinicBuildList(''); dataBuildList(''); dxBuildList(''); scoreBuildList(''); nurseBuildList(''); icuBuildList(''); trialsBuildList(''); langBuildList(''); }catch(e){ console.error('init',e); }
 }
 
 window.addEventListener('DOMContentLoaded', onLoad);
