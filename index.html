@@ -2948,7 +2948,16 @@ var DX_DATA={
         {label:'4. Oxygenation (on PEEP ≥5)',detail:'<b>Mild</b> P/F 200–300 · <b>Moderate</b> P/F 100–200 · <b>Severe</b> P/F ≤100.',evidence:'ARDS Definition Task Force. Berlin Definition. JAMA 2012.'}
       ],
       order:['ABG for PaO₂/FiO₂','CXR/CT chest','Echo/BNP to exclude cardiogenic edema','Infectious + inciting-cause workup'],
-      pearls:['Lung-protective vent: Vt 6 mL/kg IBW, plateau pressure <30.','P/F must be measured on PEEP ≥5 cmH₂O.','Prone positioning for P/F <150 reduces mortality.']}
+      pearls:['Lung-protective vent: Vt 6 mL/kg IBW, plateau pressure <30.','P/F must be measured on PEEP ≥5 cmH₂O.','Prone positioning for P/F <150 reduces mortality.']},
+    {id:'hem_shock',name:'Hemorrhagic Shock (ATLS classes)',def:'ATLS classification of acute blood loss by physiology.',
+      criteria:[
+        {label:'Class I',detail:'<b><15% loss (<750 mL)</b> · HR <100 · normal BP / pulse pressure / RR · UOP >30 mL/h · normal mentation. Fully compensated.'},
+        {label:'Class II (mild)',detail:'<b>15–30% (750–1500 mL)</b> · HR 100–120 · normal SBP but <b>narrowed pulse pressure</b> · RR 20–24 · UOP 20–30 · mildly anxious.'},
+        {label:'Class III (moderate)',detail:'<b>30–40% (1500–2000 mL)</b> · HR 120–140 · <b>hypotensive</b> · RR 30–40 · UOP 5–15 · confused. Usually needs blood.'},
+        {label:'Class IV (severe)',detail:'<b>>40% (>2000 mL)</b> · HR >140 · marked hypotension · RR >35 · negligible UOP · lethargic. Immediate transfusion + hemorrhage control.',evidence:'ATLS 10th edition.'}
+      ],
+      order:['Two large-bore IVs; type & cross','CBC, lactate, base deficit, coags/fibrinogen, ABG','Find the source: FAST, CT, endoscopy, pelvis/long-bone films'],
+      pearls:['Tachycardia + a narrowing pulse pressure precede hypotension — SBP drops late (Class III).','Young and beta-blocked patients compensate then crash; don\'t be reassured by a "normal" BP.','Massive transfusion: balanced 1:1:1 (PRBC:FFP:platelets) and treat the coagulopathy.']}
   ]},
   cards:{name:'Cardiology',color:'var(--g4)',items:[
     {id:'mi',name:'Acute MI (4th Universal Def.)',def:'Myocardial injury (troponin) with clinical evidence of acute ischemia.',
@@ -2987,7 +2996,44 @@ var DX_DATA={
         {label:'Minor criteria',detail:'Predisposition (heart condition/IVDU) · <b>fever ≥38°C</b> · vascular phenomena (emboli, Janeway lesions, mycotic aneurysm) · immunologic phenomena (Osler nodes, Roth spots, RF) · positive culture not meeting major.',evidence:'Li et al. Modified Duke Criteria. Clin Infect Dis 2000.'}
       ],
       order:['3 sets blood cultures from separate sites BEFORE abx','TTE then TEE (TEE far more sensitive)','CBC, CRP/ESR, RF, UA','ECG — monitor for new AV block (abscess)'],
-      pearls:['Get 3 culture sets spaced over time before antibiotics.','New AV block suggests perivalvular abscess — surgical.','Surgical indications: HF, uncontrolled infection, large mobile vegetation/embolization.']}
+      pearls:['Get 3 culture sets spaced over time before antibiotics.','New AV block suggests perivalvular abscess — surgical.','Surgical indications: HF, uncontrolled infection, large mobile vegetation/embolization.']},
+    {id:'as',name:'Aortic Stenosis (severity)',def:'Echo grading of AS severity — drives the timing of valve replacement.',
+      criteria:[
+        {label:'Sclerosis / mild',detail:'<b>Aortic sclerosis</b>: thickened valve, Vmax <2.5 m/s, no obstruction. <b>Mild</b>: Vmax 2.6–2.9 m/s, mean gradient <20 mmHg, AVA >1.5 cm².'},
+        {label:'Moderate',detail:'<b>Vmax 3.0–3.9 m/s</b> · <b>mean gradient 20–39 mmHg</b> · <b>AVA 1.0–1.5 cm²</b>.'},
+        {label:'Severe',detail:'<b>Vmax ≥4.0 m/s</b> · <b>mean gradient ≥40 mmHg</b> · <b>AVA <1.0 cm²</b> (indexed <0.6 cm²/m²) · dimensionless index <0.25.'},
+        {label:'Very severe',detail:'<b>Vmax ≥5.0 m/s</b> or mean gradient ≥60 mmHg.'},
+        {label:'Low-flow, low-gradient (LFLG)',detail:'AVA <1.0 cm² but mean gradient <40 — <b>classic</b> if EF <50% (do dobutamine stress echo), <b>paradoxical</b> if EF ≥50% with low stroke-volume index <35 mL/m². Aortic-valve calcium score (CT) helps adjudicate.',evidence:'2020 ACC/AHA & 2021 ESC/EACTS valvular heart disease guidelines.'}
+      ],
+      order:['TTE: Vmax, mean gradient, AVA (continuity eqn), dimensionless index, LVEF, stroke-volume index','Low-gradient: dobutamine stress echo and/or aortic-valve calcium score by CT','ECG (LVH), BNP; coronary angiography before AVR'],
+      severity:[{label:'When to replace (AVR/TAVR)',detail:'Severe AS that is <b>symptomatic</b> (angina, syncope, HF) → replace. Asymptomatic severe with <b>EF <50%</b>, very severe (Vmax ≥5), abnormal stress test, or rapid progression → also consider replacement.'}],
+      pearls:['Triad of symptomatic severe AS — <b>angina, syncope, heart failure</b>; symptom onset marks a steep mortality drop (mean survival ~2–3 yrs untreated).','Avoid afterload/preload drops (nitrates, aggressive diuresis) — fixed obstruction means they can crash.','Pulsus parvus et tardus + late-peaking murmur to the carotids; S2 softens as AS worsens.']},
+    {id:'valve_sev',name:'Valve Lesions (MR/AR/MS/TR)',def:'Echo severity grading of the other major valve lesions.',
+      criteria:[
+        {label:'Mitral Regurgitation — severe',detail:'<b>EROA ≥0.40 cm²</b> · <b>regurgitant volume ≥60 mL</b> · regurgitant fraction ≥50% · vena contracta ≥0.7 cm. (Secondary/functional MR thresholds are lower: EROA ≥0.20–0.40.) Look for flail leaflet, wall-impinging jet.'},
+        {label:'Aortic Regurgitation — severe',detail:'<b>Vena contracta >0.6 cm</b> · regurgitant volume ≥60 mL · regurgitant fraction ≥50% · <b>EROA ≥0.30 cm²</b> · holodiastolic flow reversal in the descending aorta · pressure half-time <200 ms.'},
+        {label:'Mitral Stenosis — severity',detail:'<b>Mild</b> MVA >1.5 cm² · <b>Moderate</b> 1.0–1.5 cm² · <b>Severe</b> <b>MVA <1.0 cm²</b>, mean gradient >10 mmHg, PASP >50 mmHg.'},
+        {label:'Tricuspid Regurgitation — severe',detail:'Vena contracta >0.7 cm, large jet, systolic flow reversal in the hepatic veins, dilated annulus >40 mm.',evidence:'2020 ACC/AHA valvular heart disease guideline.'}
+      ],
+      order:['TTE with quantitative regurgitation (EROA, RegVol, vena contracta); TEE if poor windows','LVEF + LV/LA dimensions (drive surgical timing)','ECG, BNP'],
+      pearls:['Acute severe MR/AR (endocarditis, dissection, papillary-muscle rupture) → flash pulmonary edema with a soft/absent murmur — surgical emergency.','Chronic severe primary MR: operate before EF <60% or LVESD >40 mm.','Severe MS is almost always rheumatic — rate control + diuresis, then balloon valvotomy if favorable morphology.']},
+    {id:'func_class',name:'Functional Class (NYHA/CCS)',def:'Symptom-based functional staging for heart failure and angina.',
+      criteria:[
+        {label:'NYHA I',detail:'No limitation — ordinary activity causes no symptoms.'},
+        {label:'NYHA II',detail:'Slight limitation — comfortable at rest; ordinary activity causes dyspnea/fatigue/palpitations.'},
+        {label:'NYHA III',detail:'Marked limitation — <b>less than ordinary</b> activity causes symptoms; comfortable only at rest.'},
+        {label:'NYHA IV',detail:'Symptoms <b>at rest</b>; any activity worsens them.'},
+        {label:'ACC/AHA HF stages (do NOT regress)',detail:'<b>A</b> at risk, no structural disease · <b>B</b> structural disease, no symptoms · <b>C</b> structural disease + current/prior symptoms · <b>D</b> refractory end-stage.'},
+        {label:'CCS angina grading',detail:'<b>I</b> only with strenuous exertion · <b>II</b> slight limitation (>2 blocks) · <b>III</b> marked limitation (<2 blocks) · <b>IV</b> angina at rest / any activity.',evidence:'NYHA; Canadian Cardiovascular Society angina grading.'}
+      ],
+      pearls:['NYHA class can improve with treatment; ACC/AHA stages only progress.','NYHA class is one of the strongest predictors of HF mortality and guides device/transplant referral.']},
+    {id:'afib_risk',name:'AFib Stroke/Bleed Risk',def:'Stroke and bleeding risk scores guiding anticoagulation in atrial fibrillation.',
+      criteria:[
+        {label:'CHA₂DS₂-VASc',detail:'<b>C</b>HF +1 · <b>H</b>TN +1 · <b>A</b>ge ≥75 <b>+2</b> · <b>D</b>iabetes +1 · prior <b>S</b>troke/TIA/embolism <b>+2</b> · <b>V</b>ascular disease +1 · <b>A</b>ge 65–74 +1 · <b>Sc</b> female sex +1.'},
+        {label:'Anticoagulation threshold',detail:'<b>≥2 (men) / ≥3 (women)</b> → anticoagulate (DOAC preferred). <b>0 (men) / 1 (women)</b> → none. 1 (men) / 2 (women) → consider.'},
+        {label:'HAS-BLED (bleeding risk)',detail:'<b>H</b>TN · abnormal renal/liver · <b>S</b>troke · <b>B</b>leeding history · labile INR · <b>E</b>lderly >65 · <b>D</b>rugs/alcohol. <b>≥3 = high risk</b> → fix modifiable factors; NOT a reason to withhold anticoagulation.',evidence:'2023 ACC/AHA/ACCP/HRS AF guideline.'}
+      ],
+      pearls:['A high HAS-BLED flags modifiable risks (BP, alcohol, antiplatelets) — it should not by itself stop anticoagulation.','Valvular AF (mechanical valve or moderate–severe MS) → warfarin, not a DOAC.']}
   ]},
   pulm:{name:'Pulmonary & VTE',color:'var(--g2)',items:[
     {id:'pe',name:'Pulmonary Embolism (Wells/PERC)',def:'Thrombus occluding pulmonary arteries — risk-stratify, then image.',
@@ -3013,7 +3059,25 @@ var DX_DATA={
         {label:'Severe markers',detail:'Accessory-muscle use, paradoxical chest wall, <b>RR >25</b>, new cyanosis, hemodynamic instability, AMS, <b>SpO₂ <90%</b>.',evidence:'Anthonisen NR et al. Ann Intern Med 1987; GOLD report.'}
       ],
       order:['ABG (CO₂ retention), CXR','CBC, BMP; consider BNP/troponin/D-dimer to exclude mimics','Sputum/viral testing if indicated'],
-      pearls:['Target SpO₂ 88–92% — avoid over-oxygenation (CO₂ narcosis).','BiPAP for hypercapnic respiratory acidosis (pH <7.35).','Prednisone 40 mg ×5d; antibiotics if purulent.']}
+      pearls:['Target SpO₂ 88–92% — avoid over-oxygenation (CO₂ narcosis).','BiPAP for hypercapnic respiratory acidosis (pH <7.35).','Prednisone 40 mg ×5d; antibiotics if purulent.']},
+    {id:'copd_gold',name:'COPD Staging (GOLD)',def:'Spirometric grade + symptom/exacerbation group for stable COPD.',
+      criteria:[
+        {label:'Diagnosis',detail:'Post-bronchodilator <b>FEV₁/FVC <0.70</b> confirms persistent airflow limitation.'},
+        {label:'GOLD spirometric grade (% predicted FEV₁)',detail:'<b>GOLD 1 mild</b> ≥80% · <b>GOLD 2 moderate</b> 50–79% · <b>GOLD 3 severe</b> 30–49% · <b>GOLD 4 very severe</b> <30%.'},
+        {label:'GOLD ABE groups',detail:'By symptom burden (<b>mMRC ≥2 or CAT ≥10</b>) and exacerbations. <b>A</b> low symptoms / low risk · <b>B</b> high symptoms / low risk · <b>E</b> ≥2 exacerbations or ≥1 hospitalization in the past year.'},
+        {label:'mMRC dyspnea scale',detail:'0 only with strenuous exercise · 1 hurrying / slight hill · 2 walks slower than peers / stops on the level · 3 stops after ~100 m · 4 too breathless to leave home.',evidence:'GOLD 2024 report.'}
+      ],
+      order:['Post-bronchodilator spirometry (FEV₁/FVC, FEV₁ % predicted)','mMRC and/or CAT score','Blood eosinophils (guides ICS benefit); α1-antitrypsin if young/non-smoker'],
+      pearls:['Group E (frequent exacerbator) → LABA+LAMA; add ICS if eosinophils ≥300.','FEV₁ sets the grade, but the ABE group drives the inhaler regimen.','Only smoking cessation and long-term O₂ (for chronic hypoxemia) clearly improve mortality.']},
+    {id:'pulm_htn',name:'Pulmonary Hypertension',def:'Hemodynamic definition + WHO clinical group classification.',
+      criteria:[
+        {label:'Hemodynamic definition (right heart cath)',detail:'<b>Mean PAP >20 mmHg</b> at rest (2022 ESC/ERS; previously >25). <b>Pre-capillary</b>: PCWP ≤15 AND PVR >2 WU. <b>Post-capillary</b>: PCWP >15.'},
+        {label:'WHO Group 1 — PAH',detail:'Pre-capillary: idiopathic, heritable, drug/toxin, connective-tissue disease, congenital heart disease, portopulmonary, schistosomiasis.'},
+        {label:'WHO Group 2',detail:'PH from <b>left heart disease</b> (post-capillary) — the most common cause.'},
+        {label:'Groups 3 / 4 / 5',detail:'<b>3</b> chronic lung disease / hypoxia · <b>4</b> chronic thromboembolic (CTEPH) — potentially curable by surgery · <b>5</b> multifactorial / unclear.',evidence:'2022 ESC/ERS Pulmonary Hypertension guidelines.'}
+      ],
+      order:['TTE to estimate RVSP and screen','Right heart catheterization to CONFIRM (mPAP, PCWP, PVR, CO) — required for diagnosis','V/Q scan (screen CTEPH), PFTs, CT chest, autoimmune + HIV serologies'],
+      pearls:['Echo screens; right heart cath is mandatory to confirm and classify pre- vs post-capillary.','Always exclude CTEPH (Group 4) with a V/Q scan — the one surgically curable form.','Do not give PAH-specific vasodilators in Group 2/3 PH without expert guidance.']}
   ]},
   gi:{name:'GI & Hepatology',color:'var(--g3)',items:[
     {id:'pancreatitis',name:'Acute Pancreatitis (Atlanta)',def:'Acute pancreatic inflammation — Revised Atlanta requires 2 of 3.',
@@ -3065,7 +3129,24 @@ var DX_DATA={
         {label:'Always find the precipitant',detail:'Infection/SBP, GI bleed, constipation, hypokalemia/alkalosis, dehydration/diuretics, TIPS, sedatives, renal failure.',evidence:'AASLD/EASL HE practice guideline.'}
       ],
       order:['Ammonia (supportive only), CMP, CBC','Diagnostic paracentesis to rule out SBP, cultures','Assess for GI bleed; review meds/electrolytes'],
-      pearls:['Lactulose titrated to 2–3 soft stools/day; add rifaximin for recurrence.','Do NOT protein-restrict.','Asterixis is nonspecific (also uremia, CO₂ retention).']}
+      pearls:['Lactulose titrated to 2–3 soft stools/day; add rifaximin for recurrence.','Do NOT protein-restrict.','Asterixis is nonspecific (also uremia, CO₂ retention).']},
+    {id:'cirrhosis_severity',name:'Cirrhosis Severity (Child-Pugh/MELD)',def:'Prognostic scoring of chronic liver disease — mortality + transplant priority.',
+      criteria:[
+        {label:'Child-Pugh — 5 variables (1–3 pts each)',detail:'Mnemonic <b>"ABCDE"</b>: <b>A</b>lbumin, <b>B</b>ilirubin, <b>C</b>oagulation (INR), <b>D</b>istension (ascites), <b>E</b>ncephalopathy.'},
+        {label:'Child-Pugh class',detail:'<b>A 5–6</b> well-compensated (~100% / 85% 1-/2-yr survival) · <b>B 7–9</b> significant compromise · <b>C 10–15</b> decompensated (~45% / 35% survival).'},
+        {label:'MELD / MELD-Na',detail:'Uses <b>bilirubin, INR, creatinine</b> (+ sodium for MELD-Na, + albumin for MELD 3.0). Predicts 90-day mortality and drives <b>transplant allocation</b> — higher = sicker.'},
+        {label:'Key MELD anchor',detail:'MELD <b>≥15</b> → transplant benefit begins; every point above predicts rising 3-month mortality.',evidence:'Pugh 1973; Kamath MELD, Hepatology 2001; UNOS MELD-Na / 3.0.'}
+      ],
+      order:['Bilirubin, albumin, INR, creatinine, sodium','Grade ascites (exam/US) and encephalopathy clinically','Surveillance: EGD for varices, AFP + US q6mo for HCC'],
+      pearls:['Child-Pugh B/C predicts poor surgical tolerance — used for perioperative risk.','MELD drives transplant priority; Child-Pugh better captures ascites/encephalopathy.','Decompensation = ascites, variceal bleed, encephalopathy, or jaundice.']},
+    {id:'forrest',name:'Peptic Ulcer Bleeding (Forrest)',def:'Endoscopic classification of ulcer bleeding stigmata — predicts rebleeding.',
+      criteria:[
+        {label:'Ia / Ib — active bleeding',detail:'<b>Ia</b> spurting arterial bleed · <b>Ib</b> oozing. Rebleed risk very high (~55%) → endoscopic therapy.'},
+        {label:'IIa / IIb — high-risk stigmata',detail:'<b>IIa</b> non-bleeding visible vessel (rebleed ~43%) · <b>IIb</b> adherent clot (~22%) → treat IIa; consider clot removal for IIb.'},
+        {label:'IIc / III — low risk',detail:'<b>IIc</b> flat pigmented spot (~10%) · <b>III</b> clean ulcer base (~5%) → no endoscopic therapy; can often feed and discharge early on PPI.',evidence:'Forrest JA et al. Lancet 1974.'}
+      ],
+      order:['EGD within 24h after resuscitation','IV PPI infusion; type & cross','H. pylori testing + biopsy'],
+      pearls:['High-risk stigmata (Ia–IIb) → endoscopic hemostasis + high-dose IV PPI.','Clean base / flat spot → early discharge is appropriate.','Always test and treat H. pylori; stop NSAIDs.']}
   ]},
   renal:{name:'Renal & Endocrine',color:'var(--g)',items:[
     {id:'aki',name:'Acute Kidney Injury (KDIGO)',def:'Abrupt decline in kidney function over hours–days.',
@@ -3107,7 +3188,16 @@ var DX_DATA={
         {label:'Labs',detail:'Suppressed TSH with ↑ free T4/T3 — but storm is a <b>CLINICAL diagnosis</b>; lab values do not differ from uncomplicated thyrotoxicosis.',evidence:'Burch HB, Wartofsky L. Endocrinol Metab Clin 1993.'}
       ],
       order:['TSH, free T4, total T3','CBC, CMP, LFTs','Trigger: infection, surgery, iodine/contrast, DKA, amiodarone'],
-      pearls:['Order of treatment: beta-blocker (propranolol) → thionamide (PTU) → iodine (SSKI ≥1h AFTER thionamide) → hydrocortisone.','Never give iodine before the thionamide — it fuels hormone synthesis.']}
+      pearls:['Order of treatment: beta-blocker (propranolol) → thionamide (PTU) → iodine (SSKI ≥1h AFTER thionamide) → hydrocortisone.','Never give iodine before the thionamide — it fuels hormone synthesis.']},
+    {id:'ckd',name:'CKD Staging (KDIGO)',def:'Staging of chronic kidney disease by GFR and albuminuria.',
+      criteria:[
+        {label:'Definition',detail:'GFR <60 mL/min/1.73m² <b>and/or</b> markers of kidney damage (albuminuria, sediment, imaging) for <b>≥3 months</b>.'},
+        {label:'GFR categories (G)',detail:'<b>G1</b> ≥90 (normal) · <b>G2</b> 60–89 (mild) · <b>G3a</b> 45–59 · <b>G3b</b> 30–44 · <b>G4</b> 15–29 (severe) · <b>G5</b> <15 (kidney failure).'},
+        {label:'Albuminuria categories (A)',detail:'<b>A1</b> <30 mg/g (normal–mild) · <b>A2</b> 30–300 (moderate) · <b>A3</b> >300 (severe). Report together, e.g. "G3a A2."'},
+        {label:'Risk',detail:'Risk of progression and CV events rises across the heat map — worst in the high-GFR-loss + high-albuminuria corner (G4–5, A3).',evidence:'KDIGO 2024 CKD guideline.'}
+      ],
+      order:['Two eGFRs ≥3 months apart; urine albumin-to-creatinine ratio (UACR)','Urinalysis with microscopy; renal ultrasound','Identify cause: diabetes, HTN, glomerular, obstructive'],
+      pearls:['Always stage by BOTH GFR and albuminuria (G__A__).','Refer to nephrology by G4 (eGFR <30), earlier for heavy albuminuria or rapid decline.','ACEi/ARB + SGLT2 inhibitor slow progression in albuminuric CKD.']}
   ]},
   id:{name:'Infectious Disease',color:'var(--g2)',items:[
     {id:'meningitis',name:'Bacterial Meningitis (CSF)',def:'Infection of the meninges — CSF profile drives the diagnosis.',
@@ -3142,7 +3232,16 @@ var DX_DATA={
         {label:'Definitive diagnosis',detail:'<b>Surgical exploration</b> — do NOT let imaging or the score delay the OR when clinical suspicion is high.',evidence:'Wong CH et al. LRINEC. Crit Care Med 2004.'}
       ],
       order:['CBC, CMP, CRP, lactate, coags, CK','Blood cultures','Imaging (CT/X-ray for gas) only if it will not delay surgery'],
-      pearls:['Early debridement saves lives — surgery is both diagnostic and therapeutic.','A LOW LRINEC does not rule it out; clinical suspicion overrides.','Broad antibiotics + clindamycin (toxin suppression).']}
+      pearls:['Early debridement saves lives — surgery is both diagnostic and therapeutic.','A LOW LRINEC does not rule it out; clinical suspicion overrides.','Broad antibiotics + clindamycin (toxin suppression).']},
+    {id:'cap_sev',name:'Pneumonia Severity (CURB-65/PSI)',def:'Severity scores guiding inpatient vs outpatient management of CAP.',
+      criteria:[
+        {label:'CURB-65 (1 pt each)',detail:'<b>C</b>onfusion · <b>U</b>rea (BUN) >19 mg/dL · <b>R</b>R ≥30 · <b>B</b>P <90 systolic or ≤60 diastolic · age <b>≥65</b>.'},
+        {label:'CURB-65 disposition',detail:'<b>0–1</b> outpatient · <b>2</b> consider admission/observation · <b>≥3</b> admit and assess for ICU.'},
+        {label:'PSI / PORT (more granular)',detail:'5 risk classes from demographics, comorbidities, exam and labs. Classes I–II outpatient, IV–V inpatient/ICU. More sensitive than CURB-65 for confirming low risk.'},
+        {label:'IDSA/ATS severe CAP (ICU)',detail:'<b>1 major</b> (septic shock on pressors, or respiratory failure needing ventilation) OR <b>≥3 minor</b> (RR ≥30, P/F ≤250, multilobar, confusion, uremia, WBC <4, plt <100, hypothermia, hypotension needing fluids).',evidence:'IDSA/ATS 2019 CAP guideline.'}
+      ],
+      order:['CBC, BMP (BUN), lactate if ill; blood cultures + sputum if severe','CXR (infiltrate); consider procalcitonin','Pulse ox / ABG; respiratory pathogen panel as indicated'],
+      pearls:['CURB-65 is fast at the bedside; PSI better confirms who is truly low-risk.','Do not let a reassuring score override clinical judgment (hypoxia, decompensation).','Score guides disposition, not antibiotic choice.']}
   ]},
   heme:{name:'Heme-Onc Emergencies',color:'var(--g4)',items:[
     {id:'dic',name:'DIC (ISTH score)',def:'Systemic activation of coagulation → simultaneous clotting + bleeding.',
@@ -3174,7 +3273,16 @@ var DX_DATA={
         {label:'Clinical TLS',detail:'Lab TLS PLUS <b>AKI (Cr ≥1.5× ULN)</b>, cardiac arrhythmia/sudden death, or seizure.',evidence:'Cairo MS, Bishop M. Br J Haematol 2004.'}
       ],
       order:['Uric acid, K, phosphate, calcium, Cr, LDH q6–8h','ECG / telemetry for hyperkalemia','Identify high-risk tumor (bulky lymphoma, acute leukemia)'],
-      pearls:['Aggressive IV hydration + rasburicase (high risk) or allopurinol (lower risk).','Hyperphosphatemia drives hypocalcemia — don\'t give calcium unless symptomatic.','Hyperkalemia is the immediate killer — treat fast.']}
+      pearls:['Aggressive IV hydration + rasburicase (high risk) or allopurinol (lower risk).','Hyperphosphatemia drives hypocalcemia — don\'t give calcium unless symptomatic.','Hyperkalemia is the immediate killer — treat fast.']},
+    {id:'anemia_mcv',name:'Anemia Classification (MCV)',def:'A framework for working up anemia by red-cell size.',
+      criteria:[
+        {label:'Microcytic (MCV <80)',detail:'<b>"TICS"</b>: <b>T</b>halassemia · <b>I</b>ron deficiency · anemia of chronic <b>I</b>nflammation (can be normo- or microcytic) · <b>S</b>ideroblastic. Iron studies separate them (low ferritin = iron deficiency).'},
+        {label:'Normocytic (MCV 80–100)',detail:'Check the <b>reticulocyte count</b>: high retic → hemolysis or blood loss; low retic → anemia of chronic disease, CKD (↓EPO), early iron deficiency, marrow failure.'},
+        {label:'Macrocytic (MCV >100)',detail:'<b>Megaloblastic</b> (B12 / folate deficiency — hypersegmented neutrophils) vs <b>non-megaloblastic</b> (alcohol, liver disease, hypothyroidism, MDS, reticulocytosis, drugs).'},
+        {label:'Hemolysis labs',detail:'<b>↑ LDH, ↑ indirect bilirubin, ↓ haptoglobin, ↑ reticulocytes</b>; smear (schistocytes, spherocytes) + DAT for cause.',evidence:'Standard hematology workup framework.'}
+      ],
+      order:['CBC with indices + reticulocyte count','Peripheral smear','Iron studies/ferritin, B12, folate; LDH, haptoglobin, bilirubin, DAT if hemolysis'],
+      pearls:['Always pair MCV with the reticulocyte count — production vs destruction.','Ferritin is an acute-phase reactant — a "normal" ferritin can still mask iron deficiency in inflammation.','Mixed deficiency (iron + B12) can give a normal MCV with a wide RDW.']}
   ]},
   neuro:{name:'Neuro & Rheum',color:'var(--g3)',items:[
     {id:'stroke',name:'Acute Ischemic Stroke',def:'Sudden focal neuro deficit from cerebral ischemia.',
@@ -3209,7 +3317,31 @@ var DX_DATA={
         {label:'Pseudogout contrast',detail:'CPPD crystals are <b>rhomboid, positively birefringent</b>; X-ray shows chondrocalcinosis.',evidence:'ACR/EULAR gout classification.'}
       ],
       order:['Arthrocentesis: crystals, cell count, Gram stain, culture','Serum urate (recheck weeks later), BMP','X-ray if chronic/tophaceous'],
-      pearls:['Always exclude septic arthritis — they can coexist; culture every tapped joint.','Don\'t start or stop urate-lowering therapy during a flare (but don\'t stop it if already established).']}
+      pearls:['Always exclude septic arthritis — they can coexist; culture every tapped joint.','Don\'t start or stop urate-lowering therapy during a flare (but don\'t stop it if already established).']},
+    {id:'gcs',name:'Glasgow Coma Scale',def:'Standardized scoring of consciousness (3–15) after brain injury.',
+      criteria:[
+        {label:'Eye opening (1–4)',detail:'<b>4</b> spontaneous · <b>3</b> to voice · <b>2</b> to pain · <b>1</b> none.'},
+        {label:'Verbal response (1–5)',detail:'<b>5</b> oriented · <b>4</b> confused · <b>3</b> inappropriate words · <b>2</b> incomprehensible sounds · <b>1</b> none.'},
+        {label:'Motor response (1–6)',detail:'<b>6</b> obeys · <b>5</b> localizes · <b>4</b> withdraws · <b>3</b> abnormal flexion (decorticate) · <b>2</b> extension (decerebrate) · <b>1</b> none.'},
+        {label:'Severity',detail:'<b>Mild 13–15 · Moderate 9–12 · Severe ≤8.</b> GCS ≤8 → secure the airway ("GCS 8, intubate"). Report components (E_V_M_), not just the total.',evidence:'Teasdale & Jennett, Lancet 1974.'}
+      ],
+      pearls:['"GCS 8 — intubate": inability to protect the airway.','Always document the breakdown (e.g., E3V4M5) — the motor score carries the most prognostic weight.','Intubation/aphasia limits the verbal score — note the modifier.']},
+    {id:'sah_grade',name:'SAH Grading (Hunt-Hess/Fisher)',def:'Clinical and radiographic grading of aneurysmal subarachnoid hemorrhage.',
+      criteria:[
+        {label:'Hunt-Hess (clinical, 1–5)',detail:'<b>1</b> asymptomatic / mild HA · <b>2</b> severe HA, nuchal rigidity, no deficit (± CN palsy) · <b>3</b> drowsy/confused, mild deficit · <b>4</b> stupor, hemiparesis · <b>5</b> coma, decerebrate. Higher grade = worse survival.'},
+        {label:'Modified Fisher (CT, 0–4)',detail:'Based on thickness of SAH and presence of intraventricular hemorrhage — predicts <b>vasospasm</b> risk. Grade 3–4 (thick blood ± IVH) = highest risk.'},
+        {label:'WFNS (GCS-based)',detail:'Grades I–V by GCS (and motor deficit) — grade I GCS 15, grade V GCS 3–6.',evidence:'Hunt & Hess 1968; Frontera modified Fisher 2006; WFNS 1988.'}
+      ],
+      order:['Non-contrast head CT (sensitivity ~100% <6h); LP for xanthochromia if CT negative but suspicion high','CT angiography / DSA to find the aneurysm','Frequent neuro checks; transcranial Dopplers for vasospasm'],
+      pearls:['Worst headache of life / thunderclap → CT now; a good-quality CT <6h may obviate LP.','Nimodipine improves outcomes (neuroprotective; does not reliably prevent vasospasm itself).','Vasospasm peaks days 4–14 — Fisher grade predicts it.']},
+    {id:'tia_mrs',name:'TIA Risk & Disability (ABCD²/mRS)',def:'Early stroke risk after TIA and the standard disability outcome scale.',
+      criteria:[
+        {label:'ABCD² score (TIA → stroke risk)',detail:'<b>A</b>ge ≥60 +1 · <b>B</b>P ≥140/90 +1 · <b>C</b>linical: unilateral weakness +2 / speech disturbance without weakness +1 · <b>D</b>uration ≥60 min +2 / 10–59 min +1 · <b>D</b>iabetes +1.'},
+        {label:'ABCD² interpretation',detail:'<b>0–3 low · 4–5 moderate · 6–7 high</b> 2-day stroke risk. Most centers now expedite workup regardless of score.'},
+        {label:'Modified Rankin Scale (mRS, 0–6)',detail:'<b>0</b> no symptoms · <b>1</b> no significant disability · <b>2</b> slight · <b>3</b> moderate (needs some help, walks unaided) · <b>4</b> moderately severe · <b>5</b> severe (bedridden) · <b>6</b> dead. <b>mRS 0–2 = functional independence</b> (the usual "good outcome").',evidence:'Johnston ABCD² Lancet 2007; modified Rankin Scale.'}
+      ],
+      order:['MRI brain (DWI), CTA/MRA head & neck','ECG/telemetry + echo for a cardioembolic source','Carotid imaging, lipids, A1c'],
+      pearls:['TIA = transient deficit with NO infarct on imaging (tissue-based definition).','High short-term stroke risk → urgent workup + antiplatelet (short-course dual APT for high-risk TIA/minor stroke).','mRS 0–2 is the standard "good functional outcome" endpoint in stroke trials.']}
   ]}
 };
 var dxActiveCat='all';
