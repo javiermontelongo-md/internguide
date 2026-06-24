@@ -427,7 +427,8 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
     <button class="tab" onclick="gT('drugs',this)">ABX · BY DRUG</button>
     <button class="tab" onclick="gT('clinic',this)">CLINIC</button>
     <button class="tab" onclick="gT('data',this)">DATA</button>
-    <button class="tab" onclick="gT('dx',this)">DX · CRITERIA</button>
+    <button class="tab" onclick="gT('dx',this)">CRITERIA</button>
+    <button class="tab" onclick="gT('scores',this)">SCORES</button>
   </div>
 </div>
 
@@ -577,13 +578,24 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
 
 <div id="panel-dx" class="panel">
   <div class="h1">Diagnostic <span>criteria</span></div>
-  <div style="font-size:24px;color:var(--t3);margin-bottom:14px;">Hard criteria, scores &amp; cutoffs — what defines it, what to order, how to grade severity</div>
+  <div style="font-size:24px;color:var(--t3);margin-bottom:14px;">Pick a <b>disease</b> → what defines it, exact lab cutoffs, what to order, how to grade severity</div>
   <div style="position:relative;margin-bottom:12px;">
-    <input type="text" id="dx-search" placeholder="Search disease, criterion, score..." oninput="dxFilter()" autocomplete="off" style="width:100%;box-sizing:border-box;background:var(--s2);border:1px solid var(--b2);border-radius:var(--r);padding:10px 14px 10px 38px;font-family:var(--mono);font-size:13px;color:var(--t);outline:none;">
+    <input type="text" id="dx-search" placeholder="Search disease or criterion..." oninput="dxFilter()" autocomplete="off" style="width:100%;box-sizing:border-box;background:var(--s2);border:1px solid var(--b2);border-radius:var(--r);padding:10px 14px 10px 38px;font-family:var(--mono);font-size:13px;color:var(--t);outline:none;">
     <span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:15px;">⌕</span>
   </div>
   <div id="dx-pills" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;"></div>
   <div id="dx-list"></div>
+</div>
+
+<div id="panel-scores" class="panel">
+  <div class="h1">Scores <span>&amp; rules</span></div>
+  <div style="font-size:24px;color:var(--t3);margin-bottom:14px;">Pick a <b>scoring tool</b> → criteria, point values, and what each result tells you to DO</div>
+  <div style="position:relative;margin-bottom:12px;">
+    <input type="text" id="score-search" placeholder="Search score, rule, decision tool..." oninput="scoreFilter()" autocomplete="off" style="width:100%;box-sizing:border-box;background:var(--s2);border:1px solid var(--b2);border-radius:var(--r);padding:10px 14px 10px 38px;font-family:var(--mono);font-size:13px;color:var(--t);outline:none;">
+    <span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:15px;">⌕</span>
+  </div>
+  <div id="score-pills" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;"></div>
+  <div id="score-list"></div>
 </div>
 
 </div><!-- .main -->
@@ -594,7 +606,8 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   <button class="ni" id="ni-drugs" onclick="gM('drugs',this)"><span class="nicon">℞</span><span class="nlbl">By Drug</span></button>
   <button class="ni" id="ni-clinic" onclick="gM('clinic',this)"><span class="nicon">Hx</span><span class="nlbl">Clinic</span></button>
   <button class="ni" id="ni-data" onclick="gM('data',this)"><span class="nicon">≡</span><span class="nlbl">Data</span></button>
-  <button class="ni" id="ni-dx" onclick="gM('dx',this)"><span class="nicon">Δ</span><span class="nlbl">Dx</span></button>
+  <button class="ni" id="ni-dx" onclick="gM('dx',this)"><span class="nicon">Δ</span><span class="nlbl">Criteria</span></button>
+  <button class="ni" id="ni-scores" onclick="gM('scores',this)"><span class="nicon">Σ</span><span class="nlbl">Scores</span></button>
 </nav>
 
 </div><!-- .app -->
@@ -3242,7 +3255,7 @@ var DRUG_DATA={
 // item model:
 //  { id, name, use, when:[], pathway:[], formula, criteria:[{item,points}],
 //    scoring:[{range,meaning,action}], pearls:[] }
-var DX_DATA={
+var SCORE_DATA={
   pulm:{name:'Pulm / VTE',color:'var(--g2)',items:[
     {id:'perc',name:'PERC Rule (rule OUT PE)',
       use:'8-criterion rule to rule OUT PE in a LOW pretest-probability patient WITHOUT any testing (no D-dimer, no imaging).',
@@ -3719,28 +3732,28 @@ var DX_DATA={
   ]}
 };
 
-var dxActiveCat='all';
-function dxRender(){
-  const pills=document.getElementById('dx-pills');
+var scoreActiveCat='all';
+function scoreRender(){
+  const pills=document.getElementById('score-pills');
   if(pills){
-    let h=`<button class="clinic-pill${dxActiveCat==='all'?' on':''}" onclick="dxSetCat('all')">ALL</button>`;
-    Object.keys(DX_DATA).forEach(k=>{
-      h+=`<button class="clinic-pill${dxActiveCat===k?' on':''}" onclick="dxSetCat('${k}')">${DX_DATA[k].name}</button>`;
+    let h=`<button class="clinic-pill${scoreActiveCat==='all'?' on':''}" onclick="scoreSetCat('all')">ALL</button>`;
+    Object.keys(SCORE_DATA).forEach(k=>{
+      h+=`<button class="clinic-pill${scoreActiveCat===k?' on':''}" onclick="scoreSetCat('${k}')">${SCORE_DATA[k].name}</button>`;
     });
     pills.innerHTML=h;
   }
-  const q=(document.getElementById('dx-search')||{}).value||'';
-  dxBuildList(q.toLowerCase());
+  const q=(document.getElementById('score-search')||{}).value||'';
+  scoreBuildList(q.toLowerCase());
 }
-function dxSetCat(k){ dxActiveCat=k; dxRender(); }
-function dxFilter(){ const q=(document.getElementById('dx-search')||{}).value||''; dxBuildList(q.toLowerCase()); }
-function dxBuildList(q){
-  const list=document.getElementById('dx-list');
+function scoreSetCat(k){ scoreActiveCat=k; scoreRender(); }
+function scoreFilter(){ const q=(document.getElementById('score-search')||{}).value||''; scoreBuildList(q.toLowerCase()); }
+function scoreBuildList(q){
+  const list=document.getElementById('score-list');
   if(!list) return;
   let h='';
-  Object.keys(DX_DATA).forEach(ck=>{
-    if(dxActiveCat!=='all' && dxActiveCat!==ck) return;
-    const cat=DX_DATA[ck];
+  Object.keys(SCORE_DATA).forEach(ck=>{
+    if(scoreActiveCat!=='all' && scoreActiveCat!==ck) return;
+    const cat=SCORE_DATA[ck];
     const matches=cat.items.filter(it=>{
       if(!q) return true;
       const hay=(it.name+' '+(it.use||'')+' '+(it.criteria||[]).map(c=>c.item).join(' ')+' '+(it.scoring||[]).map(s=>s.range+' '+s.meaning).join(' ')).toLowerCase();
@@ -3751,7 +3764,7 @@ function dxBuildList(q){
       <div style="font-family:var(--mono);font-size:11px;color:${cat.color};letter-spacing:.1em;margin-bottom:10px;">${cat.name.toUpperCase()}</div>
       <div style="display:flex;flex-wrap:wrap;gap:8px;">`;
     matches.forEach(it=>{
-      h+=`<button class="btn bs" onclick="openDxDrawer('${ck}','${it.id}')" style="font-size:22px;padding:8px 14px;">${it.name}</button>`;
+      h+=`<button class="btn bs" onclick="openScoreDrawer('${ck}','${it.id}')" style="font-size:22px;padding:8px 14px;">${it.name}</button>`;
     });
     h+=`</div></div>`;
   });
@@ -3759,9 +3772,9 @@ function dxBuildList(q){
   list.innerHTML=h;
 }
 
-function openDxDrawer(ck,iid){
+function openScoreDrawer(ck,iid){
   closeAnyDrawer();
-  const cat=DX_DATA[ck];
+  const cat=SCORE_DATA[ck];
   const it=cat.items.find(x=>x.id===iid);
   if(!it) return;
   let html=drawerHead(it.name,cat.name,cat.color,'closeAnyDrawer()');
@@ -3842,7 +3855,7 @@ function openDxDrawer(ck,iid){
 // INIT
 // ============================================================
 function onLoad(){
-  try{ clinicRender(); dataRender(); drugRender(); dxRender(); clinicBuildList(''); dataBuildList(''); dxBuildList(''); }catch(e){ console.error('init',e); }
+  try{ clinicRender(); dataRender(); drugRender(); dxRender(); scoreRender(); clinicBuildList(''); dataBuildList(''); dxBuildList(''); scoreBuildList(''); }catch(e){ console.error('init',e); }
 }
 
 window.addEventListener('DOMContentLoaded', onLoad);
