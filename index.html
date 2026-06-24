@@ -34,7 +34,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:26px;
 .main{flex:1;padding:24px 32px;max-width:80%;width:100%;margin:0 auto;}
 .panel{display:none;}.panel.on{display:block;animation:fadeUp .25s ease;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-.bnav{display:none;}.mbar{display:none;}
+.bnav{display:none !important;}.mbar{display:none;}
 .card{background:var(--s1);border:1px solid var(--b);border-radius:var(--rl);padding:18px 20px;margin-bottom:16px;transition:border-color .2s;}.card:hover{border-color:var(--b2);}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
@@ -238,10 +238,12 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
 
   /* ── LAYOUT ── */
   .hdr{display:none;}
-  .app{height:100dvh;overflow:hidden;}
-  .main{padding:0;max-width:100%;flex:1;overflow:hidden;position:relative;}
+  .app{height:100dvh;overflow:hidden;display:flex;flex-direction:column;}
+  .mbar{order:1;}
+  .bnav{order:2;}
+  .main{padding:0;max-width:100%;flex:1;overflow:hidden;position:relative;display:flex;flex-direction:column;order:3;}
   .panel{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;
-    padding:10px 12px calc(var(--nav) + var(--safe) + 20px);display:none !important;}
+    padding:12px calc(12px + var(--safeL)) calc(20px + var(--safe)) calc(12px + var(--safeR));display:none !important;}
   .panel.on{display:block !important;}
 
   /* ── TOP BAR ── */
@@ -252,20 +254,30 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   #ms{font-size:10px !important;color:var(--t3);}
   #md{font-size:10px !important;color:var(--t3);}
 
-  /* ── BOTTOM NAV ── */
-  .bnav{display:flex !important;position:fixed;bottom:0;left:0;right:0;background:var(--s1);
-    border-top:1px solid var(--b2);padding-bottom:var(--safe);
-    padding-left:var(--safeL);padding-right:var(--safeR);z-index:100;
-    height:calc(var(--nav) + var(--safe));touch-action:pan-x;overflow-x:auto;overflow-y:hidden;
-    scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+  /* ── TOP NAV (PERIODIC TABLE) ── */
+  .bnav{display:flex !important;position:relative;left:0;right:0;background:var(--s1);
+    border-bottom:1px solid var(--b2);padding:12px 8px;z-index:90;
+    height:auto;touch-action:pan-x;overflow-x:auto;overflow-y:hidden;flex-shrink:0;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;gap:6px;}
   .bnav::-webkit-scrollbar{display:none;}
-  .ni{flex:1 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    padding:8px 2px 6px;cursor:pointer;gap:5px;border:none;background:none;-webkit-tap-highlight-color:transparent;min-width:62px;position:relative;}
-  .nicon{font-size:26px;color:var(--t2);line-height:1;font-weight:500;}
-  .nlbl{font-family:var(--mono);font-size:12px;color:var(--t3);letter-spacing:.03em;text-transform:uppercase;white-space:nowrap;}
+  .ni{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:0;cursor:pointer;gap:0;border:none;background:none;-webkit-tap-highlight-color:transparent;
+    width:68px;height:68px;position:relative;border-radius:8px;transition:all .15s;
+    font-weight:600;font-size:13px;color:var(--t);}
+  .ni{background:var(--s2);border:1px solid var(--b);}
+  .ni.rx{background:rgba(239,83,80,.15);border-color:rgba(239,83,80,.4);}.ni.rx .nicon{color:#ef5350;}
+  .ni.drug{background:rgba(127,255,110,.15);border-color:rgba(127,255,110,.4);}.ni.drug .nicon{color:var(--g);}
+  .ni.clinic{background:rgba(79,195,247,.15);border-color:rgba(79,195,247,.4);}.ni.clinic .nicon{color:var(--g2);}
+  .ni.data{background:rgba(255,183,77,.15);border-color:rgba(255,183,77,.4);}.ni.data .nicon{color:var(--g3);}
+  .ni.criteria{background:rgba(186,104,200,.15);border-color:rgba(186,104,200,.4);}.ni.criteria .nicon{color:#ba68c8;}
+  .ni.scores{background:rgba(76,175,80,.15);border-color:rgba(76,175,80,.4);}.ni.scores .nicon{color:#4caf50;}
+  .ni.nursing{background:rgba(244,67,54,.15);border-color:rgba(244,67,54,.4);}.ni.nursing .nicon{color:#f44336;}
+  .ni.icu{background:rgba(255,235,59,.15);border-color:rgba(255,235,59,.4);}.ni.icu .nicon{color:#ffd700;}
+  .nicon{font-size:24px;color:var(--t2);line-height:1;font-weight:700;}
+  .nlbl{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;margin-top:2px;}
+  .ni.on{border:2px solid var(--g);box-shadow:0 0 8px rgba(127,255,110,.3);}
   .ni.on .nicon,.ni.on .nlbl{color:var(--g);}
-  .ni.on::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
-    width:40%;height:3px;border-radius:0 0 3px 3px;background:var(--g);}
+  .ni:active{transform:scale(.95);}
   /* ── MORE TRAY ── */
   .more-tray{display:none;position:fixed;inset:0;z-index:200;}
   .more-tray.open{display:block;}
@@ -626,16 +638,16 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
 
 </div><!-- .main -->
 
-<!-- Mobile bottom nav (3 tabs, no More) -->
+<!-- Mobile top nav (periodic table) -->
 <nav class="bnav" id="bnav">
-  <button class="ni on" id="ni-abx" onclick="gM('abx',this)"><span class="nicon">Rx</span><span class="nlbl">By Bug</span></button>
-  <button class="ni" id="ni-drugs" onclick="gM('drugs',this)"><span class="nicon">℞</span><span class="nlbl">By Drug</span></button>
-  <button class="ni" id="ni-clinic" onclick="gM('clinic',this)"><span class="nicon">Hx</span><span class="nlbl">Clinic</span></button>
-  <button class="ni" id="ni-data" onclick="gM('data',this)"><span class="nicon">≡</span><span class="nlbl">Data</span></button>
-  <button class="ni" id="ni-dx" onclick="gM('dx',this)"><span class="nicon">Δ</span><span class="nlbl">Criteria</span></button>
-  <button class="ni" id="ni-scores" onclick="gM('scores',this)"><span class="nicon">Σ</span><span class="nlbl">Scores</span></button>
-  <button class="ni" id="ni-nursing" onclick="gM('nursing',this)"><span class="nicon">☎</span><span class="nlbl">Nursing</span></button>
-  <button class="ni" id="ni-icu" onclick="gM('icu',this)"><span class="nicon">✚</span><span class="nlbl">ICU</span></button>
+  <button class="ni rx on" id="ni-abx" onclick="gM('abx',this)"><span class="nicon">💊</span><span class="nlbl">Rx</span></button>
+  <button class="ni drug" id="ni-drugs" onclick="gM('drugs',this)"><span class="nicon">📋</span><span class="nlbl">Drug</span></button>
+  <button class="ni clinic" id="ni-clinic" onclick="gM('clinic',this)"><span class="nicon">📝</span><span class="nlbl">Clinic</span></button>
+  <button class="ni data" id="ni-data" onclick="gM('data',this)"><span class="nicon">📊</span><span class="nlbl">Data</span></button>
+  <button class="ni criteria" id="ni-dx" onclick="gM('dx',this)"><span class="nicon">🔍</span><span class="nlbl">Criteria</span></button>
+  <button class="ni scores" id="ni-scores" onclick="gM('scores',this)"><span class="nicon">📈</span><span class="nlbl">Scores</span></button>
+  <button class="ni nursing" id="ni-nursing" onclick="gM('nursing',this)"><span class="nicon">🏥</span><span class="nlbl">Nursing</span></button>
+  <button class="ni icu" id="ni-icu" onclick="gM('icu',this)"><span class="nicon">⚠️</span><span class="nlbl">ICU</span></button>
 </nav>
 
 </div><!-- .app -->
