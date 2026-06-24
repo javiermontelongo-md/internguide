@@ -256,9 +256,11 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   .bnav{display:flex !important;position:fixed;bottom:0;left:0;right:0;background:var(--s1);
     border-top:1px solid var(--b2);padding-bottom:var(--safe);
     padding-left:var(--safeL);padding-right:var(--safeR);z-index:100;
-    height:calc(var(--nav) + var(--safe));touch-action:pan-y;overflow-x:hidden;}
-  .ni{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    padding:8px 2px 6px;cursor:pointer;gap:5px;border:none;background:none;-webkit-tap-highlight-color:transparent;min-width:0;position:relative;}
+    height:calc(var(--nav) + var(--safe));touch-action:pan-x;overflow-x:auto;overflow-y:hidden;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+  .bnav::-webkit-scrollbar{display:none;}
+  .ni{flex:1 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:8px 2px 6px;cursor:pointer;gap:5px;border:none;background:none;-webkit-tap-highlight-color:transparent;min-width:62px;position:relative;}
   .nicon{font-size:26px;color:var(--t2);line-height:1;font-weight:500;}
   .nlbl{font-family:var(--mono);font-size:12px;color:var(--t3);letter-spacing:.03em;text-transform:uppercase;white-space:nowrap;}
   .ni.on .nicon,.ni.on .nlbl{color:var(--g);}
@@ -305,7 +307,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   [style*="font-size:21px"]{font-size:14px !important;}
   [style*="font-size:20px"]{font-size:14px !important;}
   /* category labels (11px mono) inside the three panels */
-  #panel-abx [style*="font-size:11px"],#panel-clinic [style*="font-size:11px"],#panel-data [style*="font-size:11px"],#panel-dx [style*="font-size:11px"],#panel-nursing [style*="font-size:11px"]{font-size:13px !important;letter-spacing:.12em !important;}
+  #panel-abx [style*="font-size:11px"],#panel-clinic [style*="font-size:11px"],#panel-data [style*="font-size:11px"],#panel-dx [style*="font-size:11px"],#panel-nursing [style*="font-size:11px"],#panel-icu [style*="font-size:11px"]{font-size:13px !important;letter-spacing:.12em !important;}
   .clinic-pill{font-size:13px !important;padding:7px 13px !important;}
 
   /* ── CARDS ── */
@@ -430,6 +432,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
     <button class="tab" onclick="gT('dx',this)">CRITERIA</button>
     <button class="tab" onclick="gT('scores',this)">SCORES</button>
     <button class="tab" onclick="gT('nursing',this)">NURSING</button>
+    <button class="tab" onclick="gT('icu',this)">ICU ORDERS</button>
   </div>
 </div>
 
@@ -610,6 +613,17 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   <div id="nurse-list"></div>
 </div>
 
+<div id="panel-icu" class="panel">
+  <div class="h1">ICU <span>order set</span></div>
+  <div style="font-size:24px;color:var(--t3);margin-bottom:14px;">Admission &amp; daily ICU orders — what to write, why, and the considerations. <b>Wards &amp; night-team versions coming.</b></div>
+  <div style="position:relative;margin-bottom:12px;">
+    <input type="text" id="icu-search" placeholder="Search order, line, prophylaxis..." oninput="icuFilter()" autocomplete="off" style="width:100%;box-sizing:border-box;background:var(--s2);border:1px solid var(--b2);border-radius:var(--r);padding:10px 14px 10px 38px;font-family:var(--mono);font-size:13px;color:var(--t);outline:none;">
+    <span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:15px;">⌕</span>
+  </div>
+  <div id="icu-pills" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;"></div>
+  <div id="icu-list"></div>
+</div>
+
 </div><!-- .main -->
 
 <!-- Mobile bottom nav (3 tabs, no More) -->
@@ -621,6 +635,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   <button class="ni" id="ni-dx" onclick="gM('dx',this)"><span class="nicon">Δ</span><span class="nlbl">Criteria</span></button>
   <button class="ni" id="ni-scores" onclick="gM('scores',this)"><span class="nicon">Σ</span><span class="nlbl">Scores</span></button>
   <button class="ni" id="ni-nursing" onclick="gM('nursing',this)"><span class="nicon">☎</span><span class="nlbl">Nursing</span></button>
+  <button class="ni" id="ni-icu" onclick="gM('icu',this)"><span class="nicon">✚</span><span class="nlbl">ICU</span></button>
 </nav>
 
 </div><!-- .app -->
@@ -639,8 +654,8 @@ function gM(n,el){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.ni').forEach(x=>x.classList.remove('on'));
   const p=document.getElementById('panel-'+n); if(p){ p.classList.add('on'); p.scrollTop=0; }
-  if(el) el.classList.add('on');
-  else{ const btn=document.getElementById('ni-'+n); if(btn) btn.classList.add('on'); }
+  const active=el||document.getElementById('ni-'+n);
+  if(active){ active.classList.add('on'); try{ active.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'}); }catch(e){} }
 }
 
 // ============================================================
@@ -4151,8 +4166,214 @@ function openNurseDrawer(ck,iid){
   buildDrawer(html);
 }
 
+// ============================================================
+// ICU ORDER SET (admission + daily)
+// ============================================================
+// item model: { id, name, purpose, orders:[], pearls:[] }
+var ICU_DATA={
+  framework:{name:'Admission & Daily',color:'var(--g2)',items:[
+    {id:'admit',name:'ICU Admission Orders (ADC-VAANDIMLS)',
+      purpose:'A complete admission skeleton so nothing is missed — the classic ADC-VAANDIMLS, ICU-flavored.',
+      orders:['ADMIT to ICU — attending of record, primary team + consults','DIAGNOSIS — primary + active problem list','CONDITION — critical / guarded','VITALS — continuous monitoring, frequency, and call parameters','ALLERGIES + reactions','ACTIVITY — bedrest vs early mobility; PT/OT','NURSING — strict I&Os, daily weights, neuro/CPOT/RASS checks, line/drain care, call parameters','DIET — NPO vs enteral nutrition; aspiration precautions','IV FLUIDS — maintenance vs resuscitation; access','MEDICATIONS — home med reconciliation, drips, prophylaxis (VTE, GI), analgesia/sedation','LABS — admission panel + scheduled daily labs','STUDIES — imaging, EKG, cultures, consults'],
+      pearls:['Run the mnemonic on every admission so you never forget prophylaxis, code status, or nutrition.','Reconcile home meds early — abrupt stops (beta-blockers, steroids, SSRIs) cause problems.','Set explicit call parameters so nursing knows your thresholds.']},
+    {id:'code',name:'Code Status / Goals of Care',
+      purpose:'Define resuscitation status and goals BEFORE a crisis — the most important order in the ICU.',
+      orders:['Document code status: Full code vs DNR/DNI vs specific limitations','Identify the surrogate decision-maker / advance directive','Order any limitations explicitly (no compressions, no intubation, no pressors, etc.)','Arrange an early family meeting; document the conversation'],
+      pearls:['Establish code status on admission, not at 3 AM during an arrest.','"DNR" is not "do not treat" — clarify exactly what is and isn\'t wanted.','Identify the surrogate up front.']},
+    {id:'fasthug',name:'FAST HUG-BID (daily checklist)',
+      purpose:'A daily bedside checklist so core ICU prophylaxis and care are addressed every day on rounds.',
+      orders:['F — Feeding (enteral nutrition started / advancing?)','A — Analgesia (pain controlled, CPOT?)','S — Sedation (RASS at target, lightest effective, daily interruption?)','T — Thromboprophylaxis (VTE prophylaxis ordered?)','H — Head of bed ≥30° (VAP prevention)','U — Ulcer (stress-ulcer) prophylaxis — still indicated?','G — Glucose control (target 140–180)','B — Bowel regimen (last BM; prevent constipation/ileus)','I — Indwelling catheters (can the central line / Foley come out today?)','D — De-escalation of antibiotics (narrow per cultures; set a stop date)'],
+      pearls:['Run FAST HUG-BID on every patient, every day on rounds.','Question lines and antibiotics daily — the longer they stay, the more harm.','The best catheter is the one you removed.']}
+  ]},
+
+  monitor:{name:'Monitoring',color:'var(--g3)',items:[
+    {id:'vitals',name:'Vitals & Telemetry',
+      purpose:'Continuous monitoring with explicit call parameters.',
+      orders:['Continuous cardiac telemetry + pulse oximetry','Vitals continuous (or documented q1h in the ICU)','Set CALL parameters: HR <50 or >120, SBP <90 or >180, MAP <65, RR <8 or >30, SpO₂ <90, T >38.3°C','Continuous arterial waveform if an a-line is in place'],
+      pearls:['Explicit call parameters prevent both under- and over-paging.','MAP <65 is the key perfusion threshold to act on.']},
+    {id:'ios',name:'I&Os / Daily Weights',
+      purpose:'Track fluid balance — critical in shock, AKI, CHF, and resuscitation.',
+      orders:['Strict intake & output; hourly urine output via Foley','Daily weights (same time, same scale)','Net balance per shift + cumulative total','Goal urine output ≥0.5 mL/kg/h'],
+      pearls:['Hourly UOP is your real-time perfusion monitor in shock.','Cumulative positive balance tracks with worse outcomes — get to even, then negative, once stable.']},
+    {id:'hemo',name:'Hemodynamic Monitoring',
+      purpose:'Invasive / dynamic monitoring to guide resuscitation in shock.',
+      orders:['Arterial line for continuous BP + frequent ABGs (unstable / on pressors)','Central venous catheter for pressors, central access, ScvO₂','Serial lactate — clearance is a resuscitation target','Dynamic measures (pulse-pressure variation, passive leg raise, IVC ultrasound) over CVP for fluid responsiveness'],
+      pearls:['Lactate clearance and dynamic measures beat static CVP for guiding resuscitation.','An a-line is indicated whenever you are titrating pressors or drawing frequent gases.']},
+    {id:'neuro',name:'Neuro Checks',
+      purpose:'Serial neurologic assessment for at-risk patients.',
+      orders:['Neuro checks q1–2h (GCS, pupils, focal exam) per indication','RASS for sedation depth; CAM-ICU for delirium','Call parameters for any new deficit or GCS drop','Consider continuous EEG if seizure concern'],
+      pearls:['A GCS drop or new focal deficit → urgent imaging.','Deep sedation masks the neuro exam — coordinate checks with sedation interruptions.']}
+  ]},
+
+  resp:{name:'Respiratory',color:'var(--g2)',items:[
+    {id:'vent',name:'Oxygen & Ventilator',
+      purpose:'Oxygenation/ventilation orders and lung-protective targets.',
+      orders:['Titrate O₂ to SpO₂ 92–96% (88–92% if chronic CO₂ retention)','If intubated: set mode, Vt 6 mL/kg ideal body weight, PEEP/FiO₂ per ARDSnet table, plateau pressure <30','ABG ~30 min after vent changes; continuous SpO₂ / EtCO₂','VAP bundle: HOB ≥30°, oral care, cuff-pressure monitoring'],
+      pearls:['Lung-protective ventilation (6 mL/kg IBW, Pplat <30) lowers ARDS mortality — reasonable in most.','Don\'t over-oxygenate — hyperoxia is harmful; target a range.']},
+    {id:'satsbt',name:'SAT / SBT (weaning)',
+      purpose:'Daily paired sedation and breathing trials to liberate from the ventilator early.',
+      orders:['Daily Spontaneous Awakening Trial (SAT) — pause sedation if the safety screen passes','Paired daily Spontaneous Breathing Trial (SBT) on minimal support if SAT tolerated','Assess extubation readiness: mental status, secretions, cuff leak, oxygenation','Coordinate "wake up and breathe" (part of the ABCDEF bundle)'],
+      pearls:['Paired SAT + SBT shortens ventilator days and ICU stay.','Light sedation + daily trials = earlier extubation.']}
+  ]},
+
+  sedation:{name:'Pain / Sedation / Delirium',color:'var(--g)',items:[
+    {id:'analgesia',name:'Analgesia (CPOT) — analgesia-first',
+      purpose:'Treat pain first; an analgesia-based approach reduces sedative needs.',
+      orders:['Assess pain q4h with CPOT (or a scale) in non-communicative patients','Multimodal: scheduled acetaminophen + opioid (fentanyl / hydromorphone) infusion or boluses','Treat pain BEFORE escalating sedation','Reassess after dosing'],
+      pearls:['Analgesia-first sedation reduces total sedative exposure and delirium.','Agitation is often unrecognized pain — treat pain before adding sedatives.']},
+    {id:'sedation',name:'Sedation (RASS target)',
+      purpose:'Light, goal-directed sedation with a defined RASS target.',
+      orders:['Set a RASS goal (typically 0 to −2) and titrate to it','Prefer non-benzodiazepine agents (propofol, dexmedetomidine) over benzodiazepines','Daily sedation interruption (SAT) unless contraindicated','Assess RASS q2–4h'],
+      pearls:['Lighter sedation = less delirium, fewer ventilator days, lower mortality.','Avoid benzodiazepine infusions when possible — they worsen delirium.','Target the lightest sedation that is safe.']},
+    {id:'delirium',name:'Delirium (CAM-ICU)',
+      purpose:'Screen for and prevent ICU delirium — a strong predictor of poor outcomes.',
+      orders:['Screen with CAM-ICU each shift','Non-pharmacologic prevention: reorientation, sleep hygiene, early mobility, glasses/hearing aids, minimize restraints/lines','Treat reversible causes (pain, hypoxia, sepsis, withdrawal, deliriogenic meds)','Reserve low-dose antipsychotics for dangerous agitation only (no mortality benefit; watch QTc)'],
+      pearls:['The ABCDEF bundle (esp. light sedation + early mobility) is the best delirium prevention.','Benzodiazepines and immobility drive delirium.','Antipsychotics don\'t prevent or shorten delirium — use sparingly, for safety only.']}
+  ]},
+
+  hemo:{name:'Hemodynamics',color:'var(--g4)',items:[
+    {id:'fluids',name:'IV Fluids / Resuscitation',
+      purpose:'Fluid choice and resuscitation strategy in the critically ill.',
+      orders:['Balanced crystalloid (LR / Plasma-Lyte) preferred over normal saline for resuscitation','Resuscitate to dynamic endpoints (lactate clearance, MAP ≥65, perfusion) — not fixed large volumes','Reassess fluid responsiveness before each bolus (PLR, PPV, IVC)','Switch to maintenance / de-resuscitate once stabilized; avoid fluid overload'],
+      pearls:['Balanced crystalloids reduce AKI vs large-volume saline (hyperchloremic acidosis).','More fluid is not better — confirm responsiveness, then stop.']},
+    {id:'pressors',name:'Vasopressors & Inotropes',
+      purpose:'Pressor/inotrope selection and targets in shock.',
+      orders:['Norepinephrine = first-line vasopressor for septic shock; titrate to MAP ≥65','Add vasopressin (fixed 0.03 units/min) as the second agent; consider epinephrine','Inotrope (dobutamine) if cardiogenic / low cardiac output','Run pressors through a central line; a-line for titration','Hydrocortisone (stress-dose steroids) for refractory septic shock'],
+      pearls:['Norepinephrine first, MAP target ≥65.','Pressors belong in a central line — peripheral extravasation necroses tissue (phentolamine is the antidote).','Add hydrocortisone when shock is pressor-refractory.']}
+  ]},
+
+  lines:{name:'Lines & Access',color:'var(--g3)',items:[
+    {id:'cvc',name:'Central Venous Catheter',
+      purpose:'Indications, site, and care for a central line.',
+      orders:['Indications: vasopressors, central access, dialysis, poor peripheral access, ScvO₂','Site: subclavian or IJ over femoral (lower infection); ultrasound-guided','Confirm placement (CXR for IJ/subclavian; exclude pneumothorax) before use','Daily CLABSI bundle: necessity review, chlorhexidine site care; REMOVE when no longer needed'],
+      pearls:['Question the line\'s necessity daily — every line-day is an infection risk.','Femoral lines carry the highest infection/thrombosis risk.','Always confirm tip position and rule out PTX after IJ/subclavian placement.']},
+    {id:'aline',name:'Arterial Line',
+      purpose:'Continuous BP + frequent sampling.',
+      orders:['Indications: vasopressor titration, hemodynamic instability, frequent ABGs','Radial site preferred (collateral flow); ultrasound-guided','Continuous pressure transduction; zero and level the transducer','Assess distal perfusion; remove when no longer needed'],
+      pearls:['An a-line is for titrating pressors and frequent gases — not routine.','Level and zero to the phlebostatic axis for accurate readings.']},
+    {id:'foley',name:'Foley Catheter',
+      purpose:'Indications and prompt removal (CAUTI prevention).',
+      orders:['Indications: accurate hourly UOP in shock/critical illness, retention/obstruction','Aseptic insertion; secure, maintain closed drainage','Review necessity DAILY; remove as soon as possible','Consider external/condom catheter or straight cath as alternatives'],
+      pearls:['CAUTI risk rises every day — pull the Foley once hourly UOP isn\'t essential.','"Convenience" is not an indication.']},
+    {id:'ngt',name:'NG / OG Tube',
+      purpose:'Gastric access for feeding or decompression.',
+      orders:['Indications: enteral feeding, gastric decompression (ileus/obstruction)','OG preferred over NG in intubated patients (less sinusitis/VAP)','Confirm placement (pH / CXR) before feeding','HOB ≥30°; check residuals per protocol'],
+      pearls:['Confirm tube position radiographically before feeding — avoid airway misplacement.','OG over NG in the intubated patient.']}
+  ]},
+
+  prophy:{name:'Prophylaxis (FAST HUG)',color:'var(--g4)',items:[
+    {id:'vte',name:'VTE Prophylaxis',
+      purpose:'ICU patients are high VTE risk — prophylax unless contraindicated.',
+      orders:['Pharmacologic: LMWH (enoxaparin) or UFH unless active bleeding / high bleed risk','Mechanical (SCDs) if anticoagulation contraindicated','Reassess daily as bleeding risk / procedures change','Renal dosing: UFH or dose-adjusted LMWH in renal failure'],
+      pearls:['Nearly every ICU patient needs VTE prophylaxis — document why if you hold it.','Mechanical when you can\'t anticoagulate; switch to pharmacologic when safe.']},
+    {id:'sup',name:'Stress Ulcer Prophylaxis',
+      purpose:'Prevent stress-related GI bleeding in high-risk ICU patients.',
+      orders:['Indications: mechanical ventilation >48h, coagulopathy, shock, high-dose steroids, prior GI bleed','PPI or H2 blocker','Reassess / discontinue once risk factors resolve or enteral nutrition is established','Avoid routine use in low-risk patients'],
+      pearls:['Only prophylax those with real risk factors (vent / coagulopathy) — not everyone.','Enteral nutrition is somewhat protective; de-prescribe as risk falls.']},
+    {id:'glucose',name:'Glucose Control',
+      purpose:'Moderate glycemic control without hypoglycemia.',
+      orders:['Target glucose 140–180 mg/dL','Insulin infusion protocol for persistent hyperglycemia (on pressors/steroids/TPN)','Frequent fingersticks; avoid hypoglycemia','Transition to subcutaneous once stable / eating'],
+      pearls:['Target 140–180 — tight control (<110) increases hypoglycemia and harm (NICE-SUGAR).','Hypoglycemia is dangerous; err toward the moderate range.']},
+    {id:'vap',name:'VAP Bundle / Head-of-Bed',
+      purpose:'Ventilator-associated pneumonia prevention bundle.',
+      orders:['Head of bed elevated 30–45°','Daily SAT + SBT (assess extubation readiness)','Oral care with chlorhexidine','Maintain VTE + stress-ulcer prophylaxis (bundle components)','Subglottic-suction ETT; maintain cuff pressure'],
+      pearls:['HOB ≥30° + daily awakening/breathing trials + oral care = core VAP prevention.','The fastest VAP prevention is timely extubation.']}
+  ]},
+
+  support:{name:'Nutrition & Nursing',color:'var(--g2)',items:[
+    {id:'nutrition',name:'Nutrition (enteral)',
+      purpose:'Early enteral nutrition in the critically ill.',
+      orders:['Start enteral nutrition within 24–48h if hemodynamically stable and the gut works','Enteral preferred over parenteral; trophic vs full feeds per protocol','Hold / use caution in shock on escalating pressors (bowel ischemia risk)','HOB ≥30°; monitor tolerance; reserve TPN for when enteral isn\'t feasible'],
+      pearls:['"If the gut works, use it" — early enteral nutrition is preferred.','Hold enteral feeds in unstable shock with rising pressors (mesenteric ischemia risk).']},
+    {id:'mobility',name:'Activity / Mobility',
+      purpose:'Early mobilization reduces ICU-acquired weakness and delirium.',
+      orders:['Early progressive mobility / PT-OT as soon as stable (ABCDEF bundle)','Daily mobility goals; out of bed to chair when able','Minimize deep sedation that prevents participation'],
+      pearls:['Early mobility prevents ICU-acquired weakness and delirium.','Light sedation enables mobility — they go together.']},
+    {id:'skin',name:'Skin / Pressure Injury',
+      purpose:'Prevent pressure injuries in the immobile patient.',
+      orders:['Reposition q2h; pressure-redistribution mattress','Daily skin assessment (Braden score)','Heel offloading; manage moisture / incontinence','Optimize nutrition for healing'],
+      pearls:['q2h turns + skin checks prevent pressure ulcers in the immobile, sedated patient.']},
+    {id:'bowel',name:'Bowel Regimen',
+      purpose:'Prevent constipation/ileus (common with opioids and immobility).',
+      orders:['Scheduled stimulant laxative (senna) with opioids','Track last BM; escalate (PEG, suppository, enema) per protocol','Rule out ileus / obstruction before aggressive agents','Methylnaltrexone for opioid-induced constipation refractory to laxatives'],
+      pearls:['Opioid + immobility = constipation; start a bowel regimen proactively.']},
+    {id:'restraints',name:'Restraints',
+      purpose:'Use restraints safely and minimally.',
+      orders:['Use the least-restrictive option; address the cause of agitation first (pain, delirium, hypoxia)','Order per policy with indication, type, and time limit; frequent reassessment/documentation','Daily review for discontinuation; consider a sitter as an alternative'],
+      pearls:['Restraints don\'t treat delirium and can worsen it — treat the cause and reassess often.']}
+  ]}
+};
+
+var icuActiveCat='all';
+function icuRender(){
+  const pills=document.getElementById('icu-pills');
+  if(pills){
+    let h=`<button class="clinic-pill${icuActiveCat==='all'?' on':''}" onclick="icuSetCat('all')">ALL</button>`;
+    Object.keys(ICU_DATA).forEach(k=>{
+      h+=`<button class="clinic-pill${icuActiveCat===k?' on':''}" onclick="icuSetCat('${k}')">${ICU_DATA[k].name}</button>`;
+    });
+    pills.innerHTML=h;
+  }
+  const q=(document.getElementById('icu-search')||{}).value||'';
+  icuBuildList(q.toLowerCase());
+}
+function icuSetCat(k){ icuActiveCat=k; icuRender(); }
+function icuFilter(){ const q=(document.getElementById('icu-search')||{}).value||''; icuBuildList(q.toLowerCase()); }
+function icuBuildList(q){
+  const list=document.getElementById('icu-list');
+  if(!list) return;
+  let h='';
+  Object.keys(ICU_DATA).forEach(ck=>{
+    if(icuActiveCat!=='all' && icuActiveCat!==ck) return;
+    const cat=ICU_DATA[ck];
+    const matches=cat.items.filter(it=>{
+      if(!q) return true;
+      const hay=(it.name+' '+(it.purpose||'')+' '+(it.orders||[]).join(' ')).toLowerCase();
+      return hay.indexOf(q)>=0;
+    });
+    if(!matches.length) return;
+    h+=`<div class="card" style="margin-bottom:14px;">
+      <div style="font-family:var(--mono);font-size:11px;color:${cat.color};letter-spacing:.1em;margin-bottom:10px;">${cat.name.toUpperCase()}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">`;
+    matches.forEach(it=>{
+      h+=`<button class="btn bs" onclick="openIcuDrawer('${ck}','${it.id}')" style="font-size:22px;padding:8px 14px;">${it.name}</button>`;
+    });
+    h+=`</div></div>`;
+  });
+  if(!h) h='<div style="font-size:24px;color:var(--t3);font-style:italic;padding:20px 0;">No matching orders.</div>';
+  list.innerHTML=h;
+}
+
+function openIcuDrawer(ck,iid){
+  closeAnyDrawer();
+  const cat=ICU_DATA[ck];
+  const it=cat.items.find(x=>x.id===iid);
+  if(!it) return;
+  let html=drawerHead(it.name,cat.name,cat.color,'closeAnyDrawer()');
+
+  if(it.purpose){
+    html+=`<div style="margin:14px 14px 2px;background:var(--s3);border:1px solid var(--b2);border-radius:var(--rl);padding:13px 16px;">
+      <div style="font-family:var(--mono);font-size:12px;color:var(--t2);letter-spacing:.12em;margin-bottom:8px;">PURPOSE</div>
+      <div style="font-size:16px;color:var(--t);line-height:1.55;">${it.purpose}</div>
+    </div>`;
+  }
+
+  if(it.orders&&it.orders.length){
+    html+=secHeader('ORDER SET');
+    html+=listBlock(it.orders,'var(--g)');
+  }
+
+  if(it.pearls&&it.pearls.length){
+    html+=`<div class="dwpearls"><div class="dwpearls-h">✦ PEARLS</div>`;
+    it.pearls.forEach(p=>{ html+=`<div class="dwpearl">${p}</div>`; });
+    html+=`</div>`;
+  }
+  html+=`<div style="height:30px;"></div>`;
+  buildDrawer(html);
+}
+
 function onLoad(){
-  try{ clinicRender(); dataRender(); drugRender(); dxRender(); scoreRender(); nurseRender(); clinicBuildList(''); dataBuildList(''); dxBuildList(''); scoreBuildList(''); nurseBuildList(''); }catch(e){ console.error('init',e); }
+  try{ clinicRender(); dataRender(); drugRender(); dxRender(); scoreRender(); nurseRender(); icuRender(); clinicBuildList(''); dataBuildList(''); dxBuildList(''); scoreBuildList(''); nurseBuildList(''); icuBuildList(''); }catch(e){ console.error('init',e); }
 }
 
 window.addEventListener('DOMContentLoaded', onLoad);
