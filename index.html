@@ -276,6 +276,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   .ni.soap{background:rgba(79,195,247,.15);border-color:rgba(79,195,247,.4);}.ni.soap .nicon{color:var(--g2);}
   .ni.trials{background:rgba(186,104,200,.15);border-color:rgba(186,104,200,.4);}.ni.trials .nicon{color:#ce93d8;}
   .ni.lang{background:rgba(38,198,218,.15);border-color:rgba(38,198,218,.4);}.ni.lang .nicon{color:#26c6da;}
+  .ni.ap{background:rgba(121,134,203,.15);border-color:rgba(121,134,203,.4);}.ni.ap .nicon{color:#7986cb;}
   .nicon{font-size:24px;color:var(--t2);line-height:1;font-weight:700;}
   .nlbl{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;margin-top:2px;}
   .ni.on{border:2px solid var(--g);box-shadow:0 0 8px rgba(127,255,110,.3);}
@@ -451,6 +452,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
     <button class="tab" onclick="gT('soap',this)">SOAP NOTE</button>
     <button class="tab" onclick="gT('trials',this)">TRIALS</button>
     <button class="tab" onclick="gT('lang',this)">LANGUAGE</button>
+    <button class="tab" onclick="gT('ap',this)">A&amp;P</button>
   </div>
 </div>
 
@@ -1118,6 +1120,495 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   <div style="height:40px;"></div>
 </div>
 
+<div id="panel-ap" class="panel">
+  <div class="h1">Assessment <span>&amp; plan</span></div>
+  <div style="font-size:24px;color:var(--t3);margin-bottom:18px;">The fellow-level framework — for your written A&amp;P <b>and</b> how you present it out loud on rounds. Goal: make your reasoning visible so you sound like a fellow, not a day-3 intern. Tap a section to expand.</div>
+
+  <!-- CORE IDEA (always visible) -->
+  <div class="card" style="margin-bottom:14px;border-left:3px solid var(--ap,#7986cb);">
+    <div style="font-family:var(--mono);font-size:11px;color:#7986cb;letter-spacing:.1em;margin-bottom:10px;">THE CORE IDEA</div>
+    <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:8px;">An <b>intern note</b> answers: <i>what is going on, and what are we doing?</i></p>
+    <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:8px;">A <b>fellow note</b> answers: <i>what is going on, what is the central tension, why this path over the alternatives, and what am I worried about next?</i></p>
+    <p style="font-size:16px;line-height:1.65;color:var(--g);margin-bottom:8px;">The entire gap between them is <b>clinical reasoning made visible.</b> The four layers below close that gap.</p>
+    <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:0;">Presenting on rounds is the same reasoning <b>out loud</b> — and it's judged in real time, in your first sentence. Everything here works for both the note and the verbal presentation.</p>
+  </div>
+
+  <!-- START HERE -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g3);" onclick="toggleSoap('ap-start')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g3);letter-spacing:.1em;">★ START HERE — the fastest path (day 3 → fellow)</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ap-start-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ap-start" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">You can't fix everything at once. Here's the order that moves the needle fastest — <b>master each before the next.</b></p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;border-left:3px solid var(--g3);"><div style="font-size:15px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">1. Nail the one-liner.</b> If you fix nothing else, fix this. It frames every presentation and is what seniors judge in the first ten seconds. (See the next section.)</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;border-left:3px solid var(--g3);"><div style="font-size:15px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">2. Lead with your assessment, not your data.</b> Say what you <i>think</i>, then the why. Don't read labs out loud hoping a diagnosis appears.</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;border-left:3px solid var(--g3);"><div style="font-size:15px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">3. Commit + anticipate.</b> Pick a working diagnosis ("...until proven otherwise") and say what you're watching for next.</div></div>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:8px;">THE DAILY PRACTICE LOOP (deliberate reps)</div>
+      <div style="font-size:15px;color:var(--t);line-height:1.7;">
+        <div style="margin-bottom:5px;"><b>① Pick ONE patient.</b> Write the one-liner cold, then rebuild it with the formula. (5 min)</div>
+        <div style="margin-bottom:5px;"><b>② Say the full A&amp;P out loud</b> before rounds — to a co-intern, the mirror, or a phone voice memo. Listen back once.</div>
+        <div style="margin-bottom:5px;"><b>③ Pre-game the pimp.</b> Write the 1–2 questions you'll get and your answers.</div>
+        <div style="margin-bottom:5px;"><b>④ Steal one move.</b> After rounds, grab ONE phrase or move the fellow used that you didn't. Keep a running "steal list."</div>
+        <div style="margin-bottom:0;"><b>⑤ Weekly,</b> fold your steal list into your default.</div>
+      </div>
+      <div style="background:rgba(127,255,110,.06);border:1px solid rgba(127,255,110,.25);border-radius:8px;padding:12px 14px;margin-top:14px;font-size:15px;color:var(--t);line-height:1.6;">Reps + feedback + stealing from seniors. That's the whole fast path. Two weeks of this and you'll hear the difference.</div>
+    </div>
+  </div>
+
+  <!-- THE ONE-LINER -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g);" onclick="toggleSoap('ap-oneliner')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g);letter-spacing:.1em;">◎ THE ONE-LINER — your highest-yield skill</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ap-oneliner-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ap-oneliner" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">Your opening summary statement is the single highest-yield thing you say. Seniors form their read of you in this one sentence. In med-ed it's your <b>problem representation</b> — and nailing it is the clearest marker of expertise.</p>
+      <div style="background:var(--s3);border-radius:8px;padding:12px 14px;margin-bottom:14px;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:6px;">THE FORMULA</div>
+        <div style="font-size:15px;color:var(--t);font-family:var(--mono);line-height:1.6;">[age/sex] with [problem-relevant PMH + qualifiers] presenting with [time course + syndrome] now [trajectory / current status]</div>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:8px;">THE FOUR RULES</div>
+      <div style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:6px;"><b>1. Curate the PMH.</b> Only the 2–3 comorbidities that bear on today. Drop the 1995 appendectomy when the problem is chest pain — relevance <i>is</i> expertise.</div>
+      <div style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:6px;"><b>2. Lead with the syndrome, not the verbatim complaint.</b> "Hypoxemic respiratory failure," not "shortness of breath." Abstract upward.</div>
+      <div style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:6px;"><b>3. Pack in semantic qualifiers.</b> acute/chronic, exertional/rest, first-episode/recurrent. (See "The language of a fellow.")</div>
+      <div style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:14px;"><b>4. End with the trajectory,</b> not a snapshot — "improving on day 2," "now off pressors," "worsening despite diuresis."</div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:8px;">WEAK → STRONG</div>
+      <div style="background:var(--s3);border-radius:8px;padding:11px 14px;margin-bottom:10px;"><div style="color:#ef9a9a;font-size:14.5px;line-height:1.6;">"68-year-old man with diabetes, hypertension, high cholesterol, GERD, and prior knee surgery here with chest pain and some shortness of breath."</div></div>
+      <div style="background:var(--s3);border-radius:8px;padding:11px 14px;"><div style="color:var(--g);font-size:14.5px;line-height:1.6;">"68M with HFrEF (EF 30%), multivessel CAD, and CKD3 presenting with 2 days of exertional dyspnea and orthopnea, now improving after 3 L diuresis on hospital day 2."</div></div>
+      <div style="font-size:14px;color:var(--g);line-height:1.6;margin-top:12px;font-style:italic;">A crisp one-liner declares your lens — and the rest of the presentation almost writes itself. Use the LANGUAGE tab for the codeable syndrome name that belongs in the middle slot.</div>
+    </div>
+  </div>
+
+  <!-- THE 4-LAYER ANATOMY -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;" onclick="toggleSoap('ap-anatomy')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:#7986cb;letter-spacing:.1em;">▦ THE 4-LAYER ANATOMY OF A STRONG A&amp;P</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ap-anatomy-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ap-anatomy" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <table style="width:100%;border-collapse:collapse;font-size:14px;">
+        <thead><tr style="text-align:left;color:#7986cb;font-family:var(--mono);font-size:11px;letter-spacing:.06em;">
+          <th style="padding:6px 8px;border-bottom:1px solid var(--b2);">#</th>
+          <th style="padding:6px 8px;border-bottom:1px solid var(--b2);">LAYER</th>
+          <th style="padding:6px 8px;border-bottom:1px solid var(--b2);">WHAT IT DOES</th>
+          <th style="padding:6px 8px;border-bottom:1px solid var(--b2);">WITHOUT IT...</th>
+        </tr></thead>
+        <tbody style="color:var(--t);">
+          <tr><td style="padding:7px 8px;border-bottom:1px solid var(--b);color:#7986cb;">1</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);"><b>Impression</b></td><td style="padding:7px 8px;border-bottom:1px solid var(--b);">Staged problem list, data inline</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);color:var(--t3);">Reads like a billing list</td></tr>
+          <tr><td style="padding:7px 8px;border-bottom:1px solid var(--b);color:#7986cb;">2</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);"><b>Narrative</b></td><td style="padding:7px 8px;border-bottom:1px solid var(--b);">3–5 sentence reasoning paragraph</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);color:var(--t3);">The note has no brain</td></tr>
+          <tr><td style="padding:7px 8px;border-bottom:1px solid var(--b);color:#7986cb;">3</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);"><b>Plan</b></td><td style="padding:7px 8px;border-bottom:1px solid var(--b);">Numbered problems, lettered orders, logic</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);color:var(--t3);">Orders look arbitrary</td></tr>
+          <tr><td style="padding:7px 8px;color:#7986cb;">4</td><td style="padding:7px 8px;"><b>Anticipation</b></td><td style="padding:7px 8px;">What you're worried about next, and why</td><td style="padding:7px 8px;color:var(--t3);">A snapshot, not a trajectory</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- LAYER 1 -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g);" onclick="toggleSoap('ap-l1')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g);letter-spacing:.1em;">LAYER 1 — THE IMPRESSION</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ap-l1-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ap-l1" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">Each problem line should carry its own evidence and classification — the reader learns the severity and the data <b>without scrolling down.</b></p>
+      <div style="background:var(--s3);border-radius:8px;padding:12px 14px;margin-bottom:14px;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:6px;">THE FORMULA</div>
+        <div style="font-size:15px;color:var(--t);font-family:var(--mono);line-height:1.6;"># [Diagnosis] ([key data inline]) - [stage/class] - [data gap or status]</div>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:6px;">WEAK → STRONG</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><span style="color:#ef9a9a;font-family:var(--mono);font-size:14px;"># HFrEF</span><div style="color:var(--g);font-family:var(--mono);font-size:14px;margin-top:4px;">→ # Ischemic cardiomyopathy (LVEF 50-55% → 25-30%, 6/23) - ACC Stage C, NYHA III</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><span style="color:#ef9a9a;font-family:var(--mono);font-size:14px;"># NSTEMI</span><div style="color:var(--g);font-family:var(--mono);font-size:14px;margin-top:4px;">→ # NSTEMI (trop peak 19k, 6/23)</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><span style="color:#ef9a9a;font-family:var(--mono);font-size:14px;"># Hx lung CA</span><div style="color:var(--g);font-family:var(--mono);font-size:14px;margin-top:4px;">→ # Hx SCLC w/ mediastinal mets s/p XRT (2021) - in remission per chart review</div></div>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:8px;">THE THREE HABITS</div>
+      <div style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:6px;"><b>1. Put the key number inline.</b> Trop peak, EF trajectory, P/F, Cr, the date it changed — diagnosis and evidence travel together.</div>
+      <div style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:6px;"><b>2. Stage or classify whenever a system exists.</b> This single move signals sophistication.</div>
+      <div style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:14px;"><b>3. Name your data gaps honestly.</b> "No prior PFT," "per chart review," "pending" — shows you verified rather than assumed.</div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:6px;">STAGING SYSTEMS TO MEMORIZE</div>
+      <table style="width:100%;border-collapse:collapse;font-size:14px;">
+        <tbody style="color:var(--t);">
+          <tr><td style="padding:6px 8px;border-bottom:1px solid var(--b);color:var(--t2);">Heart failure</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);">NYHA I–IV + ACC/AHA Stage A–D</td></tr>
+          <tr><td style="padding:6px 8px;border-bottom:1px solid var(--b);color:var(--t2);">COPD</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);">GOLD 1–4 + GOLD A/B/E</td></tr>
+          <tr><td style="padding:6px 8px;border-bottom:1px solid var(--b);color:var(--t2);">CKD / AKI</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);">KDIGO stage / G &amp; A categories</td></tr>
+          <tr><td style="padding:6px 8px;border-bottom:1px solid var(--b);color:var(--t2);">Liver</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);">Child-Pugh A/B/C, MELD</td></tr>
+          <tr><td style="padding:6px 8px;border-bottom:1px solid var(--b);color:var(--t2);">Sepsis</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);">SIRS / qSOFA / Sepsis-3</td></tr>
+          <tr><td style="padding:6px 8px;border-bottom:1px solid var(--b);color:var(--t2);">ARDS</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);">Berlin (mild/mod/severe by P/F)</td></tr>
+          <tr><td style="padding:6px 8px;border-bottom:1px solid var(--b);color:var(--t2);">Pneumonia</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);">CURB-65 / PSI</td></tr>
+          <tr><td style="padding:6px 8px;border-bottom:1px solid var(--b);color:var(--t2);">Pancreatitis</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);">Ranson / BISAP</td></tr>
+          <tr><td style="padding:6px 8px;color:var(--t2);">GI bleed</td><td style="padding:6px 8px;">Glasgow-Blatchford / Rockall</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size:14px;color:var(--g);line-height:1.6;margin-top:12px;font-style:italic;">Rule: if a staging system exists, use it. An unstaged diagnosis is the most common intern tell. (See the CRITERIA tab for the actual cutoffs.)</div>
+    </div>
+  </div>
+
+  <!-- LAYER 2 -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g2);" onclick="toggleSoap('ap-l2')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g2);letter-spacing:.1em;">LAYER 2 — THE NARRATIVE PARAGRAPH</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ap-l2-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ap-l2" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">The single biggest upgrade you can make — the difference between a note with a brain and one without. <b>3–5 sentences, placed between the impression and the plan.</b> Write one move per sentence, in order:</p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;border-left:3px solid var(--g2);"><div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:5px;">1 · STATE THE CENTRAL TENSION</div><div style="font-size:15px;color:var(--t);line-height:1.6;">Open with the competing-priorities axis that governs the case. <span style="color:var(--t3);font-style:italic;">"She sits between needing anticoagulation for unprotected left main disease and actively bleeding from her gut."</span></div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;border-left:3px solid var(--g2);"><div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:5px;">2 · REASON THE DECISION + RULE OUT ALTERNATIVES</div><div style="font-size:15px;color:var(--t);line-height:1.6;">Say why the leading option wins <b>and why the roads not taken are off the table.</b> <span style="color:var(--t3);font-style:italic;">"Not a surgical candidate given active melena, and PCI is prohibitively high-risk while she bleeds due to the heparin required."</span></div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;border-left:3px solid var(--g2);"><div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:5px;">3 · ADDRESS UNCERTAINTY, THEN COMMIT</div><div style="font-size:15px;color:var(--t);line-height:1.6;">Don't fence-sit. Acknowledge the ambiguity, then commit to the more dangerous dx. <span style="color:var(--t3);font-style:italic;">"Despite features of stress cardiomyopathy, the angiogram matches the wall-motion territory, so this is coronary ischemia until proven otherwise."</span></div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;border-left:3px solid var(--g2);"><div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:5px;">4 · ANTICIPATE THE NEXT PROBLEM + MECHANISM</div><div style="font-size:15px;color:var(--t);line-height:1.6;">Predict what's coming and name the mechanism. <span style="color:var(--t3);font-style:italic;">"Very high-risk for recurrent flash pulmonary edema given significant MR and ongoing ischemia — watch BPs closely as we transition diuretics."</span></div></div>
+      </div>
+      <div style="background:rgba(127,255,110,.06);border:1px solid rgba(127,255,110,.25);border-radius:8px;padding:12px 14px;margin-top:12px;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:6px;">✦ THE "UNTIL PROVEN OTHERWISE" MOVE</div>
+        <div style="font-size:15px;color:var(--t);line-height:1.65;">When two diagnoses compete: commit to the <b>more dangerous one</b> as the working dx, state which data supports it, and use the literal phrase <b>"...is [dangerous dx] until proven otherwise."</b> It shows you refuse to be falsely reassured — one of the highest-yield phrases you can adopt.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 3 -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g3);" onclick="toggleSoap('ap-l3')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g3);letter-spacing:.1em;">LAYER 3 — THE PLAN</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ap-l3-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ap-l3" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">Numbered problems, lettered orders. Each sub-item a <b>discrete, executable order</b> — not a sentence. Build conditional logic and a trajectory into every problem.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:5px;">1 · DOSE, ROUTE, FREQUENCY — EVERY TIME</div><div style="font-size:15px;line-height:1.6;"><span style="color:#ef9a9a;">"diurese"</span> <span style="color:var(--g);">→ "Bumex 1 mg IV → bumex gtt @ 0.5 mg/hr"</span></div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:5px;">2 · BUILD IN CONDITIONAL / CONTINGENCY LOGIC</div><div style="font-size:15px;color:var(--t);line-height:1.6;">"if X then Y" shows a trajectory, not a snapshot. <span style="color:var(--t3);font-style:italic;">"Metop IV 2.5 mg and if tolerates → tartrate 25 mg 1–2x/day."</span></div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:5px;">3 · A HOLD NEEDS A RESTART TRIGGER</div><div style="font-size:15px;color:var(--t);line-height:1.6;"><span style="color:var(--t3);font-style:italic;">"Hold ARB/SGLT2i/MRA for now but layer on once more stable." · "Hold metoprolol, restart when euvolemic and hemodynamically stable."</span></div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:5px;">4 · GIVE TARGETS, NOT JUST ACTIONS</div><div style="font-size:15px;color:var(--t);line-height:1.6;"><span style="color:var(--t3);font-style:italic;">"Nitro gtt — wean as able, goal SBP &gt;100 and &lt;130." · "Replete lytes for goal K &gt;4, Mg &gt;2."</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 4 -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid #7986cb;" onclick="toggleSoap('ap-l4')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:#7986cb;letter-spacing:.1em;">LAYER 4 — ANTICIPATION &amp; CROSS-PROBLEM AWARENESS</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ap-l4-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ap-l4" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">A snapshot note documents what happened; a trajectory note predicts what's coming. This is what gets you trusted overnight.</p>
+      <div style="background:var(--s3);border-radius:8px;padding:11px 14px;margin-bottom:10px;"><div style="font-family:var(--mono);font-size:12px;color:#7986cb;margin-bottom:5px;">A · FORWARD-LOOKING ANTICIPATION</div><div style="font-size:15px;color:var(--t);line-height:1.6;">For each major problem add: <i>what I'm worried about next + the mechanism.</i> <span style="color:var(--t3);font-style:italic;">"Very high risk for recurrent pulmonary edema (significant MR, ischemia ± ischemic MR) — will watch BPs closely."</span></div></div>
+      <div style="background:var(--s3);border-radius:8px;padding:11px 14px;"><div style="font-family:var(--mono);font-size:12px;color:#7986cb;margin-bottom:5px;">B · CROSS-PROBLEM WEAVING</div><div style="font-size:15px;color:var(--t);line-height:1.6;">Connect systems where they interact. <span style="color:var(--t3);font-style:italic;">"Higher-risk for endoscopy given mild volume overload, hypoxia from PNA/COPD, and significant CAD — agree with GI plan to intubate if proceeding."</span> The GI plan references the cardiac AND pulmonary problems.</div></div>
+    </div>
+  </div>
+
+  <!-- SAYING IT OUT LOUD -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g2);" onclick="toggleSoap('ap-spoken')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g2);letter-spacing:.1em;">🔊 SAYING IT OUT LOUD — delivery on rounds</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ap-spoken-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ap-spoken" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">The note is read; the presentation is <i>performed.</i> Same reasoning, different delivery. How to make it land:</p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:5px;">LEAD WITH THE BOTTOM LINE</div><div style="font-size:15px;color:var(--t);line-height:1.6;">One-liner → "X active problems" → then go problem by problem. Don't make them sit through a data dump waiting for your impression.</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:5px;">SYNTHESIZE, DON'T READ</div><div style="font-size:15px;color:var(--t);line-height:1.6;">Per problem: name it, give your one-sentence assessment (the why), then the plan. Glance at the screen for a number — never read labs in a list.</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:5px;">SIGNPOST OUT LOUD</div><div style="font-size:15px;color:var(--t);line-height:1.6;">"Three active problems. First, the heart failure... Second, the GI bleed..." Audible numbering tells the listener exactly where you are.</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:5px;">PACE + PAUSE</div><div style="font-size:15px;color:var(--t);line-height:1.6;">Deliver the one-liner, then pause one beat — let it land. Slow down for the assessment; speed through stable, unchanged problems.</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:5px;">TIME DISCIPLINE</div><div style="font-size:15px;color:var(--t);line-height:1.6;">A stable floor patient is ~2 minutes. The part you never rush is the assessment + plan. Compression is a fellow skill — if it's stable and unchanged, say so and move on.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE LANGUAGE OF A FELLOW -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid #ba68c8;" onclick="toggleSoap('ap-language')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:#ba68c8;letter-spacing:.1em;">⌥ THE LANGUAGE OF A FELLOW — word choice</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ap-language-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ap-language" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <div style="background:var(--s3);border-radius:8px;padding:11px 14px;margin-bottom:10px;">
+        <div style="font-family:var(--mono);font-size:12px;color:#ba68c8;margin-bottom:5px;">A · SEMANTIC QUALIFIERS (the words experts use)</div>
+        <div style="font-size:15px;color:var(--t);line-height:1.7;">Paired opposites that sharpen a problem: <span style="color:var(--t2);">acute ↔ chronic ↔ subacute · sudden ↔ gradual · exertional ↔ at rest · pleuritic ↔ positional ↔ pressure · productive ↔ dry · first-episode ↔ recurrent · localized ↔ diffuse · progressive ↔ stable.</span> Two qualifiers per problem instantly raises your register.</div>
+      </div>
+      <div style="background:var(--s3);border-radius:8px;padding:11px 14px;margin-bottom:10px;">
+        <div style="font-family:var(--mono);font-size:12px;color:#ba68c8;margin-bottom:5px;">B · PERTINENT NEGATIVES (reason in two directions)</div>
+        <div style="font-size:15px;color:var(--t);line-height:1.6;">State what you <i>didn't</i> find that changes the differential. <span style="color:var(--t3);font-style:italic;">"Afebrile, no leukocytosis, lactate 1.0 — arguing against sepsis as the driver."</span> Positives support; negatives refute. Fellows always give both.</div>
+      </div>
+      <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+        <div style="font-family:var(--mono);font-size:12px;color:#ba68c8;margin-bottom:5px;">C · CALIBRATED CONFIDENCE (delete the hedges)</div>
+        <div style="font-size:15px;color:var(--t);line-height:1.6;">Cut "I think maybe it could possibly be." Use the confidence ladder and match the word to your certainty:<br><span style="font-family:var(--mono);font-size:13.5px;color:var(--t2);">no evidence for → argues against → unlikely → can't exclude → favor → most consistent with → diagnostic of.</span><br>State pretest probability when you can ("high pretest probability for PE") — it justifies the test.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEFEND YOUR REASONING -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid #ef5350;" onclick="toggleSoap('ap-defend')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:#ef5350;letter-spacing:.1em;">⚔ DEFEND YOUR REASONING — the pimp &amp; the challenge</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ap-defend-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ap-defend" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;"><div style="font-family:var(--mono);font-size:12px;color:#ef5350;margin-bottom:5px;">PRE-LOAD THE LIKELY QUESTION</div><div style="font-size:15px;color:var(--t);line-height:1.6;">Before you present, ask "what will they push on?" — usually "why not [the alternative]?" Put that answer <i>in</i> your narrative and they can't catch you.</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;"><div style="font-family:var(--mono);font-size:12px;color:#ef5350;margin-bottom:5px;">THE "WHY NOT X" REFLEX</div><div style="font-size:15px;color:var(--t);line-height:1.6;">For your leading dx, always carry the top alternative and the one reason it's lower. <span style="color:var(--t3);font-style:italic;">"Most consistent with NSTEMI; I considered PE but no hypoxia, no tachycardia, low pretest probability."</span></div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;"><div style="font-family:var(--mono);font-size:12px;color:#ef5350;margin-bottom:5px;">WHEN YOU DON'T KNOW, SAY SO — WITH A PLAN</div><div style="font-size:15px;color:var(--t);line-height:1.6;">"I don't know, but here's how I'd find out." Never bluff — it's the fastest way to lose trust. A confident "I don't know + next step" sounds more senior than a wrong guess.</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;"><div style="font-family:var(--mono);font-size:12px;color:#ef5350;margin-bottom:5px;">NAME YOUR CAN'T-MISS</div><div style="font-size:15px;color:var(--t);line-height:1.6;"><span style="color:var(--t3);font-style:italic;">"My biggest concern is X; if I'm wrong, the thing I can't afford to miss is Y, so I've covered for it with Z."</span> This is exactly how fellows think out loud.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE FELLOW PHRASE BANK -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid #26c6da;" onclick="toggleSoap('ap-bank')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:#26c6da;letter-spacing:.1em;">🗂 THE FELLOW PHRASE BANK — steal these</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ap-bank-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ap-bank" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">The actual phrases that signal seniority. Borrow them until they're yours. Grouped by what they do:</p>
+      <div style="display:flex;flex-direction:column;gap:9px;">
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><div style="font-family:var(--mono);font-size:12px;color:#26c6da;margin-bottom:4px;">FRAME / SYNTHESIZE</div><div style="font-size:14.5px;color:var(--t);line-height:1.6;">"The unifying diagnosis is..." · "The central issue is..." · "Putting it together, this is..." · "The story that fits everything is..."</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><div style="font-family:var(--mono);font-size:12px;color:#26c6da;margin-bottom:4px;">COMMIT</div><div style="font-size:14.5px;color:var(--t);line-height:1.6;">"Most consistent with..." · "This is X until proven otherwise." · "I'm treating this as X." · "My working diagnosis is..."</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><div style="font-family:var(--mono);font-size:12px;color:#26c6da;margin-bottom:4px;">PRIORITIZE</div><div style="font-size:14.5px;color:var(--t);line-height:1.6;">"The problem driving the admission is..." · "The can't-miss here is..." · "Top of my differential is..."</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><div style="font-family:var(--mono);font-size:12px;color:#26c6da;margin-bottom:4px;">HEDGE APPROPRIATELY</div><div style="font-size:14.5px;color:var(--t);line-height:1.6;">"I can't fully exclude X, so I've covered for it with..." · "Lower on my differential, but worth a rule-out..." · "Pending [test], but I'm not waiting to treat."</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><div style="font-family:var(--mono);font-size:12px;color:#26c6da;margin-bottom:4px;">ANTICIPATE</div><div style="font-size:14.5px;color:var(--t);line-height:1.6;">"What I'm watching for is..." · "If X happens, the plan is Y." · "The next 24 hours will tell us..." · "I'm worried about [complication] via [mechanism]."</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><div style="font-family:var(--mono);font-size:12px;color:#26c6da;margin-bottom:4px;">CONNECT PROBLEMS</div><div style="font-size:14.5px;color:var(--t);line-height:1.6;">"These are likely the same process." · "Her kidneys and her heart are competing — diuresing one stresses the other." · "This is all downstream of..."</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><div style="font-family:var(--mono);font-size:12px;color:#26c6da;margin-bottom:4px;">LEAN ON THE EVIDENCE</div><div style="font-size:14.5px;color:var(--t);line-height:1.6;">"Per [guideline/trial]..." · "GDMT-wise, she's on..." · "The data support..." <span style="color:var(--t3);">(see the TRIALS tab)</span></div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><div style="font-family:var(--mono);font-size:12px;color:#26c6da;margin-bottom:4px;">HONEST UNKNOWN</div><div style="font-size:14.5px;color:var(--t);line-height:1.6;">"I don't have that yet — I've sent for it." · "That's a gap; I'll read on it tonight." · "I'd ask [consultant] to weigh in on..."</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTERN TELLS TO DELETE -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid #ff7043;" onclick="toggleSoap('ap-tells')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:#ff7043;letter-spacing:.1em;">✂ COMMON INTERN TELLS — delete these</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ap-tells-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ap-tells" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:14px;">The specific habits that instantly mark you as junior. <b>Cut these and you climb a level before you add anything.</b> Stop saying the ✗, start saying the ✓.</p>
+      <div style="display:flex;flex-direction:column;gap:9px;">
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><div style="color:#e57373;font-size:14.5px;line-height:1.55;"><b>✗</b> Reading labs one by one — "sodium 138, potassium 4.0, chloride 104..."</div><div style="color:var(--g);font-size:14.5px;line-height:1.55;margin-top:3px;"><b>✓</b> Synthesize: "Labs notable for an AKI, Cr up to 2.1, with a gap of 18." Quote only what drives a decision.</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><div style="color:#e57373;font-size:14.5px;line-height:1.55;"><b>✗</b> "Patient is a poor historian."</div><div style="color:var(--g);font-size:14.5px;line-height:1.55;margin-top:3px;"><b>✓</b> "History limited by encephalopathy — obtained collateral from family and chart." Name the reason, say what you did about it.</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><div style="color:#e57373;font-size:14.5px;line-height:1.55;"><b>✗</b> Burying the lede — opening with social history or a 1995 surgery.</div><div style="color:var(--g);font-size:14.5px;line-height:1.55;margin-top:3px;"><b>✓</b> Lead with the active syndrome in your one-liner; bring in history only where it's relevant.</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><div style="color:#e57373;font-size:14.5px;line-height:1.55;"><b>✗</b> Over-hedging — "I think it might possibly maybe be..."</div><div style="color:var(--g);font-size:14.5px;line-height:1.55;margin-top:3px;"><b>✓</b> Commit with calibrated confidence: "Most consistent with X."</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><div style="color:#e57373;font-size:14.5px;line-height:1.55;"><b>✗</b> The unstaged diagnosis — "CHF," "AKI," "cirrhosis."</div><div style="color:var(--g);font-size:14.5px;line-height:1.55;margin-top:3px;"><b>✓</b> Stage everything with a system: "acute on chronic HFrEF, NYHA III" · "AKI, KDIGO 2."</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><div style="color:#e57373;font-size:14.5px;line-height:1.55;"><b>✗</b> Data → orders with no assessment in between.</div><div style="color:var(--g);font-size:14.5px;line-height:1.55;margin-top:3px;"><b>✓</b> Say what you <i>think</i> first — one assessment sentence per problem, then the plan.</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><div style="color:#e57373;font-size:14.5px;line-height:1.55;"><b>✗</b> "Will continue current management / will monitor."</div><div style="color:var(--g);font-size:14.5px;line-height:1.55;margin-top:3px;"><b>✓</b> Monitor for WHAT, with what trigger: "watching UOP; if &lt;0.5 mL/kg/h over 6h, fluid challenge."</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><div style="color:#e57373;font-size:14.5px;line-height:1.55;"><b>✗</b> "Patient is stable" (when they're not) / quoting only the current vital.</div><div style="color:var(--g);font-size:14.5px;line-height:1.55;margin-top:3px;"><b>✓</b> Give the trend: "Tmax 38.9 overnight, now 37.2; HR down from 110s to 80s."</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><div style="color:#e57373;font-size:14.5px;line-height:1.55;"><b>✗</b> The kitchen-sink differential — 12 items, no ranking.</div><div style="color:var(--g);font-size:14.5px;line-height:1.55;margin-top:3px;"><b>✓</b> Prioritize: most likely + the can't-miss. "Most likely X; can't-miss is Y, covered by Z."</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><div style="color:#e57373;font-size:14.5px;line-height:1.55;"><b>✗</b> "Noncompliant patient."</div><div style="color:var(--g);font-size:14.5px;line-height:1.55;margin-top:3px;"><b>✓</b> "Nonadherent — barrier is cost / access / understanding." Neutral, and it points to a fix.</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><div style="color:#e57373;font-size:14.5px;line-height:1.55;"><b>✗</b> A number with no trend — "BNP 1850."</div><div style="color:var(--g);font-size:14.5px;line-height:1.55;margin-top:3px;"><b>✓</b> Anchor it: "BNP 1850, up from 400 at admission."</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><div style="color:#e57373;font-size:14.5px;line-height:1.55;"><b>✗</b> Filler &amp; apology — "um, so, sorry, I think..."</div><div style="color:var(--g);font-size:14.5px;line-height:1.55;margin-top:3px;"><b>✓</b> A confident pause beats filler. State it, then stop talking.</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;"><div style="color:#e57373;font-size:14.5px;line-height:1.55;"><b>✗</b> "Do you want me to...?" for routine decisions.</div><div style="color:var(--g);font-size:14.5px;line-height:1.55;margin-top:3px;"><b>✓</b> Propose: "I'd like to start X — unless you'd prefer otherwise." Lead; don't outsource the thinking.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUBSPECIALTY LENSES -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid #ffd54f;" onclick="toggleSoap('ap-lens')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:#ffd54f;letter-spacing:.1em;">◆ SUBSPECIALTY LENSES — sound like a fellow on THAT service</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ap-lens-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ap-lens" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:14px;">Same patient, same A&amp;P — but each service <i>sees</i> it through its own lens and leads with what <b>it</b> cares about. Adopt that lens (and its anchors and phrases) and you sound like one of them. On a consult, frame your one-liner around the consulting service's lens.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+
+        <div style="background:var(--s3);border-radius:8px;padding:12px 14px;border-left:3px solid #ef5350;">
+          <div style="font-family:var(--mono);font-size:12px;color:#ef5350;margin-bottom:6px;">CARDIOLOGY</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;margin-bottom:5px;"><b>Lens:</b> tell the <b>hemodynamic story</b> — pump, pipes, rhythm, or volume? Forward (perfusion) vs backward (congestion) failure.</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;margin-bottom:5px;"><b>Anchors on:</b> EF + trajectory · ischemic territory (which vessel/wall) · the warm/cold–wet/dry profile · rhythm · the 4 GDMT pillars · troponin/BNP trend · preload/afterload/contractility.</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;margin-bottom:8px;"><b>Say:</b> <span style="color:var(--t3);">"She's warm and wet — congested but perfusing." · "This is a supply–demand question." · "GDMT-wise she's on a beta-blocker and ARNI, not yet on an SGLT2i or MRA." · "The wall-motion abnormality matches the LAD territory." · "Which lever do we pull — preload, afterload, or contractility?"</span></div>
+          <div style="background:rgba(239,83,80,.07);border:1px solid rgba(239,83,80,.25);border-radius:6px;padding:9px 12px;font-size:14px;color:var(--t);line-height:1.6;font-style:italic;">Flavor one-liner: "68M with ischemic cardiomyopathy (EF 25–30%) presenting warm-and-wet with an acute HFrEF exacerbation 2/2 dietary nonadherence, now diuresing on a bumetanide drip — will optimize GDMT once euvolemic."</div>
+        </div>
+
+        <div style="background:var(--s3);border-radius:8px;padding:12px 14px;border-left:3px solid var(--g2);">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:6px;">PULMONARY / CRITICAL CARE</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;margin-bottom:5px;"><b>Lens:</b> gas exchange + mechanics + the shock state. Oxygenation (A-a gradient, P/F) vs ventilation (CO₂). Classify the shock.</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;margin-bottom:5px;"><b>Anchors on:</b> P/F ratio · A-a gradient · vent settings (Vt/kg IBW, PEEP, plateau &amp; driving pressure, compliance) · ABG trend · shock type (distributive/cardiogenic/hypovolemic/obstructive) · lactate clearance · fluid-responsiveness.</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;"><b>Say:</b> <span style="color:var(--t3);">"Hypoxemic vs hypercapnic failure." · "Widened A-a gradient — so V/Q mismatch or shunt, not hypoventilation." · "Lung-protective, driving pressure under 15." · "Distributive shock until proven otherwise." · "Is she fluid-responsive?"</span></div>
+        </div>
+
+        <div style="background:var(--s3);border-radius:8px;padding:12px 14px;border-left:3px solid var(--g3);">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:6px;">NEPHROLOGY</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;margin-bottom:5px;"><b>Lens:</b> three questions — what's the <b>volume status</b>, what's the <b>gap/acid-base</b>, what does the <b>urine</b> say? Then localize pre/intra/post.</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;margin-bottom:5px;"><b>Anchors on:</b> Cr vs the patient's baseline · UOP · FENa/FEUrea · urine sediment (casts) · urine lytes · anion gap + compensation · K and acid-base · the volume exam.</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;"><b>Say:</b> <span style="color:var(--t3);">"Pre, intra, or post?" · "FENa under 1 — prerenal physiology." · "Muddy-brown casts, so this is ATN." · "Gap of 24 with appropriate compensation by Winter's." · "The urine tells the story."</span></div>
+        </div>
+
+        <div style="background:var(--s3);border-radius:8px;padding:12px 14px;border-left:3px solid var(--g);">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:6px;">INFECTIOUS DISEASE</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;margin-bottom:5px;"><b>Lens:</b> <b>source → bug → drug → duration</b>, plus source control. Always: "what's the source, and is it controlled?"</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;margin-bottom:5px;"><b>Anchors on:</b> suspected source · gram stain + culture data · the local antibiogram/susceptibilities · spectrum (de-escalate!) · source-control status · the duration clock · immune status.</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;"><b>Say:</b> <span style="color:var(--t3);">"What's the source, and is it controlled?" · "I'd de-escalate to [narrow agent] per susceptibilities." · "Day 3 of a 7-day course." · "This needs source control, not just antibiotics."</span></div>
+        </div>
+
+        <div style="background:var(--s3);border-radius:8px;padding:12px 14px;border-left:3px solid #26c6da;">
+          <div style="font-family:var(--mono);font-size:12px;color:#26c6da;margin-bottom:6px;">GI / HEPATOLOGY</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;margin-bottom:5px;"><b>Lens:</b> separate the <b>lesion</b> from the <b>function</b>. In liver: synthetic function + portal-HTN physiology.</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;margin-bottom:5px;"><b>Anchors on:</b> hemodynamic stability + transfusion · bleeding stigmata (Forrest) · Child-Pugh / MELD · INR + albumin (synthetic function) · encephalopathy grade · the SAAG.</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;"><b>Say:</b> <span style="color:var(--t3);">"Variceal or non-variceal?" · "Child-Pugh B, MELD 18." · "Decompensated cirrhosis — name which decompensation." · "Her synthetic function is failing."</span></div>
+        </div>
+
+        <div style="background:var(--s3);border-radius:8px;padding:12px 14px;border-left:3px solid #ba68c8;">
+          <div style="font-family:var(--mono);font-size:12px;color:#ba68c8;margin-bottom:6px;">HEME / ONC</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;margin-bottom:5px;"><b>Lens:</b> <b>mechanism first.</b> Anemia &amp; thrombocytopenia: production vs destruction vs sequestration/loss. Look at the smear.</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;margin-bottom:5px;"><b>Anchors on:</b> the smear · retic count · cell line(s) involved · MCV · hemolysis labs · the mechanism · stage + performance status (ECOG).</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;"><b>Say:</b> <span style="color:var(--t3);">"Production, destruction, or sequestration?" · "What does the smear show?" · "Retic-appropriate or not?" · "Her ECOG is 1."</span></div>
+        </div>
+
+        <div style="background:var(--s3);border-radius:8px;padding:12px 14px;border-left:3px solid #4db6ac;">
+          <div style="font-family:var(--mono);font-size:12px;color:#4db6ac;margin-bottom:6px;">ENDOCRINE</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;margin-bottom:5px;"><b>Lens:</b> it's an <b>axis</b> — think feedback loops. Confirm with the dynamic test. Treat the patient, not the number.</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;margin-bottom:5px;"><b>Anchors on:</b> the hormone + its trophic partner (TSH/free T4, ACTH/cortisol, PTH/Ca) · the dynamic / stim / suppression test · the precipitant.</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;"><b>Say:</b> <span style="color:var(--t3);">"Primary vs secondary — check the trophic hormone." · "Confirm with a stim test." · "Treat the patient, not the TSH."</span></div>
+        </div>
+
+        <div style="background:var(--s3);border-radius:8px;padding:12px 14px;border-left:3px solid #7986cb;">
+          <div style="font-family:var(--mono);font-size:12px;color:#7986cb;margin-bottom:6px;">NEUROLOGY</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;margin-bottom:5px;"><b>Lens:</b> <b>localize first</b> (where is the lesion?), then etiology. The exam IS the test. Often time-critical.</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;margin-bottom:5px;"><b>Anchors on:</b> the localizing exam · time-last-known-well · NIHSS · the vascular territory · the imaging.</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.6;"><b>Say:</b> <span style="color:var(--t3);">"Localize first: cortex, brainstem, cord, or nerve?" · "Time is brain — last known well?" · "The exam localizes to..."</span></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SKELETON -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;" onclick="toggleSoap('ap-skeleton')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g);letter-spacing:.1em;">▤ THE FULL SKELETON — copy this</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ap-skeleton-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ap-skeleton" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <pre style="white-space:pre-wrap;font-family:var(--mono);font-size:13.5px;color:var(--t);line-height:1.7;margin:0;">IMPRESSION:
+# [Dx] ([key data inline]) - [stage/class]
+# [Dx] ([key data]) - [data gap / status]
+# [Dx] ...
+
+NARRATIVE (3–5 sentences):
+1. Open with the central clinical tension.
+2. Reason the major decision + why alternatives are off the table.
+3. Address uncertainty → commit ("...until proven otherwise").
+4. Anticipate the next likely problem + the mechanism.
+
+RECOMMENDATIONS:
+1. [Problem]
+   a. [discrete order — drug/dose/route/freq]
+   b. [conditional logic — "if tolerates, then..."]
+   c. [hold + restart trigger]
+   d. [target/goal]
+2. [Problem]
+   a. ...</pre>
+    </div>
+  </div>
+
+  <!-- WORKED EXAMPLE -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g4);" onclick="toggleSoap('ap-example')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g4);letter-spacing:.1em;">✓ WORKED EXAMPLE (annotated)</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ap-example-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ap-example" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:6px;">SPOKEN ONE-LINER — how you'd open on rounds</div>
+      <div style="background:rgba(127,255,110,.06);border:1px solid rgba(127,255,110,.25);border-radius:8px;padding:11px 14px;margin-bottom:14px;font-size:15px;color:var(--t);line-height:1.65;font-style:italic;">"Older woman with multivessel CAD (90% distal left main), ischemic cardiomyopathy with EF down to 25–30%, and moderate–severe MR, admitted with an NSTEMI now complicated by a new GI bleed — the central tension is she needs anticoagulation for her coronaries but is actively bleeding."</div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:6px;">IMPRESSION — data inline + staging + gaps</div>
+      <pre style="white-space:pre-wrap;font-family:var(--mono);font-size:13px;color:var(--t);line-height:1.7;margin:0 0 14px;"># NSTEMI (19k peak 6/23)
+# CAD: 90% distal LM/ostial LAD + CTO of RCA
+# Ischemic cardiomyopathy (LVEF 50-55% → 25-30%, 6/23) - ACC Stage C, NYHA III
+# Moderate–severe MR
+# Emphysema - no prior PFT
+# Hx SCLC w/ mediastinal mets s/p XRT (2021) - in remission per chart review
+# New melena with Hgb drop</pre>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:6px;">NARRATIVE — tension → alternatives → commit → anticipate</div>
+      <div style="background:var(--s3);border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:15px;color:var(--t);line-height:1.7;">Challenging case in an older patient with multiple comorbidities. <b style="color:var(--g2);">[tension]</b> Not a surgical candidate given the melena, and PCI of her distal LM would be prohibitively high-risk with ongoing GIB given the high-dose heparin required. <b style="color:var(--g2);">[alternatives ruled out]</b> Although the repeat echo has features of stress cardiomyopathy, the angiogram matches the rWMA territory (LAD), so this is CAD/ischemia until proven otherwise. <b style="color:var(--g2);">[commit]</b> She remains very high-risk for recurrent pulmonary edema (significant MR, ischemia ± ischemic MR), so we will watch BPs closely as we transition to a bumex gtt. <b style="color:var(--g2);">[anticipate]</b></div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:6px;">RECOMMENDATIONS — discrete orders, conditional logic, holds w/ triggers, cross-problem</div>
+      <pre style="white-space:pre-wrap;font-family:var(--mono);font-size:13px;color:var(--t);line-height:1.7;margin:0;">1. NSTEMI
+   a. Hold heparin gtt (see GIB)
+   b. No Plavix at this time
+   c. Can hold ASA if necessary from GI standpoint
+   d. Atorvastatin 80 mg QD
+2. HFrEF
+   a. Bumex 1 mg IV → bumex gtt @ 0.5
+   b. Nitro gtt — wean as able, goal SBP &gt;100 and &lt;130
+   c. Hold ARB/SGLT2i/MRA now, layer on once more stable
+   d. Trial metop IV 2.5 mg; if tolerates → tartrate 25 mg 1–2x/day
+   e. BID lytes while diuresing, daily standing weights
+3. GIB  [higher endoscopy risk 2/2 volume overload, hypoxia, CAD]
+   a. Colonoscopy today
+   b. High-dose PPI BID
+   c. Hold heparin gtt
+   d. Needs better access — PICC today
+4. PNA
+   a. CTX + doxycycline, 5–7 day CAP course</pre>
+    </div>
+  </div>
+
+  <!-- SELF-CHECK -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g);" onclick="toggleSoap('ap-check')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g);letter-spacing:.1em;">☑ THE SELF-CHECK BEFORE YOU SUBMIT</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ap-check-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ap-check" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <div style="display:flex;flex-direction:column;gap:7px;font-size:15px;color:var(--t);line-height:1.55;">
+        <div>☐ Does each problem line carry its <b>key data inline?</b></div>
+        <div>☐ Did I <b>stage/classify</b> every diagnosis that has a system?</div>
+        <div>☐ Did I name my <b>data gaps</b> honestly?</div>
+        <div>☐ Is there a <b>narrative paragraph</b> with the central tension?</div>
+        <div>☐ Did I <b>rule out the alternatives</b>, not just state the plan?</div>
+        <div>☐ Did I <b>commit</b> to a working dx where there was uncertainty?</div>
+        <div>☐ Are my orders <b>discrete, dosed, and routed</b> — not vague sentences?</div>
+        <div>☐ Does every <b>hold</b> have a <b>restart trigger?</b></div>
+        <div>☐ Did I give <b>targets/goals</b>, not just actions?</div>
+        <div>☐ Did I <b>anticipate</b> the next problem with a mechanism?</div>
+        <div>☐ Did I <b>connect problems</b> to each other where they interact?</div>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g2);letter-spacing:.08em;margin:16px 0 7px;">— IF YOU'RE PRESENTING OUT LOUD —</div>
+      <div style="display:flex;flex-direction:column;gap:7px;font-size:15px;color:var(--t);line-height:1.55;">
+        <div>☐ Could I say my <b>one-liner in one breath</b>, with the PMH curated to what matters today?</div>
+        <div>☐ Did I <b>lead with my assessment</b>, not a data dump?</div>
+        <div>☐ Two+ <b>semantic qualifiers</b> per active problem?</div>
+        <div>☐ Did I give <b>pertinent negatives</b>, not just positives?</div>
+        <div>☐ <b>Calibrated confidence</b> — no "maybe possibly," word matched to my certainty?</div>
+        <div>☐ Did I <b>pre-load the "why not X"</b> answer before they ask?</div>
+      </div>
+      <div style="background:rgba(121,134,203,.08);border:1px solid rgba(121,134,203,.3);border-radius:8px;padding:12px 14px;margin-top:14px;font-size:15px;color:var(--t);line-height:1.65;">An intern says <b>what.</b> A fellow says <b>what, why, why not the alternatives, and what's next</b> — led by a crisp one-liner, in calibrated language, committing where it counts. Add the narrative, stage your diagnoses, dose your orders with logic, connect your problems, and <b>say it out loud before rounds.</b></div>
+    </div>
+  </div>
+
+  <div style="height:40px;"></div>
+</div>
+
 </div><!-- .main -->
 
 <!-- Mobile top nav (periodic table) -->
@@ -1133,6 +1624,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   <button class="ni soap" id="ni-soap" onclick="gM('soap',this)"><span class="nicon">📝</span><span class="nlbl">SOAP</span></button>
   <button class="ni trials" id="ni-trials" onclick="gM('trials',this)"><span class="nicon">📚</span><span class="nlbl">Trials</span></button>
   <button class="ni lang" id="ni-lang" onclick="gM('lang',this)"><span class="nicon">🗣️</span><span class="nlbl">Lang</span></button>
+  <button class="ni ap" id="ni-ap" onclick="gM('ap',this)"><span class="nicon">🧠</span><span class="nlbl">A&amp;P</span></button>
 </nav>
 
 </div><!-- .app -->
