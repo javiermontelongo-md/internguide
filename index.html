@@ -271,6 +271,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   .ni.data{background:rgba(255,183,77,.15);border-color:rgba(255,183,77,.4);}.ni.data .nicon{color:var(--g3);}
   .ni.criteria{background:rgba(186,104,200,.15);border-color:rgba(186,104,200,.4);}.ni.criteria .nicon{color:#ba68c8;}
   .ni.scores{background:rgba(76,175,80,.15);border-color:rgba(76,175,80,.4);}.ni.scores .nicon{color:#4caf50;}
+  .ni.staging{background:rgba(121,134,203,.15);border-color:rgba(121,134,203,.4);}.ni.staging .nicon{color:#7986cb;}
   .ni.nursing{background:rgba(244,67,54,.15);border-color:rgba(244,67,54,.4);}.ni.nursing .nicon{color:#f44336;}
   .ni.icu{background:rgba(255,235,59,.15);border-color:rgba(255,235,59,.4);}.ni.icu .nicon{color:#ffd700;}
   .ni.soap{background:rgba(79,195,247,.15);border-color:rgba(79,195,247,.4);}.ni.soap .nicon{color:var(--g2);}
@@ -447,6 +448,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
     <button class="tab" onclick="gT('data',this)">DATA</button>
     <button class="tab" onclick="gT('dx',this)">CRITERIA</button>
     <button class="tab" onclick="gT('scores',this)">SCORES</button>
+    <button class="tab" onclick="gT('staging',this)">STAGING</button>
     <button class="tab" onclick="gT('nursing',this)">NURSING</button>
     <button class="tab" onclick="gT('icu',this)">ICU ORDERS</button>
     <button class="tab" onclick="gT('soap',this)">SOAP NOTE</button>
@@ -620,6 +622,17 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   </div>
   <div id="score-pills" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;"></div>
   <div id="score-list"></div>
+</div>
+
+<div id="panel-staging" class="panel">
+  <div class="h1">Staging <span>&amp; class</span></div>
+  <div style="font-size:24px;color:var(--t3);margin-bottom:14px;">Pick a <b>classification system</b> → every stage/class spelled out, with what each one means and implies</div>
+  <div style="position:relative;margin-bottom:12px;">
+    <input type="text" id="stage-search" placeholder="Search NYHA, KDIGO, GOLD, Child-Pugh..." oninput="stageFilter()" autocomplete="off" style="width:100%;box-sizing:border-box;background:var(--s2);border:1px solid var(--b2);border-radius:var(--r);padding:10px 14px 10px 38px;font-family:var(--mono);font-size:13px;color:var(--t);outline:none;">
+    <span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:15px;">⌕</span>
+  </div>
+  <div id="stage-pills" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;"></div>
+  <div id="stage-list"></div>
 </div>
 
 <div id="panel-nursing" class="panel">
@@ -1619,6 +1632,7 @@ RECOMMENDATIONS:
   <button class="ni data" id="ni-data" onclick="gM('data',this)"><span class="nicon">📊</span><span class="nlbl">Data</span></button>
   <button class="ni criteria" id="ni-dx" onclick="gM('dx',this)"><span class="nicon">🔍</span><span class="nlbl">Criteria</span></button>
   <button class="ni scores" id="ni-scores" onclick="gM('scores',this)"><span class="nicon">📈</span><span class="nlbl">Scores</span></button>
+  <button class="ni staging" id="ni-staging" onclick="gM('staging',this)"><span class="nicon">🪜</span><span class="nlbl">Staging</span></button>
   <button class="ni nursing" id="ni-nursing" onclick="gM('nursing',this)"><span class="nicon">🏥</span><span class="nlbl">Nursing</span></button>
   <button class="ni icu" id="ni-icu" onclick="gM('icu',this)"><span class="nicon">⚠️</span><span class="nlbl">ICU</span></button>
   <button class="ni soap" id="ni-soap" onclick="gM('soap',this)"><span class="nicon">📝</span><span class="nlbl">SOAP</span></button>
@@ -4931,7 +4945,7 @@ function scoreBuildList(q){
 
 function openScoreDrawer(ck,iid){
   closeAnyDrawer();
-  const cat=SCORE_DATA[ck];
+  const cat=SCORE_DATA[ck]||STAGE_DATA[ck];
   const it=cat.items.find(x=>x.id===iid);
   if(!it) return;
   let html=drawerHead(it.name,cat.name,cat.color,'closeAnyDrawer()');
@@ -5006,6 +5020,246 @@ function openScoreDrawer(ck,iid){
   }
   html+=`<div style="height:30px;"></div>`;
   buildDrawer(html);
+}
+
+// ============================================================
+// STAGING — classification & severity-staging systems
+// (reuses openScoreDrawer; item schema = SCORE_DATA item)
+// ============================================================
+var STAGE_DATA={
+  scard:{name:'Cardiac',color:'var(--g4)',items:[
+    {id:'nyha',name:'NYHA Functional Class',
+      use:'Symptom-based functional staging of heart failure — tracks how much HF limits the patient right now and guides device/transplant referral.',
+      scoring:[
+        {range:'Class I',meaning:'No limitation of physical activity. Ordinary activity does not cause symptoms.',action:'Optimize guideline-directed medical therapy (GDMT); reinforce risk-factor control.'},
+        {range:'Class II',meaning:'Slight limitation. Comfortable at rest; ordinary activity causes fatigue, palpitations, or dyspnea.',action:'Continue/titrate GDMT; monitor weights & symptoms.'},
+        {range:'Class III',meaning:'Marked limitation. Comfortable at rest; LESS-than-ordinary activity causes symptoms.',action:'Intensify GDMT; consider device therapy (CRT/ICD) by EF; cardiology referral.'},
+        {range:'Class IV',meaning:'Symptoms at rest, worsened by any activity.',action:'Advanced HF therapies — inotropes, mechanical support / transplant evaluation, or palliative care.'}
+      ],
+      pearls:['NYHA can improve OR worsen with treatment — unlike the ACC/AHA stages, which only progress.','One of the strongest predictors of HF mortality; drives device and transplant referral.','Subjective and observer-dependent — anchor it to a concrete activity the patient reports.']},
+    {id:'aha_hf',name:'ACC/AHA HF Stages',
+      use:'Disease-trajectory staging of heart failure — captures structural progression from at-risk to end-stage. Complements NYHA (stage = where the heart is; NYHA = how the patient feels today).',
+      scoring:[
+        {range:'Stage A — At risk',meaning:'Risk factors (HTN, DM, CAD, cardiotoxins, family hx) but NO structural disease or symptoms.',action:'Control BP & diabetes, statin if indicated, ACEi/ARB as appropriate; SGLT2i in at-risk diabetics.'},
+        {range:'Stage B — Pre-HF',meaning:'Structural disease (low EF, prior MI, valvular disease, elevated natriuretic peptides) but NEVER any HF symptoms.',action:'ACEi/ARB + beta-blocker; ICD if EF ≤30% (≥40 days post-MI).'},
+        {range:'Stage C — Symptomatic',meaning:'Structural disease WITH current or prior HF symptoms.',action:'Full GDMT (ARNI/ACEi/ARB + beta-blocker + MRA + SGLT2i); diuretics for congestion; device therapy as indicated.'},
+        {range:'Stage D — Advanced',meaning:'Refractory HF requiring specialized interventions.',action:'Transplant, LVAD/MCS, continuous inotropes, or hospice/palliative care.'}
+      ],
+      pearls:['Stages only progress — they never regress (the key contrast with NYHA).','Use BOTH systems: ACC/AHA stage for trajectory, NYHA class for current symptom burden.']},
+    {id:'ccs',name:'CCS Angina Grade',
+      use:'Canadian Cardiovascular Society grading of angina severity by the activity that provokes it — the angina analog of NYHA.',
+      scoring:[
+        {range:'Grade I',meaning:'Angina only with strenuous, rapid, or prolonged exertion. Ordinary activity (walking, climbing stairs) does not cause angina.',action:'Risk-factor modification + antianginal as needed; outpatient evaluation.'},
+        {range:'Grade II',meaning:'Slight limitation — angina with walking >2 blocks or climbing >1 flight at a normal pace, after meals, in cold, or with emotional stress.',action:'Optimize antianginal therapy; stress test / ischemia evaluation.'},
+        {range:'Grade III',meaning:'Marked limitation — angina walking 1–2 blocks or climbing 1 flight at a normal pace.',action:'Escalate medical therapy; consider angiography.'},
+        {range:'Grade IV',meaning:'Angina with any physical activity OR at rest.',action:'Treat as unstable angina/ACS — admit, antithrombotics, urgent risk stratification.'}
+      ],
+      pearls:['Grade IV / rest angina = unstable — do not manage as stable disease.']},
+    {id:'killip',name:'Killip Class (acute MI)',
+      use:'Bedside grading of heart-failure severity at presentation in acute MI — a quick prognostic marker.',
+      scoring:[
+        {range:'Class I',meaning:'No clinical signs of heart failure.',action:'Standard ACS management; historical mortality ~6%.'},
+        {range:'Class II',meaning:'Rales over <½ lung fields, an S3 gallop, and/or elevated JVP.',action:'Add diuresis; monitor closely. Historical mortality ~17%.'},
+        {range:'Class III',meaning:'Frank acute pulmonary edema.',action:'Aggressive decongestion, O2/NIV, ICU. Historical mortality ~30–40%.'},
+        {range:'Class IV',meaning:'Cardiogenic shock — SBP <90 mmHg with hypoperfusion.',action:'Pressors/inotropes, revascularization, mechanical support, ICU. Historical mortality ~60–80%.'}
+      ],
+      pearls:['Higher class → higher mortality, assessed at presentation.','Original mortality figures predate reperfusion — modern rates are lower but the gradient holds.']}
+  ]},
+  srenal:{name:'Renal',color:'var(--g3)',items:[
+    {id:'kdigo_aki',name:'KDIGO AKI Stage',
+      use:'Stages acute kidney injury by serum creatinine OR urine output — stage by whichever criterion is worse.',
+      scoring:[
+        {range:'Stage 1',meaning:'Creatinine 1.5–1.9× baseline, OR a rise of ≥0.3 mg/dL within 48 h. UOP <0.5 mL/kg/h for 6–12 h.',action:'Stop nephrotoxins, optimize volume & perfusion, identify and treat the cause; review contrast & dosing.'},
+        {range:'Stage 2',meaning:'Creatinine 2.0–2.9× baseline. UOP <0.5 mL/kg/h for ≥12 h.',action:'As above + nephrology input if the cause is unclear; reassess meds.'},
+        {range:'Stage 3',meaning:'Creatinine ≥3.0× baseline, OR Cr ≥4.0 mg/dL, OR initiation of RRT (or eGFR <35 if <18 y). UOP <0.3 mL/kg/h for ≥24 h or anuria ≥12 h.',action:'Nephrology; assess RRT indications — AEIOU: Acidosis, Electrolytes (refractory hyperK), Intoxications, Overload, Uremia.'}
+      ],
+      pearls:['Stage by the WORST of the creatinine OR urine-output criteria.','Baseline = the lowest recent creatinine; a 0.3 mg/dL rise within 48 h alone qualifies as AKI.']},
+    {id:'kdigo_gfr',name:'KDIGO CKD — GFR (G)',
+      use:'Categorizes chronic kidney disease by eGFR. Pair with the albuminuria (A) category to read the KDIGO risk heat-map.',
+      scoring:[
+        {range:'G1 — ≥90',meaning:'Normal or high GFR. CKD only if another marker of kidney damage is present (e.g. albuminuria, structural/pathologic findings).',action:'Treat the underlying condition; address CV risk.'},
+        {range:'G2 — 60–89',meaning:'Mildly decreased. Again requires a damage marker to count as CKD.',action:'Monitor; control BP & diabetes.'},
+        {range:'G3a — 45–59',meaning:'Mildly to moderately decreased.',action:'ACEi/ARB + SGLT2i where indicated; monitor labs; nephrology if progressing.'},
+        {range:'G3b — 30–44',meaning:'Moderately to severely decreased.',action:'Manage complications (anemia, bone-mineral, acidosis); nephrology referral.'},
+        {range:'G4 — 15–29',meaning:'Severely decreased.',action:'Prepare for kidney replacement therapy / transplant; nephrology co-management.'},
+        {range:'G5 — <15',meaning:'Kidney failure.',action:'Dialysis or transplant.'}
+      ],
+      pearls:['CKD = abnormal kidney structure or function for ≥3 months.','G1–G2 are NOT CKD on GFR alone — they require a separate damage marker such as albuminuria.']},
+    {id:'kdigo_alb',name:'KDIGO CKD — Albuminuria (A)',
+      use:'Categorizes albuminuria by urine albumin-to-creatinine ratio (ACR) — an independent predictor of CKD progression and cardiovascular risk.',
+      scoring:[
+        {range:'A1 — <30 mg/g',meaning:'Normal to mildly increased albuminuria.',action:'Routine monitoring.'},
+        {range:'A2 — 30–300 mg/g',meaning:'Moderately increased ("microalbuminuria").',action:'ACEi/ARB, SGLT2i; tighten BP and glycemic control.'},
+        {range:'A3 — >300 mg/g',meaning:'Severely increased ("macroalbuminuria"); nephrotic-range if much higher.',action:'Maximize RAAS blockade + SGLT2i; nephrology; evaluate for glomerular disease.'}
+      ],
+      pearls:['Combine the G and A categories to place the patient on the KDIGO green/yellow/orange/red risk map.','ACEi/ARB and SGLT2i both lower albuminuria and slow progression.']}
+  ]},
+  shep:{name:'Hepatic / GI',color:'var(--g)',items:[
+    {id:'childpugh_s',name:'Child-Pugh Class',
+      use:'Grades cirrhosis severity / surgical risk from 5 variables. Each scored 1–3 points; total maps to a class.',
+      criteria:[
+        {item:'Total bilirubin — <2 / 2–3 / >3 mg/dL',points:'1 / 2 / 3'},
+        {item:'Albumin — >3.5 / 2.8–3.5 / <2.8 g/dL',points:'1 / 2 / 3'},
+        {item:'INR — <1.7 / 1.7–2.3 / >2.3',points:'1 / 2 / 3'},
+        {item:'Ascites — none / mild-controlled / moderate-refractory',points:'1 / 2 / 3'},
+        {item:'Encephalopathy — none / grade 1–2 / grade 3–4',points:'1 / 2 / 3'}
+      ],
+      scoring:[
+        {range:'Class A (5–6 pts)',meaning:'Well-compensated disease. ~100% / 85% one- and two-year survival.',action:'Routine cirrhosis care; generally tolerates surgery.'},
+        {range:'Class B (7–9 pts)',meaning:'Significant functional compromise. ~80% / 60% survival.',action:'Caution with surgery and hepatotoxic/renally-cleared drugs; screen for varices & HCC.'},
+        {range:'Class C (10–15 pts)',meaning:'Decompensated disease. ~45% / 35% survival.',action:'High operative mortality; refer for transplant evaluation.'}
+      ],
+      pearls:['Mnemonic "Pour Another Beer At Eleven" — Pro-time/INR, Albumin, Bilirubin, Ascites, Encephalopathy.','MELD-Na has largely replaced Child-Pugh for transplant allocation, but Child-Pugh remains handy for bedside surgical-risk estimates.']},
+    {id:'west_haven',name:'West Haven (HE grade)',
+      use:'Grades hepatic encephalopathy by mental status and neuromuscular findings.',
+      scoring:[
+        {range:'Minimal (covert)',meaning:'Normal exam; abnormalities only on psychometric or number-connection testing.',action:'Screen in at-risk drivers; treat precipitants; consider lactulose.'},
+        {range:'Grade I',meaning:'Trivial lack of awareness, euphoria or anxiety, shortened attention span, altered sleep.',action:'Identify precipitant (infection, GIB, constipation, dehydration); start lactulose.'},
+        {range:'Grade II',meaning:'Lethargy/apathy, disorientation to time, obvious personality change; ASTERIXIS present.',action:'Lactulose titrated to 2–3 soft stools/day; add rifaximin; treat the trigger.'},
+        {range:'Grade III',meaning:'Somnolence to semi-stupor, responsive to stimuli, gross disorientation, bizarre behavior.',action:'Consider airway protection; ICU-level monitoring; aggressive lactulose.'},
+        {range:'Grade IV',meaning:'Coma, unresponsive to painful stimuli.',action:'Intubate for airway protection; ICU.'}
+      ],
+      pearls:['Asterixis appears around grade II and is absent in coma (grade IV).','Grade III–IV → protect the airway. Always hunt the precipitant.']},
+    {id:'forrest',name:'Forrest (UGI bleed)',
+      use:'Endoscopic classification of peptic-ulcer bleeding stigmata — predicts rebleeding and guides therapy.',
+      scoring:[
+        {range:'Ia — Active spurting',meaning:'Arterial spurting hemorrhage; highest rebleed risk.',action:'Endoscopic hemostasis (clip/thermal + epinephrine) + IV PPI infusion; ICU.'},
+        {range:'Ib — Active oozing',meaning:'Active oozing without spurting.',action:'Endoscopic therapy + IV PPI.'},
+        {range:'IIa — Visible vessel',meaning:'Non-bleeding visible vessel; high rebleed risk (~50%).',action:'Endoscopic therapy + IV PPI.'},
+        {range:'IIb — Adherent clot',meaning:'Adherent clot over the ulcer base.',action:'Consider clot removal and treating the underlying lesion; PPI.'},
+        {range:'IIc — Flat pigmented spot',meaning:'Flat pigmented spot; low rebleed risk.',action:'No endoscopic therapy needed; oral PPI.'},
+        {range:'III — Clean base',meaning:'Clean-based ulcer; lowest rebleed risk (~5%).',action:'No endoscopic therapy; early feeding / discharge; oral PPI.'}
+      ],
+      pearls:['Ia–IIb = high-risk stigmata → endoscopic therapy + IV PPI.','IIc and III are low-risk and can often be managed orally with early discharge.']}
+  ]},
+  spulm:{name:'Pulmonary',color:'var(--g2)',items:[
+    {id:'gold_air',name:'GOLD COPD — Airflow',
+      use:'Spirometric grading of airflow limitation severity in COPD (requires post-bronchodilator FEV1/FVC <0.70).',
+      scoring:[
+        {range:'GOLD 1 — Mild',meaning:'FEV1 ≥80% predicted.',action:'Short-acting bronchodilator PRN; smoking cessation; vaccinations.'},
+        {range:'GOLD 2 — Moderate',meaning:'FEV1 50–79% predicted.',action:'Long-acting bronchodilator; pulmonary rehab.'},
+        {range:'GOLD 3 — Severe',meaning:'FEV1 30–49% predicted.',action:'LABA+LAMA; assess for ICS; rehab; consider O2 evaluation.'},
+        {range:'GOLD 4 — Very severe',meaning:'FEV1 <30% predicted.',action:'Maximize inhaled therapy; O2/NIV evaluation; consider advanced options.'}
+      ],
+      pearls:['Diagnosis requires a post-bronchodilator FEV1/FVC <0.70.','The spirometric grade does NOT drive drug choice — the ABE symptom/exacerbation group does.']},
+    {id:'gold_abe',name:'GOLD ABE Groups',
+      use:'2023 GOLD grouping by symptom burden and exacerbation history — this is what guides initial inhaler choice.',
+      scoring:[
+        {range:'Group A',meaning:'0–1 exacerbations (none leading to admission) AND low symptoms (mMRC 0–1 / CAT <10).',action:'A bronchodilator (short- or long-acting).'},
+        {range:'Group B',meaning:'0–1 exacerbations AND high symptoms (mMRC ≥2 / CAT ≥10).',action:'LABA + LAMA combination.'},
+        {range:'Group E',meaning:'≥2 moderate exacerbations OR ≥1 leading to hospitalization, regardless of symptoms.',action:'LABA + LAMA; add ICS if blood eosinophils ≥300/µL (or asthma overlap).'}
+      ],
+      pearls:['2023 GOLD merged the old groups C and D into a single "E" (exacerbation) group.','Blood eosinophils ≥300 favor adding an ICS; ICS raises pneumonia risk, so avoid if eos are low.']},
+    {id:'mmrc',name:'mMRC Dyspnea Scale',
+      use:'Patient-reported breathlessness scale used in the GOLD symptom assessment.',
+      scoring:[
+        {range:'Grade 0',meaning:'Breathless only with strenuous exercise.',action:'—'},
+        {range:'Grade 1',meaning:'Short of breath when hurrying on level ground or walking up a slight hill.',action:'—'},
+        {range:'Grade 2',meaning:'Walks slower than peers on level ground, or stops for breath walking at own pace.',action:'mMRC ≥2 = "more symptoms" cutoff for GOLD grouping.'},
+        {range:'Grade 3',meaning:'Stops for breath after ~100 m or a few minutes on level ground.',action:'—'},
+        {range:'Grade 4',meaning:'Too breathless to leave the house, or breathless when dressing.',action:'—'}
+      ],
+      pearls:['mMRC ≥2 is the threshold separating GOLD group A from B (and contributes to E management).']}
+  ]},
+  sneuro:{name:'Neuro',color:'#ba68c8',items:[
+    {id:'mrs',name:'Modified Rankin (mRS)',
+      use:'Global disability/dependence scale — the standard functional outcome measure after stroke.',
+      scoring:[
+        {range:'0',meaning:'No symptoms at all.',action:'—'},
+        {range:'1',meaning:'No significant disability — some symptoms but able to carry out all usual duties and activities.',action:'Functionally independent.'},
+        {range:'2',meaning:'Slight disability — unable to do all previous activities but able to look after own affairs without assistance.',action:'Functionally independent (mRS 0–2).'},
+        {range:'3',meaning:'Moderate disability — requires some help but able to walk unassisted.',action:'Dependent for some activities.'},
+        {range:'4',meaning:'Moderately severe — unable to walk or attend to bodily needs without assistance.',action:'Dependent.'},
+        {range:'5',meaning:'Severe disability — bedridden, incontinent, requiring constant nursing care.',action:'Fully dependent.'},
+        {range:'6',meaning:'Dead.',action:'—'}
+      ],
+      pearls:['mRS 0–2 = "functional independence," the usual favorable-outcome endpoint in stroke trials.']},
+    {id:'hunt_hess',name:'Hunt-Hess (SAH)',
+      use:'Clinical grading of subarachnoid hemorrhage severity at presentation — correlates with surgical risk and prognosis.',
+      scoring:[
+        {range:'Grade I',meaning:'Asymptomatic or mild headache and slight nuchal rigidity.',action:'Best prognosis; secure the aneurysm; monitor for vasospasm.'},
+        {range:'Grade II',meaning:'Moderate-to-severe headache, nuchal rigidity, no neurologic deficit other than a cranial-nerve palsy.',action:'Aneurysm securing; nimodipine; ICU.'},
+        {range:'Grade III',meaning:'Drowsiness, confusion, or mild focal deficit.',action:'ICU; airway vigilance; treat hydrocephalus/ICP.'},
+        {range:'Grade IV',meaning:'Stupor, moderate-to-severe hemiparesis, early decerebrate rigidity.',action:'Often intubation; ICP management; guarded prognosis.'},
+        {range:'Grade V',meaning:'Deep coma, decerebrate posturing, moribund appearance.',action:'Worst prognosis; aggressive vs goals-of-care discussion.'}
+      ],
+      pearls:['Higher grade → worse outcome. Grade ≥III usually needs ICU and a secured airway.','The WFNS scale grades SAH by GCS ± focal deficit as an alternative.']}
+  ]},
+  sfunc:{name:'Functional / Onc',color:'var(--g2)',items:[
+    {id:'ecog',name:'ECOG Performance Status',
+      use:'Oncology performance-status scale — drives eligibility for chemotherapy and clinical trials and tracks prognosis.',
+      scoring:[
+        {range:'0',meaning:'Fully active; able to carry on all pre-disease activity without restriction.',action:'Eligible for intensive therapy.'},
+        {range:'1',meaning:'Restricted in strenuous activity but ambulatory and able to do light/sedentary work.',action:'Generally eligible for therapy.'},
+        {range:'2',meaning:'Ambulatory and capable of all self-care but unable to work; up and about >50% of waking hours.',action:'Often the cutoff — many intensive regimens/trials require ECOG ≤2.'},
+        {range:'3',meaning:'Capable of only limited self-care; confined to bed or chair >50% of waking hours.',action:'Usually excludes intensive chemo; favor best supportive / lower-intensity care.'},
+        {range:'4',meaning:'Completely disabled; no self-care; totally confined to bed or chair.',action:'Supportive / palliative care.'},
+        {range:'5',meaning:'Dead.',action:'—'}
+      ],
+      pearls:['ECOG ≥2 often excludes intensive chemotherapy and many trials, and predicts worse outcomes.']},
+    {id:'kps',name:'Karnofsky (KPS)',
+      use:'100-point performance scale; a finer-grained analog of ECOG used in oncology and hospice prognostication.',
+      scoring:[
+        {range:'100–80',meaning:'Able to carry on normal activity; no special care needed (100 normal · 90 minor signs/symptoms · 80 normal activity with effort).',action:'≈ ECOG 0–1.'},
+        {range:'70–50',meaning:'Unable to work; lives at home with varying assistance (70 cares for self · 60 occasional assistance · 50 considerable assistance + frequent care).',action:'KPS <70 = cannot live/work independently.'},
+        {range:'40–10',meaning:'Unable to care for self; institutional or hospital care; disease may be progressing rapidly (40 disabled · 30 severely disabled · 20 very sick, active support · 10 moribund).',action:'Supportive/hospice care; ≈ ECOG 3–4.'},
+        {range:'0',meaning:'Dead.',action:'—'}
+      ],
+      pearls:['Rough mapping: KPS 100 ≈ ECOG 0, 80 ≈ 1, 60 ≈ 2, 40 ≈ 3, 20 ≈ 4.','KPS <70 marks the loss of independent living and is a common hospice-eligibility anchor.']}
+  ]},
+  sskin:{name:'Skin / Wound',color:'var(--g3)',items:[
+    {id:'pressure',name:'Pressure Injury Stages',
+      use:'NPIAP/NPUAP staging of pressure injuries by depth of tissue loss.',
+      scoring:[
+        {range:'Stage 1',meaning:'Intact skin with non-blanchable erythema, usually over a bony prominence.',action:'Offload/reposition q2h, protect skin, optimize nutrition & moisture.'},
+        {range:'Stage 2',meaning:'Partial-thickness loss with exposed dermis — a shallow open ulcer or intact/ruptured serum-filled blister. No slough.',action:'Moist wound dressing; pressure redistribution.'},
+        {range:'Stage 3',meaning:'Full-thickness skin loss; subcutaneous fat visible. Slough/eschar may be present but does not obscure depth; undermining/tunneling possible.',action:'Wound care/debridement as needed; nutrition; consider wound-care consult.'},
+        {range:'Stage 4',meaning:'Full-thickness loss with exposed/palpable muscle, tendon, ligament, cartilage, or bone.',action:'Surgical/wound consult; evaluate for osteomyelitis.'},
+        {range:'Unstageable',meaning:'Full-thickness loss whose depth is obscured by slough or eschar.',action:'Cannot stage until enough slough/eschar is removed to see the base.'},
+        {range:'Deep Tissue Injury',meaning:'Persistent non-blanchable deep red, maroon, or purple discoloration, or a blood-filled blister.',action:'Offload and monitor; may evolve rapidly to a deeper stage.'}
+      ],
+      pearls:['Do NOT "reverse-stage" a healing ulcer (a stage 4 does not become a stage 2 as it heals).','An unstageable injury cannot be graded until the base is visible after debridement.']}
+  ]}
+};
+
+var stageActiveCat='all';
+function stageRender(){
+  const pills=document.getElementById('stage-pills');
+  if(pills){
+    let h=`<button class="clinic-pill${stageActiveCat==='all'?' on':''}" onclick="stageSetCat('all')">ALL</button>`;
+    Object.keys(STAGE_DATA).forEach(k=>{
+      h+=`<button class="clinic-pill${stageActiveCat===k?' on':''}" onclick="stageSetCat('${k}')">${STAGE_DATA[k].name}</button>`;
+    });
+    pills.innerHTML=h;
+  }
+  const q=(document.getElementById('stage-search')||{}).value||'';
+  stageBuildList(q.toLowerCase());
+}
+function stageSetCat(k){ stageActiveCat=k; stageRender(); }
+function stageFilter(){ const q=(document.getElementById('stage-search')||{}).value||''; stageBuildList(q.toLowerCase()); }
+function stageBuildList(q){
+  const list=document.getElementById('stage-list');
+  if(!list) return;
+  let h='';
+  Object.keys(STAGE_DATA).forEach(ck=>{
+    if(stageActiveCat!=='all' && stageActiveCat!==ck) return;
+    const cat=STAGE_DATA[ck];
+    const matches=cat.items.filter(it=>{
+      if(!q) return true;
+      const hay=(it.name+' '+(it.use||'')+' '+(it.criteria||[]).map(c=>c.item).join(' ')+' '+(it.scoring||[]).map(s=>s.range+' '+s.meaning).join(' ')).toLowerCase();
+      return hay.indexOf(q)>=0;
+    });
+    if(!matches.length) return;
+    h+=`<div class="card" style="margin-bottom:14px;">
+      <div style="font-family:var(--mono);font-size:11px;color:${cat.color};letter-spacing:.1em;margin-bottom:10px;">${cat.name.toUpperCase()}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">`;
+    matches.forEach(it=>{
+      h+=`<button class="btn bs" onclick="openScoreDrawer('${ck}','${it.id}')" style="font-size:22px;padding:8px 14px;">${it.name}</button>`;
+    });
+    h+=`</div></div>`;
+  });
+  if(!h) h='<div style="font-size:24px;color:var(--t3);font-style:italic;padding:20px 0;">No matching classification.</div>';
+  list.innerHTML=h;
 }
 
 // ============================================================
@@ -6272,7 +6526,7 @@ function openLangDrawer(ck,iid){
 }
 
 function onLoad(){
-  try{ clinicRender(); dataRender(); drugRender(); dxRender(); scoreRender(); nurseRender(); icuRender(); trialsRender(); langRender(); clinicBuildList(''); dataBuildList(''); dxBuildList(''); scoreBuildList(''); nurseBuildList(''); icuBuildList(''); trialsBuildList(''); langBuildList(''); }catch(e){ console.error('init',e); }
+  try{ clinicRender(); dataRender(); drugRender(); dxRender(); scoreRender(); stageRender(); nurseRender(); icuRender(); trialsRender(); langRender(); clinicBuildList(''); dataBuildList(''); dxBuildList(''); scoreBuildList(''); stageBuildList(''); nurseBuildList(''); icuBuildList(''); trialsBuildList(''); langBuildList(''); }catch(e){ console.error('init',e); }
 }
 
 window.addEventListener('DOMContentLoaded', onLoad);
