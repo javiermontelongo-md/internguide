@@ -4605,26 +4605,6 @@ var SCORE_DATA={
   ]},
 
   gi:{name:'GI / Hepatic',color:'var(--g3)',items:[
-    {id:'gbs',name:'Glasgow-Blatchford (UGIB)',
-      use:'Pre-endoscopy score for upper GI bleed — identifies who can be managed as an outpatient vs who needs intervention.',
-      when:['Suspected upper GI bleed at first assessment, BEFORE endoscopy (uses only clinical + lab data).'],
-      criteria:[
-        {item:'BUN 18.2–22.3 / 22.4–27.9 / 28–69.9 / ≥70 mg/dL',points:'2 / 3 / 4 / 6'},
-        {item:'Hgb (men) 12–13 / 10–12 / <10',points:'1 / 3 / 6'},
-        {item:'Hgb (women) 10–12 / <10',points:'1 / 6'},
-        {item:'SBP 100–109 / 90–99 / <90',points:'1 / 2 / 3'},
-        {item:'Heart rate ≥ 100',points:'1'},
-        {item:'Melena',points:'1'},
-        {item:'Syncope',points:'2'},
-        {item:'Hepatic disease',points:'2'},
-        {item:'Cardiac failure',points:'2'}
-      ],
-      scoring:[
-        {range:'0 (or ≤1)',meaning:'Very low risk of needing intervention or dying.',action:'Consider outpatient management / early discharge with follow-up — no urgent inpatient endoscopy required.'},
-        {range:'≥7',meaning:'High likelihood of needing endoscopic intervention/transfusion.',action:'Admit, resuscitate, urgent endoscopy, transfuse to target, hold/consider reversal of anticoagulation.'}
-      ],
-      pearls:['GBS is best at identifying the LOW-risk patient safe for discharge (score 0).','Use the full Rockall score after endoscopy for mortality prognostication; AIMS65 is a simpler mortality predictor.']},
-
     {id:'meld',name:'MELD-Na (cirrhosis severity)',
       use:'90-day mortality in chronic liver disease; drives transplant priority and peri-procedure risk.',
       when:['Cirrhosis prognostication, transplant listing, assessing risk before procedures/surgery, TIPS evaluation.'],
@@ -5063,7 +5043,19 @@ var STAGE_DATA={
         {range:'Class III',meaning:'Frank acute pulmonary edema.',action:'Aggressive decongestion, O2/NIV, ICU. Historical mortality ~30–40%.'},
         {range:'Class IV',meaning:'Cardiogenic shock — SBP <90 mmHg with hypoperfusion.',action:'Pressors/inotropes, revascularization, mechanical support, ICU. Historical mortality ~60–80%.'}
       ],
-      pearls:['Higher class → higher mortality, assessed at presentation.','Original mortality figures predate reperfusion — modern rates are lower but the gradient holds.']}
+      pearls:['Higher class → higher mortality, assessed at presentation.','Original mortality figures predate reperfusion — modern rates are lower but the gradient holds.']},
+    {id:'intermacs',name:'INTERMACS Profile',
+      use:'Profiles the severity of advanced (NYHA IV / ACC-AHA stage D) heart failure to time mechanical circulatory support or transplant.',
+      scoring:[
+        {range:'Profile 1 — Critical shock',meaning:'"Crash and burn" — life-threatening hypotension/critical cardiogenic shock despite rapidly escalating inotropes/pressors.',action:'Intervene within hours; ECMO / temporary MCS.'},
+        {range:'Profile 2 — Progressive decline',meaning:'"Sliding on inotropes" — declining function despite IV inotropic support.',action:'Urgent MCS over days.'},
+        {range:'Profile 3 — Stable but inotrope-dependent',meaning:'Stable on continuous IV inotropes but fails attempts to wean.',action:'MCS / transplant evaluation over weeks.'},
+        {range:'Profile 4 — Resting symptoms',meaning:'Congestive symptoms at rest on oral therapy; frequent fluid shifts.',action:'Elective MCS/transplant work-up over weeks to months.'},
+        {range:'Profile 5 — Exertion intolerant',meaning:'Comfortable at rest but essentially housebound, unable to do any activity.',action:'Variable urgency; consider advanced therapies.'},
+        {range:'Profile 6 — Exertion limited',meaning:'Able to do minor activity but fatigues within minutes of any meaningful exertion.',action:'Outpatient optimization; monitor for decline.'},
+        {range:'Profile 7 — Advanced NYHA III',meaning:'Clinically stable with a comfortable life limited to mild exertion.',action:'Continue GDMT; not yet an MCS candidate.'}
+      ],
+      pearls:['Lower profile = sicker and more urgent (Profile 1 is the worst).','Modifiers: TCS (temporary circulatory support), A (arrhythmia), FF ("frequent flyer" recurrent admissions).','Primarily used to time LVAD/transplant in stage D HF.']}
   ]},
   srenal:{name:'Renal',color:'var(--g3)',items:[
     {id:'kdigo_aki',name:'KDIGO AKI Stage',
@@ -5092,7 +5084,17 @@ var STAGE_DATA={
         {range:'A2 — 30–300 mg/g',meaning:'Moderately increased ("microalbuminuria").',action:'ACEi/ARB, SGLT2i; tighten BP and glycemic control.'},
         {range:'A3 — >300 mg/g',meaning:'Severely increased ("macroalbuminuria"); nephrotic-range if much higher.',action:'Maximize RAAS blockade + SGLT2i; nephrology; evaluate for glomerular disease.'}
       ],
-      pearls:['Combine the G and A categories to place the patient on the KDIGO green/yellow/orange/red risk map.','ACEi/ARB and SGLT2i both lower albuminuria and slow progression.']}
+      pearls:['Combine the G and A categories to place the patient on the KDIGO green/yellow/orange/red risk map.','ACEi/ARB and SGLT2i both lower albuminuria and slow progression.']},
+    {id:'rifle',name:'RIFLE (AKI)',
+      use:'Consensus AKI severity classification (the precursor to KDIGO) — three severity grades plus two outcome classes. Grade by whichever criterion (creatinine/GFR or urine output) is worse.',
+      scoring:[
+        {range:'Risk',meaning:'Creatinine ×1.5 (or GFR drop >25%). UOP <0.5 mL/kg/h for 6 h.',action:'Identify/stop nephrotoxins; optimize volume and perfusion.'},
+        {range:'Injury',meaning:'Creatinine ×2 (or GFR drop >50%). UOP <0.5 mL/kg/h for 12 h.',action:'Reassess cause; nephrology if unclear; review meds/contrast.'},
+        {range:'Failure',meaning:'Creatinine ×3 (or GFR drop >75%, or Cr ≥4 mg/dL with an acute rise ≥0.5). UOP <0.3 mL/kg/h for 24 h or anuria for 12 h.',action:'Nephrology; assess RRT indications (acidosis, hyperK, overload, uremia).'},
+        {range:'Loss',meaning:'Complete loss of kidney function (need for RRT) for >4 weeks.',action:'Ongoing RRT; evaluate for recovery.'},
+        {range:'ESRD',meaning:'End-stage renal disease (RRT-dependent) for >3 months.',action:'Chronic dialysis or transplant pathway.'}
+      ],
+      pearls:['RIFLE = Risk, Injury, Failure, Loss, ESRD.','Largely superseded by KDIGO, but the Risk/Injury/Failure thresholds parallel KDIGO stages 1/2/3.']}
   ]},
   shep:{name:'Hepatic / GI',color:'var(--g)',items:[
     {id:'childpugh_s',name:'Child-Pugh Class',
@@ -5130,7 +5132,26 @@ var STAGE_DATA={
         {range:'IIc — Flat pigmented spot',meaning:'Flat pigmented spot; low rebleed risk.',action:'No endoscopic therapy needed; oral PPI.'},
         {range:'III — Clean base',meaning:'Clean-based ulcer; lowest rebleed risk (~5%).',action:'No endoscopic therapy; early feeding / discharge; oral PPI.'}
       ],
-      pearls:['Ia–IIb = high-risk stigmata → endoscopic therapy + IV PPI.','IIc and III are low-risk and can often be managed orally with early discharge.']}
+      pearls:['Ia–IIb = high-risk stigmata → endoscopic therapy + IV PPI.','IIc and III are low-risk and can often be managed orally with early discharge.']},
+    {id:'gbs',name:'Glasgow-Blatchford (UGIB)',
+      use:'Pre-endoscopy score for upper GI bleed — identifies who can be managed as an outpatient vs who needs intervention.',
+      when:['Suspected upper GI bleed at first assessment, BEFORE endoscopy (uses only clinical + lab data).'],
+      criteria:[
+        {item:'BUN 18.2–22.3 / 22.4–27.9 / 28–69.9 / ≥70 mg/dL',points:'2 / 3 / 4 / 6'},
+        {item:'Hgb (men) 12–13 / 10–12 / <10',points:'1 / 3 / 6'},
+        {item:'Hgb (women) 10–12 / <10',points:'1 / 6'},
+        {item:'SBP 100–109 / 90–99 / <90',points:'1 / 2 / 3'},
+        {item:'Heart rate ≥ 100',points:'1'},
+        {item:'Melena',points:'1'},
+        {item:'Syncope',points:'2'},
+        {item:'Hepatic disease',points:'2'},
+        {item:'Cardiac failure',points:'2'}
+      ],
+      scoring:[
+        {range:'0 (or ≤1)',meaning:'Very low risk of needing intervention or dying.',action:'Consider outpatient management / early discharge with follow-up — no urgent inpatient endoscopy required.'},
+        {range:'≥7',meaning:'High likelihood of needing endoscopic intervention/transfusion.',action:'Admit, resuscitate, urgent endoscopy, transfuse to target, hold/consider reversal of anticoagulation.'}
+      ],
+      pearls:['GBS is best at identifying the LOW-risk patient safe for discharge (score 0).','Use the full Rockall score after endoscopy for mortality prognostication; AIMS65 is a simpler mortality predictor.']}
   ]},
   spulm:{name:'Pulmonary',color:'var(--g2)',items:[
     {id:'gold_air',name:'GOLD COPD — Airflow',
@@ -5183,7 +5204,17 @@ var STAGE_DATA={
         {range:'Grade IV',meaning:'Stupor, moderate-to-severe hemiparesis, early decerebrate rigidity.',action:'Often intubation; ICP management; guarded prognosis.'},
         {range:'Grade V',meaning:'Deep coma, decerebrate posturing, moribund appearance.',action:'Worst prognosis; aggressive vs goals-of-care discussion.'}
       ],
-      pearls:['Higher grade → worse outcome. Grade ≥III usually needs ICU and a secured airway.','The WFNS scale grades SAH by GCS ± focal deficit as an alternative.']}
+      pearls:['Higher grade → worse outcome. Grade ≥III usually needs ICU and a secured airway.','The WFNS scale grades SAH by GCS ± focal deficit as an alternative.']},
+    {id:'nihss',name:'NIHSS (stroke severity)',
+      use:'NIH Stroke Scale — a 15-item neuro exam quantifying stroke severity from 0–42. Guides thrombolysis/thrombectomy decisions and tracks change over time.',
+      scoring:[
+        {range:'0',meaning:'No stroke symptoms.',action:'—'},
+        {range:'1–4',meaning:'Minor stroke.',action:'Still consider tPA for disabling deficits even if the score is low.'},
+        {range:'5–15',meaning:'Moderate stroke.',action:'Reperfusion candidate if within window and no contraindication.'},
+        {range:'16–20',meaning:'Moderate to severe stroke.',action:'Higher hemorrhage risk; weigh thrombolysis/thrombectomy carefully.'},
+        {range:'21–42',meaning:'Severe stroke.',action:'Often large-vessel occlusion; assess for thrombectomy; guarded prognosis.'}
+      ],
+      pearls:['Higher = worse; a key input for tPA and thrombectomy selection (NIHSS ≥6 with an LVO suggests thrombectomy candidacy).','Left-hemisphere strokes score higher because of the language items.','Re-score serially — a rising NIHSS flags deterioration.']}
   ]},
   sfunc:{name:'Functional / Onc',color:'var(--g2)',items:[
     {id:'ecog',name:'ECOG Performance Status',
@@ -5219,6 +5250,17 @@ var STAGE_DATA={
         {range:'Deep Tissue Injury',meaning:'Persistent non-blanchable deep red, maroon, or purple discoloration, or a blood-filled blister.',action:'Offload and monitor; may evolve rapidly to a deeper stage.'}
       ],
       pearls:['Do NOT "reverse-stage" a healing ulcer (a stage 4 does not become a stage 2 as it heals).','An unstageable injury cannot be graded until the base is visible after debridement.']}
+  ]},
+  sairway:{name:'Airway',color:'#26c6da',items:[
+    {id:'mallampati',name:'Mallampati Class',
+      use:'Visual grading of oropharyngeal crowding to predict a difficult intubation — assessed with the patient seated, head neutral, mouth maximally open, and tongue protruded (without phonating).',
+      scoring:[
+        {range:'Class I',meaning:'Soft palate, uvula, fauces, AND tonsillar pillars all visible.',action:'Predicts an easy view; routine airway plan.'},
+        {range:'Class II',meaning:'Soft palate, uvula, and fauces visible (tonsillar pillars hidden by the tongue base).',action:'Usually straightforward.'},
+        {range:'Class III',meaning:'Only the soft palate and the base of the uvula visible.',action:'Anticipate a harder laryngoscopy — prepare adjuncts (bougie, video laryngoscope).'},
+        {range:'Class IV',meaning:'Only the hard palate visible; the soft palate cannot be seen.',action:'High difficult-airway risk — ready difficult-airway equipment and a backup plan before inducing.'}
+      ],
+      pearls:['Class III–IV predicts a more difficult direct laryngoscopy/intubation.','One predictor among several (also thyromental distance, mouth opening, neck mobility, prior difficult airway) — no single test is definitive.','Having the patient phonate ("ahh") can falsely improve the view — assess without it.']}
   ]}
 };
 
