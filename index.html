@@ -1682,6 +1682,7 @@ RECOMMENDATIONS:
         <button class="btn bs" onclick="openApCaseDrawer('ugib')" style="font-size:22px;padding:8px 14px;">Upper GI bleed</button>
         <button class="btn bs" onclick="openApCaseDrawer('afib')" style="font-size:22px;padding:8px 14px;">AFib with RVR</button>
       </div>
+      <div style="background:rgba(127,255,110,.06);border:1px solid rgba(127,255,110,.28);border-radius:8px;padding:11px 14px;margin-top:14px;font-size:15px;color:var(--t);line-height:1.6;">→ These 8 are a quick subset. The <b>full case library</b> — all systems, organized and searchable — lives in the <button onclick="document.querySelectorAll('.tab').forEach(b=>{if(b.textContent.trim()==='CASES')b.click()});var n=document.getElementById('ni-cases');if(n)n.click();" style="background:none;border:none;color:var(--g);font-weight:600;font-family:var(--mono);cursor:pointer;padding:0;text-decoration:underline;">CASES tab →</button></div>
     </div>
   </div>
 
@@ -7034,7 +7035,241 @@ var AP_CASES={
     plan:[
       {p:'Acetaminophen overdose',o:['4-hour (or timed) level → plot on Rumack-Matthew nomogram','N-acetylcysteine if above the treatment line — or empirically if timing unknown/staggered/delayed level (start within 8h)','{{r/o}} co-ingestants: salicylate level, ECG (QRS/QTc), glucose','Trend LFTs, INR, renal; transfer to transplant center if acute liver failure (King\'s College criteria)','Psychiatry evaluation; ensure 1:1 safety']}
     ],
-    cx:[['c/w','the timed level on the nomogram = the evidence.'],['r/o','co-ingestants and uncertain timing (which lowers the bar to treat).'],['complicating','hepatotoxicity as the anticipated downstream harm.']]}
+    cx:[['c/w','the timed level on the nomogram = the evidence.'],['r/o','co-ingestants and uncertain timing (which lowers the bar to treat).'],['complicating','hepatotoxicity as the anticipated downstream harm.']]},
+
+  chestpain:{name:'Undifferentiated chest pain',color:'var(--g)',
+    one:'58M presenting with acute chest pain, being systematically risk-stratified to {{r/o}} the immediately life-threatening causes — ACS, PE, and aortic dissection — before settling on a benign diagnosis.',
+    imp:['# Acute undifferentiated chest pain — {{r/o}} the can\'t-miss killers FIRST: ACS, PE, aortic dissection (± tamponade, tension PTX, esophageal rupture)','# Then the common/benign: GERD, musculoskeletal, anxiety','# Stratify by story + ECG + troponin + targeted testing'],
+    narr:'My framework for any chest pain is to actively exclude the killers before I get comfortable with a benign label. <b>[frame — the discipline]</b> The big three I {{r/o}} are ACS (ECG + serial troponins), PE (pretest probability → D-dimer or CTA), and aortic dissection (tearing pain, BP differential → CTA) — each has a different test and, critically, opposite treatments. <b>[reason — why it matters]</b> The dangerous error is anchoring on "GERD" or "anxiety" {{vs}} the lethal diagnosis. <b>[the trap]</b> Only after the killers are addressed do I rest on a benign cause. <b>[commit]</b>',
+    plan:[
+      {p:'Undifferentiated chest pain',o:['ECG within 10 min + serial troponins ({{r/o}} ACS); aspirin if ACS suspected','{{r/o}} PE: Wells/PERC → D-dimer or CTA','{{r/o}} aortic dissection: exam (BP differential, pulse deficit) → CTA if suspected (do NOT anticoagulate)','CXR ({{r/o}} pneumothorax, widened mediastinum); esophageal rupture if vomiting/severe','Once killers excluded → evaluate GERD/MSK/anxiety; risk-stratify for disposition']}
+    ],
+    cx:[['r/o','the three killers (ACS, PE, dissection) you exclude before anything else.'],['vs','the lethal diagnosis versus the benign label you might anchor on.']]},
+
+  shock:{name:'Undifferentiated shock',color:'var(--g)',
+    one:'Hypotensive patient with end-organ hypoperfusion, being classified into a shock category — distributive, cardiogenic, hypovolemic, or obstructive — to target treatment, {{likely}} {{2/2}} the most probable cause by exam.',
+    imp:['# Undifferentiated shock (hypotension + hypoperfusion: lactate, oliguria, AMS) — classify the TYPE to treat it','# Categories: distributive {{vs}} hypovolemic {{vs}} cardiogenic {{vs}} obstructive','# {{r/o}} the rapidly reversible obstructive causes: tension PTX, tamponade, massive PE'],
+    narr:'The job in shock is to classify before you treat, because each category has a different fix. <b>[frame — type drives therapy]</b> I use the bedside exam, lactate, and a focused ultrasound to sort distributive (warm, vasodilated) {{vs}} hypovolemic/hemorrhagic (empty tank) {{vs}} cardiogenic (pump failure, congested) {{vs}} obstructive. <b>[reason — the four buckets]</b> Crucially, I {{r/o}} the reversible obstructive causes first — tension pneumothorax, tamponade, and massive PE each have an immediate, specific intervention. <b>[the can\'t-miss]</b> Then resuscitate to the mechanism. <b>[commit]</b>',
+    plan:[
+      {p:'Undifferentiated shock',o:['Classify: exam + lactate + POCUS (heart, IVC, lungs, FAST) — distributive vs hypovolemic vs cardiogenic vs obstructive','{{r/o}} reversible obstructive shock: tension PTX (decompress), tamponade (drain), massive PE (lytics)','Distributive/septic → fluids + early norepinephrine; hypovolemic → volume/blood + source control','Cardiogenic → inotrope + revascularization, avoid fluid overload','MAP goal ≥65; reassess responsiveness; treat the underlying cause']}
+    ],
+    cx:[['vs','the four shock categories — the classification that drives treatment.'],['r/o','the reversible obstructive causes.'],['2/2','committing to the most probable cause to direct resuscitation.']]},
+
+  anaphylaxis:{name:'Anaphylaxis',color:'var(--g)',
+    one:'Patient presenting with acute urticaria, angioedema, wheeze, and hypotension minutes after an exposure, {{c/w}} anaphylaxis, treated with immediate IM epinephrine — the one drug that matters.',
+    imp:['# Anaphylaxis (acute onset, ≥2 systems: skin, respiratory, CV, GI after exposure) — clinical diagnosis','# {{likely}} {{2/2}} an allergen exposure (food, drug, sting, contrast)','# {{r/o}} biphasic reaction (recurrence hours later) — observe'],
+    narr:'The acute multi-system reaction after an exposure is {{c/w}} anaphylaxis — a clinical diagnosis treated immediately. <b>[frame]</b> The single principle that saves lives is IM epinephrine first and fast, into the anterolateral thigh — antihistamines and steroids are adjuncts, NOT substitutes, and delaying epinephrine for them is the fatal error. <b>[reason — epi is the drug]</b> It\'s {{likely}} {{2/2}} the exposure, which I\'ll identify and remove. <b>[cause]</b> I\'ll observe for a biphasic reaction and {{r/o}} recurrence before discharge with an epinephrine autoinjector. <b>[anticipate]</b>',
+    plan:[
+      {p:'Anaphylaxis',o:['IM epinephrine 0.3–0.5 mg (1:1000) anterolateral thigh IMMEDIATELY — repeat q5–15 min PRN','Remove the trigger; airway assessment; supine with legs raised','IV fluids for hypotension; epinephrine infusion if refractory','Adjuncts (NOT substitutes): H1/H2 antihistamines, corticosteroids, bronchodilators','Observe for biphasic reaction; discharge with epinephrine autoinjector + allergy referral']}
+    ],
+    cx:[['c/w','multi-system reaction after exposure = the evidence.'],['2/2','the allergen exposure named as the cause.'],['r/o','a biphasic (recurrent) reaction.']]},
+
+  cardioshock:{name:'Cardiogenic shock',color:'var(--red)',
+    one:'66M with a large anterior STEMI now with cold extremities, hypotension, and oliguria, {{c/w}} cardiogenic shock, {{likely}} {{2/2}} acute LV pump failure, on inotropes/pressors with cardiology at bedside for revascularization and possible mechanical support.',
+    imp:['# Cardiogenic shock (cold + wet, SBP &lt;90, ↑lactate, low UOP) — {{likely}} {{2/2}} acute MI pump failure','# {{r/o}} mechanical complications: papillary muscle/VSD rupture, tamponade, RV infarct','# End-organ hypoperfusion: AKI, lactate, mentation'],
+    narr:'He\'s in cardiogenic shock — cold and underperfused with a rising lactate — {{likely}} {{2/2}} pump failure from his large MI. <b>[frame + cause]</b> The reflex to fight is over-resuscitating with fluids; this is a forward-failure problem, so the levers are inotropy and revascularization, {{vs}} the volume I\'d give in distributive shock. <b>[reason — the contrast]</b> I\'ll {{r/o}} an acute mechanical complication with an echo, since a ruptured papillary muscle or VSD changes everything. <b>[alternatives]</b> Anticipating worsening shock {{complicating}} the course — early cardiology for cath and possible mechanical support. <b>[anticipate]</b>',
+    plan:[
+      {p:'Cardiogenic shock',o:['Emergent revascularization (PCI) — definitive therapy for ischemic cardiogenic shock','Norepinephrine first-line (SOAP II); add inotrope (dobutamine/milrinone) for pump support','Echo to {{r/o}} mechanical complications + assess RV/valves','Cautious or NO fluids if congested; ICU, arterial line; trend lactate/UOP','CICU — consider IABP/Impella; avoid beta blockers acutely']}
+    ],
+    cx:[['2/2','pump failure named as the cause.'],['c/w','cold + hypotension + lactate = the evidence.'],['vs','inotropy/revascularization versus the fluids of distributive shock.'],['r/o','mechanical complications that change management.'],['complicating','progressive shock as the anticipated trajectory.']]},
+
+  dissection:{name:'Aortic dissection',color:'var(--red)',
+    one:'60M with HTN presenting with sudden tearing chest pain radiating to the back, a wide mediastinum, and a BP differential between arms, {{c/w}} acute aortic dissection, on rapid impulse-control therapy pending CTA and surgery.',
+    imp:['# Acute aortic dissection (tearing pain, inter-arm BP differential, wide mediastinum) — Stanford A vs B pending CTA','# {{r/o}} dissection complications: tamponade, aortic insufficiency, malperfusion (stroke, mesenteric, limb, renal)','# This is a do-NOT-anticoagulate chest pain — opposite of ACS management'],
+    narr:'The sudden tearing pain with an inter-arm BP differential is {{c/w}} aortic dissection — the can\'t-miss managed the OPPOSITE way from ACS. <b>[frame — the critical fork]</b> The principle is impulse control: lower the heart rate FIRST with a beta blocker, THEN the blood pressure, to reduce aortic wall shear — {{vs}} dropping BP first, which causes reflex tachycardia and propagation. <b>[reason — the sequence]</b> CTA defines Stanford A (ascending → emergent surgery) {{vs}} B (uncomplicated → medical). <b>[differential]</b> I\'ll {{r/o}} tamponade and malperfusion {{complicating}} it. <b>[anticipate]</b>',
+    plan:[
+      {p:'Aortic dissection',o:['IV beta blocker FIRST (esmolol/labetalol) to HR &lt;60, THEN vasodilator (nicardipine) — order matters','Target SBP 100–120; pain control','STAT CTA chest/abd/pelvis; type &amp; cross','Stanford A → emergent CT surgery; Stanford B → medical unless complicated','Do NOT anticoagulate/thrombolyse (opposite of ACS); {{r/o}} tamponade, AI, malperfusion']}
+    ],
+    cx:[['c/w','tearing pain + BP differential = the evidence.'],['vs','Stanford A (surgery) versus B (medical); HR-first versus BP-first.'],['r/o','tamponade/malperfusion complications.'],['complicating','the malperfusion syndromes.']]},
+
+  syncope:{name:'Syncope',color:'var(--red)',
+    one:'70M presenting after a transient loss of consciousness with spontaneous full recovery, being risk-stratified to separate benign reflex syncope from a dangerous cardiac cause, {{likely}} {{2/2}} vasovagal {{vs}} arrhythmic.',
+    imp:['# Syncope (transient LOC, spontaneous complete recovery) — risk-stratify cardiac vs reflex vs orthostatic','# {{r/o}} dangerous causes: arrhythmia, structural (AS/HOCM), PE, ACS, aortic dissection, SAH','# Red flags: exertional/supine onset, no prodrome, palpitations, FHx sudden death, abnormal ECG'],
+    narr:'This is syncope, and the entire job is risk stratification — separating benign reflex syncope from the cardiac causes that kill. <b>[frame — the real task]</b> It\'s {{likely}} {{2/2}} vasovagal given the prodrome and trigger, {{vs}} an arrhythmic or structural cause I must exclude. <b>[differential]</b> I\'m scanning for red flags — exertional or supine onset, absent prodrome, palpitations, family history of sudden death, an abnormal ECG — any of which flips this to a high-risk admission. <b>[reason]</b> I\'ll {{r/o}} the life-threatening mimics (PE, ACS, dissection, SAH) and check orthostatics. <b>[alternatives]</b>',
+    plan:[
+      {p:'Syncope',o:['ECG on everyone ({{r/o}} arrhythmia, blocks, WPW, Brugada, long QT, ischemia)','Orthostatic vitals; glucose; H&amp;H if bleeding suspected','Telemetry + admit if red flags or high-risk (cardiac/structural)','Echo if structural suspected; {{r/o}} PE/ACS/dissection/SAH by story','Low-risk reflex/vasovagal with normal ECG → reassurance, outpatient']}
+    ],
+    cx:[['2/2','vasovagal named as the likely mechanism.'],['vs','reflex versus cardiac/arrhythmic — the central split.'],['r/o','the dangerous mimics that change disposition.']]},
+
+  ptx:{name:'Pneumothorax',color:'var(--g2)',
+    one:'25M, tall and thin, presenting with sudden pleuritic chest pain and dyspnea, {{c/w}} a spontaneous pneumothorax on CXR, hemodynamically stable, {{r/o}} tension physiology.',
+    imp:['# Spontaneous pneumothorax (sudden pleuritic pain + dyspnea, CXR pleural line) — primary','# {{r/o}} tension pneumothorax (hypotension, tracheal deviation, distended neck veins) — clinical, do NOT wait for imaging','# Size + symptoms determine observation vs decompression'],
+    narr:'A sudden pleuritic pain with a visible pleural line is {{c/w}} a primary spontaneous pneumothorax. <b>[frame]</b> Before anything, I {{r/o}} tension physiology — that\'s a clinical diagnosis (hypotension, tracheal deviation, distended neck veins) treated with immediate needle decompression, NOT a CXR-then-treat sequence. <b>[reason — the can\'t-wait]</b> He\'s stable, so management depends on size and symptoms: a small one can be observed with oxygen, {{vs}} a large or symptomatic one needing aspiration or a chest tube. <b>[differential]</b>',
+    plan:[
+      {p:'Pneumothorax',o:['{{r/o}} tension FIRST — if present, immediate needle decompression then chest tube','Stable + small/asymptomatic → high-flow O₂, observe, repeat CXR','Large or symptomatic → needle aspiration or chest tube','Supplemental O₂ speeds reabsorption','Counsel: no air travel/diving until resolved; smoking cessation; recurrence risk']}
+    ],
+    cx:[['c/w','sudden pleuritic pain + pleural line = the evidence.'],['r/o','tension pneumothorax is the clinical can\'t-wait diagnosis.'],['vs','observation versus decompression by size/symptoms.']]},
+
+  pleural:{name:'Pleural effusion',color:'var(--g2)',
+    one:'68F with HF and new dyspnea, found with a moderate pleural effusion, being sampled to separate a transudate from an exudate and {{r/o}} a complicated/infected effusion.',
+    imp:['# New pleural effusion — transudate {{vs}} exudate (Light\'s criteria pending tap)','# {{r/o}} complicated parapneumonic effusion/empyema (pH &lt;7.2, loculation) needing drainage','# Etiology: HF {{vs}} parapneumonic {{vs}} malignant'],
+    narr:'She has a symptomatic pleural effusion, and the first fork is transudate versus exudate. <b>[frame]</b> I\'ll tap it and apply Light\'s criteria — a transudate points back to her heart failure, {{vs}} an exudate that opens up infection and malignancy. <b>[reason — the workup]</b> If it\'s parapneumonic I must {{r/o}} a complicated effusion or empyema (low pH, loculations, pus), because those need a chest tube, not just antibiotics. <b>[the can\'t-miss]</b> Etiology is {{likely}} {{2/2}} her HF but I\'m not assuming. <b>[cause]</b>',
+    plan:[
+      {p:'Pleural effusion',o:['Diagnostic (± therapeutic) thoracentesis; send Light\'s criteria (protein, LDH), cell count, pH, cytology, culture','Transudate → treat the cause (diurese the HF)','Exudate → {{r/o}} complicated parapneumonic/empyema (pH &lt;7.2 or pus → chest tube) and malignancy (cytology)','Therapeutic drainage for symptomatic large effusions','Image-guide if small/loculated']}
+    ],
+    cx:[['vs','transudate versus exudate — the Light\'s-criteria branch.'],['2/2','HF named as the likely cause (not assumed).'],['r/o','complicated effusion/empyema that needs a tube.']]},
+
+  endocarditis:{name:'Infective endocarditis',color:'var(--g)',
+    one:'40M with IV drug use presenting with fever and a new murmur, {{c/w}} infective endocarditis (Duke: persistent bacteremia + vegetation on echo), {{likely}} {{2/2}} S. aureus, on antibiotics with embolic surveillance.',
+    imp:['# Infective endocarditis (modified Duke: persistent bacteremia + echo vegetation) — {{likely}} {{2/2}} S. aureus','# {{r/o}} embolic/immunologic complications: septic emboli, mycotic aneurysm, abscess, glomerulonephritis','# Tricuspid (IVDU) vs left-sided — TEE if TTE non-diagnostic'],
+    narr:'Fever, a new murmur, and the risk factor make this {{c/w}} infective endocarditis, framed through the Duke criteria. <b>[frame]</b> The cornerstone is multiple blood cultures BEFORE antibiotics to document the persistent bacteremia that defines it, {{likely}} {{2/2}} S. aureus given IVDU. <b>[reason — cultures first]</b> I\'ll {{r/o}} the embolic and immunologic complications and get a TEE if the TTE is non-diagnostic. <b>[alternatives]</b> Watching for surgical indications (HF, abscess, large vegetation, persistent bacteremia) {{complicating}} the course. <b>[anticipate]</b>',
+    plan:[
+      {p:'Endocarditis',o:['≥3 sets of blood cultures from separate sites BEFORE antibiotics','Echo: TTE → TEE if non-diagnostic or prosthetic valve','Empiric vancomycin (± gram-negative coverage) pending cultures; narrow to organism','{{r/o}} complications: repeat exam/imaging for emboli, abscess, HF','Cardiac surgery consult for HF, abscess, large/mobile vegetation, or refractory bacteremia']}
+    ],
+    cx:[['c/w','Duke criteria features = the evidence.'],['2/2','S. aureus named as the likely organism.'],['r/o','embolic/immunologic complications.'],['complicating','surgical indications arising during treatment.']]},
+
+  influenza:{name:'Influenza / viral respiratory',color:'var(--g)',
+    one:'55F presenting in flu season with acute fever, myalgias, and cough, {{c/w}} influenza (positive rapid PCR), {{likely}} uncomplicated, on oseltamivir within the window, watching for bacterial superinfection.',
+    imp:['# Influenza (positive PCR, seasonal) — {{likely}} uncomplicated','# {{r/o}} bacterial superinfection (esp. post-influenza S. aureus / pneumococcal PNA)','# Risk-stratify: hospitalization/comorbidity → treat regardless of timing'],
+    narr:'The seasonal febrile respiratory illness with a positive PCR is {{c/w}} influenza. <b>[frame]</b> A confirmed viral etiology supports NOT giving antibiotics, {{vs}} the reflex to cover everyone — antimicrobial stewardship hinges on this. <b>[reason — de-escalate]</b> But the classic trap is the secondary bacterial pneumonia, so I\'ll {{r/o}} superinfection (new focal infiltrate, second fever spike, rising WBC), where post-influenza S. aureus is notorious. <b>[the can\'t-miss]</b> Oseltamivir benefits the hospitalized/high-risk even outside the 48h window. <b>[plan]</b>',
+    plan:[
+      {p:'Influenza',o:['Oseltamivir (treat hospitalized/high-risk regardless of symptom duration; ideally &lt;48h)','Droplet isolation; supportive care, antipyretics','Hold empiric antibiotics if no bacterial coinfection ({{r/o}} superinfection clinically)','Watch for secondary bacterial PNA (second fever, focal infiltrate) → cover S. aureus/pneumococcus','Vaccination counseling; prophylaxis for high-risk contacts']}
+    ],
+    cx:[['c/w','positive PCR + syndrome = the evidence.'],['vs','confirmed viral (no abx) versus empiric antibiotics — the stewardship call.'],['r/o','bacterial superinfection.']]},
+
+  hypercalcemia:{name:'Hypercalcemia',color:'var(--g3)',
+    one:'64F with breast cancer presenting with confusion, constipation, and polyuria, found with a corrected calcium of 14, {{c/w}} severe hypercalcemia, {{likely}} {{2/2}} malignancy, on aggressive saline plus calcitonin and a bisphosphonate.',
+    imp:['# Severe symptomatic hypercalcemia (corrected Ca 14, "stones/bones/groans/psychiatric overtones") — emergency','# Etiology: malignancy {{vs}} primary hyperparathyroidism (check PTH) — {{likely}} {{2/2}} malignancy','# {{r/o}} the volume depletion/AKI that hypercalcemia itself causes'],
+    narr:'A corrected calcium of 14 with confusion is severe symptomatic hypercalcemia. <b>[frame]</b> The single most important first move is volume: hypercalcemia causes a nephrogenic diuresis and profound dehydration, so aggressive isotonic saline is the priority and the fastest way to lower it. <b>[reason — fluids first]</b> The etiology split is PTH-driven (primary hyperparathyroidism) {{vs}} PTH-independent (malignancy), settled by a PTH level — here {{likely}} {{2/2}} her cancer. <b>[differential]</b> Calcitonin works fast but tachyphylaxes; a bisphosphonate is the durable agent. <b>[plan]</b>',
+    plan:[
+      {p:'Hypercalcemia',o:['Aggressive isotonic saline (the mainstay) — restores volume + promotes calciuresis','Calcitonin for rapid (but transient) lowering','IV bisphosphonate (zoledronic acid) for durable control — onset 2–4 days','Check PTH to split malignancy {{vs}} primary hyperPTH; PTHrP / vitamin D as needed','AVOID loop diuretics unless volume-overloaded; avoid thiazides; dialysis if refractory/renal failure']}
+    ],
+    cx:[['2/2','malignancy named as the likely cause.'],['vs','PTH-driven versus PTH-independent — the etiologic fork.'],['c/w','Ca 14 + symptoms = the evidence of severity.'],['r/o','the hypercalcemia-induced volume depletion/AKI.']]},
+
+  hypernatremia:{name:'Hypernatremia',color:'var(--g3)',
+    one:'82M from a nursing home with impaired access to water presenting with lethargy, found with Na 162, {{c/w}} hypernatremia, {{likely}} {{2/2}} a free-water deficit from inadequate intake, corrected slowly with free water.',
+    imp:['# Hypernatremia (Na 162, lethargy) — almost always a free-water deficit + impaired thirst/access','# Etiology: poor intake {{vs}} excess losses (osmotic diuresis, diabetes insipidus)','# {{r/o}} overrapid correction → cerebral edema'],
+    narr:'A Na of 162 in a patient who can\'t access water is {{c/w}} a free-water deficit. <b>[frame + cause]</b> Hypernatremia is almost always a water problem, not a salt problem, so the fix is free water — and the safety rule mirrors hyponatremia in reverse: correct slowly to {{r/o}} the cerebral edema from dropping Na too fast (≤10–12 mEq/L per 24h). <b>[reason — the safety point]</b> It\'s {{likely}} {{2/2}} impaired intake {{vs}} ongoing losses like an osmotic diuresis or DI, which I\'ll check with urine studies. <b>[differential]</b>',
+    plan:[
+      {p:'Hypernatremia',o:['Calculate the free-water deficit; replace with oral/enteral water or D5W','Correct slowly: ≤10–12 mEq/L per 24h — recheck Na q4–6h (avoid cerebral edema)','Address ongoing losses; restore access to water','Workup if unexplained: urine osm/Na ({{r/o}} diabetes insipidus, osmotic diuresis)','Resuscitate with isotonic fluid FIRST if hypovolemic/unstable, then free water']}
+    ],
+    cx:[['2/2','inadequate water intake named as the cause.'],['vs','poor intake versus excess losses (DI/osmotic).'],['c/w','Na 162 = the evidence.'],['r/o','overrapid correction → cerebral edema.']]},
+
+  rhabdo:{name:'Rhabdomyolysis',color:'var(--g3)',
+    one:'30M found down after prolonged immobilization presenting with muscle pain and dark urine, CK 45,000, {{c/w}} rhabdomyolysis, {{likely}} {{2/2}} immobilization/compression, on aggressive fluids to prevent AKI.',
+    imp:['# Rhabdomyolysis (CK 45,000, myalgias, pigmenturia) — {{likely}} {{2/2}} immobilization/compression','# {{r/o}} complications: AKI (pigment nephropathy), hyperkalemia, compartment syndrome','# Identify the cause: trauma/immobility {{vs}} toxins/drugs {{vs}} seizure/exertion'],
+    narr:'A CK of 45,000 with pigmenturia is {{c/w}} rhabdomyolysis, {{likely}} {{2/2}} prolonged immobilization. <b>[frame + cause]</b> The whole point of early management is preventing pigment-induced AKI, so aggressive IV fluids to maintain brisk urine output is the mainstay. <b>[reason]</b> I\'ll {{r/o}} the dangerous sequelae — hyperkalemia (from muscle breakdown, can be lethal), AKI, and a compartment syndrome that would need fasciotomy. <b>[the can\'t-miss list]</b> Trending CK, K, and renal function. <b>[plan]</b>',
+    plan:[
+      {p:'Rhabdomyolysis',o:['Aggressive IV isotonic fluids targeting UOP ~200–300 mL/hr (prevent pigment nephropathy)','Trend CK, K, Cr, calcium, phosphate; ECG ({{r/o}} hyperkalemia)','Treat hyperkalemia aggressively; watch for compartment syndrome (→ fasciotomy)','Identify/remove the cause (statin, immobility, toxins, seizure)','Bicarbonate/mannitol not routine; dialysis for refractory AKI/K']}
+    ],
+    cx:[['2/2','immobilization named as the cause.'],['c/w','CK + pigmenturia = the evidence.'],['r/o','AKI, hyperkalemia, compartment syndrome.'],['vs','the etiology categories.']]},
+
+  sbo:{name:'Small bowel obstruction',color:'#26c6da',
+    one:'62F with prior abdominal surgery presenting with crampy pain, distension, vomiting, and obstipation, {{c/w}} a small bowel obstruction (dilated loops with air-fluid levels), {{likely}} {{2/2}} adhesions, on bowel rest and NG decompression while {{r/o}} strangulation.',
+    imp:['# Small bowel obstruction (crampy pain, distension, vomiting, obstipation; dilated loops + air-fluid levels) — {{likely}} {{2/2}} adhesions','# Partial {{vs}} complete; {{r/o}} closed-loop/strangulation (the surgical emergency)','# {{r/o}} ischemia: fever, leukocytosis, lactate, peritoneal signs, CT findings'],
+    narr:'The obstructive symptoms with dilated loops are {{c/w}} an SBO, {{likely}} {{2/2}} adhesions given her surgical history. <b>[frame + cause]</b> Most adhesive SBOs resolve with conservative management — NG decompression, bowel rest, fluids — {{vs}} the strangulated or closed-loop obstruction that needs the OR. <b>[reason — the fork]</b> So the entire job is to {{r/o}} strangulation/ischemia: fever, leukocytosis, rising lactate, peritonitis, or CT signs of compromised bowel mandate surgery. <b>[the can\'t-miss]</b> CT defines the transition point and looks for ischemia. <b>[plan]</b>',
+    plan:[
+      {p:'Small bowel obstruction',o:['NPO, NG tube to decompression, IV fluids, correct electrolytes','CT abd/pelvis with contrast — transition point, {{r/o}} closed-loop/ischemia','Serial abdominal exams + lactate/WBC; surgery consult','Conservative trial for partial adhesive SBO; OR for strangulation, closed-loop, or failure to resolve','Water-soluble contrast (Gastrografin) can be diagnostic + therapeutic']}
+    ],
+    cx:[['2/2','adhesions named as the cause.'],['c/w','dilated loops + symptoms = the evidence.'],['vs','partial/conservative versus complete/strangulated/surgical.'],['r/o','strangulation and ischemia — the surgical can\'t-miss.']]},
+
+  cholangitis:{name:'Acute cholangitis',color:'#26c6da',
+    one:'70M presenting with fever, RUQ pain, and jaundice (Charcot\'s triad), {{c/w}} acute cholangitis, {{likely}} {{2/2}} a biliary stone obstructing the duct, on antibiotics with urgent biliary decompression (ERCP).',
+    imp:['# Acute cholangitis (Charcot\'s triad: fever, RUQ pain, jaundice; Tokyo criteria) — {{likely}} {{2/2}} choledocholithiasis','# {{r/o}} suppurative cholangitis / Reynolds pentad (+ shock + AMS) — needs emergent decompression','# Biliary obstruction + infection — antibiotics alone are NOT enough'],
+    narr:'Charcot\'s triad is {{c/w}} acute cholangitis, {{likely}} {{2/2}} an obstructing common-duct stone. <b>[frame + cause]</b> The key principle is that this is an obstructed, infected space — so antibiotics are necessary but not sufficient; the definitive treatment is biliary decompression with ERCP. <b>[reason — source control]</b> I\'ll {{r/o}} suppurative cholangitis (Reynolds pentad adds shock and confusion), which mandates emergent, not elective, drainage. <b>[the can\'t-miss]</b> Resuscitating and getting GI/ERCP on board. <b>[plan]</b>',
+    plan:[
+      {p:'Acute cholangitis',o:['IV fluids, blood cultures, broad-spectrum antibiotics (enteric gram-negatives + anaerobes)','Urgent biliary decompression via ERCP — the definitive source control (emergent if suppurative)','Labs/imaging: LFTs (cholestatic), RUQ US/MRCP for ductal dilation/stone','{{r/o}} suppurative cholangitis (Reynolds pentad) → emergent drainage, ICU','Cholecystectomy after recovery if gallstone source']}
+    ],
+    cx:[['2/2','an obstructing stone named as the cause.'],['c/w','Charcot\'s triad = the evidence.'],['r/o','suppurative cholangitis needing emergent decompression.']]},
+
+  alchep:{name:'Alcoholic hepatitis',color:'#26c6da',
+    one:'48M with heavy alcohol use presenting with jaundice and tender hepatomegaly, with AST:ALT &gt;2:1 and a Maddrey score &gt;32, {{c/w}} severe alcoholic hepatitis, {{likely}} {{2/2}} recent heavy intake, being considered for steroids.',
+    imp:['# Severe alcoholic hepatitis (jaundice, AST:ALT &gt;2:1 with AST usually &lt;300, Maddrey ≥32) — {{likely}} {{2/2}} recent heavy alcohol','# {{r/o}} infection (a contraindication/confounder for steroids) and other causes of acute liver injury','# Prognosticate (Maddrey/MELD); Lille score at day 7 to assess steroid response'],
+    narr:'The jaundice with an AST:ALT ratio above 2 and a Maddrey above 32 is {{c/w}} severe alcoholic hepatitis. <b>[frame + cause]</b> Severe disease (Maddrey ≥32) is the trigger to consider corticosteroids (STOPAH), but the mandatory step first is to {{r/o}} active infection and GI bleeding, since steroids in an infected patient do harm. <b>[reason — the prerequisite]</b> I\'ll reassess response with the Lille score at day 7 and stop steroids if non-responding. <b>[plan]</b> Aggressive nutrition is one of the few clear mortality interventions. <b>[plan]</b>',
+    plan:[
+      {p:'Alcoholic hepatitis',o:['Calculate Maddrey/MELD; {{r/o}} infection + GI bleed BEFORE steroids','Prednisolone for severe disease (Maddrey ≥32) if no contraindication; Lille score at day 7','Aggressive nutrition (high protein/calorie) — a key mortality intervention; do NOT protein-restrict','Alcohol cessation, thiamine/folate, treat withdrawal','Manage HE, AKI/HRS, coagulopathy; hepatology/transplant evaluation']}
+    ],
+    cx:[['2/2','recent heavy alcohol named as the cause.'],['c/w','AST:ALT ratio + Maddrey = the evidence.'],['r/o','infection/GI bleed that contraindicate steroids.']]},
+
+  hypoglycemia:{name:'Hypoglycemia',color:'#4db6ac',
+    one:'74F with T2DM on a sulfonylurea presenting with confusion and diaphoresis, glucose 38, {{c/w}} hypoglycemia, {{likely}} {{2/2}} the sulfonylurea {{iso}} reduced intake/renal function, treated with dextrose and observed for recurrence.',
+    imp:['# Hypoglycemia (glucose 38, neuroglycopenic + adrenergic symptoms relieved by glucose — Whipple\'s triad) — {{likely}} {{2/2}} sulfonylurea','# {{iso}} reduced oral intake and/or worsening renal clearance','# {{r/o}} prolonged/recurrent hypoglycemia (sulfonylureas, long-acting insulin)'],
+    narr:'Confusion with a glucose of 38 that resolves with sugar is {{c/w}} hypoglycemia (Whipple\'s triad), {{likely}} {{2/2}} her sulfonylurea {{iso}} poor intake or declining renal function. <b>[frame + cause]</b> Treatment is immediate dextrose, but the management point is duration — a sulfonylurea (or long-acting insulin) causes prolonged, recurrent hypoglycemia, so I won\'t just treat and discharge; I\'ll {{r/o}} recurrence with observation and serial glucoses. <b>[reason — the trap]</b> Octreotide is the antidote for refractory sulfonylurea hypoglycemia. <b>[plan]</b>',
+    plan:[
+      {p:'Hypoglycemia',o:['IV dextrose (D50) now; if no IV access, glucagon IM; recheck glucose in 15 min','Identify the agent; HOLD the sulfonylurea/insulin','Observe for recurrence (sulfonylurea/long-acting insulin = prolonged) — serial glucoses, feed the patient','Octreotide for refractory sulfonylurea-induced hypoglycemia','Address the precipitant (intake, renal function, dosing)']}
+    ],
+    cx:[['2/2','the sulfonylurea named as the cause (and held).'],['iso','reduced intake/renal function as contributing context.'],['c/w','Whipple\'s triad = the evidence.'],['r/o','recurrent/prolonged hypoglycemia.']]},
+
+  thyrotoxicosis:{name:'Thyrotoxicosis (Graves)',color:'#4db6ac',
+    one:'35F presenting with palpitations, heat intolerance, weight loss, and tremor, with a suppressed TSH and elevated free T4, {{c/w}} thyrotoxicosis, {{likely}} {{2/2}} Graves disease, on a beta blocker and a thionamide — and NOT in storm.',
+    imp:['# Thyrotoxicosis (suppressed TSH, high free T4; palpitations, tremor, weight loss) — {{likely}} {{2/2}} Graves','# {{r/o}} thyroid storm (the decompensated, life-threatening form — fever, AMS, organ dysfunction)','# Etiology: Graves {{vs}} toxic nodule {{vs}} thyroiditis (RAIU/TRAb to differentiate)'],
+    narr:'The hypermetabolic symptoms with a suppressed TSH are {{c/w}} thyrotoxicosis, {{likely}} {{2/2}} Graves. <b>[frame + cause]</b> The first thing I do is {{r/o}} thyroid storm — the same biochemistry but with fever, altered mentation, and organ dysfunction — because that\'s an ICU emergency and this is not. <b>[reason — severity triage]</b> Etiology matters for therapy: Graves and a toxic nodule (high uptake) respond to antithyroid drugs/RAI, {{vs}} thyroiditis (low uptake), which is self-limited and just needs symptom control. <b>[differential]</b> Beta blocker for symptoms now. <b>[plan]</b>',
+    plan:[
+      {p:'Thyrotoxicosis',o:['Beta blocker (propranolol/atenolol) for adrenergic symptoms — immediate relief','Thionamide (methimazole; PTU in 1st-trimester pregnancy/storm)','Differentiate cause: TRAb, radioactive iodine uptake/scan (high in Graves/nodule, low in thyroiditis)','{{r/o}} thyroid storm (treat as emergency if present)','Definitive therapy: RAI ablation vs surgery vs long-term thionamide']}
+    ],
+    cx:[['2/2','Graves named as the likely cause.'],['c/w','suppressed TSH + high T4 + symptoms = the evidence.'],['vs','Graves/nodule (high uptake) versus thyroiditis (low uptake).'],['r/o','thyroid storm.']]},
+
+  myxedema:{name:'Myxedema coma',color:'#4db6ac',
+    one:'78F presenting with hypothermia, bradycardia, hyponatremia, and obtundation, {{c/w}} myxedema coma, {{likely}} {{2/2}} severe hypothyroidism {{iso}} an acute stressor, on IV thyroid hormone plus stress-dose steroids.',
+    imp:['# Myxedema coma (hypothermia, bradycardia, hyponatremia, AMS/obtundation, hypoventilation) — decompensated hypothyroidism, clinical diagnosis','# {{likely}} {{2/2}} severe hypothyroidism {{iso}} a precipitant (infection, cold, sedatives)','# Give steroids BEFORE thyroid hormone ({{r/o}} concurrent adrenal insufficiency)'],
+    narr:'Hypothermia, bradycardia, hyponatremia, and obtundation are {{c/w}} myxedema coma — a clinical diagnosis I treat empirically without waiting for labs. <b>[frame — treat now]</b> The critical sequencing point is to give stress-dose steroids BEFORE thyroid hormone, because if there\'s concurrent adrenal insufficiency, replacing thyroid first can precipitate adrenal crisis. <b>[reason — the order trap]</b> It\'s {{likely}} {{2/2}} severe hypothyroidism {{iso}} a precipitant like infection or cold exposure, which I\'ll {{r/o}} and treat. <b>[cause]</b> Supportive: passive rewarming, ventilatory support. <b>[plan]</b>',
+    plan:[
+      {p:'Myxedema coma',o:['IV levothyroxine (± T3) — empiric, do not wait for confirmatory labs','Hydrocortisone stress-dose BEFORE thyroid hormone (cover concurrent adrenal insufficiency)','Supportive: passive rewarming, ventilatory support, cautious fluids for hyponatremia','Find/treat the precipitant (infection — low threshold for empiric antibiotics)','ICU monitoring; avoid sedatives']}
+    ],
+    cx:[['2/2','severe hypothyroidism named as the cause.'],['iso','the acute precipitant as context.'],['c/w','hypothermia/bradycardia/hypoNa/AMS = the evidence.'],['r/o','concurrent adrenal insufficiency (steroids first).']]},
+
+  tia:{name:'TIA',color:'#7986cb',
+    one:'68M with HTN and AFib presenting with transient right arm weakness that fully resolved within an hour, {{c/w}} a TIA, {{likely}} {{2/2}} a cardioembolic source, expedited for urgent workup given high short-term stroke risk.',
+    imp:['# TIA (transient focal deficit, full resolution, no infarct on MRI) — high short-term stroke risk (ABCD²)','# {{likely}} {{2/2}} cardioembolic (AFib) {{vs}} large-artery atherosclerosis (carotid)','# {{r/o}} stroke mimics (hypoglycemia, seizure, migraine) and a completed infarct'],
+    narr:'A transient focal deficit with full resolution is {{c/w}} a TIA — and the teaching point is that a TIA is a warning shot with a high short-term stroke risk, so it gets an urgent, not leisurely, workup. <b>[frame — the urgency]</b> The mechanism hunt drives prevention: it\'s {{likely}} {{2/2}} a cardioembolic source given his AFib, {{vs}} carotid stenosis, and these lead to different therapies (anticoagulation vs endarterectomy). <b>[reason — mechanism = treatment]</b> I\'ll {{r/o}} mimics and a completed infarct with MRI. <b>[alternatives]</b>',
+    plan:[
+      {p:'TIA',o:['Urgent workup (ABCD² risk): MRI brain, vessel imaging (carotid US/CTA), ECG/telemetry, echo','Mechanism-directed prevention: anticoagulate for AFib (cardioembolic); carotid endarterectomy for symptomatic high-grade stenosis','Antiplatelet + high-intensity statin if non-cardioembolic; short DAPT for high-risk (CHANCE/POINT)','Risk-factor control (BP, diabetes, smoking)','{{r/o}} mimics (glucose) and completed stroke']}
+    ],
+    cx:[['2/2','cardioembolism named as the likely mechanism.'],['vs','cardioembolic versus large-artery — different treatments.'],['c/w','transient deficit + resolution = the evidence.'],['r/o','mimics and completed infarct.']]},
+
+  sah:{name:'Subarachnoid hemorrhage',color:'#7986cb',
+    one:'Patient presenting with a sudden "worst headache of life" (thunderclap), {{c/w}} subarachnoid hemorrhage, rushed to non-contrast CT with an LP to follow if negative, {{likely}} {{2/2}} a ruptured aneurysm.',
+    imp:['# Subarachnoid hemorrhage (thunderclap "worst headache of life," ± neck stiffness) — {{likely}} {{2/2}} ruptured aneurysm','# Workup: non-contrast CT → LP (xanthochromia) if CT negative and suspicion high','# {{r/o}} the complications: rebleeding, vasospasm, hydrocephalus, seizures'],
+    narr:'A thunderclap headache is SAH until proven otherwise, {{c/w}} a ruptured aneurysm. <b>[frame + commit]</b> The diagnostic pathway is the key knowledge: a non-contrast head CT first (very sensitive early), and if it\'s negative but suspicion remains, an LP looking for xanthochromia — you do NOT stop at a negative CT hours out. <b>[reason — the workup trap]</b> Once confirmed, management is about preventing complications: I\'ll {{r/o}} and guard against rebleeding (BP control), vasospasm (nimodipine), and hydrocephalus. <b>[the can\'t-miss sequelae]</b> Neurosurgery for aneurysm securing. <b>[plan]</b>',
+    plan:[
+      {p:'SAH',o:['STAT non-contrast head CT; if negative + high suspicion → LP for xanthochromia','CTA/angiography to identify the aneurysm; neurosurgery/IR for clipping or coiling','BP control to prevent rebleeding (until aneurysm secured); analgesia','Nimodipine to reduce vasospasm-related deficits','Monitor/treat hydrocephalus (EVD), seizures, hyponatremia (cerebral salt wasting)']}
+    ],
+    cx:[['c/w','thunderclap headache = the evidence.'],['2/2','ruptured aneurysm named as the cause.'],['r/o','rebleeding/vasospasm/hydrocephalus complications.']]},
+
+  cordcompression:{name:'Spinal cord compression',color:'#7986cb',
+    one:'64M with metastatic prostate cancer presenting with progressive back pain, leg weakness, and urinary retention, {{c/w}} malignant spinal cord compression, on emergent steroids and MRI — a do-not-delay diagnosis.',
+    imp:['# Malignant spinal cord compression (back pain + weakness + bowel/bladder dysfunction + a sensory level) — emergency','# {{likely}} {{2/2}} epidural metastasis (known prostate CA)','# Time-critical — neurologic recovery depends on how fast you treat'],
+    narr:'Progressive weakness with retention and a sensory level in a cancer patient is {{c/w}} malignant cord compression — a true emergency where the deficit becomes permanent if you wait. <b>[frame — the urgency]</b> So the sequence is: give high-dose steroids immediately on clinical suspicion (don\'t wait for imaging), then get an urgent whole-spine MRI. <b>[reason — treat then image]</b> It\'s {{likely}} {{2/2}} an epidural metastasis. <b>[cause]</b> I\'ll get neurosurgery and radiation oncology emergently, because definitive decompression/radiation within hours is what preserves function. <b>[plan]</b>',
+    plan:[
+      {p:'Cord compression',o:['High-dose IV dexamethasone NOW on clinical suspicion — do not wait for MRI','Urgent whole-spine MRI','Emergent neurosurgery (decompression) + radiation oncology consults','Pain control; bladder management (catheter for retention)','Definitive therapy (surgery vs radiation) ASAP — recovery is time-dependent']}
+    ],
+    cx:[['c/w','weakness + sensory level + retention = the evidence.'],['2/2','epidural metastasis named as the cause.']]},
+
+  sicklecell:{name:'Sickle cell crisis',color:'#ba68c8',
+    one:'24M with sickle cell disease presenting with severe diffuse bone pain typical of his crises, {{c/w}} a vaso-occlusive crisis, {{likely}} {{2/2}} a trigger such as infection/dehydration, on prompt analgesia while {{r/o}} the dangerous SCD complications.',
+    imp:['# Vaso-occlusive pain crisis (typical severe bone pain) — {{likely}} {{2/2}} a trigger (infection, dehydration, cold, hypoxia)','# {{r/o}} the can\'t-miss SCD emergencies: acute chest syndrome, sepsis (functional asplenia), stroke, splenic sequestration, aplastic crisis','# Pain is real — under-treatment is the most common error'],
+    narr:'His typical pain is {{c/w}} a vaso-occlusive crisis, {{likely}} {{2/2}} a trigger. <b>[frame + cause]</b> The cardinal management principle is prompt, adequate analgesia per his individualized plan — under-treating SCD pain (often from bias) is the classic failure. <b>[reason — treat the pain]</b> But a "routine crisis" can hide a killer, so I {{r/o}} acute chest syndrome (new infiltrate + hypoxia), sepsis given functional asplenia, stroke, and splenic sequestration. <b>[the can\'t-miss list]</b> Hydration, oxygen if hypoxic, and watch for acute chest. <b>[plan]</b>',
+    plan:[
+      {p:'Sickle cell crisis',o:['Prompt, adequate opioid analgesia per individualized plan — reassess frequently (do NOT under-treat)','IV fluids (euvolemia, avoid overload); oxygen ONLY if hypoxic','{{r/o}} acute chest syndrome (CXR, SpO₂ — new infiltrate + hypoxia → transfusion, antibiotics)','{{r/o}} infection (cultures, low threshold for antibiotics — functional asplenia), stroke, sequestration','Continue hydroxyurea; incentive spirometry; VTE prophylaxis']}
+    ],
+    cx:[['2/2','a trigger named as the precipitant.'],['c/w','typical bone pain = the evidence.'],['r/o','acute chest, sepsis, stroke, sequestration — the SCD emergencies.']]},
+
+  ttp:{name:'TTP',color:'#ba68c8',
+    one:'Patient presenting with microangiopathic hemolytic anemia and thrombocytopenia without another explanation, {{c/w}} TTP, {{likely}} {{2/2}} ADAMTS13 deficiency, on emergent plasma exchange — a do-not-wait-for-the-pentad diagnosis.',
+    imp:['# TTP (MAHA + thrombocytopenia, schistocytes on smear) — {{likely}} {{2/2}} severe ADAMTS13 deficiency','# {{r/o}} other thrombotic microangiopathies (HUS, DIC, HELLP, drug-induced)','# The pentad is rarely complete — do NOT wait for fever/renal/neuro to treat'],
+    narr:'MAHA plus thrombocytopenia with no other cause is {{c/w}} TTP, {{likely}} {{2/2}} ADAMTS13 deficiency. <b>[frame + cause]</b> The single most important teaching point is that you do NOT wait for the classic pentad — the triad of hemolysis, low platelets, and schistocytes is enough to start emergent plasma exchange, because untreated TTP is rapidly fatal. <b>[reason — treat early]</b> The other critical point: do NOT transfuse platelets (can worsen thrombosis) unless life-threatening bleeding. <b>[the trap]</b> I\'ll {{r/o}} the other microangiopathies (DIC, HUS). <b>[alternatives]</b>',
+    plan:[
+      {p:'TTP',o:['Emergent plasma exchange (PLEX) — the life-saving therapy; do NOT wait for the full pentad','Send ADAMTS13 activity + inhibitor BEFORE PLEX; start corticosteroids','AVOID platelet transfusion unless life-threatening bleeding (can worsen thrombosis)','Smear for schistocytes; hemolysis labs (LDH, haptoglobin, retic, indirect bili)','{{r/o}} DIC (normal coags in TTP), HUS, HELLP, drug-induced; consider caplacizumab/rituximab']}
+    ],
+    cx:[['2/2','ADAMTS13 deficiency named as the mechanism.'],['c/w','MAHA + thrombocytopenia + schistocytes = the evidence.'],['r/o','the other thrombotic microangiopathies.']]},
+
+  gout:{name:'Gout flare',color:'#ffd54f',
+    one:'55M with prior gout presenting with an acutely hot, swollen, exquisitely tender first MTP joint, {{c/w}} an acute gout flare, {{likely}} {{2/2}} a precipitant, on anti-inflammatories after {{r/o}} septic arthritis.',
+    imp:['# Acute gout flare (monoarticular, podagra, prior history) — {{likely}} {{2/2}} a trigger (diet, dehydration, diuretic, med change)','# {{r/o}} septic arthritis (the can\'t-miss in any acute monoarthritis) — arthrocentesis','# Crystal confirmation: negatively birefringent needle-shaped crystals'],
+    narr:'A hot, swollen first MTP in someone with prior gout is {{c/w}} an acute flare, {{likely}} {{2/2}} a precipitant. <b>[frame + cause]</b> But the rule in any acute monoarthritis is that it\'s septic arthritis until proven otherwise — so I\'ll {{r/o}} infection with an arthrocentesis, since a missed septic joint destroys it. <b>[reason — the can\'t-miss]</b> Synovial fluid shows negatively birefringent crystals and a non-septic cell count. <b>[evidence]</b> Treat the inflammation now; do NOT start or stop urate-lowering therapy during the acute flare. <b>[plan + the trap]</b>',
+    plan:[
+      {p:'Gout flare',o:['Arthrocentesis to {{r/o}} septic arthritis + confirm crystals (cell count, Gram stain, culture, polarized microscopy)','Anti-inflammatory: NSAID, colchicine, or steroids (intra-articular/systemic) — pick by comorbidities','Do NOT start or stop urate-lowering therapy (allopurinol) during the acute flare','Identify/address triggers (diuretics, alcohol, purine-rich diet)','Plan outpatient urate-lowering once flare settles (with prophylaxis)']}
+    ],
+    cx:[['2/2','a precipitant named as the trigger.'],['c/w','podagra + history = the evidence.'],['r/o','septic arthritis — the joint-destroying can\'t-miss.']]},
+
+  septicarthritis:{name:'Septic arthritis',color:'#ffd54f',
+    one:'60F presenting with an acutely hot, swollen, painful knee with fever and inability to bear weight, {{c/w}} septic arthritis, {{likely}} {{2/2}} S. aureus, on emergent arthrocentesis, antibiotics, and joint drainage.',
+    imp:['# Septic arthritis (acute monoarticular, hot/swollen, fever, refusal to move the joint) — emergency, {{likely}} {{2/2}} S. aureus','# {{r/o}} crystal arthropathy and reactive arthritis (but treat as septic until fluid returns)','# A bacterial joint destroys cartilage in days — do NOT delay tap + drainage'],
+    narr:'A hot, swollen joint with fever is septic arthritis until proven otherwise, {{likely}} {{2/2}} S. aureus. <b>[frame + commit]</b> The principle is speed: arthrocentesis before antibiotics, then empiric coverage, then drainage — because a bacterial joint is destroyed within days. <b>[reason — the urgency]</b> Synovial fluid with a very high WBC (often &gt;50k) and positive Gram stain/culture confirms it; I keep crystal disease on the differential {{vs}} infection but don\'t let it delay treatment. <b>[evidence + alternatives]</b> The joint must be drained — antibiotics alone don\'t clear it. <b>[plan]</b>',
+    plan:[
+      {p:'Septic arthritis',o:['Emergent arthrocentesis BEFORE antibiotics — cell count (often &gt;50k PMN-predominant), Gram stain, culture, crystals','Empiric IV vancomycin (± gram-negative coverage by risk) → narrow to culture','Joint drainage (arthroscopic/surgical washout or serial aspiration) — essential, not optional','Orthopedics consult; blood cultures ({{r/o}} bacteremia/endocarditis seeding)','Immobilize for comfort then early mobilization; do NOT delay for imaging']}
+    ],
+    cx:[['2/2','S. aureus named as the likely organism.'],['c/w','hot joint + fever + synovial WBC = the evidence.'],['vs','crystal disease on the differential but treated as septic until proven otherwise.']]}
 };
 function openApCaseDrawer(id){
   closeAnyDrawer();
@@ -7074,14 +7309,16 @@ function openApCaseDrawer(id){
 // CASE LIBRARY — category map + render (data lives in AP_CASES above)
 // ============================================================
 var CASE_CATS={
-  cardio:{name:'Cardiology',color:'var(--red)',ids:['adhf','afib','nstemi','stemi','htnemerg','pericarditis','bradycardia']},
-  pulm:{name:'Pulmonary',color:'var(--g2)',ids:['copd','asthma','pe','hypoxrf']},
-  id:{name:'Infectious Disease',color:'var(--g)',ids:['sepsis','pyelo','cellulitis','cdiff','meningitis']},
-  renal:{name:'Renal & Lytes',color:'var(--g3)',ids:['aki','hyperk','hypona']},
-  gi:{name:'GI & Hepatology',color:'#26c6da',ids:['ugib','lgib','pancreatitis','hepenc','sbp']},
-  endo:{name:'Endocrine',color:'#4db6ac',ids:['dka','hhs','thyroidstorm','adrenalcrisis']},
-  neuro:{name:'Neurology',color:'#7986cb',ids:['stroke','status','delirium']},
-  heme:{name:'Heme / Onc',color:'#ba68c8',ids:['anemia','dvt','febneut']},
+  general:{name:'Undifferentiated',color:'var(--g)',ids:['chestpain','shock','anaphylaxis']},
+  cardio:{name:'Cardiology',color:'var(--red)',ids:['adhf','afib','nstemi','stemi','htnemerg','pericarditis','bradycardia','cardioshock','dissection','syncope']},
+  pulm:{name:'Pulmonary',color:'var(--g2)',ids:['copd','asthma','pe','hypoxrf','ptx','pleural']},
+  id:{name:'Infectious Disease',color:'var(--g)',ids:['sepsis','pyelo','cellulitis','cdiff','meningitis','endocarditis','influenza']},
+  renal:{name:'Renal & Lytes',color:'var(--g3)',ids:['aki','hyperk','hypona','hypercalcemia','hypernatremia','rhabdo']},
+  gi:{name:'GI & Hepatology',color:'#26c6da',ids:['ugib','lgib','pancreatitis','hepenc','sbp','sbo','cholangitis','alchep']},
+  endo:{name:'Endocrine',color:'#4db6ac',ids:['dka','hhs','thyroidstorm','adrenalcrisis','hypoglycemia','thyrotoxicosis','myxedema']},
+  neuro:{name:'Neurology',color:'#7986cb',ids:['stroke','status','delirium','tia','sah','cordcompression']},
+  heme:{name:'Heme / Onc',color:'#ba68c8',ids:['anemia','dvt','febneut','sicklecell','ttp']},
+  rheum:{name:'Rheum / MSK',color:'#ffd54f',ids:['gout','septicarthritis']},
   tox:{name:'Tox & Withdrawal',color:'#ce93d8',ids:['etoh','opioidod','apap']}
 };
 var caseActiveCat='all';
