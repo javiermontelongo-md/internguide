@@ -1381,6 +1381,69 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
     </div>
   </div>
 
+  <!-- THE CONNECTOR GRAMMAR -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid #ffd54f;" onclick="toggleSoap('ap-connect')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:#ffd54f;letter-spacing:.1em;">🔗 THE CONNECTOR GRAMMAR — 2/2 vs c/w vs iso vs vs (NOT synonyms)</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ap-connect-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ap-connect" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:6px;">These tiny phrases sound interchangeable but each makes a <b>different logical claim.</b> Picking the right one is what makes your reasoning legible. The trick: ask <i>what is this word actually claiming?</i></p>
+      <p style="font-size:15px;line-height:1.6;color:var(--g);margin-bottom:14px;">A problem statement isn't a list — it's <b>one argument</b>: <span style="color:var(--t2);">[name the problem, staged] → [how sure: likely/possibly] → [the CAUSE: 2/2 / iso] → [the EVIDENCE: c/w + data] → [the alternative: vs] → trajectory.</span></p>
+
+      <div style="display:flex;flex-direction:column;gap:9px;">
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;border-left:3px solid #ffd54f;">
+          <div style="margin-bottom:4px;"><span style="font-family:var(--mono);font-size:15px;color:#ffd54f;font-weight:600;">2/2</span> <span style="color:var(--t3);">·  secondary to</span> &nbsp;<span style="font-family:var(--mono);font-size:11px;color:#ffd54f;background:rgba(255,213,79,.12);padding:2px 7px;border-radius:10px;">CLAIMS: CAUSE</span></div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.55;">"X is <b>caused by</b> Y." Use it when you name the etiology and you're committing. Direction: <i>effect</i> 2/2 <i>cause</i>.</div>
+          <div style="font-size:14px;color:var(--t2);line-height:1.5;margin-top:3px;font-style:italic;">"Hypoxic respiratory failure 2/2 multifocal PNA."</div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;border-left:3px solid var(--g2);">
+          <div style="margin-bottom:4px;"><span style="font-family:var(--mono);font-size:15px;color:var(--g2);font-weight:600;">c/w</span> <span style="color:var(--t3);">·  consistent with</span> &nbsp;<span style="font-family:var(--mono);font-size:11px;color:var(--g2);background:rgba(79,195,247,.12);padding:2px 7px;border-radius:10px;">CLAIMS: EVIDENCE</span></div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.55;">"The <b>data fit</b> diagnosis X." It justifies a dx <i>from findings</i> — it does NOT name a cause. Drop it right after you cite data.</div>
+          <div style="font-size:14px;color:var(--t2);line-height:1.5;margin-top:3px;font-style:italic;">"Anion-gap acidosis with ketones, c/w DKA."</div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;border-left:3px solid var(--g3);">
+          <div style="margin-bottom:4px;"><span style="font-family:var(--mono);font-size:15px;color:var(--g3);font-weight:600;">iso</span> <span style="color:var(--t3);">·  in the setting of</span> &nbsp;<span style="font-family:var(--mono);font-size:11px;color:var(--g3);background:rgba(255,183,77,.12);padding:2px 7px;border-radius:10px;">CLAIMS: CONTEXT</span></div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.55;">"X is happening <b>against the backdrop</b> of Y — related, contributing, but I'm <i>not committing</i> to causation." Use when there are several contributors.</div>
+          <div style="font-size:14px;color:var(--t2);line-height:1.5;margin-top:3px;font-style:italic;">"Hyperglycemia iso sepsis and steroids."</div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;border-left:3px solid #ef5350;">
+          <div style="margin-bottom:4px;"><span style="font-family:var(--mono);font-size:15px;color:#ef5350;font-weight:600;">complicating</span> &nbsp;<span style="font-family:var(--mono);font-size:11px;color:#ef5350;background:rgba(239,83,80,.12);padding:2px 7px;border-radius:10px;">CLAIMS: DOWNSTREAM COMPLICATION</span></div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.55;">Same causal link as 2/2 but framed from the <i>primary</i> problem's side: "new problem X <b>arose from</b> existing problem Y." Flags it as a sequela that worsens the course.</div>
+          <div style="font-size:14px;color:var(--t2);line-height:1.5;margin-top:3px;font-style:italic;">"AKI complicating sepsis" &nbsp;=&nbsp; "AKI 2/2 sepsis," but emphasizes it as a hit.</div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;border-left:3px solid #ba68c8;">
+          <div style="margin-bottom:4px;"><span style="font-family:var(--mono);font-size:15px;color:#ba68c8;font-weight:600;">vs</span> <span style="color:var(--t3);">·  versus</span> &nbsp;<span style="font-family:var(--mono);font-size:11px;color:#ba68c8;background:rgba(186,104,200,.12);padding:2px 7px;border-radius:10px;">CLAIMS: DIFFERENTIAL</span></div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.55;">"X <b>or</b> Y, ranked, <i>not yet resolved.</i>" The competing etiologies you're still working through. Pairs with <i>likely</i>.</div>
+          <div style="font-size:14px;color:var(--t2);line-height:1.5;margin-top:3px;font-style:italic;">"Likely prerenal AKI, vs ATN." · "PNA vs aspiration vs HAP."</div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;border-left:3px solid var(--g);">
+          <div style="margin-bottom:4px;"><span style="font-family:var(--mono);font-size:15px;color:var(--g);font-weight:600;">likely / possibly</span> &nbsp;<span style="font-family:var(--mono);font-size:11px;color:var(--g);background:rgba(127,255,110,.12);padding:2px 7px;border-radius:10px;">CLAIMS: CERTAINTY LEVEL</span></div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.55;"><b>Not a relationship — your confidence.</b> <i>likely</i> = leading, you're acting on it; <i>possibly</i> = on the list, lower. They <b>tune</b> 2/2 / c/w, they don't replace them.</div>
+          <div style="font-size:14px;color:var(--t2);line-height:1.5;margin-top:3px;font-style:italic;">"AKI, likely 2/2 prerenal, possibly early ATN."</div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;border-left:3px solid #26c6da;">
+          <div style="margin-bottom:4px;"><span style="font-family:var(--mono);font-size:15px;color:#26c6da;font-weight:600;">r/o</span> <span style="color:var(--t3);">·  rule out</span> &nbsp;<span style="font-family:var(--mono);font-size:11px;color:#26c6da;background:rgba(38,198,218,.12);padding:2px 7px;border-radius:10px;">CLAIMS: A TASK</span></div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.55;">A <b>can't-miss to actively exclude</b> — an action item, <i>not</i> a probability. "r/o" something dangerous even if unlikely.</div>
+          <div style="font-size:14px;color:var(--t2);line-height:1.5;margin-top:3px;font-style:italic;">"Chest pain — r/o ACS, PE, dissection."</div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;border-left:3px solid var(--t3);">
+          <div style="margin-bottom:4px;"><span style="font-family:var(--mono);font-size:15px;color:var(--t);font-weight:600;">s/p</span> <span style="color:var(--t3);">status post</span> &nbsp;·&nbsp; <span style="font-family:var(--mono);font-size:15px;color:var(--t);font-weight:600;">per</span> <span style="color:var(--t3);">according to</span> &nbsp;<span style="font-family:var(--mono);font-size:11px;color:var(--t3);background:var(--s2);padding:2px 7px;border-radius:10px;">CLAIMS: TIMELINE / ATTRIBUTION</span></div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.55;"><b>s/p</b> = a <i>completed event</i>, no claim ("s/p PCI 2021"). <b>per</b> = attributing a statement to a source ("per cardiology, no cath today").</div>
+        </div>
+      </div>
+
+      <div style="background:rgba(255,213,79,.07);border:1px solid rgba(255,213,79,.3);border-radius:8px;padding:13px 15px;margin-top:14px;">
+        <div style="font-family:var(--mono);font-size:12px;color:#ffd54f;margin-bottom:8px;">✦ ONE SENTENCE, EVERY CONNECTOR DOING ITS JOB</div>
+        <div style="font-size:15px;color:var(--t);line-height:1.7;">"AKI <span style="color:#ef5350;font-weight:600;">complicating</span> sepsis, <span style="color:var(--g);font-weight:600;">likely</span> <span style="color:#ffd54f;font-weight:600;">2/2</span> prerenal physiology <span style="color:var(--g3);font-weight:600;">iso</span> poor PO intake — FENa &lt;1 and bland sediment <span style="color:var(--g2);font-weight:600;">c/w</span> a prerenal picture — <span style="color:#ba68c8;font-weight:600;">vs</span> ATN; will <span style="color:#26c6da;font-weight:600;">r/o</span> obstruction with renal US, <span style="color:var(--t2);font-weight:600;">s/p</span> 2 L LR <span style="color:var(--t2);font-weight:600;">per</span> renal."</div>
+        <div style="font-size:14px;color:var(--t2);line-height:1.65;margin-top:9px;"><span style="color:#ef5350;">complicating</span> = came from the sepsis · <span style="color:var(--g);">likely</span> = confidence · <span style="color:#ffd54f;">2/2</span> = the cause · <span style="color:var(--g3);">iso</span> = the contributing context · <span style="color:var(--g2);">c/w</span> = the evidence · <span style="color:#ba68c8;">vs</span> = the live alternative · <span style="color:#26c6da;">r/o</span> = the can't-miss task · <span style="color:var(--t2);">s/p</span> = done · <span style="color:var(--t2);">per</span> = whose call.</div>
+      </div>
+      <div style="font-size:14px;color:var(--g);line-height:1.6;margin-top:12px;font-style:italic;">See the worked cases below to watch these slot into real DKA / withdrawal / sepsis problem statements.</div>
+    </div>
+  </div>
+
   <!-- DEFEND YOUR REASONING -->
   <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid #ef5350;" onclick="toggleSoap('ap-defend')">
     <div style="display:flex;align-items:center;justify-content:space-between;">
@@ -1594,6 +1657,29 @@ RECOMMENDATIONS:
    d. Needs better access — PICC today
 4. PNA
    a. CTX + doxycycline, 5–7 day CAP course</pre>
+    </div>
+  </div>
+
+  <!-- CASE LIBRARY -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g4);" onclick="toggleSoap('ap-cases')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g4);letter-spacing:.1em;">📁 CASE LIBRARY — full worked A&amp;Ps for the bread-and-butter admits</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ap-cases-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ap-cases" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">Tap a diagnosis → the spoken one-liner, the impression, the narrative paragraph, and the plan — written the way a seasoned resident would, with the <span style="color:#ffd54f;font-weight:600;">connectors highlighted</span> so you can see each one doing its job.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <button class="btn bs" onclick="openApCaseDrawer('dka')" style="font-size:22px;padding:8px 14px;">DKA</button>
+        <button class="btn bs" onclick="openApCaseDrawer('etoh')" style="font-size:22px;padding:8px 14px;">Alcohol withdrawal</button>
+        <button class="btn bs" onclick="openApCaseDrawer('sepsis')" style="font-size:22px;padding:8px 14px;">Sepsis / CAP</button>
+        <button class="btn bs" onclick="openApCaseDrawer('aki')" style="font-size:22px;padding:8px 14px;">AKI</button>
+        <button class="btn bs" onclick="openApCaseDrawer('adhf')" style="font-size:22px;padding:8px 14px;">Acute decompensated HF</button>
+        <button class="btn bs" onclick="openApCaseDrawer('copd')" style="font-size:22px;padding:8px 14px;">COPD exacerbation</button>
+        <button class="btn bs" onclick="openApCaseDrawer('ugib')" style="font-size:22px;padding:8px 14px;">Upper GI bleed</button>
+        <button class="btn bs" onclick="openApCaseDrawer('afib')" style="font-size:22px;padding:8px 14px;">AFib with RVR</button>
+      </div>
     </div>
   </div>
 
@@ -6577,6 +6663,130 @@ function openPharmDrawer(ck,iid){
     html+=`<div style="margin:18px 14px 4px;background:rgba(127,255,110,.07);border:1px solid rgba(127,255,110,.3);border-radius:var(--rl);padding:14px 16px;">
       <div style="font-family:var(--mono);font-size:12px;color:var(--g);letter-spacing:.1em;margin-bottom:8px;">✦ HIGH-YIELD / GOOD TO KNOW</div>
       ${body}
+    </div>`;
+  }
+  html+=`<div style="height:30px;"></div>`;
+  buildDrawer(html);
+}
+
+// ============================================================
+// A&P CASE LIBRARY — full worked assessment & plans for common admits
+// {{x}} in any string is rendered as a highlighted connector.
+// ============================================================
+function cxh(s){ return String(s||'').replace(/\{\{(.*?)\}\}/g,'<span style="color:#ffd54f;font-weight:600;">$1</span>'); }
+var AP_CASES={
+  dka:{name:'DKA',color:'var(--g3)',
+    one:'28M with type 1 DM presenting with one day of polyuria, vomiting, and abdominal pain, found to have a high anion-gap metabolic acidosis {{c/w}} DKA (glucose 540, β-OHB 6.1, pH 7.18, gap 26), {{likely}} {{2/2}} insulin non-adherence {{iso}} a viral gastroenteritis, now improving on an insulin drip with a closing gap.',
+    imp:['# DKA (pH 7.18, HCO₃ 10, AG 26, β-OHB 6.1, glucose 540) — moderate severity','# Type 1 DM — home pump, held on admission','# Hypokalemia (K 3.2) — repleting with/before insulin','# Precipitant: insulin nonadherence vs viral gastroenteritis'],
+    narr:'The central issue is an anion-gap acidosis that is {{c/w}} DKA by the ketones and pH. <b>[frame]</b> The precipitant is {{likely}} missed insulin {{iso}} a diarrheal illness — afebrile, no leukocytosis, lactate 1.1 and a clean UA argue against infection as the driver. <b>[alternatives / pertinent negatives]</b> I\'m treating as DKA until the gap closes; the normal lactate makes a competing lactic acidosis {{unlikely}}. <b>[commit]</b> The main early danger is hypokalemia as insulin drives K intracellularly, so I\'m front-loading potassium and will hold the drip if K falls below 3.3. <b>[anticipate + mechanism]</b>',
+    plan:[
+      {p:'DKA',o:['IVF: NS bolus → then ½NS at ~250 mL/hr; add D5 once glucose &lt;200','Insulin gtt 0.1 u/kg/hr — do NOT bolus','q1–2h POC glucose, q2–4h BMP/VBG; trend the GAP, not the glucose','Goal: AG &lt;12, HCO₃ &gt;18, tolerating PO','Overlap SC basal insulin 1–2h BEFORE stopping the drip (or it re-gaps)']},
+      {p:'Hypokalemia',o:['Hold insulin if K &lt;3.3; KCl in fluids, goal K &gt;4','Replete Mg, goal &gt;2 (helps hold the K)']},
+      {p:'Precipitant',o:['Diabetes education + pump troubleshooting; SW for access/cost','No empiric antibiotics — afebrile, no localizing source']}
+    ],
+    cx:[['c/w','the data (pH, ketones) → the diagnosis DKA. Evidence, not a cause.'],['2/2','names the cause of the DKA — missed insulin.'],['likely','your confidence that this is the real cause (acting on it).'],['iso','the contributing context (the GI illness) you won\'t fully pin as the cause.']]},
+
+  etoh:{name:'Alcohol withdrawal',color:'#ba68c8',
+    one:'45F with severe alcohol use disorder and a prior withdrawal seizure, admitted with tremor, tachycardia, and diaphoresis ~18 hours after her last drink, {{c/w}} acute alcohol withdrawal (CIWA 18), now improving on symptom-triggered benzodiazepines without seizure or DTs.',
+    imp:['# Acute alcohol withdrawal (CIWA 18) — high-risk: prior withdrawal seizure','# Alcohol use disorder, severe','# Electrolyte derangements {{2/2}} poor intake: hypomagnesemia, hypophosphatemia, hypoK','# Nutritional risk — thiamine before any glucose'],
+    narr:'The presentation and timeline are {{c/w}} early alcohol withdrawal. <b>[frame]</b> She\'s high-risk for progression given her seizure history, so I\'m using symptom-triggered benzodiazepines with a low threshold to escalate. <b>[commit + risk]</b> I considered other causes of agitation and tachycardia — afebrile with a clean infectious workup and normal glucose, so sepsis and hypoglycemia are {{unlikely}} drivers. <b>[alternatives / pertinent negatives]</b> My biggest concern is under-treatment tipping into delirium tremens {{complicating}} her course, so I\'m front-loading thiamine and electrolytes and reassessing CIWA hourly. <b>[anticipate]</b>',
+    plan:[
+      {p:'Alcohol withdrawal',o:['Symptom-triggered diazepam per CIWA (lorazepam if liver disease) — CIWA q1h','Escalate to phenobarbital ± ICU if CIWA &gt;20 despite dosing or refractory','Seizure precautions']},
+      {p:'Nutrition / electrolytes',o:['Thiamine 500 mg IV TID BEFORE any dextrose (prevent Wernicke)','Folate, multivitamin; replete Mg / Phos / K aggressively']},
+      {p:'AUD',o:['SW / addiction medicine consult','Offer naltrexone or acamprosate at discharge']}
+    ],
+    cx:[['c/w','the CIWA + timeline support the diagnosis of withdrawal.'],['2/2','poor intake is the cause of the electrolyte derangements.'],['complicating','DTs would arise downstream FROM the withdrawal — note the direction.'],['unlikely','calibrated confidence ruling the alternatives down, not out.']]},
+
+  sepsis:{name:'Sepsis / CAP',color:'var(--g)',
+    one:'72M with COPD and type 2 DM presenting with 3 days of productive cough, fever, and dyspnea, now with sepsis {{2/2}} community-acquired pneumonia (RLL infiltrate, lactate 2.8, fluid-responsive), {{likely}} bacterial {{vs}} influenza, improving after fluids and ceftriaxone/azithromycin.',
+    imp:['# Sepsis {{2/2}} CAP (Sepsis-3; lactate 2.8) — no shock, fluid-responsive','# CAP, RLL (CURB-65 = 2) — bacterial vs viral, resp panel pending','# AKI {{complicating}} sepsis (Cr 1.6 from 1.0 baseline) — prerenal physiology','# COPD — exacerbation risk on top'],
+    narr:'The unifying picture is sepsis with a pulmonary source. <b>[frame]</b> Most {{c/w}} bacterial CAP given the focal infiltrate, productive cough, and leukocytosis, though I can\'t exclude influenza — a respiratory panel is pending and I\'m not delaying antibiotics for it. <b>[commit + hedge]</b> His AKI is {{likely}} prerenal {{complicating}} the sepsis (FENa &lt;1, improved with fluids, bland sediment) {{vs}} early ATN if it doesn\'t recover. <b>[reason + differential]</b> I\'m watching his work of breathing closely given the COPD overlay; if he tires I\'ll escalate respiratory support. <b>[anticipate]</b>',
+    plan:[
+      {p:'Sepsis / CAP',o:['CTX 2 g IV q24h + azithromycin 500 mg; MRSA nares + resp viral panel','Balanced crystalloid given — reassess fluid responsiveness, repeat lactate','Blood cx ×2 (done) + sputum cx; de-escalate per data','Duration 5 days if afebrile/improving by day 3']},
+      {p:'AKI',o:['Hold home lisinopril + NSAIDs; renally dose meds','Trend Cr / UOP; gentle volume']},
+      {p:'COPD',o:['Scheduled DuoNebs; steroids if bronchospastic component emerges']}
+    ],
+    cx:[['2/2','pneumonia is the cause of the sepsis.'],['c/w','focal infiltrate + cough = evidence pointing to bacterial CAP.'],['vs','bacterial versus influenza, and prerenal versus ATN — live, unresolved differentials.'],['complicating','the AKI is a downstream hit from the sepsis.']]},
+
+  aki:{name:'AKI',color:'var(--g3)',
+    one:'66F with HTN and CKD3 (baseline Cr 1.4) admitted with an AKI to 3.2 {{iso}} 4 days of vomiting plus NSAID use, {{likely}} prerenal {{vs}} ATN, oliguric but non-uremic, improving with volume.',
+    imp:['# AKI on CKD3 (Cr 3.2 from baseline 1.4, KDIGO stage 2) — oliguric','# Etiology: prerenal {{2/2}} hypovolemia/NSAIDs {{vs}} early ATN','# Hyperkalemia (K 5.8) with peaked T waves — treated','# CKD3 (baseline)'],
+    narr:'Cr is up to 3.2 from a baseline of 1.4. <b>[frame, with the trend]</b> The story is {{likely}} prerenal {{iso}} GI losses and NSAIDs — FENa 0.6%, a bland sediment, and BUN:Cr of 24 are all {{c/w}} a prerenal picture {{vs}} ATN if she fails to respond to volume. <b>[reason + evidence + differential]</b> There\'s no indication for emergent dialysis — no refractory hyperkalemia, acidosis, or uremic complications. <b>[commit / pertinent negatives]</b> I\'m most worried about the K of 5.8 {{complicating}} the AKI; it\'s been treated with calcium and insulin/dextrose, and I\'m rechecking. <b>[anticipate]</b>',
+    plan:[
+      {p:'AKI',o:['Hold ALL nephrotoxins (NSAIDs) + ACEi; renally dose everything','Isotonic fluid challenge; reassess UOP — target &gt;0.5 mL/kg/hr','Renal US to {{r/o}} obstruction; urine lytes + micro (done)','If no response to volume → reframe as ATN, avoid further fluid']},
+      {p:'Hyperkalemia',o:['Calcium gluconate (membrane), insulin+D50 + albuterol (shift), given','Recheck K; loop diuretic if making urine; low-K diet']}
+    ],
+    cx:[['iso','the backdrop (GI losses + NSAIDs) — contributors, not a single committed cause.'],['likely / vs','confidence (prerenal leads) paired with the live alternative (ATN).'],['c/w','the FENa/sediment/ratio = evidence supporting prerenal.'],['complicating','the hyperkalemia is a dangerous downstream effect of the AKI.'],['r/o','obstruction is the can\'t-miss task — excluded with US.']]},
+
+  adhf:{name:'Acute decompensated HF',color:'#ef5350',
+    one:'74M with HFrEF (EF 30%) and CKD3 presenting with 3 days of orthopnea and lower-extremity edema, {{c/w}} an acute HFrEF exacerbation (BNP 1850 from 400, 4 kg up), warm-and-wet, {{likely}} {{2/2}} dietary/medication nonadherence, now diuresing.',
+    imp:['# Acute on chronic HFrEF exacerbation (EF 30%, ACC Stage C, NYHA III) — warm &amp; wet','# Volume overload: BNP 1850 (from 400), +4 kg, JVP 14','# CKD3 — limits diuretic response','# Precipitant: dietary Na / medication nonadherence {{vs}} ischemia (trop flat)'],
+    narr:'This is a congestive, well-perfused (warm-and-wet) HFrEF exacerbation. <b>[frame]</b> The picture is {{c/w}} volume overload by the BNP trend, weight, and exam, {{likely}} {{2/2}} dietary and medication nonadherence — troponin is flat and ECG unchanged, so ischemia as the trigger is {{unlikely}}. <b>[commit + rule out the can\'t-miss]</b> I\'m committing to decongestion with IV loops and will up-titrate against urine output rather than a fixed dose. <b>[reason]</b> Given his CKD I anticipate diuretic resistance {{complicating}} the course — if UOP lags I\'ll escalate the dose or add a thiazide for sequential blockade, and hold the ACEi/SGLT2i until he\'s stable. <b>[anticipate]</b>',
+    plan:[
+      {p:'HFrEF exacerbation',o:['Furosemide 80 mg IV BID (≈2× home PO dose); strict I/Os, daily standing weights','Goal net negative 1–2 L/day; if UOP &lt;100 mL/hr at 2h → double the dose','Add metolazone if loop-resistant; BMP BID while diuresing','Hold lisinopril + SGLT2i for now → restart once euvolemic and Cr stable','Continue beta blocker if not hypoperfused; do NOT start fresh during the crash']},
+      {p:'CKD3',o:['Trend Cr with diuresis; accept a modest bump for decongestion','Replete K/Mg, goal K &gt;4 and Mg &gt;2']}
+    ],
+    cx:[['c/w','BNP/weight/exam = evidence of volume overload.'],['2/2','nonadherence named as the cause of the exacerbation.'],['unlikely','ischemia ruled DOWN (flat trop) — calibrated, with the data.'],['complicating','diuretic resistance anticipated as a downstream problem.']]},
+
+  copd:{name:'COPD exacerbation',color:'var(--g2)',
+    one:'68F with GOLD 3 COPD (FEV₁ 40%, 2 exacerbations last year) presenting with 2 days of increased dyspnea, wheeze, and purulent sputum, {{c/w}} an acute COPD exacerbation, {{likely}} {{2/2}} a viral/bacterial trigger, hypercapnic to pCO₂ 58 with a compensated pH, improving on NIV and bronchodilators.',
+    imp:['# Acute COPD exacerbation (GOLD 3, GOLD group E) — ↑dyspnea, sputum purulence + volume','# Acute-on-chronic hypercapnic (Type 2) respiratory failure (pCO₂ 58, pH 7.34, HCO₃ 30)','# Trigger: viral {{vs}} bacterial bronchitis','# Tobacco use disorder, active'],
+    narr:'The presentation meets all three Anthonisen criteria, {{c/w}} an exacerbation needing antibiotics. <b>[frame]</b> Her gas shows acute-on-chronic hypercapnia with metabolic compensation — {{c/w}} a chronic retainer with an acute bump, not acute uncompensated failure, so she\'s a good NIV candidate rather than intubation right now. <b>[reason + commit]</b> The trigger is {{likely}} infectious; I\'m covering empirically while a respiratory panel is pending. <b>[hedge]</b> My concern is fatigue {{complicating}} the picture — if her pH drops below 7.30 or she tires on NIV, she\'ll need intubation, so I\'m trending serial gases. <b>[anticipate + trigger]</b>',
+    plan:[
+      {p:'COPD exacerbation',o:['DuoNebs q4h scheduled + PRN','Prednisone 40 mg PO daily ×5 days (REDUCE trial)','Azithromycin or doxycycline ×5 days (purulent sputum)','BiPAP now; serial ABGs — intubate if pH &lt;7.30, rising pCO₂, or tiring','Target SpO₂ 88–92% — do NOT over-oxygenate (blunts respiratory drive)']},
+      {p:'Tobacco',o:['Nicotine replacement inpatient; cessation counseling at discharge']}
+    ],
+    cx:[['c/w','used twice — once for the exacerbation (criteria), once for the gas pattern (chronic retainer). Both are evidence→interpretation.'],['2/2','the infectious trigger named as the cause.'],['vs','viral versus bacterial — the unresolved trigger differential.'],['complicating','respiratory fatigue as the feared downstream event, with a concrete trigger.']]},
+
+  ugib:{name:'Upper GI bleed',color:'#ef5350',
+    one:'59M with cirrhosis (Child-Pugh B) presenting with hematemesis and melena, {{c/w}} an upper GI bleed, {{likely}} {{2/2}} variceal hemorrhage {{vs}} peptic ulcer, hemodynamically stabilized after resuscitation, awaiting urgent endoscopy.',
+    imp:['# Acute upper GI bleed (Hgb 7.1 from 11, melena + hematemesis) — Glasgow-Blatchford high-risk','# Etiology: variceal {{2/2}} portal HTN {{vs}} PUD','# Decompensated cirrhosis, Child-Pugh B / MELD 16','# Coagulopathy {{iso}} hepatic synthetic dysfunction (INR 1.6)'],
+    narr:'This is an acute upper GI bleed with a Hgb drop to 7.1. <b>[frame]</b> Given his cirrhosis it\'s {{likely}} {{2/2}} variceal hemorrhage {{vs}} peptic ulcer disease — I\'m treating as variceal until endoscopy proves otherwise, since that\'s the more dangerous, time-sensitive diagnosis. <b>[commit — most-dangerous-dx]</b> His coagulopathy is {{iso}} synthetic dysfunction rather than a primary clotting disorder, so I\'m correcting only as needed for active bleeding, not chasing the INR. <b>[reason + pertinent point]</b> My concern is rebleeding and aspiration {{complicating}} his course, so I have large-bore access, a transfusion goal, and a low threshold to protect the airway for endoscopy. <b>[anticipate]</b>',
+    plan:[
+      {p:'Upper GI bleed',o:['2 large-bore IVs; type &amp; cross; restrictive transfusion goal Hgb &gt;7','Octreotide gtt + IV ceftriaxone (SBP prophylaxis) — both reduce mortality in variceal bleed','Pantoprazole IV until source known','GI consult for urgent EGD &lt;12h; consider airway protection if ongoing hematemesis','Hold any antihypertensives/anticoagulation']},
+      {p:'Cirrhosis / coagulopathy',o:['Correct coagulopathy only for active bleeding (vit K, products as needed)','Lactulose if encephalopathy develops; monitor for SBP']}
+    ],
+    cx:[['2/2','variceal bleeding (from portal HTN) named as the leading cause.'],['vs','variceal versus PUD — committing to the more dangerous one until proven otherwise.'],['iso','the coagulopathy framed as contextual to liver failure, not a separate primary problem.'],['complicating','rebleeding/aspiration as the anticipated downstream events.']]},
+
+  afib:{name:'AFib with RVR',color:'#ba68c8',
+    one:'70M with HTN presenting with palpitations and dyspnea, found in new atrial fibrillation with RVR to the 140s, {{likely}} {{2/2}} an underlying stressor {{iso}} possible sepsis, hemodynamically stable, rate-controlled with IV then PO nodal agents.',
+    imp:['# New AFib with RVR (rates 130–150s) — hemodynamically stable','# Rate vs rhythm: rate-control strategy (RACE II)','# Precipitant: {{r/o}} sepsis, PE, ACS, thyrotoxicosis, electrolytes','# Stroke risk: CHA₂DS₂-VASc = 3 → anticoagulation indicated'],
+    narr:'This is new AFib with a rapid ventricular response, and he\'s stable — so this is a rate-control problem, not a cardioversion emergency. <b>[frame + commit]</b> AFib is {{likely}} {{2/2}} an underlying trigger {{iso}} a possible infection, so I\'m searching for and treating the precipitant rather than just the rate — I\'ll {{r/o}} sepsis, PE, ACS, and thyrotoxicosis. <b>[reason — treat the cause]</b> If he were unstable the answer would be synchronized cardioversion, but he\'s perfusing, so I\'m using nodal agents. <b>[contingency]</b> His CHA₂DS₂-VASc is 3, so the durable issue is stroke prevention; I\'m anticipating anticoagulation once bleeding risk is assessed. <b>[anticipate]</b>',
+    plan:[
+      {p:'AFib with RVR',o:['IV metoprolol 5 mg q5min ×3 PRN → PO metoprolol; diltiazem if beta-blocker not tolerated','AVOID nodal agents if pre-excited (WPW) — would use procainamide','If unstable (hypotension, ischemia, HF) → synchronized cardioversion','Replete K &gt;4 and Mg &gt;2','TSH, troponin, CBC, consider CTA if PE suspected']},
+      {p:'Precipitant',o:['Treat the underlying trigger (infection, PE, ischemia) — rate often follows']},
+      {p:'Stroke prevention',o:['CHA₂DS₂-VASc 3 → start anticoagulation (e.g., apixaban) once HAS-BLED/bleeding assessed']}
+    ],
+    cx:[['2/2','AFib framed as secondary to a trigger — drives you to treat the cause, not just the rate.'],['iso','infection as the contributing context, not a locked-in cause.'],['r/o','the can\'t-miss precipitants you must actively exclude.'],['likely','confidence that there IS a reversible trigger worth hunting.']]}
+};
+function openApCaseDrawer(id){
+  closeAnyDrawer();
+  const c=AP_CASES[id]; if(!c) return;
+  let html=drawerHead(c.name,'Worked A&amp;P · connectors highlighted',c.color,'closeAnyDrawer()');
+  html+=`<div style="margin:14px 14px 2px;background:rgba(127,255,110,.06);border:1px solid rgba(127,255,110,.28);border-radius:var(--rl);padding:13px 16px;">
+    <div style="font-family:var(--mono);font-size:12px;color:var(--g);letter-spacing:.1em;margin-bottom:8px;">🔊 SPOKEN ONE-LINER</div>
+    <div style="font-size:16px;color:var(--t);line-height:1.65;font-style:italic;">"${cxh(c.one)}"</div>
+  </div>`;
+  let impBody='<div style="font-family:var(--mono);font-size:13.5px;color:var(--t);line-height:1.8;">';
+  c.imp.forEach(l=>{ impBody+=cxh(l)+'<br>'; });
+  impBody+='</div>';
+  html+=trialBlock('IMPRESSION — staged, data inline',impBody,'var(--g)');
+  html+=trialBlock('NARRATIVE — tension → alternatives → commit → anticipate',`<div style="line-height:1.7;">${cxh(c.narr)}</div>`,'var(--g2)');
+  let planBody='<div style="display:flex;flex-direction:column;gap:11px;">';
+  c.plan.forEach((pr,i)=>{
+    planBody+=`<div><div style="font-size:15px;color:var(--t);font-weight:600;margin-bottom:4px;">${i+1}. ${cxh(pr.p)}</div><div style="display:flex;flex-direction:column;gap:4px;padding-left:12px;">`;
+    pr.o.forEach((o,j)=>{ planBody+=`<div style="font-size:14.5px;color:var(--t2);line-height:1.55;">${String.fromCharCode(97+j)}. ${cxh(o)}</div>`; });
+    planBody+='</div></div>';
+  });
+  planBody+='</div>';
+  html+=trialBlock('PLAN — discrete orders, holds w/ triggers, targets',planBody,'var(--g3)');
+  if(c.cx&&c.cx.length){
+    let cxBody='<div style="display:flex;flex-direction:column;gap:8px;">';
+    c.cx.forEach(p=>{ cxBody+=`<div style="font-size:15px;color:var(--t);line-height:1.55;"><span style="color:#ffd54f;font-weight:600;font-family:var(--mono);">${p[0]}</span> — ${p[1]}</div>`; });
+    cxBody+='</div>';
+    html+=`<div style="margin:18px 14px 4px;background:rgba(255,213,79,.07);border:1px solid rgba(255,213,79,.3);border-radius:var(--rl);padding:14px 16px;">
+      <div style="font-family:var(--mono);font-size:12px;color:#ffd54f;letter-spacing:.1em;margin-bottom:8px;">🔗 CONNECTORS IN ACTION</div>
+      ${cxBody}
     </div>`;
   }
   html+=`<div style="height:30px;"></div>`;
