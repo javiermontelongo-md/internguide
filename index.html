@@ -7269,7 +7269,28 @@ var AP_CASES={
     plan:[
       {p:'Septic arthritis',o:['Emergent arthrocentesis BEFORE antibiotics — cell count (often &gt;50k PMN-predominant), Gram stain, culture, crystals','Empiric IV vancomycin (± gram-negative coverage by risk) → narrow to culture','Joint drainage (arthroscopic/surgical washout or serial aspiration) — essential, not optional','Orthopedics consult; blood cultures ({{r/o}} bacteremia/endocarditis seeding)','Immobilize for comfort then early mobilization; do NOT delay for imaging']}
     ],
-    cx:[['2/2','S. aureus named as the likely organism.'],['c/w','hot joint + fever + synovial WBC = the evidence.'],['vs','crystal disease on the differential but treated as septic until proven otherwise.']]}
+    cx:[['2/2','S. aureus named as the likely organism.'],['c/w','hot joint + fever + synovial WBC = the evidence.'],['vs','crystal disease on the differential but treated as septic until proven otherwise.']]},
+
+  dts:{name:'Delirium tremens (ICU)',color:'#ce93d8',
+    one:'58M with severe alcohol use disorder, ~72 hours after his last drink, with florid agitation, disorientation, hallucinations, fever, tachycardia to 140, and hypertension despite escalating benzodiazepines, {{c/w}} delirium tremens, transferred to the ICU on a dexmedetomidine drip as an adjunct to high-dose GABAergic therapy.',
+    imp:['# Delirium tremens (altered sensorium + autonomic instability, ~48–96h post-cessation, benzodiazepine-refractory) — ICU; mortality up to ~5–15% if untreated','# Benzodiazepine-resistant withdrawal — escalated to phenobarbital; dexmedetomidine as ADJUNCT (not monotherapy)','# {{r/o}} mimics/co-drivers of agitation: infection, intracranial bleed (falls), Wernicke, hypoglycemia, hypoxia','# Severe electrolyte + nutritional deficits {{2/2}} chronic use'],
+    narr:'This is delirium tremens — the line beyond simple withdrawal is the combination of <b>altered sensorium PLUS autonomic instability</b>, and he is now refractory to escalating benzodiazepines. <b>[frame — the distinction]</b> DTs carries real mortality, so he belongs in the ICU. <b>[commit]</b> The key concept on the Precedex: dexmedetomidine controls the adrenergic storm (tachycardia, hypertension, agitation) but acts on alpha-2, <b>not</b> GABA — so it does not prevent withdrawal seizures or treat the underlying pathophysiology, and must ride on TOP of adequate benzodiazepines or phenobarbital, never alone. <b>[reason — the classic trap]</b> Because dexmedetomidine also masks the autonomic signs I titrate to, I won\'t let a calm-looking patient fool me into under-treating the GABAergic deficit. <b>[nuance]</b> I\'ll {{r/o}} the mimics — a missed intracranial bleed, infection, or Wernicke {{complicating}} the picture — before attributing everything to DTs. <b>[anticipate]</b>',
+    plan:[
+      {p:'DTs / refractory withdrawal',o:['ICU admission; high-dose IV benzodiazepines (diazepam/lorazepam) or escalate to phenobarbital — the GABAergic backbone','Dexmedetomidine drip ONLY as an adjunct for refractory autonomic/agitation control — NOT monotherapy (no GABA/anti-seizure effect)','If still refractory or airway at risk → intubation + propofol (GABAergic) infusion','Watch dexmedetomidine for bradycardia/hypotension; titrate to RASS (not CIWA) once sedated/intubated','Seizure precautions; treat hyperthermia + volume depletion']},
+      {p:'Nutrition / electrolytes',o:['High-dose IV thiamine BEFORE dextrose (Wernicke prevention)','Aggressive Mg / Phos / K repletion; folate, multivitamin']},
+      {p:'Rule out mimics',o:['{{r/o}} infection (cultures), intracranial bleed (CT if fall/focal/not improving), hypoglycemia, hypoxia']}
+    ],
+    cx:[['c/w','altered sensorium + autonomic storm = the evidence this is DTs, not simple withdrawal.'],['2/2','chronic intake named as the cause of the electrolyte/nutritional deficits.'],['complicating','a missed bleed/infection/Wernicke that could be compounding the agitation.'],['r/o','the agitation mimics you exclude before blaming DTs for everything.']]},
+
+  phenobarb:{name:'Phenobarbital protocol',color:'#ce93d8',
+    one:'50M with recurrent severe alcohol withdrawal and prior benzodiazepine-refractory episodes, now in early withdrawal, {{c/w}} a high-tolerance phenotype, managed with a front-loaded phenobarbital protocol for a smoother, self-tapering course.',
+    imp:['# Severe alcohol withdrawal in a benzodiazepine-resistant / high-tolerance host — managed with phenobarbital','# Rationale: phenobarbital both potentiates GABA AND inhibits glutamate → works when benzodiazepines fail','# {{r/o}} over-sedation / respiratory depression, esp. if STACKED on benzodiazepines (additive)','# Nutritional + electrolyte deficits {{2/2}} chronic use'],
+    narr:'He has severe withdrawal with a history of benzodiazepine-refractory episodes, so I\'m reaching for phenobarbital. <b>[frame]</b> The pharmacologic reason it works where benzos fail: benzodiazepines only enhance GABA (and need endogenous GABA present), whereas phenobarbital both potentiates GABA <b>and</b> directly inhibits glutamate — so it covers the downregulated, benzo-resistant receptor. <b>[reason — the mechanism]</b> Its long half-life (~3–4 days) means it <b>self-tapers</b>, giving a smoother course with less breakthrough than repeated benzodiazepine boluses. <b>[the advantage]</b> The trade-off I respect is additive respiratory depression, so when stacking phenobarbital on benzodiazepines I watch sedation closely and will {{r/o}} over-sedation. <b>[the trap + anticipate]</b>',
+    plan:[
+      {p:'Phenobarbital protocol',o:['Front-loaded or symptom-triggered phenobarbital (weight-based loading dose) — monotherapy or adjunct to benzodiazepines','Relies on its long half-life for a built-in taper (no separate taper needed)','Monitor sedation + respiratory status — additive depression when combined with benzodiazepines','Escalate to ICU + dexmedetomidine adjunct or intubation if refractory','Seizure precautions; reassess (RASS/CIWA) frequently']},
+      {p:'Nutrition / electrolytes',o:['Thiamine before dextrose; replete Mg / Phos / K; folate, multivitamin']}
+    ],
+    cx:[['c/w','the refractory history + severity = the evidence for a high-tolerance phenotype.'],['2/2','chronic use named as the cause of the deficits.'],['r/o','over-sedation/respiratory depression — the phenobarbital + benzodiazepine additive risk.']]}
 };
 function openApCaseDrawer(id){
   closeAnyDrawer();
@@ -7319,7 +7340,7 @@ var CASE_CATS={
   neuro:{name:'Neurology',color:'#7986cb',ids:['stroke','status','delirium','tia','sah','cordcompression']},
   heme:{name:'Heme / Onc',color:'#ba68c8',ids:['anemia','dvt','febneut','sicklecell','ttp']},
   rheum:{name:'Rheum / MSK',color:'#ffd54f',ids:['gout','septicarthritis']},
-  tox:{name:'Tox & Withdrawal',color:'#ce93d8',ids:['etoh','opioidod','apap']}
+  tox:{name:'Tox & Withdrawal',color:'#ce93d8',ids:['etoh','dts','phenobarb','opioidod','apap']}
 };
 var caseActiveCat='all';
 function caseRender(){
