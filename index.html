@@ -4214,6 +4214,7 @@ function listBlock(arr,color){
     if(x&&typeof x==='object'){
       h+=`<div class="dwlist-i" style="--bul:${color}">${x.u}`;
       if(x.d) h+=`<div style="font-family:var(--mono);font-size:13.5px;color:${color};font-weight:600;margin-top:3px;">℞ ${x.d}</div>`;
+      if(x.cite) h+=`<div style="font-size:12px;color:var(--t3);font-style:italic;margin-top:2px;">📖 ${x.cite}</div>`;
       h+='</div>';
     } else {
       h+=`<div class="dwlist-i" style="--bul:${color}">${x}</div>`;
@@ -4298,7 +4299,7 @@ var DRUG_DATA={
     {id:'pen_g',name:'Penicillin G / VK',tag:'Natural penicillin',
       covers:'Strep (Group A/B, viridans, susceptible S. pneumoniae), Treponema pallidum (syphilis), Enterococcus (with synergy), Actinomyces, oral anaerobes, susceptible Neisseria meningitidis.',
       gaps:'No staph (penicillinase), most gram-negatives, or atypicals.',
-      uses:[{u:'Syphilis at every stage — the drug of choice (benzathine penicillin G IM)',d:'benzathine pen G 2.4 MU IM ×1 (early); ×3 weekly (late/latent)'},{u:'Neurosyphilis (IV penicillin G)',d:'aqueous pen G 18–24 MU/day IV (3–4 MU q4h) ×10–14 days'},{u:'Strep pharyngitis and susceptible strep/enterococcal endocarditis',d:'pen VK 500 mg PO BID–TID ×10 d (pharyngitis); endocarditis pen G 12–18 MU/day IV ×4–6 wk'}],
+      uses:[{u:'Syphilis at every stage — the drug of choice (benzathine penicillin G IM)',d:'benzathine pen G 2.4 MU IM ×1 (early); ×3 weekly (late/latent)',cite:'CDC STI Guidelines · 2021'},{u:'Neurosyphilis (IV penicillin G)',d:'aqueous pen G 18–24 MU/day IV (3–4 MU q4h) ×10–14 days',cite:'CDC STI Guidelines · 2021'},{u:'Strep pharyngitis and susceptible strep/enterococcal endocarditis',d:'pen VK 500 mg PO BID–TID ×10 d (pharyngitis); endocarditis pen G 12–18 MU/day IV ×4–6 wk',cite:'AHA Endocarditis · 2015'}],
       mech:'Beta-lactam — binds penicillin-binding proteins to block cell-wall synthesis. Bactericidal.',
       dosing:'Pen VK PO; Pen G IV/IM; benzathine penicillin G IM is long-acting for syphilis.',
       adverse:'Hypersensitivity (rash to anaphylaxis), seizures at very high doses in renal failure, interstitial nephritis. Jarisch-Herxheimer reaction after treating syphilis.',
@@ -4306,7 +4307,7 @@ var DRUG_DATA={
     {id:'amox',name:'Amoxicillin',tag:'Aminopenicillin',
       covers:'Strep (incl. S. pneumoniae), Enterococcus, Listeria, H. influenzae (if not beta-lactamase), some E. coli/Proteus, H. pylori (in combination).',
       gaps:'No beta-lactamase producers, no Pseudomonas, no MRSA, no atypicals.',
-      uses:[{u:'Outpatient CAP in a healthy host (high-dose for pneumococcus)',d:'1 g PO TID ×5 days'},{u:'Strep pharyngitis, otitis media, sinusitis',d:'pharyngitis 500 mg PO BID ×10 d; AOM/sinusitis 875 mg BID or 90 mg/kg/day'},{u:'Enterococcal UTI; H. pylori regimens; dental/endocarditis prophylaxis',d:'dental ppx 2 g PO ×1 (1 h before); H. pylori 1 g PO BID in triple/quad therapy'}],
+      uses:[{u:'Outpatient CAP in a healthy host (high-dose for pneumococcus)',d:'1 g PO TID ×5 days',cite:'IDSA/ATS CAP · 2019'},{u:'Strep pharyngitis, otitis media, sinusitis',d:'pharyngitis 500 mg PO BID ×10 d; AOM/sinusitis 875 mg BID or 90 mg/kg/day',cite:'IDSA Sinusitis · 2012'},{u:'Enterococcal UTI; H. pylori regimens; dental/endocarditis prophylaxis',d:'dental ppx 2 g PO ×1 (1 h before); H. pylori 1 g PO BID in triple/quad therapy',cite:'AHA Endocarditis Prophylaxis · 2021'}],
       mech:'Aminopenicillin with broader gram-negative reach than penicillin. Bactericidal.',
       dosing:'Excellent oral bioavailability (>90%); 500 mg–1 g PO TID.',
       adverse:'Rash (a non-allergic rash is classic with concurrent EBV/mono), GI upset, hypersensitivity.',
@@ -4314,7 +4315,7 @@ var DRUG_DATA={
     {id:'augmentin',name:'Amox-Clavulanate (Augmentin)',tag:'Aminopenicillin + beta-lactamase inhibitor',
       covers:'Adds beta-lactamase producers: MSSA, beta-lactamase H. influenzae/Moraxella, many anaerobes (Bacteroides), more E. coli/Klebsiella.',
       gaps:'No MRSA, no Pseudomonas, no atypicals.',
-      uses:[{u:'AECOPD, sinusitis, otitis (beta-lactamase producers)',d:'875/125 mg PO BID (or 2000/125 ER BID) ×5–7 days'},{u:'Animal/human BITE wounds (Pasteurella, Eikenella, anaerobes)',d:'875/125 mg PO BID ×3–5 d (ppx) or 5–14 d (infected)'},{u:'Aspiration pneumonia / lung abscess (PO step-down); mild diabetic foot',d:'875/125 mg PO BID (step-down)'}],
+      uses:[{u:'AECOPD, sinusitis, otitis (beta-lactamase producers)',d:'875/125 mg PO BID (or 2000/125 ER BID) ×5–7 days',cite:'GOLD COPD · 2024'},{u:'Animal/human BITE wounds (Pasteurella, Eikenella, anaerobes)',d:'875/125 mg PO BID ×3–5 d (ppx) or 5–14 d (infected)',cite:'IDSA SSTI · 2014'},{u:'Aspiration pneumonia / lung abscess (PO step-down); mild diabetic foot',d:'875/125 mg PO BID (step-down)',cite:'IDSA SSTI · 2014'}],
       mech:'Clavulanate inhibits beta-lactamase, restoring amoxicillin activity against producers.',
       dosing:'875/125 mg PO BID. GI diarrhea (from clavulanate) is dose-limiting.',
       adverse:'Diarrhea (common), cholestatic hepatotoxicity (clavulanate — may be delayed), rash.',
@@ -4322,7 +4323,7 @@ var DRUG_DATA={
     {id:'ampicillin',name:'Ampicillin (± Sulbactam)',tag:'Aminopenicillin (IV)',
       covers:'Like amoxicillin (Strep, Enterococcus, LISTERIA). Sulbactam (Unasyn) adds MSSA, anaerobes, beta-lactamase H. flu, and notably Acinetobacter.',
       gaps:'Plain ampicillin: no beta-lactamase producers, no Pseudomonas, no MRSA.',
-      uses:[{u:'LISTERIA coverage — ADD to ceftriaxone in meningitis for elderly/immunocompromised/pregnant',d:'2 g IV q4h (added to ceftriaxone for Listeria meningitis)'},{u:'Enterococcal infections (UTI, endocarditis — often with ceftriaxone or gentamicin synergy)',d:'endocarditis 2 g IV q4h ×4–6 wk (+ ceftriaxone or gentamicin)'},{u:'Unasyn: intra-abdominal, aspiration, bite wounds, Acinetobacter',d:'ampicillin-sulbactam (Unasyn) 3 g IV q6h'}],
+      uses:[{u:'LISTERIA coverage — ADD to ceftriaxone in meningitis for elderly/immunocompromised/pregnant',d:'2 g IV q4h (added to ceftriaxone for Listeria meningitis)',cite:'IDSA Bacterial Meningitis · 2004'},{u:'Enterococcal infections (UTI, endocarditis — often with ceftriaxone or gentamicin synergy)',d:'endocarditis 2 g IV q4h ×4–6 wk (+ ceftriaxone or gentamicin)',cite:'AHA Endocarditis · 2015'},{u:'Unasyn: intra-abdominal, aspiration, bite wounds, Acinetobacter',d:'ampicillin-sulbactam (Unasyn) 3 g IV q6h',cite:'IDSA/SIS Intra-abdominal · 2010'}],
       mech:'IV aminopenicillin; sulbactam is the beta-lactamase inhibitor.',
       dosing:'Ampicillin IV q4–6h; Unasyn (amp-sulbactam) IV q6h.',
       adverse:'Rash, hypersensitivity, GI upset.',
@@ -4330,7 +4331,7 @@ var DRUG_DATA={
     {id:'antistaph',name:'Nafcillin / Oxacillin / Dicloxacillin',tag:'Antistaphylococcal penicillin',
       covers:'MSSA (drug of choice) and Strep.',
       gaps:'NO MRSA, no enterococcus, no gram-negatives.',
-      uses:[{u:'MSSA bacteremia / endocarditis / osteomyelitis (definitive therapy once MSSA confirmed)',d:'nafcillin/oxacillin 2 g IV q4h ×4–6 wk'},{u:'MSSA skin/soft tissue',d:'nafcillin/oxacillin 1–2 g IV q4–6h'},{u:'Dicloxacillin PO for mild MSSA cellulitis',d:'dicloxacillin 500 mg PO QID on empty stomach'}],
+      uses:[{u:'MSSA bacteremia / endocarditis / osteomyelitis (definitive therapy once MSSA confirmed)',d:'nafcillin/oxacillin 2 g IV q4h ×4–6 wk',cite:'AHA Endocarditis · 2015'},{u:'MSSA skin/soft tissue',d:'nafcillin/oxacillin 1–2 g IV q4–6h',cite:'IDSA SSTI · 2014'},{u:'Dicloxacillin PO for mild MSSA cellulitis',d:'dicloxacillin 500 mg PO QID on empty stomach',cite:'IDSA SSTI · 2014'}],
       mech:'Beta-lactamase-stable penicillins that resist staphylococcal penicillinase.',
       dosing:'Nafcillin/oxacillin IV q4h; dicloxacillin PO QID on an empty stomach.',
       adverse:'Interstitial nephritis (nafcillin), phlebitis, neutropenia with prolonged use, hepatotoxicity (oxacillin).',
@@ -4338,7 +4339,7 @@ var DRUG_DATA={
     {id:'zosyn',name:'Piperacillin-Tazobactam (Zosyn)',tag:'Antipseudomonal penicillin + BLI',
       covers:'Broad: gram-positives (not MRSA), gram-negatives INCLUDING Pseudomonas, anaerobes, Enterococcus.',
       gaps:'No MRSA, no atypicals, not reliable for ESBL, variable Acinetobacter.',
-      uses:[{u:'Empiric sepsis and HAP/VAP (add an anti-MRSA agent if needed)',d:'4.5 g IV q6–8h, extended 4 h infusion'},{u:'Intra-abdominal infections and aspiration',d:'4.5 g IV q8h (covers anaerobes — no metronidazole needed)'},{u:'Neutropenic fever; severe diabetic foot; complicated UTI with Pseudomonas risk',d:'4.5 g IV q6–8h'}],
+      uses:[{u:'Empiric sepsis and HAP/VAP (add an anti-MRSA agent if needed)',d:'4.5 g IV q6–8h, extended 4 h infusion',cite:'Surviving Sepsis Campaign · 2021'},{u:'Intra-abdominal infections and aspiration',d:'4.5 g IV q8h (covers anaerobes — no metronidazole needed)',cite:'IDSA/SIS Intra-abdominal · 2010'},{u:'Neutropenic fever; severe diabetic foot; complicated UTI with Pseudomonas risk',d:'4.5 g IV q6–8h',cite:'IDSA Febrile Neutropenia · 2010'}],
       mech:'Antipseudomonal penicillin + tazobactam (beta-lactamase inhibitor); extended-infusion improves pharmacokinetics.',
       dosing:'4.5 g IV q6–8h; extended (4h) infusion preferred for serious infection.',
       adverse:'Cytopenias, sodium load/hypokalemia, and an AKI signal when combined with vancomycin.',
@@ -4348,7 +4349,7 @@ var DRUG_DATA={
     {id:'cefazolin',name:'Cefazolin (1st gen)',tag:'1st-gen cephalosporin',
       covers:'MSSA, Strep, and some gram-negatives ("PEK": Proteus, E. coli, Klebsiella).',
       gaps:'No MRSA, enterococcus, Pseudomonas, anaerobes, or atypicals. Poor CNS penetration.',
-      uses:[{u:'MSSA bacteremia/endocarditis (preferred — well tolerated, q8h)',d:'2 g IV q8h ×4–6 wk (endocarditis)'},{u:'Surgical prophylaxis (the most common agent)',d:'2 g IV within 60 min of incision (3 g if ≥120 kg); redose q4h'},{u:'MSSA/strep skin and soft tissue (IV)',d:'1–2 g IV q8h'}],
+      uses:[{u:'MSSA bacteremia/endocarditis (preferred — well tolerated, q8h)',d:'2 g IV q8h ×4–6 wk (endocarditis)',cite:'AHA Endocarditis · 2015'},{u:'Surgical prophylaxis (the most common agent)',d:'2 g IV within 60 min of incision (3 g if ≥120 kg); redose q4h',cite:'ASHP Surgical Prophylaxis · 2013'},{u:'MSSA/strep skin and soft tissue (IV)',d:'1–2 g IV q8h',cite:'IDSA SSTI · 2014'}],
       mech:'1st-gen cephalosporin; bactericidal cell-wall inhibitor.',
       dosing:'1–2 g IV q8h.',
       adverse:'Generally very well tolerated; low penicillin cross-reactivity.',
@@ -4356,7 +4357,7 @@ var DRUG_DATA={
     {id:'cephalexin',name:'Cephalexin (Keflex, 1st gen PO)',tag:'1st-gen cephalosporin (oral)',
       covers:'MSSA, Strep, PEK gram-negatives.',
       gaps:'No MRSA, Pseudomonas, or enterococcus.',
-      uses:[{u:'Outpatient non-purulent cellulitis (strep + MSSA)',d:'500 mg PO QID ×5–7 days'},{u:'Simple UTI, strep pharyngitis',d:'500 mg PO BID (UTI ×5–7 d; pharyngitis ×10 d)'}],
+      uses:[{u:'Outpatient non-purulent cellulitis (strep + MSSA)',d:'500 mg PO QID ×5–7 days',cite:'IDSA SSTI · 2014'},{u:'Simple UTI, strep pharyngitis',d:'500 mg PO BID (UTI ×5–7 d; pharyngitis ×10 d)',cite:'IDSA Uncomplicated UTI · 2011'}],
       mech:'Oral 1st-gen cephalosporin.',
       dosing:'500 mg PO QID.',
       adverse:'GI upset, rash, hypersensitivity.',
@@ -4364,7 +4365,7 @@ var DRUG_DATA={
     {id:'cef2',name:'Cefuroxime / Cefoxitin / Cefotetan (2nd gen)',tag:'2nd-gen cephalosporin',
       covers:'More gram-negative than 1st gen; cefuroxime covers respiratory H. flu. CEPHAMYCINS (cefoxitin/cefotetan) cover ANAEROBES (Bacteroides).',
       gaps:'No Pseudomonas, MRSA, or enterococcus.',
-      uses:[{u:'Cefuroxime: sinusitis, outpatient respiratory infections',d:'cefuroxime 500 mg PO BID'},{u:'Cefoxitin/cefotetan: surgical prophylaxis (colorectal/GYN), PID, mild intra-abdominal (anaerobic coverage)',d:'cefoxitin 2 g IV q6–8h or cefotetan 2 g IV q12h'}],
+      uses:[{u:'Cefuroxime: sinusitis, outpatient respiratory infections',d:'cefuroxime 500 mg PO BID',cite:'IDSA Sinusitis · 2012'},{u:'Cefoxitin/cefotetan: surgical prophylaxis (colorectal/GYN), PID, mild intra-abdominal (anaerobic coverage)',d:'cefoxitin 2 g IV q6–8h or cefotetan 2 g IV q12h',cite:'ASHP Surgical Prophylaxis · 2013'}],
       mech:'2nd-gen cephalosporins; cephamycins add anaerobic coverage.',
       dosing:'Agent-dependent (IV/PO).',
       adverse:'Cefotetan has an NMTT side chain → disulfiram-like reaction with alcohol and a bleeding/hypoprothrombinemia risk.',
@@ -4372,7 +4373,7 @@ var DRUG_DATA={
     {id:'ceftriaxone',name:'Ceftriaxone (3rd gen)',tag:'3rd-gen cephalosporin',
       covers:'Strep (incl. pneumococcus), H. flu, Moraxella, most Enterobacterales (E. coli, Klebsiella, Proteus), Neisseria (gonorrhea/meningitis). Good CNS penetration.',
       gaps:'NO Pseudomonas, enterococcus, Listeria, MRSA, below-diaphragm anaerobes, or atypicals.',
-      uses:[{u:'Inpatient CAP (with azithromycin)',d:'1–2 g IV q24h ×5 days'},{u:'Pyelonephritis / complicated UTI; SBP',d:'1 g IV q24h (SBP 2 g q24h)'},{u:'Bacterial meningitis (empiric, + vancomycin ± ampicillin)',d:'2 g IV q12h'},{u:'Gonorrhea (1 g IM), strep cellulitis, strep endocarditis',d:'gonorrhea 500 mg IM ×1 (1 g if ≥150 kg)'}],
+      uses:[{u:'Inpatient CAP (with azithromycin)',d:'1–2 g IV q24h ×5 days',cite:'IDSA/ATS CAP · 2019'},{u:'Pyelonephritis / complicated UTI; SBP',d:'1 g IV q24h (SBP 2 g q24h)',cite:'AASLD SBP · 2021'},{u:'Bacterial meningitis (empiric, + vancomycin ± ampicillin)',d:'2 g IV q12h',cite:'IDSA Bacterial Meningitis · 2004'},{u:'Gonorrhea (1 g IM), strep cellulitis, strep endocarditis',d:'gonorrhea 500 mg IM ×1 (1 g if ≥150 kg)',cite:'CDC Gonorrhea Treatment · 2020'}],
       mech:'3rd-gen cephalosporin; long half-life (once daily); dual biliary + renal elimination (no renal dose adjustment).',
       dosing:'1–2 g IV/IM q24h (2 g q12h for meningitis).',
       adverse:'Biliary sludging/pseudolithiasis, C. diff risk; avoid in neonates (kernicterus; do not co-administer with calcium).',
@@ -4380,7 +4381,7 @@ var DRUG_DATA={
     {id:'ceftazidime',name:'Ceftazidime (3rd gen, antipseudomonal)',tag:'3rd-gen cephalosporin',
       covers:'Gram-negatives INCLUDING Pseudomonas.',
       gaps:'Weak gram-positive (do not use alone for staph/strep); no anaerobes, MRSA, or enterococcus.',
-      uses:[{u:'Pseudomonal infections',d:'2 g IV q8h'},{u:'Febrile neutropenia (antipseudomonal beta-lactam)',d:'2 g IV q8h'},{u:'Ceftazidime-avibactam for MDR/ESBL/CRE organisms',d:'ceftazidime-avibactam 2.5 g IV q8h (3 h infusion) for MDR/CRE'}],
+      uses:[{u:'Pseudomonal infections',d:'2 g IV q8h',cite:'Surviving Sepsis Campaign · 2021'},{u:'Febrile neutropenia (antipseudomonal beta-lactam)',d:'2 g IV q8h',cite:'IDSA Febrile Neutropenia · 2010'},{u:'Ceftazidime-avibactam for MDR/ESBL/CRE organisms',d:'ceftazidime-avibactam 2.5 g IV q8h (3 h infusion) for MDR/CRE',cite:'IDSA AMR/CRE Guidance · 2023'}],
       mech:'3rd-gen with antipseudomonal activity but weak gram-positive coverage.',
       dosing:'2 g IV q8h.',
       adverse:'Hypersensitivity; selects for resistance.',
@@ -4388,7 +4389,7 @@ var DRUG_DATA={
     {id:'cefepime',name:'Cefepime (4th gen)',tag:'4th-gen cephalosporin',
       covers:'Broad gram-negative INCLUDING Pseudomonas, PLUS good gram-positive (strep, MSSA). Stable to AmpC beta-lactamases.',
       gaps:'No MRSA, enterococcus, anaerobes, or atypicals; not reliable for ESBL.',
-      uses:[{u:'HAP/VAP and febrile neutropenia',d:'2 g IV q8h'},{u:'Sepsis with Pseudomonas risk; meningitis (good CNS penetration)',d:'2 g IV q8h (meningitis 2 g q8h)'},{u:'AmpC producers (Enterobacter, Serratia, Citrobacter)',d:'2 g IV q8h (stable to AmpC)'}],
+      uses:[{u:'HAP/VAP and febrile neutropenia',d:'2 g IV q8h',cite:'IDSA HAP/VAP · 2016'},{u:'Sepsis with Pseudomonas risk; meningitis (good CNS penetration)',d:'2 g IV q8h (meningitis 2 g q8h)',cite:'Surviving Sepsis Campaign · 2021'},{u:'AmpC producers (Enterobacter, Serratia, Citrobacter)',d:'2 g IV q8h (stable to AmpC)',cite:'IDSA AMR Guidance · 2023'}],
       mech:'4th-gen — combines antipseudomonal and gram-positive coverage; stable against AmpC.',
       dosing:'2 g IV q8h for serious/CNS infection; renally adjust.',
       adverse:'CEFEPIME NEUROTOXICITY — encephalopathy, myoclonus, non-convulsive status — especially with renal impairment/under-adjusted dosing.',
@@ -4397,7 +4398,7 @@ var DRUG_DATA={
     {id:'ceftaroline',name:'Ceftaroline (5th gen)',tag:'Advanced cephalosporin (anti-MRSA)',
       covers:'Unique cephalosporin with MRSA activity, plus strep and typical gram-negatives.',
       gaps:'No Pseudomonas, anaerobes, or enterococcus (except some E. faecalis).',
-      uses:[{u:'MRSA pneumonia/SSTI when alternatives are limited',d:'600 mg IV q12h'},{u:'MRSA bacteremia salvage (off-label)',d:'600 mg IV q8h (salvage, off-label)'}],
+      uses:[{u:'MRSA pneumonia/SSTI when alternatives are limited',d:'600 mg IV q12h',cite:'IDSA MRSA · 2011'},{u:'MRSA bacteremia salvage (off-label)',d:'600 mg IV q8h (salvage, off-label)'}],
       mech:'5th-gen cephalosporin that binds PBP2a, giving it MRSA activity.',
       dosing:'600 mg IV q12h.',
       adverse:'Generally well tolerated; rash, eosinophilia.',
@@ -4407,7 +4408,7 @@ var DRUG_DATA={
     {id:'meropenem',name:'Meropenem / Imipenem',tag:'Carbapenem',
       covers:'Very broad — gram-positives (not MRSA/E. faecium), gram-negatives incl. Pseudomonas and ESBL, and anaerobes.',
       gaps:'No MRSA, atypicals, VRE/E. faecium, or Stenotrophomonas; not carbapenem-resistant organisms (CRE).',
-      uses:[{u:'ESBL infections (DRUG OF CHOICE)',d:'meropenem 1 g IV q8h'},{u:'Severe polymicrobial / intra-abdominal sepsis',d:'1 g IV q8h'},{u:'Empiric coverage in the critically ill with MDR risk; severe febrile neutropenia',d:'1 g IV q8h (2 g q8h, 3 h infusion, for CNS/MDR)'}],
+      uses:[{u:'ESBL infections (DRUG OF CHOICE)',d:'meropenem 1 g IV q8h',cite:'IDSA AMR Guidance · 2023'},{u:'Severe polymicrobial / intra-abdominal sepsis',d:'1 g IV q8h',cite:'IDSA/SIS Intra-abdominal · 2010'},{u:'Empiric coverage in the critically ill with MDR risk; severe febrile neutropenia',d:'1 g IV q8h (2 g q8h, 3 h infusion, for CNS/MDR)',cite:'IDSA Febrile Neutropenia · 2010'}],
       mech:'Broadest beta-lactam; very stable to most beta-lactamases (but not carbapenemases).',
       dosing:'Meropenem 1 g IV q8h (2 g q8h, 3h infusion, for CNS/MDR).',
       adverse:'Seizures (imipenem > meropenem, esp. in renal failure / high dose / CNS lesions); C. diff.',
@@ -4415,7 +4416,7 @@ var DRUG_DATA={
     {id:'ertapenem',name:'Ertapenem',tag:'Carbapenem (once-daily)',
       covers:'Gram-positives (not MRSA/enterococcus), gram-negatives incl. ESBL, and anaerobes.',
       gaps:'NO Pseudomonas, NO Acinetobacter, no MRSA/enterococcus.',
-      uses:[{u:'ESBL UTI / pyelonephritis (convenient once-daily, no Pseudomonas needed)',d:'1 g IV/IM q24h'},{u:'Complicated intra-abdominal / skin infections',d:'1 g IV q24h'},{u:'Outpatient parenteral therapy (OPAT)',d:'1 g IV/IM q24h (OPAT-friendly)'}],
+      uses:[{u:'ESBL UTI / pyelonephritis (convenient once-daily, no Pseudomonas needed)',d:'1 g IV/IM q24h',cite:'IDSA AMR Guidance · 2023'},{u:'Complicated intra-abdominal / skin infections',d:'1 g IV q24h',cite:'IDSA/SIS Intra-abdominal · 2010'},{u:'Outpatient parenteral therapy (OPAT)',d:'1 g IV/IM q24h (OPAT-friendly)',cite:'IDSA OPAT · 2018'}],
       mech:'Long-half-life carbapenem dosed once daily; the gap vs meropenem is Pseudomonas/Acinetobacter.',
       dosing:'1 g IV/IM q24h.',
       adverse:'Seizures (lower risk), C. diff.',
@@ -4423,7 +4424,7 @@ var DRUG_DATA={
     {id:'aztreonam',name:'Aztreonam (monobactam)',tag:'Monobactam',
       covers:'Gram-negatives ONLY, INCLUDING Pseudomonas.',
       gaps:'NO gram-positives and NO anaerobes.',
-      uses:[{u:'Gram-negative / Pseudomonas coverage in SEVERE penicillin/cephalosporin allergy',d:'2 g IV q8h'},{u:'Pair with a gram-positive agent when broader coverage is needed',d:'2 g IV q8h + a gram-positive agent'}],
+      uses:[{u:'Gram-negative / Pseudomonas coverage in SEVERE penicillin/cephalosporin allergy',d:'2 g IV q8h',cite:'IDSA HAP/VAP · 2016'},{u:'Pair with a gram-positive agent when broader coverage is needed',d:'2 g IV q8h + a gram-positive agent'}],
       mech:'Monobactam — binds PBP3 of gram-negatives only; essentially no cross-reactivity in beta-lactam allergy (shares a side chain with ceftazidime).',
       dosing:'2 g IV q8h.',
       adverse:'Very well tolerated.',
@@ -4433,7 +4434,7 @@ var DRUG_DATA={
     {id:'cipro',name:'Ciprofloxacin',tag:'Fluoroquinolone',
       covers:'Gram-negatives incl. Pseudomonas; atypicals. WEAK gram-positive (not reliable for strep/pneumococcus).',
       gaps:'Poor pneumococcus, no anaerobes, no MRSA.',
-      uses:[{u:'Complicated UTI / pyelonephritis / prostatitis',d:'500 mg PO BID / 400 mg IV q12h (prostatitis ×4–6 wk)'},{u:'Pseudomonal infections (an oral option)',d:'750 mg PO BID / 400 mg IV q8h'},{u:'Intra-abdominal/GI (with metronidazole); traveler\'s diarrhea',d:'500 mg PO BID + metronidazole'}],
+      uses:[{u:'Complicated UTI / pyelonephritis / prostatitis',d:'500 mg PO BID / 400 mg IV q12h (prostatitis ×4–6 wk)',cite:'IDSA Uncomplicated UTI · 2011'},{u:'Pseudomonal infections (an oral option)',d:'750 mg PO BID / 400 mg IV q8h'},{u:'Intra-abdominal/GI (with metronidazole); traveler\'s diarrhea',d:'500 mg PO BID + metronidazole',cite:'IDSA/SIS Intra-abdominal · 2010'}],
       mech:'Inhibits DNA gyrase/topoisomerase; excellent oral bioavailability and tissue penetration.',
       dosing:'500 mg PO BID / 400 mg IV q12h.',
       adverse:'QTc prolongation, tendinopathy/rupture, aortic aneurysm/dissection, C. diff, peripheral neuropathy, dysglycemia, CNS effects (FDA black-box warnings).',
@@ -4441,7 +4442,7 @@ var DRUG_DATA={
     {id:'resp_fq',name:'Levofloxacin / Moxifloxacin',tag:'Respiratory fluoroquinolone',
       covers:'Adds strong pneumococcus + atypicals to FQ gram-negative coverage. Levofloxacin covers Pseudomonas; moxifloxacin adds anaerobes.',
       gaps:'Moxifloxacin: NO Pseudomonas and poor urinary levels (not for UTI).',
-      uses:[{u:'CAP — respiratory FQ monotherapy (esp. with a beta-lactam allergy)',d:'levofloxacin 750 mg PO/IV q24h ×5 days'},{u:'Levofloxacin: pyelonephritis / Pseudomonas',d:'levofloxacin 750 mg q24h'},{u:'Moxifloxacin: intra-abdominal (anaerobes)',d:'moxifloxacin 400 mg q24h (no renal adjust; not for UTI)'}],
+      uses:[{u:'CAP — respiratory FQ monotherapy (esp. with a beta-lactam allergy)',d:'levofloxacin 750 mg PO/IV q24h ×5 days',cite:'IDSA/ATS CAP · 2019'},{u:'Levofloxacin: pyelonephritis / Pseudomonas',d:'levofloxacin 750 mg q24h',cite:'IDSA UTI · 2011'},{u:'Moxifloxacin: intra-abdominal (anaerobes)',d:'moxifloxacin 400 mg q24h (no renal adjust; not for UTI)',cite:'IDSA/SIS Intra-abdominal · 2010'}],
       mech:'Respiratory fluoroquinolones with enhanced gram-positive/atypical coverage.',
       dosing:'Levofloxacin 750 mg q24h; moxifloxacin 400 mg q24h.',
       adverse:'Same class warnings (QTc — worst with moxifloxacin; tendon, aorta, dysglycemia, neuropathy, C. diff).',
@@ -4451,7 +4452,7 @@ var DRUG_DATA={
     {id:'azithro',name:'Azithromycin (± Clarithro/Erythro)',tag:'Macrolide',
       covers:'Atypicals (Mycoplasma, Chlamydia, Legionella), some Strep/H. flu/Moraxella, and MAC.',
       gaps:'Rising pneumococcal resistance; no reliable enteric gram-negative or Pseudomonas coverage.',
-      uses:[{u:'CAP — atypical coverage (combined with ceftriaxone inpatient)',d:'500 mg IV/PO q24h'},{u:'Chlamydia (1 g PO x1), pertussis',d:'chlamydia 1 g PO ×1; pertussis 500 mg ×1 → 250 mg ×4 d'},{u:'COPD exacerbation; MAC prophylaxis/treatment (in combination)',d:'MAC ppx 1200 mg PO weekly'}],
+      uses:[{u:'CAP — atypical coverage (combined with ceftriaxone inpatient)',d:'500 mg IV/PO q24h',cite:'IDSA/ATS CAP · 2019'},{u:'Chlamydia (1 g PO x1), pertussis',d:'chlamydia 1 g PO ×1; pertussis 500 mg ×1 → 250 mg ×4 d',cite:'CDC STI Guidelines · 2021'},{u:'COPD exacerbation; MAC prophylaxis/treatment (in combination)',d:'MAC ppx 1200 mg PO weekly',cite:'ATS/IDSA NTM · 2020'}],
       mech:'Inhibits the 50S ribosome; also has anti-inflammatory/immunomodulatory effects. Long half-life (azithromycin).',
       dosing:'Azithromycin 500 mg day 1 → 250 mg daily x4; azithromycin has minimal CYP interactions (unlike clarithro/erythro).',
       adverse:'QTc prolongation, GI upset (erythromycin is a motilin agonist — prokinetic), hepatotoxicity.',
@@ -4461,7 +4462,7 @@ var DRUG_DATA={
     {id:'doxy',name:'Doxycycline (± Minocycline)',tag:'Tetracycline',
       covers:'Atypicals, CA-MRSA (skin), tick-borne illness (Rickettsia, Ehrlichia, Anaplasma, Lyme), Vibrio, Pasteurella, respiratory pathogens, syphilis (alternative).',
       gaps:'Variable enteric gram-negatives, no Pseudomonas; not for serious MRSA bacteremia.',
-      uses:[{u:'CA-MRSA skin/soft tissue (PO)',d:'100 mg PO BID ×5–7 days'},{u:'Outpatient CAP (atypical coverage)',d:'100 mg PO BID'},{u:'TICK-BORNE illness — give empirically for suspected RMSF',d:'100 mg PO/IV BID — start empirically, do NOT wait for confirmation'},{u:'Chlamydia, PID (adjunct), COPD, acne',d:'chlamydia 100 mg PO BID ×7 days'}],
+      uses:[{u:'CA-MRSA skin/soft tissue (PO)',d:'100 mg PO BID ×5–7 days',cite:'IDSA MRSA · 2011'},{u:'Outpatient CAP (atypical coverage)',d:'100 mg PO BID',cite:'IDSA/ATS CAP · 2019'},{u:'TICK-BORNE illness — give empirically for suspected RMSF',d:'100 mg PO/IV BID — start empirically, do NOT wait for confirmation',cite:'CDC RMSF · 2016'},{u:'Chlamydia, PID (adjunct), COPD, acne',d:'chlamydia 100 mg PO BID ×7 days',cite:'CDC STI Guidelines · 2021'}],
       mech:'Inhibits the 30S ribosome; ~93% oral bioavailability (PO ≈ IV).',
       dosing:'100 mg PO BID.',
       adverse:'Photosensitivity, pill esophagitis (take upright with water), GI upset; historically teeth staining (but still used for RMSF at any age).',
@@ -4471,7 +4472,7 @@ var DRUG_DATA={
     {id:'gent',name:'Gentamicin / Tobramycin / Amikacin',tag:'Aminoglycoside',
       covers:'Aerobic gram-negatives incl. Pseudomonas; SYNERGY for gram-positive endocarditis (enterococcus, staph). Amikacin for resistant gram-negatives.',
       gaps:'NO anaerobes (uptake needs oxygen), poor activity in acidic/abscess environments, no reliable gram-positive monotherapy.',
-      uses:[{u:'Synergy in enterococcal/staph endocarditis (low-dose)',d:'3 mg/kg/day IV divided q8h (synergy dosing), low target troughs'},{u:'Gram-negative / Pseudomonas infections (often as an adjunct)',d:'extended-interval 5–7 mg/kg IV q24h'}],
+      uses:[{u:'Synergy in enterococcal/staph endocarditis (low-dose)',d:'3 mg/kg/day IV divided q8h (synergy dosing), low target troughs',cite:'AHA Endocarditis · 2015'},{u:'Gram-negative / Pseudomonas infections (often as an adjunct)',d:'extended-interval 5–7 mg/kg IV q24h',cite:'Surviving Sepsis Campaign · 2021'}],
       mech:'Inhibits the 30S ribosome; concentration-dependent killing with a post-antibiotic effect. Requires oxygen for uptake (no anaerobic activity).',
       dosing:'Extended-interval (once-daily) dosing for most infections; low-dose q8h for synergy.',
       adverse:'NEPHROTOXICITY (usually reversible ATN) and OTOTOXICITY (cochlear/vestibular, often irreversible); neuromuscular blockade.',
@@ -4482,7 +4483,7 @@ var DRUG_DATA={
     {id:'vanc',name:'Vancomycin',tag:'Glycopeptide',
       covers:'MRSA, MSSA, Strep, Enterococcus (not VRE), and C. diff (ORAL, for colitis).',
       gaps:'NO gram-negatives or atypicals; IV vanc does NOT treat C. diff (needs ORAL); inferior to beta-lactams for MSSA.',
-      uses:[{u:'MRSA bacteremia/endocarditis/pneumonia/SSTI',d:'15–20 mg/kg IV q8–12h, AUC-guided (load 25–30 mg/kg if severe)'},{u:'Empiric gram-positive coverage in sepsis/meningitis',d:'15–20 mg/kg IV q8–12h'},{u:'ORAL vancomycin for C. diff colitis (it is not absorbed)',d:'PO 125 mg QID ×10 d (fulminant 500 mg QID)'}],
+      uses:[{u:'MRSA bacteremia/endocarditis/pneumonia/SSTI',d:'15–20 mg/kg IV q8–12h, AUC-guided (load 25–30 mg/kg if severe)',cite:'Vancomycin AUC (ASHP/IDSA/SIDP) · 2020'},{u:'Empiric gram-positive coverage in sepsis/meningitis',d:'15–20 mg/kg IV q8–12h',cite:'IDSA Bacterial Meningitis · 2004'},{u:'ORAL vancomycin for C. diff colitis (it is not absorbed)',d:'PO 125 mg QID ×10 d (fulminant 500 mg QID)',cite:'ACG C. difficile · 2021'}],
       mech:'Glycopeptide — binds D-ala-D-ala to block cell-wall synthesis. Slowly bactericidal.',
       dosing:'IV with AUC-guided dosing (target AUC 400–600). Oral only for C. diff.',
       adverse:'Nephrotoxicity (esp. with Zosyn), infusion reaction ("red man"/flushing — slow the infusion), DRESS, rare ototoxicity.',
@@ -4491,7 +4492,7 @@ var DRUG_DATA={
     {id:'linezolid',name:'Linezolid',tag:'Oxazolidinone',
       covers:'MRSA, VRE, Strep — all resistant gram-positives. Good lung penetration.',
       gaps:'No gram-negatives; bacteriostatic (caution in endocarditis/bacteremia).',
-      uses:[{u:'VRE infections',d:'600 mg IV/PO q12h'},{u:'MRSA pneumonia/SSTI — a 100% oral option',d:'600 mg PO/IV q12h'},{u:'When vancomycin fails or renal-sparing is needed',d:'600 mg q12h (no renal adjust; limit ≤14 d — cytopenias)'}],
+      uses:[{u:'VRE infections',d:'600 mg IV/PO q12h',cite:'IDSA MRSA · 2011'},{u:'MRSA pneumonia/SSTI — a 100% oral option',d:'600 mg PO/IV q12h',cite:'IDSA HAP/VAP · 2016'},{u:'When vancomycin fails or renal-sparing is needed',d:'600 mg q12h (no renal adjust; limit ≤14 d — cytopenias)',cite:'IDSA MRSA · 2011'}],
       mech:'Oxazolidinone — inhibits 50S initiation. Bacteriostatic; 100% oral bioavailability.',
       dosing:'600 mg IV/PO q12h.',
       adverse:'Myelosuppression (thrombocytopenia, esp. >2 weeks), serotonin syndrome (weak MAOI — with SSRIs/SNRIs), peripheral/optic neuropathy (prolonged), lactic acidosis.',
@@ -4500,7 +4501,7 @@ var DRUG_DATA={
     {id:'dapto',name:'Daptomycin',tag:'Lipopeptide',
       covers:'MRSA, VRE, and resistant gram-positives. Bactericidal.',
       gaps:'INACTIVATED by surfactant → CANNOT be used for pneumonia. No gram-negatives.',
-      uses:[{u:'MRSA bacteremia and right-sided endocarditis',d:'8–10 mg/kg IV q24h'},{u:'VRE bacteremia',d:'8–12 mg/kg IV q24h'},{u:'MRSA SSTI when vancomycin is unsuitable',d:'4–6 mg/kg IV q24h (NOT for pneumonia — surfactant inactivates it)'}],
+      uses:[{u:'MRSA bacteremia and right-sided endocarditis',d:'8–10 mg/kg IV q24h',cite:'AHA Endocarditis · 2015'},{u:'VRE bacteremia',d:'8–12 mg/kg IV q24h',cite:'AHA Endocarditis · 2015'},{u:'MRSA SSTI when vancomycin is unsuitable',d:'4–6 mg/kg IV q24h (NOT for pneumonia — surfactant inactivates it)',cite:'IDSA SSTI · 2014'}],
       mech:'Lipopeptide — disrupts the cell membrane; concentration-dependent bactericidal.',
       dosing:'IV once daily (weight-based).',
       adverse:'MYOPATHY / rhabdomyolysis; rare eosinophilic pneumonia.',
@@ -4509,7 +4510,7 @@ var DRUG_DATA={
     {id:'clinda',name:'Clindamycin',tag:'Lincosamide',
       covers:'Gram-positives (incl. CA-MRSA), anaerobes ABOVE the diaphragm, with an antitoxin effect.',
       gaps:'No gram-negatives or enterococcus; rising MRSA/anaerobe resistance.',
-      uses:[{u:'CA-MRSA SSTI (a PO option)',d:'300–450 mg PO TID/QID'},{u:'TOXIN suppression in necrotizing fasciitis / toxic shock (added to a beta-lactam)',d:'900 mg IV q8h (anti-toxin — add to a beta-lactam)'},{u:'Aspiration / oral anaerobes; penicillin-allergic strep',d:'600–900 mg IV q8h'}],
+      uses:[{u:'CA-MRSA SSTI (a PO option)',d:'300–450 mg PO TID/QID',cite:'IDSA MRSA · 2011'},{u:'TOXIN suppression in necrotizing fasciitis / toxic shock (added to a beta-lactam)',d:'900 mg IV q8h (anti-toxin — add to a beta-lactam)',cite:'IDSA SSTI (nec fasc) · 2014'},{u:'Aspiration / oral anaerobes; penicillin-allergic strep',d:'600–900 mg IV q8h',cite:'IDSA SSTI · 2014'}],
       mech:'Inhibits the 50S ribosome and suppresses toxin production.',
       dosing:'300–450 mg PO TID/QID; 600–900 mg IV q8h.',
       adverse:'The HIGHEST C. diff risk among common antibiotics; diarrhea, rash.',
@@ -4517,7 +4518,7 @@ var DRUG_DATA={
     {id:'bactrim',name:'TMP-SMX (Bactrim)',tag:'Folate antagonist',
       covers:'CA-MRSA, many Enterobacterales, Stenotrophomonas, Nocardia, PJP (Pneumocystis), Listeria (alternative).',
       gaps:'No Pseudomonas; NOT reliable for Group A strep (don\'t use alone for non-purulent cellulitis); no anaerobes.',
-      uses:[{u:'CA-MRSA SSTI (PO)',d:'1–2 DS tabs PO BID ×5–7 d'},{u:'PJP (Pneumocystis) treatment AND prophylaxis',d:'treatment 15–20 mg/kg/day (TMP) IV/PO divided q6–8h ×21 d; ppx 1 DS daily'},{u:'UTI (if susceptible); Stenotrophomonas; Nocardia',d:'UTI 1 DS PO BID ×3–5 d'}],
+      uses:[{u:'CA-MRSA SSTI (PO)',d:'1–2 DS tabs PO BID ×5–7 d',cite:'IDSA MRSA · 2011'},{u:'PJP (Pneumocystis) treatment AND prophylaxis',d:'treatment 15–20 mg/kg/day (TMP) IV/PO divided q6–8h ×21 d; ppx 1 DS daily',cite:'NIH/CDC OI Guidelines (PJP) · 2023'},{u:'UTI (if susceptible); Stenotrophomonas; Nocardia',d:'UTI 1 DS PO BID ×3–5 d',cite:'IDSA UTI · 2011'}],
       mech:'Sequential blockade of folate synthesis (synergistic). Bactericidal.',
       dosing:'1 DS tab PO BID for UTI/SSTI; high-dose weight-based for PJP.',
       adverse:'Hyperkalemia, AKI / a benign Cr rise (blocks tubular secretion), rash/SJS, myelosuppression, photosensitivity; raises warfarin INR and raises K with ACEi/ARB.',
@@ -4527,7 +4528,7 @@ var DRUG_DATA={
     {id:'metro',name:'Metronidazole',tag:'Nitroimidazole',
       covers:'Anaerobes BELOW the diaphragm (Bacteroides), protozoa (Giardia, Trichomonas, Entamoeba), C. diff, H. pylori (combo), bacterial vaginosis.',
       gaps:'No aerobes; weak coverage of above-diaphragm anaerobes.',
-      uses:[{u:'Intra-abdominal infections (add to gram-negative coverage)',d:'500 mg IV/PO q8h'},{u:'C. diff (non-severe, when vanc/fidaxomicin unavailable)',d:'500 mg PO TID ×10 d'},{u:'Bacterial vaginosis, trichomoniasis, giardiasis, amebiasis; diverticulitis',d:'BV 500 mg PO BID ×7 d; trichomoniasis 2 g PO ×1'}],
+      uses:[{u:'Intra-abdominal infections (add to gram-negative coverage)',d:'500 mg IV/PO q8h',cite:'IDSA/SIS Intra-abdominal · 2010'},{u:'C. diff (non-severe, when vanc/fidaxomicin unavailable)',d:'500 mg PO TID ×10 d',cite:'ACG C. difficile · 2021'},{u:'Bacterial vaginosis, trichomoniasis, giardiasis, amebiasis; diverticulitis',d:'BV 500 mg PO BID ×7 d; trichomoniasis 2 g PO ×1',cite:'CDC STI Guidelines · 2021'}],
       mech:'Forms toxic radicals in anaerobes; excellent tissue and CNS penetration.',
       dosing:'500 mg PO/IV q8h.',
       adverse:'DISULFIRAM-like reaction with alcohol, metallic taste, peripheral neuropathy (prolonged), reversible encephalopathy/cerebellar signs.',
@@ -4535,7 +4536,7 @@ var DRUG_DATA={
     {id:'nitro',name:'Nitrofurantoin',tag:'Urinary agent',
       covers:'E. coli, S. saprophyticus, Enterococcus (incl. some VRE) — cystitis pathogens.',
       gaps:'Proteus/Klebsiella/Pseudomonas resistant; achieves NO tissue/blood levels — cystitis ONLY.',
-      uses:[{u:'Uncomplicated cystitis (first-line)',d:'100 mg PO BID ×5 days (macrocrystals)'},{u:'UTI prophylaxis',d:'50–100 mg PO qHS (avoid if CrCl <30)'}],
+      uses:[{u:'Uncomplicated cystitis (first-line)',d:'100 mg PO BID ×5 days (macrocrystals)',cite:'IDSA Uncomplicated UTI · 2011'},{u:'UTI prophylaxis',d:'50–100 mg PO qHS (avoid if CrCl <30)',cite:'AUA Recurrent UTI · 2019'}],
       mech:'Concentrated in the urine with multiple intracellular targets — a bladder-only therapy.',
       dosing:'100 mg PO BID x5 days (macrocrystals).',
       adverse:'Avoid if CrCl <30 (inadequate urinary levels + toxicity); pulmonary fibrosis (chronic use), hemolysis in G6PD, neuropathy.',
@@ -4543,7 +4544,7 @@ var DRUG_DATA={
     {id:'fosfo',name:'Fosfomycin',tag:'Urinary agent',
       covers:'E. coli (incl. many ESBL), Enterococcus (incl. VRE), some Klebsiella — cystitis.',
       gaps:'Cystitis only; not for upper-tract or tissue infection.',
-      uses:[{u:'Uncomplicated or MDR cystitis (a single oral dose)',d:'3 g PO ×1 dose'},{u:'An ESBL E. coli cystitis "escape" option',d:'3 g PO q48–72h ×1–3 doses'}],
+      uses:[{u:'Uncomplicated or MDR cystitis (a single oral dose)',d:'3 g PO ×1 dose',cite:'IDSA Uncomplicated UTI · 2011'},{u:'An ESBL E. coli cystitis "escape" option',d:'3 g PO q48–72h ×1–3 doses',cite:'IDSA AMR Guidance · 2023'}],
       mech:'Inhibits early cell-wall synthesis; concentrated in the urine.',
       dosing:'3 g PO x1 dose.',
       adverse:'GI upset; generally well tolerated.',
@@ -4553,7 +4554,7 @@ var DRUG_DATA={
     {id:'fluconazole',name:'Fluconazole',tag:'Azole',
       covers:'Most Candida albicans and Cryptococcus; good CNS and urinary penetration.',
       gaps:'NO molds (no Aspergillus); C. krusei is resistant and C. glabrata is often resistant.',
-      uses:[{u:'Candidemia step-down (susceptible Candida), thrush, esophageal/vaginal candidiasis',d:'800 mg (12 mg/kg) load → 400 mg daily; thrush 100–200 mg daily; vaginal 150 mg PO ×1'},{u:'Cryptococcal meningitis consolidation/maintenance',d:'400–800 mg daily (consolidation) → 200 mg daily (maintenance)'},{u:'Candiduria (good urinary levels)',d:'200–400 mg PO daily ×14 d'}],
+      uses:[{u:'Candidemia step-down (susceptible Candida), thrush, esophageal/vaginal candidiasis',d:'800 mg (12 mg/kg) load → 400 mg daily; thrush 100–200 mg daily; vaginal 150 mg PO ×1',cite:'IDSA Candidiasis · 2016'},{u:'Cryptococcal meningitis consolidation/maintenance',d:'400–800 mg daily (consolidation) → 200 mg daily (maintenance)',cite:'IDSA Cryptococcosis · 2010'},{u:'Candiduria (good urinary levels)',d:'200–400 mg PO daily ×14 d',cite:'IDSA Candidiasis · 2016'}],
       mech:'Inhibits ergosterol synthesis (a CYP enzyme); many drug interactions; QTc prolongation.',
       dosing:'PO/IV, ~90% oral bioavailability.',
       adverse:'QTc prolongation, hepatotoxicity, many CYP interactions (warfarin, etc.).',
@@ -4561,7 +4562,7 @@ var DRUG_DATA={
     {id:'echinocandin',name:'Echinocandins (Micafungin)',tag:'Echinocandin',
       covers:'Broad Candida INCLUDING azole-resistant (glabrata, krusei); some Aspergillus (not first-line).',
       gaps:'Poor CNS/urinary penetration (not for Candida meningitis/UTI); no Cryptococcus.',
-      uses:[{u:'First-line EMPIRIC therapy for candidemia / invasive candidiasis',d:'micafungin 100 mg IV q24h'},{u:'Febrile neutropenia with suspected fungal infection',d:'micafungin 100 mg IV q24h'}],
+      uses:[{u:'First-line EMPIRIC therapy for candidemia / invasive candidiasis',d:'micafungin 100 mg IV q24h',cite:'IDSA Candidiasis · 2016'},{u:'Febrile neutropenia with suspected fungal infection',d:'micafungin 100 mg IV q24h',cite:'IDSA Febrile Neutropenia · 2010'}],
       mech:'Inhibits beta-1,3-glucan synthase (fungal cell wall); few drug interactions.',
       dosing:'IV once daily.',
       adverse:'Very well tolerated; minimal interactions.',
@@ -4569,7 +4570,7 @@ var DRUG_DATA={
     {id:'voriconazole',name:'Voriconazole',tag:'Triazole',
       covers:'ASPERGILLUS (drug of choice), Candida, and some molds.',
       gaps:'No mucormycosis (use amphotericin or isavuconazole).',
-      uses:[{u:'Invasive aspergillosis (first-line)',d:'6 mg/kg IV q12h ×2 doses → 4 mg/kg q12h (TDM-guided)'},{u:'Mold infections in the immunocompromised',d:'4 mg/kg IV/PO q12h, check trough levels'}],
+      uses:[{u:'Invasive aspergillosis (first-line)',d:'6 mg/kg IV q12h ×2 doses → 4 mg/kg q12h (TDM-guided)',cite:'IDSA Aspergillosis · 2016'},{u:'Mold infections in the immunocompromised',d:'4 mg/kg IV/PO q12h, check trough levels',cite:'IDSA Aspergillosis · 2016'}],
       mech:'Triazole; CYP-metabolized (many interactions); needs therapeutic drug monitoring.',
       dosing:'IV/PO with level monitoring (TDM).',
       adverse:'Visual disturbances, hepatotoxicity, QTc, photosensitivity / long-term skin cancer, many CYP interactions.',
@@ -4577,7 +4578,7 @@ var DRUG_DATA={
     {id:'amphotericin',name:'Amphotericin B',tag:'Polyene',
       covers:'Broadest antifungal — Candida, Cryptococcus, molds INCLUDING mucormycosis, and endemic fungi.',
       gaps:'Toxicity-limited; true resistance is rare.',
-      uses:[{u:'Severe / CNS fungal infection (cryptococcal meningitis induction)',d:'liposomal 3–4 mg/kg IV daily (crypto induction + flucytosine ×2 wk)'},{u:'Mucormycosis',d:'liposomal 5–10 mg/kg IV daily + surgical debridement'},{u:'Refractory or severe invasive fungal disease',d:'liposomal 3–5 mg/kg IV daily'}],
+      uses:[{u:'Severe / CNS fungal infection (cryptococcal meningitis induction)',d:'liposomal 3–4 mg/kg IV daily (crypto induction + flucytosine ×2 wk)',cite:'IDSA Cryptococcosis · 2010'},{u:'Mucormycosis',d:'liposomal 5–10 mg/kg IV daily + surgical debridement',cite:'ECMM/MSGERC Mucormycosis · 2019'},{u:'Refractory or severe invasive fungal disease',d:'liposomal 3–5 mg/kg IV daily',cite:'IDSA Aspergillosis · 2016'}],
       mech:'Binds ergosterol to form membrane pores; the liposomal formulation is less nephrotoxic.',
       dosing:'IV (liposomal preferred to reduce toxicity).',
       adverse:'NEPHROTOXICITY, electrolyte wasting (K, Mg), and infusion reactions (fever/rigors).',
@@ -4588,7 +4589,7 @@ var DRUG_DATA={
     {id:'acyclovir',name:'Acyclovir / Valacyclovir',tag:'Antiviral (herpesviruses)',
       covers:'HSV-1/2 and VZV (higher dose). Valacyclovir is the oral prodrug (better bioavailability).',
       gaps:'No CMV (use ganciclovir); no reliable EBV.',
-      uses:[{u:'HSV ENCEPHALITIS — start IV acyclovir empirically if suspected',d:'10 mg/kg IV q8h ×14–21 d (dose by IBW, hydrate; start empirically)'},{u:'Genital/oral herpes and shingles (zoster)',d:'valacyclovir 1 g PO TID ×7 d (zoster); 1 g PO BID ×7–10 d (genital)'},{u:'HSV in the immunocompromised',d:'acyclovir 5 mg/kg IV q8h'}],
+      uses:[{u:'HSV ENCEPHALITIS — start IV acyclovir empirically if suspected',d:'10 mg/kg IV q8h ×14–21 d (dose by IBW, hydrate; start empirically)',cite:'IDSA Encephalitis · 2008'},{u:'Genital/oral herpes and shingles (zoster)',d:'valacyclovir 1 g PO TID ×7 d (zoster); 1 g PO BID ×7–10 d (genital)',cite:'CDC STI Guidelines · 2021'},{u:'HSV in the immunocompromised',d:'acyclovir 5 mg/kg IV q8h'}],
       mech:'Guanosine analog activated by viral thymidine kinase; inhibits viral DNA polymerase.',
       dosing:'IV for encephalitis/severe disease; valacyclovir PO for outpatients.',
       adverse:'Crystalline nephropathy (HYDRATE for IV dosing), neurotoxicity in renal failure.',
@@ -4596,7 +4597,7 @@ var DRUG_DATA={
     {id:'oseltamivir',name:'Oseltamivir (Tamiflu)',tag:'Neuraminidase inhibitor',
       covers:'Influenza A and B.',
       gaps:'Influenza only.',
-      uses:[{u:'Influenza treatment — best within 48h, but still give if hospitalized/severe regardless of timing',d:'75 mg PO BID ×5 days'},{u:'Post-exposure prophylaxis in high-risk patients',d:'75 mg PO daily ×7–10 days'}],
+      uses:[{u:'Influenza treatment — best within 48h, but still give if hospitalized/severe regardless of timing',d:'75 mg PO BID ×5 days',cite:'IDSA Influenza · 2018'},{u:'Post-exposure prophylaxis in high-risk patients',d:'75 mg PO daily ×7–10 days',cite:'IDSA Influenza · 2018'}],
       mech:'Neuraminidase inhibitor that blocks viral release.',
       dosing:'75 mg PO BID x5 days.',
       adverse:'Nausea/vomiting; generally well tolerated.',
@@ -6289,7 +6290,7 @@ var PHARM_DATA={
       indic:[
         {u:'Rate control in AFib/flutter (RVR)',d:'IV 5 mg q5min ×3 PRN (hold SBP <100 or HR <60); maintenance tartrate 25–100 mg PO BID',e:'First-line AV nodal blocker for rate control; RACE II showed lenient (<110) is non-inferior to strict (<80) rate control. (Van Gelder, NEJM 2010)'},
         {u:'Post-MI and HFrEF (succinate ER only)',d:'succinate ER 12.5–25 mg PO daily, double q2wk toward target 200 mg',e:'MERIT-HF: metoprolol succinate cut all-cause mortality 34% in HFrEF. ER succinate is the HF/post-MI form — NOT the tartrate. (Lancet 1999)'},
-        {u:'Rate/symptom control in stable angina, HTN (adjunct)',d:'tartrate 25–100 mg PO BID, or succinate ER once daily'}
+        {u:'Rate/symptom control in stable angina, HTN (adjunct)',d:'tartrate 25–100 mg PO BID, or succinate ER once daily',cite:'ACC/AHA Hypertension · 2017'}
       ],
       se:['Bradycardia, AV block, hypotension','Fatigue, depression, sexual dysfunction','Can mask hypoglycemia symptoms in diabetics','Bronchospasm at higher doses','Acute decompensation if started during active HF exacerbation'],
       pearls:['<b>Tartrate vs succinate is a classic pimp.</b> Tartrate = immediate-release, BID/TID, used IV for acute rate control. Succinate = extended-release, daily, the only form proven in HFrEF.','<b>Do NOT start a beta blocker during an acute decompensated HF exacerbation</b> — wait until euvolemic/stable. Negative inotropy can worsen the crash.','IV metoprolol 5mg q5min ×3 is a common acute AFib RVR order — hold for SBP <100 or HR <60.','In cocaine-associated chest pain the classic teaching is to avoid pure beta-blockade (unopposed alpha) — though evidence is weak.','Abrupt withdrawal → rebound tachycardia/HTN/ischemia. Taper.']},
@@ -6298,7 +6299,7 @@ var PHARM_DATA={
       indic:[
         {u:'HFrEF — guideline-directed medical therapy',d:'3.125 mg PO BID with food, double q2wk to target 25 mg BID (50 mg BID if >85 kg)',e:'COPERNICUS: 35% mortality reduction in severe HFrEF. One of the 3 evidence-based beta blockers for HF (with metoprolol succinate, bisoprolol). (NEJM 2001)'},
         {u:'Post-MI with LV dysfunction',d:'6.25 mg PO BID, titrate to 25 mg BID',e:'CAPRICORN: ↓mortality post-MI with LV dysfunction. (Lancet 2001)'},
-        {u:'HTN, especially with comorbid HF/CAD',d:'6.25–12.5 mg PO BID'}
+        {u:'HTN, especially with comorbid HF/CAD',d:'6.25–12.5 mg PO BID',cite:'AHA/ACC/HFSA Heart Failure · 2022'}
       ],
       se:['Orthostatic hypotension, dizziness (the alpha effect)','Bradycardia','Fatigue','Bronchospasm (non-selective — caution in asthma/COPD)','Worsening glycemic control'],
       pearls:['Preferred beta blocker in HFrEF AND diabetes — improves insulin sensitivity vs metoprolol (GEMINI trial).','Dosed BID with food (food slows absorption, ↓orthostasis).','Better choice than metoprolol if concurrent HTN needing afterload reduction.']},
@@ -6306,8 +6307,8 @@ var PHARM_DATA={
       moa:'Blocks angiotensin-converting enzyme → ↓angiotensin II (↓vasoconstriction, ↓aldosterone) and ↑bradykinin (vasodilation + the cough/angioedema). Reduces efferent arteriolar tone → renoprotective.',
       indic:[
         {u:'HFrEF — mortality benefit',d:'2.5–5 mg PO daily, titrate to target 20–40 mg daily',e:'SOLVD/CONSENSUS: ACEi reduce mortality in HFrEF. Foundational GDMT. (NEJM 1991/1987)'},
-        {u:'HTN, especially with diabetes or CKD',d:'10 mg PO daily, titrate to max 40 mg daily',e:'Renoprotective in diabetic/proteinuric CKD by lowering intraglomerular pressure.'},
-        {u:'Post-MI, especially with reduced EF or anterior MI',d:'2.5–5 mg PO daily, start within 24 h'}
+        {u:'HTN, especially with diabetes or CKD',d:'10 mg PO daily, titrate to max 40 mg daily',cite:'KDIGO Blood Pressure · 2021',e:'Renoprotective in diabetic/proteinuric CKD by lowering intraglomerular pressure.'},
+        {u:'Post-MI, especially with reduced EF or anterior MI',d:'2.5–5 mg PO daily, start within 24 h',cite:'ACC/AHA STEMI · 2013'}
       ],
       se:['<b>Dry cough</b> (~10%, bradykinin-mediated) — most common reason for switch to ARB','Hyperkalemia','Acute kidney injury (esp. with volume depletion, NSAIDs, or bilateral RAS)','<b>Angioedema</b> (can be life-threatening, higher risk in Black patients)','Teratogenic — contraindicated in pregnancy'],
       pearls:['<b>Expect a Cr bump of up to ~30% after starting</b> — this is hemodynamic, acceptable, and does NOT mean stop the drug. >30% rise → look for renal artery stenosis or volume depletion.','Check a BMP ~1–2 weeks after starting/uptitrating (K and Cr).','Hold for hyperkalemia, AKI, hypotension, or before contrast/surgery per local protocol.','Never combine ACEi + ARB + aldosterone antagonist (triple RAAS blockade) — hyperkalemia and AKI.','Angioedema → stop forever, do NOT switch to ARB if it was severe.']},
@@ -6315,7 +6316,7 @@ var PHARM_DATA={
       moa:'Blocks the angiotensin II type-1 (AT1) receptor directly. Same downstream effect as ACEi but does NOT raise bradykinin → far less cough and angioedema.',
       indic:[
         {u:'HTN, HFrEF, diabetic nephropathy — ACEi alternative',d:'50 mg PO daily, titrate to 100 mg daily',e:'RENAAL: losartan slowed progression of diabetic nephropathy. (NEJM 2001)'},
-        {u:'ACEi-intolerant patients (cough)',d:'substitute at equivalent dose; recheck BMP in 1–2 wk'}
+        {u:'ACEi-intolerant patients (cough)',d:'substitute at equivalent dose; recheck BMP in 1–2 wk',cite:'AHA/ACC/HFSA Heart Failure · 2022'}
       ],
       se:['Hyperkalemia','AKI (same RAAS-mediated mechanism as ACEi)','Hypotension','Angioedema (rare — much lower than ACEi but still possible)','Teratogenic'],
       pearls:['First switch when a patient has ACEi cough.','Same monitoring as ACEi: BMP for K and Cr.','No mortality advantage over ACEi — pick ACEi first unless intolerant (cost/evidence).']},
@@ -6323,15 +6324,15 @@ var PHARM_DATA={
       moa:'Blocks L-type Ca channels preferentially in vascular smooth muscle → peripheral arterial vasodilation, ↓afterload. Minimal effect on the heart itself (unlike non-DHP).',
       indic:[
         {u:'HTN — first-line, especially in Black patients & elderly',d:'5 mg PO daily, max 10 mg daily',e:'ALLHAT: CCB as effective as thiazide/ACEi for preventing CV events. (JAMA 2002)'},
-        {u:'Chronic stable angina / vasospastic angina',d:'5–10 mg PO daily'}
+        {u:'Chronic stable angina / vasospastic angina',d:'5–10 mg PO daily',cite:'ACC/AHA Chronic Coronary Disease · 2023'}
       ],
       se:['<b>Peripheral edema</b> (dose-dependent, from precapillary dilation — NOT fluid overload, diuretics don\'t fix it)','Flushing, headache','Reflex tachycardia (less than other DHPs)','Gingival hyperplasia (chronic)'],
       pearls:['<b>The edema is the classic trap</b> — don\'t add a diuretic for amlodipine ankle edema. Lower the dose or add an ACEi/ARB (balances the dilation).','Safe in HFrEF (unlike non-DHP CCBs) — does not worsen contractility. Often used for HTN/angina in HF patients.','Long half-life (~30–50h) → smooth control, but slow to titrate.']},
     {id:'diltiazem',name:'Diltiazem',cls:'Non-dihydropyridine calcium channel blocker',
       moa:'Blocks L-type Ca channels in the AV node AND vasculature → slows AV conduction (rate control) plus some vasodilation and negative inotropy.',
       indic:[
-        {u:'Rate control in AFib/flutter with RVR',d:'0.25 mg/kg IV over 2 min (~20 mg); may repeat 0.35 mg/kg at 15 min, then 5–15 mg/h drip; PO ER 120–360 mg/day',e:'Effective alternative/addition to beta blockers for rate control; faster onset with IV bolus + drip.'},
-        {u:'HTN, angina (including vasospastic)',d:'ER 120–360 mg PO daily'}
+        {u:'Rate control in AFib/flutter with RVR',d:'0.25 mg/kg IV over 2 min (~20 mg); may repeat 0.35 mg/kg at 15 min, then 5–15 mg/h drip; PO ER 120–360 mg/day',cite:'ACC/AHA/ACCP/HRS Atrial Fibrillation · 2023',e:'Effective alternative/addition to beta blockers for rate control; faster onset with IV bolus + drip.'},
+        {u:'HTN, angina (including vasospastic)',d:'ER 120–360 mg PO daily',cite:'ACC/AHA Hypertension · 2017'}
       ],
       se:['Bradycardia, AV block','Hypotension','<b>Worsens HFrEF</b> — negative inotrope','Constipation','Lower-extremity edema'],
       pearls:['<b>CONTRAINDICATED in HFrEF</b> (and in decompensated HF) — negative inotropy. Use a beta blocker or digoxin for rate control instead. Classic pimp.','<b>Do NOT give to WPW + AFib</b> (pre-excited) — AV nodal block can accelerate accessory pathway conduction → VF.','IV: bolus then drip for acute AFib RVR. Watch for hypotension.','Avoid combining IV diltiazem with IV beta blocker → profound bradycardia/block.','CYP3A4 inhibitor — raises levels of statins, tacrolimus, etc.']},
@@ -6340,7 +6341,7 @@ var PHARM_DATA={
       indic:[
         {u:'Acute decompensated HF / volume overload',d:'20–40 mg IV, or 1–2.5× the home PO dose given IV; double if no response in 2 h; 5–20 mg/h drip if refractory',e:'DOSE trial: no difference between bolus vs continuous infusion, but high-dose strategy gave more relief. (NEJM 2011)'},
         {u:'Edema from cirrhosis, nephrotic syndrome, CKD',d:'20–80 mg PO daily–BID, titrate to effect','u2':true},
-        {u:'Adjunct in hypertensive emergency with volume overload, and in hyperkalemia',d:'40–80 mg IV'}
+        {u:'Adjunct in hypertensive emergency with volume overload, and in hyperkalemia',d:'40–80 mg IV',cite:'ACC/AHA Hypertension · 2017'}
       ],
       se:['Hypokalemia, hypomagnesemia, hyponatremia','Metabolic alkalosis (contraction)','Ototoxicity (high doses, rapid IV push, or with aminoglycosides)','AKI / pre-renal from over-diuresis','Hyperuricemia (gout flare), hyperglycemia'],
       pearls:['<b>IV:PO ratio is ~1:2</b> — 40mg IV ≈ 80mg PO (oral bioavailability ~50%). Know this for the transition home.','<b>Sulfa cross-reactivity is largely a myth</b> for true sulfonamide-antibiotic allergy — but exam answers may still say caution. Use ethacrynic acid if a real concern.','In poor diuretic response: increase the dose (threshold drug), switch to IV, add a thiazide (e.g., metolazone) for sequential nephron blockade.','"Loops lose calcium" (vs thiazides retain it). Monitor K and replete aggressively.','Bumetanide/torsemide have better/more reliable oral absorption — torsemide preferred in gut edema.']},
@@ -6349,8 +6350,8 @@ var PHARM_DATA={
       indic:[
         {u:'HFrEF — mortality benefit',d:'12.5–25 mg PO daily (hold if K >5.0 or eGFR <30)',e:'RALES: spironolactone cut mortality 30% in NYHA III–IV HFrEF. (Pitt, NEJM 1999)'},
         {u:'Resistant hypertension',d:'25–50 mg PO daily',e:'PATHWAY-2: best add-on for resistant HTN. (Lancet 2015)'},
-        {u:'Ascites/cirrhosis (with furosemide, classically 100:40 ratio)',d:'100 mg PO daily with furosemide 40 mg (100:40 ratio), titrate'},
-        {u:'Primary hyperaldosteronism',d:'12.5–50 mg PO daily'}
+        {u:'Ascites/cirrhosis (with furosemide, classically 100:40 ratio)',d:'100 mg PO daily with furosemide 40 mg (100:40 ratio), titrate',cite:'AASLD Cirrhosis/Ascites · 2021'},
+        {u:'Primary hyperaldosteronism',d:'12.5–50 mg PO daily',cite:'Endocrine Society Primary Aldosteronism · 2016'}
       ],
       se:['<b>Hyperkalemia</b> (the big one — esp. with ACEi/ARB or CKD)','Gynecomastia, breast tenderness (androgen-receptor effect)','AKI','Metabolic acidosis'],
       pearls:['<b>Check K and Cr before starting and at ~3 days and 1 week.</b> Avoid if K >5.0 or eGFR <30.','Eplerenone is the alternative if gynecomastia is intolerable (more selective, no androgen effect).','In cirrhotic ascites the spironolactone:furosemide 100mg:40mg ratio maintains normokalemia.','Takes weeks for full diuretic effect — it\'s a weak diuretic but strong mortality drug.']},
@@ -6358,8 +6359,8 @@ var PHARM_DATA={
       moa:'Inhibits HMG-CoA reductase, the rate-limiting step of hepatic cholesterol synthesis → upregulates LDL receptors → ↓LDL. Also pleiotropic plaque-stabilizing/anti-inflammatory effects.',
       indic:[
         {u:'ASCVD secondary prevention (high-intensity)',d:'atorvastatin 40–80 mg PO daily (or rosuvastatin 20–40 mg)',e:'Cornerstone after MI/stroke/PAD. PROVE-IT: high-intensity (atorva 80) beat moderate post-ACS. (NEJM 2004)'},
-        {u:'Primary prevention if 10-yr ASCVD risk ≥7.5%, diabetes, or LDL ≥190',d:'moderate-intensity: atorvastatin 10–20 mg PO daily'},
-        {u:'Started early in ACS regardless of baseline LDL',d:'atorvastatin 80 mg PO daily, start early regardless of baseline LDL'}
+        {u:'Primary prevention if 10-yr ASCVD risk ≥7.5%, diabetes, or LDL ≥190',d:'moderate-intensity: atorvastatin 10–20 mg PO daily',cite:'ACC/AHA Cholesterol · 2018'},
+        {u:'Started early in ACS regardless of baseline LDL',d:'atorvastatin 80 mg PO daily, start early regardless of baseline LDL',cite:'ACC/AHA Cholesterol · 2018'}
       ],
       se:['Myalgias (common); true myopathy/rhabdomyolysis (rare)','Transaminase elevation (usually mild, rarely stop)','New-onset diabetes (small absolute risk)','Drug interactions via CYP3A4 (atorva/simva) — esp. with diltiazem, azoles, macrolides'],
       pearls:['<b>High-intensity = atorvastatin 40–80 or rosuvastatin 20–40</b> (LDL ↓≥50%). Moderate = atorva 10–20, rosuva 5–10, etc. Know the tiers.','Don\'t check routine LFTs/CK unless symptomatic — guidelines moved away from monitoring.','Rosuvastatin and pravastatin are not CYP3A4-metabolized → fewer interactions (good with HIV meds, transplant patients).','Hold statin if CK markedly elevated or true rhabdo. Most "statin myalgia" can be rechallenged or switched.','Statins do NOT need to be held perioperatively — continue them.']},
@@ -6371,9 +6372,9 @@ var PHARM_DATA={
         {u:'High-risk TIA / minor stroke (ABCD² ≥4 or NIHSS ≤3) — short DAPT',d:'ASA 162–325 mg load → 81 mg daily + clopidogrel 300–600 mg load → 75 mg daily ×21 days, then single agent',e:'CHANCE/POINT: 21-day DAPT cuts recurrent stroke, then de-escalate.'},
         {u:'Secondary prevention of ASCVD (prior MI, ischemic stroke/TIA, PAD)',d:'81 mg PO daily, lifelong',e:'ADAPTABLE: 81 mg as effective as 325 mg with less bleeding.'},
         {u:'Post-PCI / coronary stent — DAPT',d:'81 mg PO daily (lifelong) + P2Y12 inhibitor ×6–12 mo (per stent type & bleeding risk)',e:'Do NOT stop early after a drug-eluting stent without cardiology — stent thrombosis.'},
-        {u:'Post-CABG (graft patency)',d:'81–162 mg PO daily, start within 6 h postop, continue lifelong'},
+        {u:'Post-CABG (graft patency)',d:'81–162 mg PO daily, start within 6 h postop, continue lifelong',cite:'ACC/AHA Coronary Revascularization · 2021'},
         {u:'Acute pericarditis / post-MI (Dressler)',d:'650–1000 mg PO q8h ×1–2 wk then taper, + colchicine',e:'Preferred over other NSAIDs after MI (won\'t impair infarct healing).'},
-        {u:'Pre-eclampsia prevention (high-risk pregnancy)',d:'81 mg PO daily (some use 162 mg), start at 12–16 wk, continue until delivery',e:'USPSTF/ACOG — start before 16 wk for max benefit.'},
+        {u:'Pre-eclampsia prevention (high-risk pregnancy)',d:'81 mg PO daily (some use 162 mg), start at 12–16 wk, continue until delivery',cite:'USPSTF Preeclampsia Aspirin · 2021',e:'USPSTF/ACOG — start before 16 wk for max benefit.'},
         {u:'Pain / fever (analgesic–antipyretic dosing)',d:'325–650 mg PO q4–6h PRN, max 4 g/day',e:'Avoid in children/teens with viral illness (Reye).'}
       ],
       se:['GI bleeding, peptic ulcer (dose-dependent)','Intracranial hemorrhage','Tinnitus/hearing loss (salicylate toxicity)','Reye syndrome in children with viral illness','Bronchospasm in aspirin-exacerbated respiratory disease (AERD/Samter\'s)'],
@@ -6383,23 +6384,23 @@ var PHARM_DATA={
       indic:[
         {u:'Dual antiplatelet therapy (with ASA) after ACS / coronary stent',d:'clopidogrel 300–600 mg PO load → 75 mg daily (ticagrelor 180 mg → 90 mg BID; prasugrel 60 mg → 10 mg daily)',e:'CURE: clopidogrel + ASA reduced events in ACS. Ticagrelor superior in PLATO (NEJM 2009).'},
         {u:'Secondary stroke/TIA prevention (often short-course DAPT)',d:'clopidogrel 300–600 mg load → 75 mg daily ×21 days, then single agent',e:'CHANCE/POINT: 21-day DAPT after minor stroke/high-risk TIA reduces recurrence.'},
-        {u:'PAD, ASA-intolerant patients',d:'clopidogrel 75 mg PO daily'}
+        {u:'PAD, ASA-intolerant patients',d:'clopidogrel 75 mg PO daily',cite:'AHA/ACC Lower-Extremity PAD · 2016'}
       ],
       se:['Bleeding','TTP (rare)','Clopidogrel: reduced efficacy in CYP2C19 poor metabolizers'],
       pearls:['<b>Prasugrel is contraindicated with prior stroke/TIA</b> (excess ICH) and avoided if ≥75 or <60kg. Ticagrelor is BID and causes dyspnea + needs low-dose ASA only (≤100mg).','Hold clopidogrel ~5 days before major surgery/CABG; ticagrelor ~3–5 days; prasugrel ~7 days.','PPIs (esp. omeprazole) may blunt clopidogrel activation — use pantoprazole if a PPI is needed.','Don\'t stop DAPT early after a drug-eluting stent without cardiology — stent thrombosis risk.']},
     {id:'amiodarone',name:'Amiodarone',cls:'Class III antiarrhythmic (multi-channel)',
       moa:'Blocks K channels (prolongs repolarization/QT) plus Na, Ca channels and beta-receptors — "all four Vaughan-Williams classes." Highly lipophilic, huge volume of distribution, half-life of weeks-to-months.',
       indic:[
-        {u:'Stable VT and shock-refractory VF/pulseless VT (ACLS)',d:'300 mg IV push in arrest; stable VT: 150 mg IV over 10 min → 1 mg/min ×6 h → 0.5 mg/min ×18 h',e:'ALIVE/ARREST: amiodarone improved survival to admission in shock-refractory VF vs lidocaine/placebo.'},
-        {u:'Rhythm control / cardioversion of AFib, esp. with structural heart disease/HF',d:'PO load 400 mg BID–TID ×1–2 wk (or IV as above), then 200 mg daily'},
-        {u:'Maintaining sinus rhythm post-cardioversion',d:'200 mg PO daily'}
+        {u:'Stable VT and shock-refractory VF/pulseless VT (ACLS)',d:'300 mg IV push in arrest; stable VT: 150 mg IV over 10 min → 1 mg/min ×6 h → 0.5 mg/min ×18 h',cite:'AHA ACLS · 2020',e:'ALIVE/ARREST: amiodarone improved survival to admission in shock-refractory VF vs lidocaine/placebo.'},
+        {u:'Rhythm control / cardioversion of AFib, esp. with structural heart disease/HF',d:'PO load 400 mg BID–TID ×1–2 wk (or IV as above), then 200 mg daily',cite:'ACC/AHA/ACCP/HRS Atrial Fibrillation · 2023'},
+        {u:'Maintaining sinus rhythm post-cardioversion',d:'200 mg PO daily',cite:'ACC/AHA/ACCP/HRS Atrial Fibrillation · 2023'}
       ],
       se:['<b>Pulmonary fibrosis</b> (most feared chronic toxicity)','Thyroid: both hypo- AND hyperthyroidism (40% iodine by weight)','Hepatotoxicity','Corneal microdeposits (almost universal, usually benign), blue-gray skin','Bradycardia, QT prolongation (but low torsades risk vs other class III)','Drug interactions: ↑warfarin INR, ↑digoxin levels'],
       pearls:['<b>Baseline + periodic monitoring is a classic pimp:</b> TFTs, LFTs, PFTs/CXR, eye exam. Check TFTs and LFTs q6 months.','Reduce warfarin dose ~30–50% and digoxin dose ~50% when starting amiodarone.','Despite QT prolongation, it rarely causes torsades — it\'s one of the safer antiarrhythmics in HF.','Acute IV load can cause hypotension and bradycardia.','Effects (and toxicities) persist for weeks after stopping due to the long half-life.']},
     {id:'digoxin',name:'Digoxin',cls:'Cardiac glycoside',
       moa:'Inhibits the Na/K-ATPase → ↑intracellular Na → ↑intracellular Ca via Na/Ca exchanger → positive inotropy. Also enhances vagal tone → AV nodal slowing (rate control at rest).',
       indic:[
-        {u:'Rate control in AFib — add-on, esp. with HFrEF or hypotension',d:'load 0.25 mg IV/PO q6h ×3 (~0.75–1 mg total), then 0.125–0.25 mg daily (renal-adjust)',e:'Good for resting rate control + adds inotropy without lowering BP; poor with exertion (vagal mechanism overridden by catecholamines).'},
+        {u:'Rate control in AFib — add-on, esp. with HFrEF or hypotension',d:'load 0.25 mg IV/PO q6h ×3 (~0.75–1 mg total), then 0.125–0.25 mg daily (renal-adjust)',cite:'ACC/AHA/ACCP/HRS Atrial Fibrillation · 2023',e:'Good for resting rate control + adds inotropy without lowering BP; poor with exertion (vagal mechanism overridden by catecholamines).'},
         {u:'Symptomatic HFrEF despite GDMT',d:'0.125–0.25 mg PO daily; target level 0.5–0.9 ng/mL',e:'DIG trial: ↓HF hospitalizations but NO mortality benefit. (NEJM 1997)'}
       ],
       se:['<b>Narrow therapeutic index</b> — toxicity common','GI (nausea, anorexia), visual changes (yellow-green halos)','Arrhythmias — classically AT with block, bidirectional VT','Confusion in elderly'],
@@ -6407,9 +6408,9 @@ var PHARM_DATA={
     {id:'nitroglycerin',name:'Nitroglycerin',cls:'Nitrate / vasodilator',
       moa:'Donates nitric oxide → ↑cGMP → vascular smooth muscle relaxation. Predominantly venodilation at low doses (↓preload), arterial/coronary dilation at higher doses (↓afterload, relieves vasospasm).',
       indic:[
-        {u:'Acute angina / ACS ongoing ischemic pain (SL, then IV drip)',d:'0.4 mg SL q5min ×3; if ongoing → IV drip 5–10 mcg/min, titrate'},
-        {u:'Acute decompensated HF / hypertensive pulmonary edema (IV)',d:'IV 5–10 mcg/min, titrate up rapidly (high-dose for SCAPE)',e:'Preload reduction rapidly relieves pulmonary congestion (the "SCAPE" patient).'},
-        {u:'Hypertensive emergency (adjunct)',d:'IV infusion, titrate to BP'}
+        {u:'Acute angina / ACS ongoing ischemic pain (SL, then IV drip)',d:'0.4 mg SL q5min ×3; if ongoing → IV drip 5–10 mcg/min, titrate',cite:'ACC/AHA Chronic Coronary Disease · 2023'},
+        {u:'Acute decompensated HF / hypertensive pulmonary edema (IV)',d:'IV 5–10 mcg/min, titrate up rapidly (high-dose for SCAPE)',cite:'AHA/ACC/HFSA Heart Failure · 2022',e:'Preload reduction rapidly relieves pulmonary congestion (the "SCAPE" patient).'},
+        {u:'Hypertensive emergency (adjunct)',d:'IV infusion, titrate to BP',cite:'ACC/AHA Hypertension · 2017'}
       ],
       se:['Headache (very common)','Hypotension','Reflex tachycardia','Tolerance with continuous use (need nitrate-free interval)'],
       pearls:['<b>ABSOLUTELY CONTRAINDICATED with PDE5 inhibitors</b> (sildenafil within 24h, tadalafil within 48h) → catastrophic hypotension. Always ask. Classic board/pimp question.','<b>Avoid in RV/inferior MI</b> — these patients are preload-dependent; nitro can cause profound hypotension.','Avoid in severe aortic stenosis (fixed obstruction, preload-dependent) and HOCM.','SL dose: 0.4mg q5min ×3; if no relief and ongoing pain → call for help / consider ACS.']},
@@ -6417,8 +6418,8 @@ var PHARM_DATA={
       moa:'Direct arteriolar smooth muscle relaxation → ↓afterload. Causes reflex tachycardia and sodium retention (often paired with a beta blocker + diuretic, or with nitrate in HF).',
       indic:[
         {u:'HFrEF in Black patients (with isosorbide dinitrate)',d:'25–75 mg PO TID + isosorbide dinitrate 20–40 mg TID (BiDil)',e:'A-HeFT: hydralazine + nitrate reduced mortality in self-identified Black patients on standard HF therapy. (NEJM 2004)'},
-        {u:'Hypertension in pregnancy / preeclampsia (IV)',d:'5–10 mg IV q20–30 min PRN'},
-        {u:'Inpatient PRN for asymptomatic BP elevation (commonly ordered — and commonly overused)',d:'10–20 mg IV q4–6h PRN (use sparingly)'}
+        {u:'Hypertension in pregnancy / preeclampsia (IV)',d:'5–10 mg IV q20–30 min PRN',cite:'ACOG Gestational HTN/Preeclampsia · 2020'},
+        {u:'Inpatient PRN for asymptomatic BP elevation (commonly ordered — and commonly overused)',d:'10–20 mg IV q4–6h PRN (use sparingly)',cite:'SHM Choosing Wisely (asymptomatic inpatient HTN)'}
       ],
       se:['Reflex tachycardia','Headache, flushing','<b>Drug-induced lupus</b> (with chronic use, esp. slow acetylators)','Fluid retention'],
       pearls:['<b>"Treating the number" with PRN IV hydralazine for asymptomatic inpatient HTN is a known low-value practice</b> — can cause precipitous drops and ischemia. Address pain/anxiety/missed home meds first.','Reflex tachycardia makes it a poor choice in active ischemia unless combined with a beta blocker.','First-line IV agent for severe HTN in pregnancy (with labetalol).']}
@@ -6428,16 +6429,16 @@ var PHARM_DATA={
     {id:'heparin',name:'Unfractionated Heparin (UFH)',cls:'Indirect thrombin inhibitor (antithrombin potentiator)',
       moa:'Binds antithrombin III, accelerating its inactivation of thrombin (IIa) and factor Xa ~1000-fold. Short half-life (~1–2h), reversible — ideal when you may need to turn it off fast.',
       indic:[
-        {u:'VTE (DVT/PE) treatment, ACS, bridging',d:'80 units/kg IV bolus → 18 units/kg/h, titrate to aPTT/anti-Xa (ACS: 60 u/kg bolus max 4000 → 12 u/kg/h); prophylaxis 5000 units SC q8–12h'},
-        {u:'Preferred anticoagulant in renal failure or periprocedurally',d:'same weight-based infusion; short half-life, protamine-reversible',e:'Cleared independent of kidneys; short half-life and protamine-reversible → drug of choice when bleeding risk is high or eGFR is low.'}
+        {u:'VTE (DVT/PE) treatment, ACS, bridging',d:'80 units/kg IV bolus → 18 units/kg/h, titrate to aPTT/anti-Xa (ACS: 60 u/kg bolus max 4000 → 12 u/kg/h); prophylaxis 5000 units SC q8–12h',cite:'CHEST Antithrombotic/VTE · 2021'},
+        {u:'Preferred anticoagulant in renal failure or periprocedurally',d:'same weight-based infusion; short half-life, protamine-reversible',cite:'CHEST Antithrombotic/VTE · 2021',e:'Cleared independent of kidneys; short half-life and protamine-reversible → drug of choice when bleeding risk is high or eGFR is low.'}
       ],
       se:['Bleeding','<b>HIT (heparin-induced thrombocytopenia)</b> — immune, prothrombotic','Osteoporosis (chronic), hyperkalemia (aldosterone suppression)'],
       pearls:['<b>HIT</b>: platelet drop >50% at days 5–10 → calculate 4T score, send PF4 antibody/SRA, <b>STOP all heparin and start a non-heparin anticoagulant (argatroban/bivalirudin)</b>. Do NOT just observe, and do NOT give warfarin alone (skin necrosis). Classic pimp.','Monitored by aPTT (or anti-Xa) for therapeutic drips; reversed by <b>protamine</b>.','Preferred over LMWH/DOAC when eGFR is low or procedure is imminent (short half-life).','Weight-based nomogram dosing for treatment.']},
     {id:'enoxaparin',name:'Enoxaparin (LMWH)',cls:'Low-molecular-weight heparin',
       moa:'Like heparin via antithrombin but with greater anti-Xa than anti-IIa activity. More predictable kinetics → fixed/weight-based dosing without routine monitoring.',
       indic:[
-        {u:'VTE treatment and prophylaxis, ACS, bridging',d:'treatment 1 mg/kg SC q12h (or 1.5 mg/kg q24h); prophylaxis 40 mg SC daily; CrCl <30 → 1 mg/kg q24h'},
-        {u:'Outpatient VTE / cancer-associated thrombosis (historically)',d:'1 mg/kg SC q12h'}
+        {u:'VTE treatment and prophylaxis, ACS, bridging',d:'treatment 1 mg/kg SC q12h (or 1.5 mg/kg q24h); prophylaxis 40 mg SC daily; CrCl <30 → 1 mg/kg q24h',cite:'CHEST Antithrombotic/VTE · 2021'},
+        {u:'Outpatient VTE / cancer-associated thrombosis (historically)',d:'1 mg/kg SC q12h',cite:'ASCO VTE in Cancer · 2023'}
       ],
       se:['Bleeding','HIT (lower risk than UFH but still possible)','Accumulation in renal failure'],
       pearls:['<b>Renally cleared</b> — avoid or dose-reduce if CrCl <30 (treatment dose 1mg/kg q24h instead of q12h). Use UFH if renal failure. Common error.','Only partially reversed by protamine (~60%).','Routine monitoring not needed; check anti-Xa level in pregnancy, obesity, or renal impairment.','Prophylaxis: 40mg SC daily (30mg q12h in trauma/ortho).']},
@@ -6445,8 +6446,8 @@ var PHARM_DATA={
       moa:'Inhibits vitamin K epoxide reductase → ↓synthesis of factors II, VII, IX, X and proteins C & S. Because protein C (anticoagulant) has a short half-life, there\'s a transient HYPERcoagulable state at initiation.',
       indic:[
         {u:'Mechanical heart valves (DOACs contraindicated)',d:'start ~5 mg PO daily; target INR 2.5–3.5 (mitral) or 2–3 (aortic)',e:'RE-ALIGN: dabigatran was inferior/harmful vs warfarin in mechanical valves. Warfarin is mandatory here.'},
-        {u:'Antiphospholipid syndrome, severe mitral stenosis with AFib',d:'target INR 2–3 (higher per APS); bridge with heparin'},
-        {u:'VTE/AFib when DOAC unsuitable (cost, severe CKD)',d:'5 mg PO daily, bridge with heparin/LMWH until INR ≥2 for ≥24 h and ≥5 days overlap'}
+        {u:'Antiphospholipid syndrome, severe mitral stenosis with AFib',d:'target INR 2–3 (higher per APS); bridge with heparin',cite:'ACC/AHA Valvular Heart Disease · 2020'},
+        {u:'VTE/AFib when DOAC unsuitable (cost, severe CKD)',d:'5 mg PO daily, bridge with heparin/LMWH until INR ≥2 for ≥24 h and ≥5 days overlap',cite:'CHEST Antithrombotic/VTE · 2021'}
       ],
       se:['Bleeding','<b>Warfarin-induced skin necrosis</b> (early, protein C depletion — esp. if protein C deficient)','Teratogenic','Many drug/diet interactions'],
       pearls:['<b>Always bridge with heparin/LMWH when starting for an acute clot</b> until INR therapeutic ≥24h (≥5 days overlap) — the early prothrombotic window. Classic teaching.','Reversal: <b>vitamin K</b> (slow, hours) + <b>4-factor PCC</b> (fast, for major bleed) ± FFP. Know the algorithm by INR and bleeding.','CYP2C9/VKORC1 + dietary vitamin K (leafy greens) + antibiotics all shift INR. Counsel consistency, not avoidance.','Target INR 2–3 (2.5–3.5 for mechanical mitral valve).','Interacts with almost everything — check before adding any drug.']},
@@ -6455,17 +6456,17 @@ var PHARM_DATA={
       indic:[
         {u:'Non-valvular AFib stroke prevention',d:'apixaban 5 mg PO BID (2.5 mg BID if ≥2 of: age ≥80, ≤60 kg, Cr ≥1.5); rivaroxaban 20 mg daily with food',e:'ARISTOTLE: apixaban beat warfarin on stroke, bleeding, AND mortality. (NEJM 2011) ROCKET-AF for rivaroxaban.'},
         {u:'VTE treatment & prevention',d:'apixaban 10 mg BID ×7 days → 5 mg BID; rivaroxaban 15 mg BID ×21 days → 20 mg daily',e:'AMPLIFY/EINSTEIN: DOACs non-inferior to warfarin with less major bleeding.'},
-        {u:'Apixaban often preferred with GI bleed history or CKD (least renal clearance)',d:'apixaban 2.5–5 mg PO BID (least renal clearance)'}
+        {u:'Apixaban often preferred with GI bleed history or CKD (least renal clearance)',d:'apixaban 2.5–5 mg PO BID (least renal clearance)',cite:'ACC/AHA/ACCP/HRS Atrial Fibrillation · 2023'}
       ],
       se:['Bleeding (but less intracranial hemorrhage than warfarin)','Rivaroxaban: more GI bleeding than apixaban','Accumulation in renal impairment'],
       pearls:['<b>Contraindicated in mechanical valves and antiphospholipid syndrome</b> — use warfarin. High-yield distinction.','Apixaban dose reduction (2.5mg BID) if ≥2 of: age ≥80, weight ≤60kg, Cr ≥1.5. Don\'t miss this.','Rivaroxaban must be taken WITH food (15/20mg doses) for absorption; apixaban is BID.','Reversal: <b>andexanet alfa</b> (specific) or 4-factor PCC (off-label, widely used).','No bridging needed when starting (unlike warfarin) — onset is fast.']},
     {id:'reversal',name:'Anticoagulant Reversal Agents',cls:'Vitamin K, PCC, idarucizumab, andexanet, protamine',
       moa:'Vitamin K: regenerates clotting factor synthesis (slow). 4-factor PCC: replaces II/VII/IX/X immediately. Idarucizumab: dabigatran-binding antibody fragment. Andexanet: decoy Xa. Protamine: binds/neutralizes heparin.',
       indic:[
-        {u:'Warfarin major bleed → 4-factor PCC + IV vitamin K',d:'4-factor PCC 25–50 units/kg (by INR) + vitamin K 10 mg IV'},
-        {u:'Dabigatran bleed → idarucizumab (Praxbind)',d:'idarucizumab (Praxbind) 5 g IV'},
-        {u:'Apixaban/rivaroxaban bleed → andexanet alfa (or 4F-PCC)',d:'andexanet alfa (dose by agent/timing) or 4F-PCC 50 units/kg'},
-        {u:'Heparin bleed → protamine sulfate',d:'protamine 1 mg per 100 units heparin (max 50 mg), slow IV'}
+        {u:'Warfarin major bleed → 4-factor PCC + IV vitamin K',d:'4-factor PCC 25–50 units/kg (by INR) + vitamin K 10 mg IV',cite:'Neurocritical Care/SCCM Reversal · 2016'},
+        {u:'Dabigatran bleed → idarucizumab (Praxbind)',d:'idarucizumab (Praxbind) 5 g IV',cite:'Neurocritical Care/SCCM Reversal · 2016'},
+        {u:'Apixaban/rivaroxaban bleed → andexanet alfa (or 4F-PCC)',d:'andexanet alfa (dose by agent/timing) or 4F-PCC 50 units/kg',cite:'Neurocritical Care/SCCM Reversal · 2016'},
+        {u:'Heparin bleed → protamine sulfate',d:'protamine 1 mg per 100 units heparin (max 50 mg), slow IV',cite:'Neurocritical Care/SCCM Reversal · 2016'}
       ],
       se:['PCC/andexanet: thrombosis risk','Protamine: hypotension, anaphylaxis (esp. fish allergy, prior NPH insulin use)'],
       pearls:['<b>Match the reversal agent to the drug</b> — a frequent rapid-fire pimp. Warfarin→vit K+PCC; dabigatran→idarucizumab; Xa inhibitors→andexanet/PCC; heparin→protamine.','IV vitamin K works in hours, not minutes — give PCC for life-threatening warfarin bleeds, vitamin K to sustain.','FFP is slower/larger-volume than PCC and now second-line for warfarin reversal.','Hold the offending drug, transfuse/support, and find the bleeding source — reversal alone is not enough.']}
@@ -6494,7 +6495,7 @@ var PHARM_DATA={
       moa:'↓Hepatic gluconeogenesis (primary), ↑peripheral insulin sensitivity, via AMPK activation. Does NOT stimulate insulin → no hypoglycemia as monotherapy and weight-neutral.',
       indic:[
         {u:'First-line for type 2 diabetes',d:'500 mg PO daily–BID with meals, titrate to 1000 mg BID (max ~2550 mg/day); ER once daily',e:'UKPDS: metformin ↓diabetes-related death and MI in overweight T2DM. (Lancet 1998)'},
-        {u:'PCOS, prediabetes',d:'500–1000 mg PO BID'}
+        {u:'PCOS, prediabetes',d:'500–1000 mg PO BID',cite:'ADA Standards of Care · 2024'}
       ],
       se:['GI upset, diarrhea (start low, titrate; ER form better tolerated)','<b>Lactic acidosis</b> (rare but classic — risk with renal failure, hypoxia, sepsis)','B12 deficiency (chronic use)'],
       pearls:['<b>HOLD at/around iodinated contrast and surgery</b> if eGFR is reduced or AKI risk — restart 48h later after renal function confirmed stable, to avoid lactic acidosis. Common inpatient order set item.','<b>Contraindicated if eGFR <30</b>; don\'t start if eGFR <45. Hold for any acute illness with hypoperfusion (sepsis, shock, AKI).','No hypoglycemia alone — safe overnight, doesn\'t need to be held just for being NPO if renal function fine and not getting contrast.','Check B12 periodically on long-term therapy.']},
@@ -6502,14 +6503,14 @@ var PHARM_DATA={
       moa:'Drives glucose into cells, suppresses hepatic glucose output and ketogenesis, drives K intracellularly. Types differ by onset/duration: rapid (lispro/aspart), short (regular), intermediate (NPH), long (glargine/detemir/degludec).',
       indic:[
         {u:'Type 1 diabetes (mandatory), DKA/HHS, inpatient hyperglycemia',d:'basal (glargine) ~0.2–0.3 units/kg/day SC + prandial + correction; target glucose 140–180',e:'NICE-SUGAR: tight control (80–110) INCREASED mortality vs target 140–180 in ICU — looser is safer. (NEJM 2009)'},
-        {u:'Type 2 diabetes failing orals; hyperkalemia (with dextrose)',d:'DKA: regular insulin 0.1 units/kg/h IV; hyperkalemia: 10 units regular IV + 25 g dextrose'}
+        {u:'Type 2 diabetes failing orals; hyperkalemia (with dextrose)',d:'DKA: regular insulin 0.1 units/kg/h IV; hyperkalemia: 10 units regular IV + 25 g dextrose',cite:'ADA Standards of Care · 2024'}
       ],
       se:['<b>Hypoglycemia</b> (the dominant risk)','Hypokalemia (drives K into cells)','Weight gain','Lipohypertrophy at injection sites'],
       pearls:['<b>Sliding-scale insulin alone is discouraged</b> — reactive, causes swings. Use scheduled basal-bolus for most inpatients (RABBIT-2 trial). Common pimp.','<b>Inpatient glucose target 140–180</b> — tighter is harmful (NICE-SUGAR). Don\'t chase normoglycemia in the hospital.','When a patient is made NPO, <b>continue basal insulin (esp. T1DM — they need it to prevent DKA) but hold/halve nutritional/prandial insulin</b>. Never fully stop basal in a type 1.','For hyperkalemia: 10 units regular IV + dextrose — recheck glucose, late hypoglycemia is common.','Hold prandial/correctional doses if not eating; don\'t reflexively dose for a one-time finger stick when NPO.']},
     {id:'sulfonylureas',name:'Sulfonylureas (glipizide, glyburide)',cls:'Insulin secretagogue',
       moa:'Close the ATP-sensitive K channel on pancreatic beta cells → depolarization → insulin release — glucose-INDEPENDENT, so they cause hypoglycemia.',
       indic:[
-        {u:'Type 2 diabetes — inexpensive add-on/alternative',d:'glipizide 5 mg PO daily before breakfast, titrate to 10–20 mg (avoid glyburide in elderly/CKD); hold when NPO'}
+        {u:'Type 2 diabetes — inexpensive add-on/alternative',d:'glipizide 5 mg PO daily before breakfast, titrate to 10–20 mg (avoid glyburide in elderly/CKD); hold when NPO',cite:'ADA Standards of Care · 2024'}
       ],
       se:['<b>Hypoglycemia</b> (can be prolonged/severe, esp. glyburide in elderly/CKD)','Weight gain'],
       pearls:['<b>Avoid glyburide in the elderly and in CKD</b> (long-acting active metabolites → prolonged hypoglycemia). Glipizide is preferred (shorter, hepatic clearance). Beers list item.','<b>Hold when NPO</b> — they cause hypoglycemia regardless of intake.','Sulfonylurea overdose hypoglycemia → treat with dextrose ± <b>octreotide</b> (suppresses further insulin release).']},
@@ -6518,14 +6519,14 @@ var PHARM_DATA={
       indic:[
         {u:'COPD/asthma exacerbation',d:'prednisone 40 mg PO daily ×5 days (or methylprednisolone 40–125 mg IV)',e:'REDUCE: 5 days of steroids = 14 days for COPD exacerbation. (JAMA 2013)'},
         {u:'Severe CAP & COVID hypoxemia',d:'dexamethasone 6 mg IV/PO daily ×10 days',e:'CAPE COD (severe CAP) & RECOVERY (dexamethasone in hypoxemic COVID). Steroids only if hypoxemic in COVID.'},
-        {u:'Autoimmune flares, adrenal insufficiency (stress dose), allergic reactions, ICP/cord compression (dex)',d:'AI stress dose: hydrocortisone 100 mg IV → 50 mg q8h; cord compression/ICP: dexamethasone 10 mg IV → 4 mg q6h'}
+        {u:'Autoimmune flares, adrenal insufficiency (stress dose), allergic reactions, ICP/cord compression (dex)',d:'AI stress dose: hydrocortisone 100 mg IV → 50 mg q8h; cord compression/ICP: dexamethasone 10 mg IV → 4 mg q6h',cite:'Endocrine Society Adrenal Insufficiency · 2016'}
       ],
       se:['Hyperglycemia (esp. post-prandial), HTN, fluid retention','Immunosuppression/infection, poor wound healing','Mood changes/psychosis, insomnia','Osteoporosis, AVN, myopathy, cataracts (chronic)','Adrenal suppression with abrupt withdrawal after prolonged use','Leukocytosis (demargination — not infection)'],
       pearls:['<b>Steroid-induced hyperglycemia is post-prandial/afternoon predominant</b> — add NPH in the morning or scheduled prandial insulin, not just basal. Common ward management point.','<b>Don\'t stop chronic steroids abruptly</b> → adrenal crisis. And give <b>stress-dose steroids</b> for major illness/surgery in chronically steroid-dependent patients.','Potency/equivalents pimp: hydrocortisone 20 = prednisone 5 = methylprednisolone 4 = dexamethasone 0.75 mg. Dex has no mineralocorticoid activity (good for cerebral edema).','Steroid leukocytosis (demargination, no left shift/bands) can masquerade as infection.','PCP prophylaxis (TMP-SMX) if ≥20mg prednisone/day for ≥1 month.']},
     {id:'levothyroxine',name:'Levothyroxine',cls:'Synthetic T4',
       moa:'Synthetic thyroxine (T4) converted peripherally to active T3. Replaces deficient thyroid hormone; narrow therapeutic window titrated to TSH.',
       indic:[
-        {u:'Hypothyroidism (primary, central, post-thyroidectomy), myxedema coma (IV)',d:'full replacement 1.6 mcg/kg/day PO; elderly/CAD start 25–50 mcg, titrate q6wk by TSH; myxedema 200–400 mcg IV load (+ steroids first)'}
+        {u:'Hypothyroidism (primary, central, post-thyroidectomy), myxedema coma (IV)',d:'full replacement 1.6 mcg/kg/day PO; elderly/CAD start 25–50 mcg, titrate q6wk by TSH; myxedema 200–400 mcg IV load (+ steroids first)',cite:'ATA Hypothyroidism · 2014'}
       ],
       se:['Over-replacement → iatrogenic hyperthyroidism (palpitations, AFib, bone loss)','Under-replacement → persistent hypothyroid symptoms'],
       pearls:['<b>Take on an empty stomach, 30–60 min before food</b>; separate from calcium, iron, PPIs, and coffee which impair absorption. Top counseling/pimp point.','<b>Recheck TSH ~6 weeks after any dose change</b> — long half-life means slow equilibration.','In elderly/CAD, "start low, go slow" — too-fast replacement can precipitate angina/arrhythmia.','In suspected combined adrenal + thyroid failure, <b>give steroids BEFORE thyroid hormone</b> to avoid precipitating adrenal crisis.']}
@@ -6549,7 +6550,7 @@ var PHARM_DATA={
     {id:'opioids',name:'Opioids (morphine, hydromorphone, oxycodone, fentanyl)',cls:'Mu-opioid receptor agonist',
       moa:'Agonize mu (and kappa/delta) opioid receptors → ↓pain transmission, euphoria, respiratory depression, and reduced GI motility.',
       indic:[
-        {u:'Moderate–severe acute pain, cancer pain, dyspnea/air hunger in palliative care, acute MI pain',d:'morphine 2–4 mg IV q2–4h PRN; hydromorphone 0.2–0.5 mg IV q2–3h PRN (preferred in CKD); oxycodone 5–10 mg PO q4–6h; always add a bowel regimen'}
+        {u:'Moderate–severe acute pain, cancer pain, dyspnea/air hunger in palliative care, acute MI pain',d:'morphine 2–4 mg IV q2–4h PRN; hydromorphone 0.2–0.5 mg IV q2–3h PRN (preferred in CKD); oxycodone 5–10 mg PO q4–6h; always add a bowel regimen',cite:'CDC Opioid Prescribing · 2022'}
       ],
       se:['<b>Respiratory depression</b> (dose-related, the lethal one)','Sedation, delirium','Constipation (does NOT tolerate — always co-prescribe a bowel regimen)','Nausea, pruritus, urinary retention','Tolerance, dependence, hyperalgesia'],
       pearls:['<b>Morphine accumulates in renal failure</b> (active metabolite M6G → prolonged sedation/respiratory depression). <b>Use hydromorphone or fentanyl in CKD/AKI.</b> Frequent pimp.','Always order a <b>bowel regimen</b> (senna ± docusate) with scheduled opioids — tolerance never develops to constipation.','Know rough equianalgesia: morphine 10mg IV ≈ hydromorphone 1.5mg IV ≈ oxycodone 20mg PO. Reduce ~25–50% for incomplete cross-tolerance when rotating.','Meperidine is largely avoided (neurotoxic metabolite, serotonin syndrome). Don\'t combine with MAOIs.','Reverse overdose with naloxone — but titrate to respirations, not full arousal, in the opioid-dependent.']},
@@ -6570,7 +6571,7 @@ var PHARM_DATA={
     {id:'benzos',name:'Benzodiazepines (lorazepam, midazolam, diazepam)',cls:'GABA-A positive allosteric modulator',
       moa:'Enhance GABA-A receptor activity (↑frequency of Cl channel opening) → sedation, anxiolysis, anticonvulsant, muscle relaxation, anterograde amnesia.',
       indic:[
-        {u:'Alcohol withdrawal (CIWA-driven), status epilepticus, acute severe agitation, procedural sedation, anxiety',d:'EtOH withdrawal: lorazepam 1–2 mg IV/PO symptom-triggered; status epilepticus: lorazepam 0.1 mg/kg IV (≈4 mg) or midazolam 10 mg IM'}
+        {u:'Alcohol withdrawal (CIWA-driven), status epilepticus, acute severe agitation, procedural sedation, anxiety',d:'EtOH withdrawal: lorazepam 1–2 mg IV/PO symptom-triggered; status epilepticus: lorazepam 0.1 mg/kg IV (≈4 mg) or midazolam 10 mg IM',cite:'ASAM Alcohol Withdrawal · 2020'}
       ],
       se:['Respiratory depression (esp. with opioids)','Delirium, oversedation, falls (Beers — avoid in elderly)','Paradoxical agitation','Dependence, withdrawal (can be life-threatening)'],
       pearls:['<b>Lorazepam ("LOT": Lorazepam, Oxazepam, Temazepam) has no active metabolites and is glucuronidated — preferred in liver disease.</b> Diazepam/chlordiazepoxide accumulate in cirrhosis. Classic pimp.','First-line for alcohol withdrawal and status epilepticus — undertreating withdrawal is more dangerous than the benzo.','Reversal = flumazenil, but <b>avoid it in chronic users/unknown ingestions</b> → can precipitate seizures.','Avoid combining with opioids; both depress respiration. Major contributor to inpatient delirium in elderly.']}
@@ -6581,7 +6582,7 @@ var PHARM_DATA={
       moa:'Irreversibly inhibit the gastric parietal cell proton pump → profound, durable acid suppression. Need acid-activated prodrug → best taken 30–60 min before a meal.',
       indic:[
         {u:'GI bleed (esp. high-dose IV for peptic ulcer)',d:'high-risk bleed: pantoprazole 80 mg IV → 8 mg/h ×72 h (or 40 mg IV BID)',e:'High-dose IV PPI ↓rebleeding after endoscopic therapy for high-risk ulcers.'},
-        {u:'GERD, peptic ulcer disease, H. pylori regimens, stress ulcer prophylaxis in select ICU patients',d:'20–40 mg PO daily, 30–60 min before breakfast'}
+        {u:'GERD, peptic ulcer disease, H. pylori regimens, stress ulcer prophylaxis in select ICU patients',d:'20–40 mg PO daily, 30–60 min before breakfast',cite:'ACG Upper GI Bleeding · 2021'}
       ],
       se:['↑Risk of C. difficile and enteric infections','Hypomagnesemia, hypocalcemia, B12 deficiency (chronic)','? ↑pneumonia, ? bone fracture (chronic, observational)','Acute interstitial nephritis (idiosyncratic)','Rebound hyperacidity on discontinuation'],
       pearls:['<b>Stress ulcer prophylaxis is overused</b> — only indicated in ICU patients with real risk (mechanical ventilation >48h, coagulopathy, GI bleed history). Don\'t continue inpatient PPIs at discharge without an indication. Stewardship pimp.','Take 30–60 min before breakfast for efficacy.','May reduce clopidogrel activation (omeprazole) — use pantoprazole if both needed.','Reassess chronic PPIs periodically; deprescribe when no longer indicated.']},
@@ -6605,7 +6606,7 @@ var PHARM_DATA={
     {id:'albuterol',name:'Albuterol (SABA)',cls:'Short-acting beta-2 agonist',
       moa:'Stimulates β2 receptors on bronchial smooth muscle → bronchodilation. Also shifts potassium intracellularly (the hyperkalemia use).',
       indic:[
-        {u:'Acute bronchospasm — asthma/COPD exacerbation (rescue)',d:'2.5–5 mg neb q20min ×3 then PRN (or MDI 4–8 puffs); continuous 10–15 mg/h if severe'},
+        {u:'Acute bronchospasm — asthma/COPD exacerbation (rescue)',d:'2.5–5 mg neb q20min ×3 then PRN (or MDI 4–8 puffs); continuous 10–15 mg/h if severe',cite:'GINA Asthma / GOLD COPD · 2024'},
         {u:'Adjunct in hyperkalemia (shifts K intracellularly)',d:'10–20 mg nebulized (shifts K ~0.5–1.0)'}
       ],
       se:['Tremor, palpitations, tachycardia','Hypokalemia (the flip side of its K-shifting)','Mild hyperglycemia, lactic acidosis (high dose)'],
@@ -6613,8 +6614,8 @@ var PHARM_DATA={
     {id:'ics',name:'Inhaled Corticosteroids (± LABA)',cls:'Inhaled corticosteroid / controller',
       moa:'Topical airway anti-inflammatory → ↓airway inflammation and exacerbations. Controller, not rescue.',
       indic:[
-        {u:'Asthma maintenance (foundational)',d:'daily ICS (budesonide/fluticasone); ICS-formoterol as controller + reliever (SMART). Rinse & spit',e:'ICS reduce asthma exacerbations and mortality; ICS-formoterol now used as both controller and reliever (GINA, SMART/MART).'},
-        {u:'COPD — add when frequent exacerbations or eosinophilia',d:'add ICS to LABA/LAMA when frequent exacerbations or eos'}
+        {u:'Asthma maintenance (foundational)',d:'daily ICS (budesonide/fluticasone); ICS-formoterol as controller + reliever (SMART). Rinse & spit',cite:'GINA Asthma · 2024',e:'ICS reduce asthma exacerbations and mortality; ICS-formoterol now used as both controller and reliever (GINA, SMART/MART).'},
+        {u:'COPD — add when frequent exacerbations or eosinophilia',d:'add ICS to LABA/LAMA when frequent exacerbations or eos',cite:'GOLD COPD · 2024'}
       ],
       se:['<b>Oral candidiasis (thrush) and dysphonia</b>','↑Pneumonia risk in COPD','Adrenal suppression (high dose), minor growth effects in children'],
       pearls:['<b>Rinse and spit after every use to prevent thrush</b> — the #1 counseling/pimp point. Use a spacer too.','Not a rescue inhaler — must be taken daily even when well.','In COPD, ICS benefit is greatest with eosinophilia / frequent exacerbations; weigh against pneumonia risk.','LABA monotherapy in asthma without ICS is dangerous (↑mortality, the old SMART/SALMETEROL warning) — always pair LABA with ICS in asthma.']}
@@ -6624,7 +6625,7 @@ var PHARM_DATA={
     {id:'haloperidol',name:'Haloperidol',cls:'Typical (first-gen) antipsychotic',
       moa:'D2 dopamine receptor antagonist → antipsychotic and antiemetic. High-potency typical → more extrapyramidal symptoms, less sedation/anticholinergic effect.',
       indic:[
-        {u:'Acute agitation, hyperactive delirium (when non-pharm fails)',d:'0.5–1 mg IV/IM/PO, repeat q30–60 min PRN (elderly 0.25–0.5 mg); check QTc, replete K/Mg'},
+        {u:'Acute agitation, hyperactive delirium (when non-pharm fails)',d:'0.5–1 mg IV/IM/PO, repeat q30–60 min PRN (elderly 0.25–0.5 mg); check QTc, replete K/Mg',cite:'SCCM PADIS (ICU agitation/delirium) · 2018'},
         {u:'Psychosis, severe nausea, palliative care',d:'0.5–5 mg per dose depending on indication'}
       ],
       se:['<b>QT prolongation → torsades</b> (esp. IV)','Extrapyramidal symptoms: acute dystonia, akathisia, parkinsonism; tardive dyskinesia (chronic)','<b>Neuroleptic malignant syndrome</b> (fever, rigidity, autonomic instability, ↑CK)','Lowers seizure threshold'],
@@ -6632,7 +6633,7 @@ var PHARM_DATA={
     {id:'ssri',name:'SSRIs / SNRIs',cls:'Serotonin (± norepinephrine) reuptake inhibitor',
       moa:'Block presynaptic serotonin (and for SNRIs, norepinephrine) reuptake → ↑synaptic monoamines. Therapeutic effect takes 4–6 weeks.',
       indic:[
-        {u:'Depression, anxiety disorders, PTSD, OCD, panic disorder',d:'sertraline 50 mg PO daily (→200); escitalopram 10 mg (→20); citalopram ≤20 mg if >60 yo (QT). 4–6 wk to effect'}
+        {u:'Depression, anxiety disorders, PTSD, OCD, panic disorder',d:'sertraline 50 mg PO daily (→200); escitalopram 10 mg (→20); citalopram ≤20 mg if >60 yo (QT). 4–6 wk to effect',cite:'VA/DoD Major Depressive Disorder · 2022'}
       ],
       se:['Early: GI upset, headache, insomnia, sexual dysfunction','<b>Hyponatremia (SIADH)</b>, esp. elderly','↑Bleeding risk (platelet serotonin) — additive with NSAIDs/anticoagulants','QT prolongation (citalopram dose-limited)','Serotonin syndrome in combination'],
       pearls:['<b>Serotonin syndrome</b> (clonus, hyperreflexia, hyperthermia, agitation) — watch when combining with tramadol, linezolid, MAOIs, triptans, ondansetron, fentanyl. Treat: stop agents, supportive, cyproheptadine. Frequent pimp.','<b>Don\'t stop abruptly</b> (esp. paroxetine, venlafaxine) → discontinuation syndrome (flu-like, "brain zaps"). Taper.','Citalopram has a dose-dependent QT limit (≤20mg if >60yo or on interacting drugs).','Check Na in elderly a few weeks after starting (SIADH).','Effect takes weeks — don\'t escalate too fast; warn patients about the lag.']},
@@ -6656,7 +6657,7 @@ var PHARM_DATA={
     {id:'fluids',name:'IV Fluids (crystalloids)',cls:'Isotonic crystalloid resuscitation/maintenance',
       moa:'Volume expansion. Balanced solutions (LR, Plasma-Lyte) approximate plasma electrolytes; normal saline is supraphysiologic in chloride (can cause hyperchloremic metabolic acidosis).',
       indic:[
-        {u:'Resuscitation, maintenance, replacement of losses',d:'resuscitation: LR boluses 500 mL–1 L (sepsis ~30 mL/kg); maintenance D5½NS + 20 KCl ~1–1.5 mL/kg/h',e:'SMART/BaSICS/PLUS: balanced fluids modestly favored over saline, biggest signal in sepsis. Default to LR.'}
+        {u:'Resuscitation, maintenance, replacement of losses',d:'resuscitation: LR boluses 500 mL–1 L (sepsis ~30 mL/kg); maintenance D5½NS + 20 KCl ~1–1.5 mL/kg/h',cite:'SMART / BaSICS / PLUS trials · 2018–2022',e:'SMART/BaSICS/PLUS: balanced fluids modestly favored over saline, biggest signal in sepsis. Default to LR.'}
       ],
       se:['Volume overload / pulmonary edema (esp. HF, CKD)','NS: hyperchloremic non-anion-gap metabolic acidosis','LR: mildly hypotonic, contains K (caution in hyperkalemia/AKI), avoid as diluent for some drugs'],
       pearls:['<b>Default to balanced fluids (LR/Plasma-Lyte)</b> for most resuscitation; reserve normal saline for hyponatremia, hypochloremic alkalosis, TBI, or hyperkalemia where you want to avoid the K in LR.','<b>LR contains ~4 mEq/L K</b> — the common worry in hyperkalemia is overstated but NS is conventionally chosen there.','Don\'t run maintenance fluids on a euvolemic patient who is eating — a frequent source of iatrogenic overload/hyponatremia.','Avoid NS for large-volume resuscitation → hyperchloremic acidosis can look like worsening illness.']},
@@ -6664,7 +6665,7 @@ var PHARM_DATA={
       moa:'Potent α1 agonist (vasoconstriction → ↑SVR/MAP) with modest β1 (inotropy/chronotropy). Raises blood pressure mainly by increasing systemic vascular resistance.',
       indic:[
         {u:'Septic shock — first-line vasopressor',d:'start 0.05 mcg/kg/min (≈5 mcg/min), titrate to MAP ≥65',e:'SOAP II: norepinephrine had fewer arrhythmias and a mortality signal vs dopamine in shock. (NEJM 2010) Surviving Sepsis first-line.'},
-        {u:'Most undifferentiated vasodilatory/distributive shock',d:'titrate to MAP ≥65; add vasopressin as 2nd agent'}
+        {u:'Most undifferentiated vasodilatory/distributive shock',d:'titrate to MAP ≥65; add vasopressin as 2nd agent',cite:'Surviving Sepsis Campaign · 2021'}
       ],
       se:['Reflex bradycardia','Peripheral/digital/mesenteric ischemia','Extravasation → tissue necrosis (treat with phentolamine)','Arrhythmia (less than dopamine)'],
       pearls:['<b>First-line pressor in septic shock; titrate to MAP ≥65.</b> Start early — CLOVERS showed early norepi is safe, you don\'t need liters of fluid first.','Can be run through a good peripheral IV short-term while central access is obtained (the old "central line first" rule has loosened) — monitor the site for extravasation.','Add vasopressin as the second agent to spare catecholamine dose; add hydrocortisone if shock is refractory.','Extravasation → stop, aspirate, inject phentolamine.']},
@@ -6672,7 +6673,7 @@ var PHARM_DATA={
       moa:'Acts on vascular V1 receptors → vasoconstriction independent of adrenergic receptors (works even in acidosis when catecholamines fail). Fixed low dose, not titrated.',
       indic:[
         {u:'Septic shock — second-line, added to norepinephrine',d:'fixed 0.03 units/min — NOT titrated',e:'VASST: added vasopressin spared catecholamines; benefit in less-severe shock subgroup. (NEJM 2008)'},
-        {u:'Catecholamine-refractory shock; also used in variceal bleeding (as terlipressin/octreotide context) & DI',d:'fixed dose; refractory-shock adjunct (variceal: terlipressin/octreotide; DI: per protocol)'}
+        {u:'Catecholamine-refractory shock; also used in variceal bleeding (as terlipressin/octreotide context) & DI',d:'fixed dose; refractory-shock adjunct (variceal: terlipressin/octreotide; DI: per protocol)',cite:'Surviving Sepsis Campaign · 2021'}
       ],
       se:['Digital/mesenteric/coronary ischemia','Hyponatremia','Bradycardia'],
       pearls:['Run at a <b>fixed dose (0.03 units/min) — not titrated</b> like norepinephrine. A frequent ICU pimp.','Works in acidemia where catecholamine receptors are downregulated — useful adjunct in refractory septic shock.','Added to (not instead of) norepinephrine to reduce the catecholamine requirement.']},
@@ -6736,6 +6737,7 @@ function openPharmDrawer(ck,iid){
       body+=`<div><div style="font-size:16px;color:var(--t);line-height:1.5;">▸ ${x.u}</div>`;
       if(x.d) body+=`<div style="font-family:var(--mono);font-size:14.5px;color:${cat.color};line-height:1.45;margin-top:4px;margin-left:14px;font-weight:600;">℞ ${x.d}</div>`;
       if(x.e) body+=`<div style="font-size:14px;color:var(--t2);line-height:1.5;margin-top:3px;border-left:2px solid ${cat.color};padding-left:10px;margin-left:14px;">${x.e}</div>`;
+      if(x.cite) body+=`<div style="font-size:12.5px;color:var(--t3);font-style:italic;margin-top:3px;margin-left:14px;">📖 ${x.cite}</div>`;
       body+='</div>';
     });
     body+='</div>';
