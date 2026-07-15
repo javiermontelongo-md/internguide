@@ -287,6 +287,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   .ni.lang{background:rgba(38,198,218,.15);border-color:rgba(38,198,218,.4);}.ni.lang .nicon{color:#26c6da;}
   .ni.ap{background:rgba(121,134,203,.15);border-color:rgba(121,134,203,.4);}.ni.ap .nicon{color:#7986cb;}
   .ni.cases{background:rgba(127,255,110,.15);border-color:rgba(127,255,110,.4);}.ni.cases .nicon{color:var(--g);}
+  .ni.ekg{background:rgba(244,80,122,.15);border-color:rgba(244,80,122,.4);}.ni.ekg .nicon{color:#f4507a;}
   .nicon{font-size:24px;color:var(--t2);line-height:1;font-weight:700;}
   .nlbl{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;margin-top:2px;}
   .ni.on{border:2px solid var(--g);box-shadow:0 0 8px rgba(127,255,110,.3);}
@@ -470,6 +471,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
     <button class="tab" onclick="gT('trials',this)">TRIALS</button>
     <button class="tab" onclick="gT('lang',this)">LANGUAGE</button>
     <button class="tab" onclick="gT('ap',this)">A&amp;P</button>
+    <button class="tab" onclick="gT('ekg',this)">EKG</button>
     <button class="tab" onclick="gT('cases',this)">CASES</button>
   </div>
 </div>
@@ -1797,6 +1799,788 @@ RECOMMENDATIONS:
   <div style="height:40px;"></div>
 </div>
 
+<div id="panel-ekg" class="panel">
+  <div class="h1">EKG <span>from the vector up</span></div>
+  <div style="font-size:24px;color:var(--t3);margin-bottom:18px;">Every wave on the page is a <b>3-D depolarization vector projected onto a lead's axis</b>. Learn the normal vector for each segment, learn what each of the 12 leads is looking at, and pathology becomes "the vector is doing the wrong thing here — why?" Tap a section to expand. Read top-to-bottom the first time.</div>
+
+  <!-- CORE IDEA (always visible) -->
+  <div class="card" style="margin-bottom:14px;border-left:3px solid #f4507a;">
+    <div style="font-family:var(--mono);font-size:11px;color:#f4507a;letter-spacing:.1em;margin-bottom:10px;">THE ONE RULE THAT EXPLAINS EVERYTHING</div>
+    <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:8px;">A lead is a <b>camera with a fixed viewing axis.</b> Each electrode pair defines a positive pole. At every instant the heart's activation front is a net vector; the lead writes the <b>projection of that vector onto its own axis.</b></p>
+    <div style="background:var(--s3);border-radius:8px;padding:12px 14px;margin-bottom:8px;">
+      <div style="font-size:15px;color:var(--t);line-height:1.7;">▲ Vector pointing <b style="color:var(--g);">toward</b> the positive pole → <b style="color:var(--g);">upward (positive)</b> deflection<br>▼ Vector pointing <b style="color:#ef9a9a;">away</b> → <b style="color:#ef9a9a;">downward (negative)</b> deflection<br>— Vector <b>perpendicular</b> to the axis → <b>isoelectric / biphasic</b> (equal up and down)</div>
+    </div>
+    <p style="font-size:15px;line-height:1.65;color:var(--t2);margin-bottom:0;">Bigger projection = taller wave. Faster front (Purkinje) = narrow & sharp; slower front (myocyte-to-myocyte) = wide & slurred. Hold these two ideas and the whole EKG is derivable, not memorized.</p>
+  </div>
+
+  <!-- THE GRAPH PAPER -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g3);" onclick="toggleSoap('ekg-boxes')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g3);letter-spacing:.1em;">▦ THE GRAPH PAPER — boxes, time, voltage, rate</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ekg-boxes-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ekg-boxes" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">Standard paper: <b>25 mm/s</b> horizontal, <b>10 mm/mV</b> vertical. That fixes what every box is worth — this is where "how many boxes = a diagnosis" comes from.</p>
+      <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:14px;">
+        <thead><tr style="text-align:left;color:var(--g3);font-family:var(--mono);font-size:11px;letter-spacing:.06em;">
+          <th style="padding:6px 8px;border-bottom:1px solid var(--b2);">BOX</th><th style="padding:6px 8px;border-bottom:1px solid var(--b2);">SIZE</th><th style="padding:6px 8px;border-bottom:1px solid var(--b2);">TIME (across)</th><th style="padding:6px 8px;border-bottom:1px solid var(--b2);">VOLTAGE (up)</th>
+        </tr></thead>
+        <tbody style="color:var(--t);">
+          <tr><td style="padding:7px 8px;border-bottom:1px solid var(--b);"><b>Small</b></td><td style="padding:7px 8px;border-bottom:1px solid var(--b);">1 mm</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);">0.04 s (40 ms)</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);">0.1 mV</td></tr>
+          <tr><td style="padding:7px 8px;"><b>Large</b></td><td style="padding:7px 8px;">5 mm</td><td style="padding:7px 8px;">0.20 s (200 ms)</td><td style="padding:7px 8px;">0.5 mV</td></tr>
+        </tbody>
+      </table>
+      <div style="overflow-x:auto;margin-bottom:14px;">
+      <svg viewBox="0 0 480 200" style="width:100%;min-width:340px;height:auto;display:block;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="ekgsm" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M8 0H0V8" fill="none" stroke="rgba(244,80,122,0.12)" stroke-width="1"/></pattern>
+          <pattern id="ekgbg" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="url(#ekgsm)"/><path d="M40 0H0V40" fill="none" stroke="rgba(244,80,122,0.28)" stroke-width="1.2"/></pattern>
+        </defs>
+        <rect width="480" height="200" fill="url(#ekgbg)"/>
+        <path d="M0,130 L55,130 Q70,108 85,130 L110,130 L118,139 L128,52 L138,152 L147,130 L185,130 Q210,104 236,130 L282,130 Q294,123 306,130 L480,130" fill="none" stroke="var(--t)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <g font-family="monospace" font-size="12" fill="#9aa89a">
+          <text x="66" y="98" fill="var(--g2)">P</text>
+          <text x="118" y="44" fill="var(--g)">R</text>
+          <text x="106" y="152" fill="#ef9a9a">Q</text>
+          <text x="140" y="168" fill="#ef9a9a">S</text>
+          <text x="205" y="94" fill="var(--g3)">T</text>
+          <text x="290" y="116" fill="#7986cb">U</text>
+        </g>
+        <g stroke="#5a665a" stroke-width="1" font-family="monospace" font-size="10" fill="#9aa89a">
+          <line x1="85" y1="180" x2="110" y2="180"/><text x="80" y="194">PR</text>
+          <line x1="147" y1="182" x2="185" y2="182"/><text x="150" y="194">ST</text>
+        </g>
+      </svg>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:8px;">HEART RATE — three ways</div>
+      <div style="font-size:15px;color:var(--t);line-height:1.7;margin-bottom:6px;"><b>Regular:</b> 300 ÷ (large boxes between R–R). The sequence to memorize: <span style="font-family:var(--mono);color:var(--g);">300 · 150 · 100 · 75 · 60 · 50</span> for 1–6 big boxes. Or 1500 ÷ small boxes for precision.</div>
+      <div style="font-size:15px;color:var(--t);line-height:1.7;margin-bottom:0;"><b>Irregular:</b> count QRS in a 6-second strip (30 large boxes) × 10.</div>
+    </div>
+  </div>
+
+  <!-- THE 12 CAMERAS -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid #f4507a;" onclick="toggleSoap('ekg-leads')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:#f4507a;letter-spacing:.1em;">◎ THE 12 CAMERAS — what each lead is looking at</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ekg-leads-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ekg-leads" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">Six <b>limb leads</b> see the heart in the <b>frontal (coronal) plane</b>; six <b>precordial leads</b> see it in the <b>horizontal (transverse) plane</b>. Group them by <b>myocardial territory</b> and coronary supply — that grouping is how you localize everything from STEMI to a wall-motion abnormality.</p>
+
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:8px;">FRONTAL PLANE — hexaxial reference</div>
+      <div style="overflow-x:auto;margin-bottom:6px;">
+      <svg viewBox="0 0 300 250" style="width:100%;min-width:260px;max-width:340px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <path d="M150,120 L240,120 A90,90 0 0,1 150,210 Z" fill="rgba(127,255,110,0.10)"/>
+        <circle cx="150" cy="120" r="90" fill="none" stroke="var(--b2)" stroke-width="1"/>
+        <g stroke="#5a665a" stroke-width="1.2">
+          <line x1="60" y1="120" x2="240" y2="120"/>
+          <line x1="105" y1="42" x2="195" y2="198"/>
+          <line x1="195" y1="42" x2="105" y2="198"/>
+          <line x1="150" y1="30" x2="150" y2="210"/>
+        </g>
+        <g font-family="monospace" font-size="12" font-weight="bold">
+          <text x="245" y="124" fill="var(--g)">I 0°</text>
+          <text x="196" y="214" fill="var(--g)">II +60</text>
+          <text x="78" y="214" fill="var(--t2)">III +120</text>
+          <text x="132" y="226" fill="var(--t2)">aVF +90</text>
+          <text x="28" y="70" fill="#ef9a9a">aVR -150</text>
+          <text x="196" y="66" fill="var(--g2)">aVL -30</text>
+        </g>
+        <text x="150" y="245" font-family="monospace" font-size="10" fill="var(--g)" text-anchor="middle">shaded = normal axis (-30° to +90°)</text>
+      </svg>
+      </div>
+      <p style="font-size:14px;line-height:1.6;color:var(--t2);margin-bottom:14px;">ECG angles run <b>clockwise-positive</b> (down = +). Lead II sits at +60°, pointing down-and-left — right along the heart's normal mean vector, which is why <b>II gives the cleanest, most upright P–QRS–T</b> and is the default rhythm strip.</p>
+
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:8px;">HORIZONTAL PLANE — precordial sweep</div>
+      <div style="overflow-x:auto;margin-bottom:6px;">
+      <svg viewBox="0 0 320 210" style="width:100%;min-width:280px;max-width:360px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="160" cy="115" rx="140" ry="80" fill="none" stroke="var(--b2)" stroke-width="1"/>
+        <path d="M120,70 Q210,60 225,120 Q220,175 150,175 Q95,165 100,110 Q105,72 120,70 Z" fill="rgba(244,80,122,0.10)" stroke="#f4507a" stroke-width="1.3"/>
+        <line x1="150" y1="72" x2="165" y2="172" stroke="var(--t3)" stroke-width="1.4" stroke-dasharray="4 3"/>
+        <text x="128" y="130" font-family="monospace" font-size="11" fill="#ef9a9a">RV</text>
+        <text x="188" y="130" font-family="monospace" font-size="11" fill="var(--g)">LV</text>
+        <text x="150" y="60" font-family="monospace" font-size="9" fill="var(--t3)">septum</text>
+        <g font-family="monospace" font-size="11" font-weight="bold" fill="var(--g2)">
+          <circle cx="140" cy="60" r="3" fill="var(--g2)"/><text x="132" y="52">V1</text>
+          <circle cx="165" cy="52" r="3" fill="var(--g2)"/><text x="160" y="44">V2</text>
+          <circle cx="195" cy="55" r="3" fill="var(--g3)"/><text x="190" y="47">V3</text>
+          <circle cx="225" cy="72" r="3" fill="var(--g3)"/><text x="232" y="72">V4</text>
+          <circle cx="252" cy="100" r="3" fill="var(--g)"/><text x="259" y="103">V5</text>
+          <circle cx="268" cy="135" r="3" fill="var(--g)"/><text x="275" y="140">V6</text>
+        </g>
+        <text x="160" y="205" font-family="monospace" font-size="10" fill="var(--t2)" text-anchor="middle">V1→V6 sweeps right→septum→apex→left lateral</text>
+      </svg>
+      </div>
+
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin:8px 0;">TERRITORY → LEADS → ARTERY</div>
+      <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13.5px;min-width:420px;">
+        <thead><tr style="text-align:left;color:var(--g3);font-family:var(--mono);font-size:11px;letter-spacing:.05em;">
+          <th style="padding:6px 8px;border-bottom:1px solid var(--b2);">WALL</th><th style="padding:6px 8px;border-bottom:1px solid var(--b2);">LEADS</th><th style="padding:6px 8px;border-bottom:1px solid var(--b2);">ARTERY</th><th style="padding:6px 8px;border-bottom:1px solid var(--b2);">RECIPROCAL</th>
+        </tr></thead>
+        <tbody style="color:var(--t);">
+          <tr><td style="padding:6px 8px;border-bottom:1px solid var(--b);"><b>Inferior</b></td><td style="padding:6px 8px;border-bottom:1px solid var(--b);font-family:var(--mono);">II, III, aVF</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);">RCA (85%) / LCx</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);color:var(--t2);">I, aVL</td></tr>
+          <tr><td style="padding:6px 8px;border-bottom:1px solid var(--b);"><b>Septal</b></td><td style="padding:6px 8px;border-bottom:1px solid var(--b);font-family:var(--mono);">V1, V2</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);">LAD (septal br.)</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);color:var(--t2);">—</td></tr>
+          <tr><td style="padding:6px 8px;border-bottom:1px solid var(--b);"><b>Anterior</b></td><td style="padding:6px 8px;border-bottom:1px solid var(--b);font-family:var(--mono);">V3, V4</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);">LAD (diagonal)</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);color:var(--t2);">—</td></tr>
+          <tr><td style="padding:6px 8px;border-bottom:1px solid var(--b);"><b>Lateral</b></td><td style="padding:6px 8px;border-bottom:1px solid var(--b);font-family:var(--mono);">I, aVL, V5, V6</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);">LCx / diagonal</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);color:var(--t2);">II, III, aVF</td></tr>
+          <tr><td style="padding:6px 8px;border-bottom:1px solid var(--b);"><b>Posterior</b></td><td style="padding:6px 8px;border-bottom:1px solid var(--b);font-family:var(--mono);">V7–V9 (mirror V1–V3)</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);">LCx / RCA (PDA)</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);color:var(--t2);">tall R + ST↓ V1–V3</td></tr>
+          <tr><td style="padding:6px 8px;"><b>RV / cavity</b></td><td style="padding:6px 8px;font-family:var(--mono);">V4R · aVR</td><td style="padding:6px 8px;">proximal RCA</td><td style="padding:6px 8px;color:var(--t2);">aVR = "looks in from the shoulder"</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p style="font-size:14px;line-height:1.6;color:var(--g);margin-top:12px;margin-bottom:0;font-style:italic;">aVR is the lonely camera aimed at the cavity from the right shoulder — every normal wave is <b>inverted</b> in it, and it earns its keep in ST elevation (diffuse subendocardial ischemia / left-main).</p>
+    </div>
+  </div>
+
+  <!-- CONDUCTION SYSTEM -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid #f4507a;" onclick="toggleSoap('ekg-cond')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:#f4507a;letter-spacing:.1em;">⚡ THE CONDUCTION SYSTEM — the wiring (animated)</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ekg-cond-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ekg-cond" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">Every wave has a generator in this tree. The impulse is <b>fast</b> in the specialized tissue (His-Purkinje, ~2–4 m/s) and <b>slow</b> where it crawls muscle-to-muscle (~0.3–1 m/s). Watch the dot: it sprints down the wires, <b>pauses at the AV node</b> (that pause <i>is</i> your PR segment), then fans out through Purkinje to fire both ventricles almost at once.</p>
+      <div style="overflow-x:auto;margin-bottom:12px;">
+      <svg viewBox="0 0 360 350" style="width:100%;min-width:300px;max-width:380px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <!-- heart body -->
+        <path d="M180,42 C118,22 42,64 52,152 C58,236 122,306 180,322 C238,306 302,236 308,152 C318,64 242,22 180,42 Z" fill="rgba(244,80,122,0.05)" stroke="var(--b2)" stroke-width="1.2"/>
+        <!-- AV groove + septum -->
+        <path d="M60,150 Q180,130 300,150" fill="none" stroke="var(--b)" stroke-width="1" stroke-dasharray="3 3"/>
+        <line x1="180" y1="132" x2="180" y2="308" stroke="var(--b)" stroke-width="1" stroke-dasharray="3 3"/>
+        <g font-family="monospace" font-size="10" fill="var(--t3)">
+          <text x="235" y="80">RA</text><text x="112" y="80">LA</text>
+          <text x="232" y="250">RV</text><text x="108" y="250">LV</text>
+        </g>
+        <!-- conduction wires (static) -->
+        <path id="cTrunk" d="M250,92 Q212,118 180,150 L180,175" fill="none" stroke="#ffd54f" stroke-width="2.4" stroke-linecap="round"/>
+        <path id="cRBB" d="M180,175 C182,208 196,238 216,262" fill="none" stroke="#4fc3f7" stroke-width="2.4" stroke-linecap="round"/>
+        <path id="cLBBmain" d="M180,175 C170,192 156,202 148,208" fill="none" stroke="#7fff6e" stroke-width="2.4" stroke-linecap="round"/>
+        <path id="cLAF" d="M148,208 C132,196 118,180 106,166" fill="none" stroke="#7fff6e" stroke-width="2" stroke-linecap="round"/>
+        <path id="cLPF" d="M148,208 C136,228 126,250 116,270" fill="none" stroke="#7fff6e" stroke-width="2" stroke-linecap="round"/>
+        <!-- purkinje twigs -->
+        <g stroke-width="1.2" stroke-linecap="round" opacity="0.8">
+          <path d="M216,262 l12,10 M216,262 l6,16 M216,262 l-4,14" stroke="#4fc3f7" fill="none"/>
+          <path d="M106,166 l-12,6 M106,166 l-10,-8 M106,166 l-4,14" stroke="#7fff6e" fill="none"/>
+          <path d="M116,270 l-12,6 M116,270 l-2,16 M116,270 l8,12" stroke="#7fff6e" fill="none"/>
+        </g>
+        <!-- nodes -->
+        <circle cx="250" cy="92" r="7" fill="#ef5350"/><circle cx="250" cy="92" r="12" fill="none" stroke="#ef5350" stroke-width="1" opacity="0.5"/>
+        <circle cx="180" cy="150" r="6" fill="#ffd54f"/>
+        <!-- traveling impulse dots (SMIL, looped over 2.6s) -->
+        <circle r="5.5" fill="var(--t)"><animate attributeName="opacity" dur="2.6s" repeatCount="indefinite" values="1;1;1" keyTimes="0;0.45;1"/><animateMotion dur="2.6s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.42;1" calcMode="linear"><mpath href="#cTrunk"/></animateMotion></circle>
+        <circle r="5" fill="#4fc3f7"><animateMotion dur="2.6s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;0.55;0.85;1" calcMode="linear"><mpath href="#cRBB"/></animateMotion></circle>
+        <circle r="5" fill="#7fff6e"><animateMotion dur="2.6s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;0.55;0.8;1" calcMode="linear"><mpath href="#cLPF"/></animateMotion></circle>
+        <circle r="5" fill="#7fff6e"><animateMotion dur="2.6s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;0.55;0.8;1" calcMode="linear"><mpath href="#cLAF"/></animateMotion></circle>
+        <!-- labels -->
+        <g font-family="monospace" font-size="10" font-weight="bold">
+          <text x="262" y="90" fill="#ef5350">SA node</text>
+          <text x="192" y="146" fill="#ffd54f">AV node</text>
+          <text x="190" y="172" fill="#ffd54f">His</text>
+          <text x="222" y="240" fill="#4fc3f7">RBB</text>
+          <text x="120" y="200" fill="#7fff6e">LBB</text>
+          <text x="60" y="150" fill="#7fff6e">LAF</text>
+          <text x="70" y="268" fill="#7fff6e">LPF</text>
+        </g>
+      </svg>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;font-size:14.5px;color:var(--t);line-height:1.6;"><b style="color:#ef5350;">SA node</b> (high RA) — the pacemaker, ~60–100/min. Fires → atria depolarize → <b>P wave</b>.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;font-size:14.5px;color:var(--t);line-height:1.6;"><b style="color:#ffd54f;">AV node</b> — the <b>only</b> electrical bridge between atria and ventricles, and deliberately <b>slow</b> (decremental). That built-in delay = the flat <b>PR segment</b>; it lets the atria finish filling the ventricles before they fire.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;font-size:14.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g);">His → bundle branches → Purkinje</b> — the fast highway. <b style="color:#4fc3f7;">Right bundle</b> (one thin cord) feeds the RV; <b style="color:var(--g);">left bundle</b> splits into <b>anterior (LAF)</b> and <b>posterior (LPF)</b> fascicles feeding the LV. Because Purkinje delivers the signal everywhere at once, the whole ventricle depolarizes in <b>&lt;100 ms → the narrow QRS</b>.</div>
+      </div>
+      <div style="background:rgba(244,80,122,.06);border:1px solid rgba(244,80,122,.28);border-radius:8px;padding:11px 14px;font-size:14.5px;color:var(--t);line-height:1.6;">Break a wire and that territory loses its express lane — it gets reached late, muscle-to-muscle, so its vector arrives <b>slow and last</b>. That single idea generates every <b>bundle branch block</b> and <b>fascicular block</b> below.</div>
+    </div>
+  </div>
+
+  <!-- P WAVE -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g2);" onclick="toggleSoap('ekg-p')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g2);letter-spacing:.1em;">P WAVE — atrial depolarization, lead by lead + why</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ekg-p-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ekg-p" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">The SA node sits <b>high in the right atrium</b>. Activation spreads <b>down, left, and slightly anterior</b> (RA first, then LA). The net P vector points to roughly <b>+60°</b> in the frontal plane and <b>posteriorly/leftward</b> by its end (because the LA is the posterior chamber).</p>
+      <div style="background:var(--s3);border-radius:8px;padding:12px 14px;margin-bottom:14px;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:6px;">WHY THE DIRECTIONS FALL OUT</div>
+        <div style="font-size:15px;color:var(--t);line-height:1.65;">Vector at +60° → <b style="color:var(--g);">upright in I, II, aVF</b>; always <b style="color:#ef9a9a;">inverted in aVR</b> (points away). In <b>V1</b> the RA (anterior) writes an initial <b>positive</b> hump, then the LA (posterior, moving away from the anterior chest) writes a <b>terminal negative</b> → the classic <b>biphasic P in V1</b>.</div>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:8px;">NORMAL P MORPHOLOGY — every lead</div>
+      <div style="overflow-x:auto;margin-bottom:14px;">
+      <table style="width:100%;border-collapse:collapse;font-size:13.5px;min-width:360px;">
+        <tbody style="color:var(--t);">
+          <tr><td style="padding:6px 8px;border-bottom:1px solid var(--b);font-family:var(--mono);color:var(--g);">II</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);">Upright, smooth, single hump — <b>best lead to judge P morphology</b> (parallel to P vector)</td></tr>
+          <tr><td style="padding:6px 8px;border-bottom:1px solid var(--b);font-family:var(--mono);color:var(--g);">I, aVF</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);">Upright</td></tr>
+          <tr><td style="padding:6px 8px;border-bottom:1px solid var(--b);font-family:var(--mono);color:#ef9a9a;">aVR</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);">Inverted (normal) — an <b>upright P in aVR</b> = lead misplacement or ectopic/low atrial rhythm</td></tr>
+          <tr><td style="padding:6px 8px;border-bottom:1px solid var(--b);font-family:var(--mono);color:var(--g2);">V1</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);">Biphasic (+ then −). Terminal negative deflection is the LA signature</td></tr>
+          <tr><td style="padding:6px 8px;font-family:var(--mono);color:var(--g2);">V2–V6</td><td style="padding:6px 8px;">Upright, low amplitude</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:6px;">METRICS TO KNOW</div>
+      <div style="font-size:15px;color:var(--t);line-height:1.7;margin-bottom:12px;">Duration <b>&lt; 120 ms</b> (&lt;3 small boxes) · amplitude <b>&lt; 2.5 mm</b> in limb leads. One P per QRS, all identical, upright in II = <b>sinus rhythm</b>.</div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:6px;">ATRIAL ABNORMALITY — the vector distorts</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;font-size:14.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g4);">Left atrial enlargement (P-mitrale):</b> LA fires late & long → <b>notched, ≥120 ms P in II</b> (two humps &gt;40 ms apart) and a <b>deep, wide terminal negative in V1</b> (≥1 mm × 40 ms box). Think mitral disease, LVH, HFpEF.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;font-size:14.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g4);">Right atrial enlargement (P-pulmonale):</b> bigger RA vector, still early → <b>tall, peaked P ≥ 2.5 mm in II/III/aVF</b>, prominent initial positive in V1. Think pulmonary HTN, COPD, TR.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PR -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;" onclick="toggleSoap('ekg-pr')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--t2);letter-spacing:.1em;">PR SEGMENT & INTERVAL — the AV pause</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ekg-pr-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ekg-pr" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:10px;">Measured start-of-P to start-of-QRS: <b>120–200 ms</b> (3–5 small boxes). It is mostly <b>AV-nodal decremental delay</b> — the pause that lets atria finish emptying before the ventricles fire. The PR <i>segment</i> is normally flat and isoelectric (baseline reference for ST).</p>
+      <div style="font-size:15px;color:var(--t);line-height:1.7;">
+        <div style="margin-bottom:5px;"><b style="color:var(--g4);">Long (&gt;200 ms):</b> 1° AV block (nodal). Progressive lengthening then dropped = Mobitz I.</div>
+        <div style="margin-bottom:5px;"><b style="color:var(--g4);">Short (&lt;120 ms) + delta wave:</b> pre-excitation (WPW) — accessory pathway bypasses the AV delay.</div>
+        <div style="margin-bottom:0;"><b style="color:var(--g4);">PR-segment depression:</b> pericarditis (with diffuse ST elevation) or atrial infarction.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QRS -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g);" onclick="toggleSoap('ekg-qrs')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g);letter-spacing:.1em;">QRS — septum, free wall & the V1 vs V6 mirror</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ekg-qrs-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ekg-qrs" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">Ventricular activation happens in <b>three timed vectors</b>. Get these and every normal QRS shape — and the septal-q question — is derivable.</p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;border-left:3px solid var(--g2);font-size:14.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g2);">Vector 1 — septum (first ~15 ms):</b> the left bundle's septal fibers fire first, depolarizing the septum <b>left → right</b> (and slightly anterior). Small vector pointing toward the right/front.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;border-left:3px solid var(--g);font-size:14.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g);">Vector 2 — free walls (bulk):</b> both ventricles depolarize apex→base through fast Purkinje. LV mass dominates, so the <b>net vector points left, down, posterior</b> → the tall R in the lateral leads. This is the big deflection.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;border-left:3px solid var(--t2);font-size:14.5px;color:var(--t);line-height:1.6;"><b>Vector 3 — basal (last):</b> the high septum/outflow, up and slightly right — small terminal.</div>
+      </div>
+
+      <div style="background:rgba(244,80,122,.06);border:1px solid rgba(244,80,122,.28);border-radius:8px;padding:12px 14px;margin-bottom:14px;">
+        <div style="font-family:var(--mono);font-size:12px;color:#f4507a;margin-bottom:8px;">★ THE SEPTAL VECTOR — reading it precisely (this is the one you asked about)</div>
+        <div style="overflow-x:auto;margin-bottom:10px;">
+        <svg viewBox="0 0 340 150" style="width:100%;min-width:300px;max-width:380px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+          <rect x="160" y="30" width="18" height="90" rx="3" fill="rgba(244,80,122,0.18)" stroke="#f4507a" stroke-width="1.2"/>
+          <text x="169" y="24" font-family="monospace" font-size="9" fill="var(--t2)" text-anchor="middle">septum</text>
+          <defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f4507a"/></marker></defs>
+          <line x1="150" y1="75" x2="205" y2="75" stroke="#f4507a" stroke-width="2.4" marker-end="url(#ah)"/>
+          <text x="215" y="79" font-family="monospace" font-size="10" fill="#f4507a">L→R</text>
+          <g font-family="monospace">
+            <circle cx="55" cy="75" r="4" fill="var(--g)"/><text x="30" y="60" font-size="11" fill="var(--g)">V6 / I / aVL</text>
+            <text x="30" y="98" font-size="10" fill="var(--t2)">vector away → tiny</text>
+            <text x="30" y="112" font-size="12" fill="#ef9a9a" font-weight="bold">septal q ▽</text>
+            <circle cx="290" cy="75" r="4" fill="var(--g2)"/><text x="268" y="60" font-size="11" fill="var(--g2)">V1 / V2</text>
+            <text x="252" y="98" font-size="10" fill="var(--t2)">vector toward → tiny</text>
+            <text x="255" y="112" font-size="12" fill="var(--g)" font-weight="bold">septal r △</text>
+          </g>
+        </svg>
+        </div>
+        <div style="font-size:14.5px;color:var(--t);line-height:1.65;">The first septal vector points <b>left-to-right</b>, i.e. <b>toward V1</b> and <b>away from V6/I/aVL</b>. So the <b>normal initial deflection in V1 is a small positive r</b> (the "septal r") and in V6/I/aVL it's a small negative <b>q</b> (the "septal q"). <b style="color:var(--g);">One precision fix worth locking in:</b> that upright first bump in V1 is technically an <b>r wave, not a q</b> — a true <i>q</i> is a negative initial deflection. So "normal q in V1" is really "normal septal <b>r</b> in V1." The septal <b>q</b> lives in the <b>left lateral leads</b>. Both are &lt;1 mm and &lt;30 ms — septal, not scar.</div>
+      </div>
+
+      <div style="background:var(--s3);border-radius:8px;padding:12px 14px;margin-bottom:12px;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:6px;">FIRST — what "dominant free-wall vector" means</div>
+        <div style="font-size:14.5px;color:var(--t);line-height:1.65;">The <b>free wall</b> = the outer muscular wall of a ventricle (the part that <i>isn't</i> the septum). Both free walls depolarize at the same time (Vector 2), but the <b>LV has ~3× the muscle mass of the RV</b>, so its vector swamps the RV's. The sum — the <b>dominant free-wall vector</b> — points <b>down, left, and posterior</b>, aimed straight at the LV lateral wall (V5–V6, I). "Dominant" = it's the biggest of the three QRS vectors, so it sets the main deflection you see.</div>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:8px;">R-WAVE PROGRESSION — V1 → V6 (animated)</div>
+      <p style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:8px;">Now sweep a camera from V1 (sitting over the RV, so the big vector points <b>away</b> → deep S, an <b>rS</b>) around to V6 (over the LV, vector aimed right <b>at</b> it → tall R, a <b>qR</b>). The R grows and the S shrinks lead by lead. The <b>transition</b> (R = S) normally sits at <b>V3–V4</b>.</p>
+      <div style="overflow-x:auto;margin-bottom:8px;">
+      <svg viewBox="0 0 430 200" style="width:100%;min-width:340px;height:auto;display:block;" xmlns="http://www.w3.org/2000/svg">
+        <!-- moving highlight -->
+        <rect x="10" y="34" width="64" height="126" rx="6" fill="rgba(127,255,110,0.12)" stroke="rgba(127,255,110,0.5)" stroke-width="1">
+          <animate attributeName="x" dur="4.2s" repeatCount="indefinite" values="10;78;146;214;282;350;350;10" keyTimes="0;0.15;0.30;0.45;0.60;0.75;0.9;1" calcMode="linear"/>
+        </rect>
+        <line x1="8" y1="110" x2="422" y2="110" stroke="var(--b)" stroke-width="1"/>
+        <line x1="220" y1="30" x2="220" y2="150" stroke="var(--t3)" stroke-width="1" stroke-dasharray="3 3"/>
+        <text x="220" y="26" font-family="monospace" font-size="9" fill="var(--t3)" text-anchor="middle">transition</text>
+        <g fill="none" stroke="var(--t)" stroke-width="2.2" stroke-linejoin="round">
+          <path d="M28,110 L42,110 L46,95 L50,110 L54,154 L60,110 L72,110"/>
+          <path d="M96,110 L110,110 L114,92 L118,110 L122,150 L128,110 L140,110"/>
+          <path d="M164,110 L176,110 L182,74 L188,138 L196,110 L208,110"/>
+          <path d="M232,110 L244,110 L250,58 L256,128 L262,110 L276,110"/>
+          <path d="M300,110 L310,110 L312,118 L318,52 L324,122 L330,110 L344,110"/>
+          <path d="M368,110 L378,110 L380,118 L386,58 L392,120 L398,110 L412,110"/>
+        </g>
+        <g font-family="monospace" font-size="11" fill="var(--g2)" text-anchor="middle">
+          <text x="50" y="178">V1</text><text x="118" y="178">V2</text><text x="186" y="178">V3</text><text x="254" y="178">V4</text><text x="322" y="178">V5</text><text x="390" y="178">V6</text>
+        </g>
+        <g font-family="monospace" font-size="9" fill="var(--t3)" text-anchor="middle">
+          <text x="50" y="192">rS</text><text x="118" y="192">rS</text><text x="186" y="192">RS</text><text x="254" y="192">Rs</text><text x="322" y="192">qR</text><text x="390" y="192">qR</text>
+        </g>
+      </svg>
+      </div>
+      <div style="font-size:14.5px;color:var(--t2);line-height:1.6;margin-bottom:12px;"><b style="color:var(--g4);">Poor R progression</b> (still rS by V4) → anteroseptal MI, LVH, LBBB, or lead misplacement. <b style="color:var(--g4);">Early/tall R in V1</b> (reversed progression) → posterior MI, RVH, WPW, or RBBB.</div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:6px;">METRICS</div>
+      <div style="font-size:15px;color:var(--t);line-height:1.7;margin-bottom:6px;">Duration <b>&lt; 110 ms</b> (normal narrow). <b>110–120 ms</b> = incomplete block/IVCD. <b>≥ 120 ms</b> = wide → bundle branch block, pacing, hyperK, or ventricular origin.</div>
+      <div style="font-size:14.5px;color:var(--t);line-height:1.65;"><b style="color:var(--g4);">Pathologic Q wave</b> = &gt; 40 ms wide <b>or</b> &gt; 25% of the R height = full-thickness scar (dead tissue is an electrical hole, so the opposite wall's vector wins early). A <b>QS in V1–V2</b> = old anteroseptal MI — distinct from the normal septal r.</div>
+    </div>
+  </div>
+
+  <!-- 12-LEAD ATLAS -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g2);" onclick="toggleSoap('ekg-atlas')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g2);letter-spacing:.1em;">▤ 12-LEAD ATLAS — the shape & the letters in every lead</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ekg-atlas-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ekg-atlas" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">The QRS "letters" aren't lead-specific jargon — they're a <b>naming rule based on direction and size.</b> Learn the rule once and you can name any complex, which is why some leads read "qR" and others just "QS."</p>
+      <div style="background:var(--s3);border-radius:8px;padding:12px 14px;margin-bottom:14px;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:8px;">THE NAMING RULE</div>
+        <div style="font-size:14.5px;color:var(--t);line-height:1.75;">
+          <b style="color:#ef9a9a;">Q</b> — first deflection is <b>downward</b>, with <b>no upward wave before it</b><br>
+          <b style="color:var(--g);">R</b> — <b>any upward</b> deflection · <b style="color:var(--g);">R′</b> — a <b>second</b> upward deflection (as in rSR′)<br>
+          <b style="color:var(--g4);">S</b> — a downward deflection that comes <b>after</b> an R<br>
+          <b>CAPITAL = large</b> (&gt;~5 mm), <b>lowercase = small.</b> So <span style="font-family:var(--mono);">rS</span> = small r + big S; <span style="font-family:var(--mono);">qR</span> = small q + big R.<br>
+          <b style="color:#ef9a9a;">QS</b> — a <b>single, entirely negative</b> complex that never rises above baseline (no R was ever made). Normal in aVR; pathologic over a transmural scar.
+        </div>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:10px;">NORMAL MORPHOLOGY — all 12 (colored by territory)</div>
+      <div style="display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-bottom:12px;">
+        <!-- limb leads -->
+        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g);font-weight:bold;">I</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,30 28,36 L39,36 L42,40 L47,16 L52,40 L58,36 L64,36 Q73,28 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">qR · ↑P ↑T</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g3);font-weight:bold;">II</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,29 28,36 L39,36 L42,40 L47,12 L52,42 L58,36 L64,36 Q73,26 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">qR tall · ↑P ↑T</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g3);font-weight:bold;">III</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L40,36 L44,26 L49,46 L55,36 L64,36 Q73,32 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">variable · small Q ok</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:#ef9a9a;font-weight:bold;">aVR</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,42 28,36 L40,36 L48,54 L56,36 L64,36 Q73,44 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">QS · ↓P ↓T (all inv)</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g);font-weight:bold;">aVL</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L39,36 L42,39 L47,18 L52,39 L58,36 L64,36 Q73,29 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">qR · ↑P ↑T</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g3);font-weight:bold;">aVF</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,30 28,36 L39,36 L42,40 L47,17 L52,41 L58,36 L64,36 Q73,28 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">qR · ↑P ↑T</div></div>
+        <!-- precordial -->
+        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g2);font-weight:bold;">V1</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q16,32 20,36 Q24,40 28,36 L40,36 L43,30 L48,52 L54,36 L64,36 Q73,39 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">rS · biphasic P</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g2);font-weight:bold;">V2</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q16,32 20,36 Q24,41 28,36 L40,36 L43,28 L48,54 L54,36 L64,36 Q73,24 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">rS deep · tall T</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:#ffd54f;font-weight:bold;">V3</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L40,36 L44,22 L50,50 L56,36 L64,36 Q73,26 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">RS · transition</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:#ffd54f;font-weight:bold;">V4</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L40,36 L45,15 L51,44 L57,36 L64,36 Q73,26 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">Rs · tallest R</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g);font-weight:bold;">V5</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L39,36 L42,39 L47,15 L53,42 L58,36 L64,36 Q73,27 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">qRs · ↑P ↑T</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g);font-weight:bold;">V6</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L39,36 L42,39 L47,17 L53,41 L58,36 L64,36 Q73,28 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">qRs · septal q</div></div>
+      </div>
+      <div style="font-size:14px;color:var(--t);line-height:1.65;"><b style="color:var(--g);">Reading the atlas:</b> the septal <b>q</b> appears only in the left leads (I, aVL, V5, V6). The precordials march <b>rS → RS → Rs → qR</b> as the vector turns toward you. <b>aVR is fully upside-down</b> and normal. <b>T inversions are allowed</b> in aVR and V1 (and sometimes III) — everywhere else an inverted T is a finding.</div>
+    </div>
+  </div>
+
+  <!-- Q WAVES -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g4);" onclick="toggleSoap('ekg-q')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g4);letter-spacing:.1em;">Q WAVES — physiologic septal q vs pathologic scar</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ekg-q-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ekg-q" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">A Q wave is just "the first thing this electrode saw was tissue depolarizing <b>away</b> from it." There are two totally different reasons that happens — one normal, one dead muscle.</p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;border-left:3px solid var(--g);font-size:14.5px;color:var(--t);line-height:1.65;"><b style="color:var(--g);">Physiologic (septal) q:</b> the septum fires left→right, i.e. <b>away from the left lateral leads</b> → a tiny initial down-stroke in <b>I, aVL, V5, V6</b>. It is <b>&lt; 40 ms wide and &lt; 25% of the R height</b>. Narrow + small + lateral = benign wiring, not scar. (Its mirror is the septal <b>r</b> in V1.)</div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;border-left:3px solid var(--g4);font-size:14.5px;color:var(--t);line-height:1.65;"><b style="color:var(--g4);">Pathologic Q:</b> a full-thickness infarct leaves an <b>electrically silent hole</b>. The electrode over the dead wall no longer sees local forces — instead it "looks through the window" and records the <b>opposite wall depolarizing away from it</b> → a deep/wide negative Q.</div>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g4);margin-bottom:8px;">THE "ELECTRICAL WINDOW" — why a dead wall writes a Q</div>
+      <div style="overflow-x:auto;margin-bottom:12px;">
+      <svg viewBox="0 0 360 150" style="width:100%;min-width:300px;max-width:380px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="qarrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#4fc3f7"/></marker></defs>
+        <!-- ventricle ring -->
+        <ellipse cx="180" cy="78" rx="95" ry="58" fill="none" stroke="var(--b2)" stroke-width="10"/>
+        <!-- infarcted near wall (facing electrode) -->
+        <path d="M120,128 A95,58 0 0,0 240,128" fill="none" stroke="#5a2530" stroke-width="10"/>
+        <text x="180" y="126" font-family="monospace" font-size="9" fill="#ef9a9a" text-anchor="middle">infarct (silent)</text>
+        <!-- opposite wall vector pointing away from electrode (electrode is below) -->
+        <line x1="180" y1="60" x2="180" y2="18" stroke="#4fc3f7" stroke-width="2.6" marker-end="url(#qarrow)"/>
+        <text x="188" y="34" font-family="monospace" font-size="10" fill="#4fc3f7">healthy wall</text>
+        <text x="188" y="47" font-family="monospace" font-size="9" fill="var(--t2)">fires away →</text>
+        <!-- electrode -->
+        <circle cx="180" cy="148" r="4" fill="var(--t)"/><text x="192" y="150" font-family="monospace" font-size="9" fill="var(--t2)">electrode (over infarct)</text>
+        <!-- resulting complex -->
+        <g transform="translate(280,40)">
+          <line x1="-6" y1="30" x2="70" y2="30" stroke="var(--b)" stroke-width="1"/>
+          <path d="M0,30 L10,30 L18,66 L26,20 L32,40 L40,30 L64,30" fill="none" stroke="var(--t)" stroke-width="2"/>
+          <text x="14" y="80" font-family="monospace" font-size="10" fill="#ef9a9a">deep Q</text>
+        </g>
+      </svg>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g4);margin-bottom:6px;">PATHOLOGIC Q — the criteria</div>
+      <div style="font-size:15px;color:var(--t);line-height:1.7;margin-bottom:10px;">Any of: <b>≥ 40 ms wide</b> (≥1 small box) · <b>≥ 25% of the R-wave height</b> · <b>&gt; 1 mm deep</b> · <b>any Q in V2–V3</b> (should be pure r there) · a <b>QS complex</b>. Localizes to a territory exactly like STEMI (inferior Q in II/III/aVF, etc.) and usually means <b>old completed infarct</b>.</div>
+      <div style="font-size:14px;color:var(--t2);line-height:1.6;"><b>Q/QS that isn't infarct:</b> LBBB &amp; LVH (QS in V1–V3), WPW (delta wave mimics a Q), HCM (deep septal Q in lateral/inferior), acute PE/cor pulmonale (S1Q3T3), dextrocardia/lead reversal, and normal isolated Q in III or aVR.</div>
+    </div>
+  </div>
+
+  <!-- AXIS -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;" onclick="toggleSoap('ekg-axis')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--t2);letter-spacing:.1em;">AXIS — the mean QRS vector in one glance</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ekg-axis-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ekg-axis" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">Axis = direction of the net free-wall (Vector 2) in the frontal plane. Read it off <b>two leads</b>: I and aVF.</p>
+      <div style="overflow-x:auto;margin-bottom:12px;">
+      <table style="width:100%;border-collapse:collapse;font-size:13.5px;min-width:400px;">
+        <thead><tr style="text-align:left;color:var(--g3);font-family:var(--mono);font-size:11px;">
+          <th style="padding:6px 8px;border-bottom:1px solid var(--b2);">LEAD I</th><th style="padding:6px 8px;border-bottom:1px solid var(--b2);">aVF</th><th style="padding:6px 8px;border-bottom:1px solid var(--b2);">AXIS</th><th style="padding:6px 8px;border-bottom:1px solid var(--b2);">RANGE / THINK</th>
+        </tr></thead>
+        <tbody style="color:var(--t);">
+          <tr><td style="padding:6px 8px;border-bottom:1px solid var(--b);color:var(--g);">+ up</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);color:var(--g);">+ up</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);"><b>Normal</b></td><td style="padding:6px 8px;border-bottom:1px solid var(--b);color:var(--t2);">−30° to +90°</td></tr>
+          <tr><td style="padding:6px 8px;border-bottom:1px solid var(--b);color:var(--g);">+ up</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);color:#ef9a9a;">− down</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);"><b>LAD</b></td><td style="padding:6px 8px;border-bottom:1px solid var(--b);color:var(--t2);">−30 to −90 · LAFB, inf MI, LVH — <i>confirm w/ lead II down</i></td></tr>
+          <tr><td style="padding:6px 8px;border-bottom:1px solid var(--b);color:#ef9a9a;">− down</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);color:var(--g);">+ up</td><td style="padding:6px 8px;border-bottom:1px solid var(--b);"><b>RAD</b></td><td style="padding:6px 8px;border-bottom:1px solid var(--b);color:var(--t2);">+90 to +180 · RVH, LPFB, lateral MI, PE</td></tr>
+          <tr><td style="padding:6px 8px;color:#ef9a9a;">− down</td><td style="padding:6px 8px;color:#ef9a9a;">− down</td><td style="padding:6px 8px;"><b>Extreme ("NW")</b></td><td style="padding:6px 8px;color:var(--t2);">−90 to ±180 · VT, hyperK, lead reversal</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div style="font-size:14.5px;color:var(--g);line-height:1.6;font-style:italic;">Fine-tune: the most <b>isoelectric (equiphasic)</b> limb lead is <b>perpendicular</b> to the axis — find it, then the axis points toward whichever perpendicular lead is most positive.</div>
+    </div>
+  </div>
+
+  <!-- BUNDLE BRANCH BLOCKS -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid #f4507a;" onclick="toggleSoap('ekg-bbb')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:#f4507a;letter-spacing:.1em;">BUNDLE BRANCH BLOCKS — where, why & the rSR′</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ekg-bbb-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ekg-bbb" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">Block one bundle and that ventricle can't be reached by fast Purkinje (see the wiring in the <b>Conduction System</b> section). It gets depolarized <b>late, and myocyte-to-myocyte</b> — a slow, disorganized front. Two consequences fall straight out: <b>(1) the QRS widens to ≥120 ms</b>, and <b>(2) a late terminal vector appears</b>, pointing toward the blocked side.</p>
+      <div style="font-family:var(--mono);font-size:12px;color:#f4507a;margin-bottom:6px;">WATCH THE VENTRICLES LIGHT UP (animated)</div>
+      <div style="overflow-x:auto;margin-bottom:6px;">
+      <svg viewBox="0 0 360 210" style="width:100%;min-width:320px;max-width:420px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="vgrn" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7fff6e"/></marker>
+          <marker id="vorg" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ffb74d"/></marker>
+        </defs>
+        <!-- ===== NORMAL (cx=62) ===== -->
+        <g>
+          <ellipse cx="52" cy="92" rx="26" ry="40" fill="none" stroke="var(--b2)" stroke-width="2"/>
+          <ellipse cx="80" cy="92" rx="17" ry="30" fill="none" stroke="var(--b2)" stroke-width="2"/>
+          <ellipse cx="52" cy="92" rx="26" ry="40" fill="#7fff6e" opacity="0"><animate attributeName="opacity" dur="3s" repeatCount="indefinite" values="0;0;0.8;0.8;0" keyTimes="0;0.1;0.35;0.92;1"/></ellipse>
+          <ellipse cx="80" cy="92" rx="17" ry="30" fill="#7fff6e" opacity="0"><animate attributeName="opacity" dur="3s" repeatCount="indefinite" values="0;0;0.8;0.8;0" keyTimes="0;0.1;0.35;0.92;1"/></ellipse>
+          <line x1="62" y1="90" x2="40" y2="118" stroke="#7fff6e" stroke-width="2.6" marker-end="url(#vgrn)" opacity="0"><animate attributeName="opacity" dur="3s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.1;0.35;0.9;1"/></line>
+          <text x="62" y="168" font-family="monospace" font-size="10" fill="#7fff6e" text-anchor="middle" font-weight="bold">NORMAL</text>
+          <text x="62" y="182" font-family="monospace" font-size="9" fill="var(--t2)" text-anchor="middle">both together</text>
+          <text x="62" y="194" font-family="monospace" font-size="9" fill="var(--g)" text-anchor="middle">narrow QRS</text>
+        </g>
+        <!-- ===== RBBB (cx=180) ===== -->
+        <g>
+          <ellipse cx="170" cy="92" rx="26" ry="40" fill="none" stroke="var(--b2)" stroke-width="2"/>
+          <ellipse cx="198" cy="92" rx="17" ry="30" fill="none" stroke="var(--b2)" stroke-width="2"/>
+          <ellipse cx="170" cy="92" rx="26" ry="40" fill="#7fff6e" opacity="0"><animate attributeName="opacity" dur="3s" repeatCount="indefinite" values="0;0;0.8;0.8;0" keyTimes="0;0.05;0.3;0.92;1"/></ellipse>
+          <ellipse cx="198" cy="92" rx="17" ry="30" fill="#ffb74d" opacity="0"><animate attributeName="opacity" dur="3s" repeatCount="indefinite" values="0;0;0.85;0.85;0" keyTimes="0;0.45;0.72;0.92;1"/></ellipse>
+          <line x1="180" y1="92" x2="212" y2="86" stroke="#ffb74d" stroke-width="2.8" marker-end="url(#vorg)" opacity="0"><animate attributeName="opacity" dur="3s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.45;0.72;0.9;1"/></line>
+          <text x="180" y="168" font-family="monospace" font-size="10" fill="#f4507a" text-anchor="middle" font-weight="bold">RBBB</text>
+          <text x="180" y="182" font-family="monospace" font-size="9" fill="var(--t2)" text-anchor="middle">RV late → toward V1</text>
+          <text x="180" y="194" font-family="monospace" font-size="9" fill="var(--g3)" text-anchor="middle">wide · rSR′</text>
+        </g>
+        <!-- ===== LBBB (cx=300) ===== -->
+        <g>
+          <ellipse cx="290" cy="92" rx="26" ry="40" fill="none" stroke="var(--b2)" stroke-width="2"/>
+          <ellipse cx="318" cy="92" rx="17" ry="30" fill="none" stroke="var(--b2)" stroke-width="2"/>
+          <ellipse cx="318" cy="92" rx="17" ry="30" fill="#7fff6e" opacity="0"><animate attributeName="opacity" dur="3s" repeatCount="indefinite" values="0;0;0.8;0.8;0" keyTimes="0;0.05;0.3;0.92;1"/></ellipse>
+          <ellipse cx="290" cy="92" rx="26" ry="40" fill="#ffb74d" opacity="0"><animate attributeName="opacity" dur="3s" repeatCount="indefinite" values="0;0;0.85;0.85;0" keyTimes="0;0.45;0.75;0.92;1"/></ellipse>
+          <line x1="300" y1="92" x2="266" y2="98" stroke="#ffb74d" stroke-width="2.8" marker-end="url(#vorg)" opacity="0"><animate attributeName="opacity" dur="3s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.45;0.75;0.9;1"/></line>
+          <text x="300" y="168" font-family="monospace" font-size="10" fill="var(--g2)" text-anchor="middle" font-weight="bold">LBBB</text>
+          <text x="300" y="182" font-family="monospace" font-size="9" fill="var(--t2)" text-anchor="middle">LV late → toward V6</text>
+          <text x="300" y="194" font-family="monospace" font-size="9" fill="var(--g3)" text-anchor="middle">wide · broad R</text>
+        </g>
+      </svg>
+      </div>
+      <div style="font-size:12px;color:var(--t2);text-align:center;margin-bottom:14px;font-family:var(--mono);"><span style="color:#7fff6e;">■</span> on-time (Purkinje)&nbsp;&nbsp;<span style="color:#ffb74d;">■</span> late (muscle-to-muscle) — the orange wall arrives last and makes the terminal vector</div>
+      <div style="font-family:var(--mono);font-size:12px;color:#f4507a;margin-bottom:6px;">RESULTING MORPHOLOGY</div>
+      <div style="overflow-x:auto;margin-bottom:14px;">
+      <svg viewBox="0 0 340 200" style="width:100%;min-width:300px;max-width:400px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <text x="90" y="16" font-family="monospace" font-size="12" fill="#f4507a" text-anchor="middle" font-weight="bold">RBBB</text>
+        <text x="255" y="16" font-family="monospace" font-size="12" fill="var(--g2)" text-anchor="middle" font-weight="bold">LBBB</text>
+        <line x1="170" y1="24" x2="170" y2="196" stroke="var(--b2)" stroke-width="1"/>
+        <g font-family="monospace" font-size="11" fill="var(--t2)">
+          <text x="10" y="60">V1</text><text x="10" y="150">V6</text>
+        </g>
+        <path d="M25,70 L45,70 L52,52 L58,80 L64,62 L72,44 L80,70 L120,70" fill="none" stroke="var(--t)" stroke-width="2" stroke-linejoin="round"/>
+        <text x="72" y="40" font-family="monospace" font-size="10" fill="#f4507a">rSR′ ("M")</text>
+        <path d="M25,160 L45,160 L50,150 L58,132 L92,132 L100,178 L120,160" fill="none" stroke="var(--t)" stroke-width="2" stroke-linejoin="round"/>
+        <text x="66" y="128" font-family="monospace" font-size="10" fill="#f4507a">wide slurred S</text>
+        <path d="M190,70 L205,70 L212,64 L214,120 L235,120 L242,70 L285,70" fill="none" stroke="var(--t)" stroke-width="2" stroke-linejoin="round"/>
+        <text x="212" y="140" font-family="monospace" font-size="10" fill="var(--g2)">QS/rS ("W")</text>
+        <path d="M190,160 L205,160 L212,120 L228,118 L236,132 L250,116 L262,160 L285,160" fill="none" stroke="var(--t)" stroke-width="2" stroke-linejoin="round"/>
+        <text x="214" y="112" font-family="monospace" font-size="10" fill="var(--g2)">broad notched R</text>
+      </svg>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:12px;">
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;border-left:3px solid #f4507a;">
+          <div style="font-family:var(--mono);font-size:12px;color:#f4507a;margin-bottom:5px;">RBBB — "look at V1"</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.65;">LV depolarizes normally & early; then the <b>RV lights up late, cell-to-cell</b>. That slow terminal front travels <b>rightward and anterior — toward V1</b> → the second, delayed <b>R′</b>, giving <b>rSR′ (M-shape) in V1</b> and a <b>wide slurred S in I & V6</b> (the vector heading away from the left leads). The rSR′ is literally "septal r, LV S, then the late RV R-prime." QRS ≥120 ms. <b>Preserves</b> the initial septal vector, so it doesn't wreck STEMI reading the way LBBB does.</div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;border-left:3px solid var(--g2);">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:5px;">LBBB — "look at V6"</div>
+          <div style="font-size:14.5px;color:var(--t);line-height:1.65;">Now the <b>septum flips</b> — it depolarizes right→left (via the RV), erasing the normal septal q. LV activates late & slow → <b>broad monophasic notched R in I, aVL, V5–V6</b> ("W" pattern) and <b>QS or rS in V1</b>. QRS ≥120 ms. <b>New LBBB + ischemic symptoms is a STEMI-equivalent</b> (use Sgarbossa). LBBB also invalidates axis/hypertrophy/Q-wave criteria.</div>
+        </div>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:6px;">FASCICULAR BLOCKS (hemiblocks) — the left bundle's two arms</div>
+      <div style="font-size:14.5px;color:var(--t);line-height:1.65;"><b>LAFB:</b> left <b>axis</b> deviation (−45 to −90), qR in I/aVL, rS in II/III/aVF, QRS still &lt;120. <b>LPFB:</b> right axis, rS in I/aVL, qR in III — diagnosis of exclusion. <b>Bifascicular</b> = RBBB + a hemiblock; add 1° AV block → "trifascicular," a whisker from complete heart block.</div>
+    </div>
+  </div>
+
+  <!-- T WAVE -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g3);" onclick="toggleSoap('ekg-t')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g3);letter-spacing:.1em;">T WAVE — why inversion means ischemia</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ekg-t-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ekg-t" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">Here's the elegant part. Repolarization travels the <b>opposite direction</b> from depolarization — from <b>epicardium back to endocardium</b> (the epicardium, which depolarized last, recovers first because it's under less pressure and better perfused). A wave moving away, of a process that is itself electrically reversed, gives a <b>double negative → an upright T</b> that is <b>concordant with the QRS</b>.</p>
+      <div style="background:var(--s3);border-radius:8px;padding:12px 14px;margin-bottom:14px;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:6px;">NORMAL T</div>
+        <div style="font-size:14.5px;color:var(--t);line-height:1.65;">Upright in <b>I, II, V3–V6</b>; asymmetric (slow up, quick down); &lt; 2/3 of the R height. <b>Inverted normally in aVR</b>, and often in <b>V1</b> (± III) — those inversions are allowed.</div>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:8px;">FIRST — the three layers of the wall (what "subendocardium" means)</div>
+      <p style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:8px;">The ventricular wall isn't uniform. From outside in: <b>epicardium</b> → <b>mid-myocardium (M cells)</b> → <b>subendocardium</b>. The <b>subendocardium is the innermost third</b>, pressed right against the high-pressure blood in the cavity. Coronary arteries run on the <b>outer (epicardial)</b> surface and dive inward, so the subendocardium is <b>last in line for blood</b> — and it sits under the <b>highest wall stress</b>. That combination is why it's the <b>first tissue to go ischemic</b> in any demand/supply mismatch.</p>
+      <div style="overflow-x:auto;margin-bottom:12px;">
+      <svg viewBox="0 0 360 170" style="width:100%;min-width:300px;max-width:400px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="perf" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ef5350"/></marker></defs>
+        <!-- layers -->
+        <rect x="30" y="30" width="240" height="26" fill="rgba(127,255,110,0.14)" stroke="var(--b)"/>
+        <rect x="30" y="56" width="240" height="34" fill="rgba(121,134,203,0.14)" stroke="var(--b)"/>
+        <rect x="30" y="90" width="240" height="30" fill="rgba(239,83,80,0.16)" stroke="var(--b)"/>
+        <text x="150" y="47" font-family="monospace" font-size="11" fill="#7fff6e" text-anchor="middle">EPICARDIUM (outer)</text>
+        <text x="150" y="77" font-family="monospace" font-size="11" fill="#7986cb" text-anchor="middle">mid-myocardium (M cells)</text>
+        <text x="150" y="109" font-family="monospace" font-size="11" fill="#ef9a9a" text-anchor="middle">subENDOcardium (inner)</text>
+        <!-- cavity -->
+        <rect x="30" y="120" width="240" height="30" fill="rgba(79,195,247,0.10)"/>
+        <text x="150" y="139" font-family="monospace" font-size="10" fill="var(--g2)" text-anchor="middle">LV cavity — blood under pressure</text>
+        <!-- coronary on top diving in -->
+        <line x1="40" y1="24" x2="260" y2="24" stroke="#ef5350" stroke-width="3"/>
+        <line x1="70" y1="26" x2="74" y2="112" stroke="#ef5350" stroke-width="2.2" marker-end="url(#perf)"/>
+        <line x1="150" y1="26" x2="150" y2="112" stroke="#ef5350" stroke-width="2.2" marker-end="url(#perf)"/>
+        <line x1="230" y1="26" x2="226" y2="112" stroke="#ef5350" stroke-width="2.2" marker-end="url(#perf)"/>
+        <text x="278" y="26" font-family="monospace" font-size="9" fill="#ef5350">coronary</text>
+        <text x="278" y="72" font-family="monospace" font-size="9" fill="var(--t2)">perfusion</text>
+        <text x="278" y="84" font-family="monospace" font-size="9" fill="var(--t2)">epi→endo</text>
+        <text x="278" y="108" font-family="monospace" font-size="9" fill="#ef9a9a">↓ last &amp;</text>
+        <text x="278" y="120" font-family="monospace" font-size="9" fill="#ef9a9a">most stressed</text>
+      </svg>
+      </div>
+      <div style="background:var(--s3);border-radius:8px;padding:10px 13px;margin-bottom:14px;font-size:14px;color:var(--t);line-height:1.6;"><b>Two sequences worth memorizing:</b> depolarization travels <b>endo→epi</b> (inside out); repolarization travels <b>epi→endo</b> (outside in, because the epicardium recovers first). That reversal is exactly why the normal T is <b>upright</b> — and why disturbing it flips the T.</div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:8px;">WHY ISCHEMIA FLIPS IT</div>
+      <p style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:10px;">Ischemia hits that <b>subendocardium</b> first. It <b>reverses the normal epi→endo recovery sequence</b>: now repolarization moves endo→epi, so the T vector swings 180° and points away from the ischemic wall → a <b>symmetric, inverted T</b> in the leads facing it. <b>Symmetry is the tell</b> — ischemic T inversions are narrow and symmetric, unlike the lazy asymmetric normal T.</p>
+      <div style="overflow-x:auto;margin-bottom:12px;">
+      <svg viewBox="0 0 340 110" style="width:100%;min-width:300px;max-width:380px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="55" x2="340" y2="55" stroke="var(--b)" stroke-width="1"/>
+        <path d="M15,55 L30,55 L36,62 L44,20 L52,66 L60,55 L80,55 Q100,32 122,55 L145,55" fill="none" stroke="var(--t)" stroke-width="2" stroke-linejoin="round"/>
+        <text x="80" y="98" font-family="monospace" font-size="10" fill="var(--g)" text-anchor="middle">normal: upright, asymmetric</text>
+        <path d="M195,55 L210,55 L216,62 L224,20 L232,66 L240,55 L258,55 Q280,84 302,55 L325,55" fill="none" stroke="var(--t)" stroke-width="2" stroke-linejoin="round"/>
+        <text x="258" y="98" font-family="monospace" font-size="9" fill="#ef9a9a" text-anchor="middle">ischemic: inverted, symmetric</text>
+      </svg>
+      </div>
+      <div style="font-size:14.5px;color:var(--t);line-height:1.65;"><b style="color:var(--g4);">Wellens</b> (proximal LAD, reperfused): deep symmetric or biphasic T in <b>V2–V3</b> during pain-free windows — a warning of imminent anterior MI. <b>Hyperacute T</b> (tall, <b>broad-based</b>, symmetric) is the <i>earliest</i> STEMI change, before the ST rises — think of it as the whole wall's repolarization smeared and delayed by acute injury.</div>
+      <div style="background:var(--s3);border-radius:8px;padding:11px 14px;margin-top:10px;font-size:14px;color:var(--t);line-height:1.65;"><b style="color:#ffd54f;">Peaked "tented" T of hyperkalemia — why it's pointed, not broad:</b> extra extracellular K⁺ raises the resting membrane potential (less negative) <b>and</b> boosts K⁺ conductance (the I<sub>Kr</sub> channels) during phase 3. Repolarization therefore runs <b>faster and steeper</b> → a <b>tall, narrow, symmetric, sharply-pointed</b> T with a <b>narrow base</b>. Contrast with the hyperacute ischemic T, which is <b>broad-based</b>. Same "tall T" first impression, opposite width — and opposite emergency.</div>
+    </div>
+  </div>
+
+  <!-- U WAVE -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;" onclick="toggleSoap('ekg-u')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--t2);letter-spacing:.1em;">U WAVE — the small print after T</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ekg-u-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ekg-u" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:8px;">A small (&lt;1 mm) deflection after the T, same direction as the T, best seen in <b>V2–V3</b> at slow rates. Thought to be <b>late repolarization of the mid-myocardial M-cells / Purkinje</b>.</p>
+      <div style="font-size:15px;color:var(--t);line-height:1.7;">
+        <div style="margin-bottom:5px;"><b style="color:var(--g4);">Prominent U:</b> hypokalemia (classic — with flat T and ST depression), bradycardia, hypothermia, some antiarrhythmics.</div>
+        <div style="margin-bottom:0;"><b style="color:var(--g4);">Inverted U:</b> abnormal — ischemia (esp. LAD) or LVH/HTN. Easy to miss, worth the look.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QT -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;" onclick="toggleSoap('ekg-qt')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--t2);letter-spacing:.1em;">QT INTERVAL — repolarization time & torsades risk</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ekg-qt-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ekg-qt" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:10px;">Start of QRS → end of T = total ventricular electrical time. It shortens as HR rises, so correct it. <b>Bazett: QTc = QT / √(RR in sec).</b> Measure in <b>II or V5</b>; use the longest.</p>
+      <div style="font-size:15px;color:var(--t);line-height:1.7;margin-bottom:8px;"><b>Normal QTc:</b> ≤ 440 ms (men) / ≤ 460 ms (women). <b style="color:var(--g4);">&gt; 500 ms = high torsades risk.</b> Quick eyeball: QT should be <b>&lt; half the R–R</b> at normal rates.</div>
+      <div style="font-size:14.5px;color:var(--t2);line-height:1.6;">Long: hypo-K/Mg/Ca, drugs (many QT-prolongers stack), congenital LQTS, ischemia, ICP. Short: hyperCa, digoxin effect.</div>
+    </div>
+  </div>
+
+  <!-- ISCHEMIA / INFARCT -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--red);" onclick="toggleSoap('ekg-isch')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--red);letter-spacing:.1em;">⚡ ISCHEMIA & INFARCT — ST↑/↓, how many boxes, where</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ekg-isch-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ekg-isch" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:8px;">THE MECHANISM — the current of injury</div>
+      <p style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:10px;">Injured myocytes can't hold a normal charge — they sit <b>partially depolarized at rest</b> and repolarize incompletely. That creates a voltage difference between sick and healthy tissue that drives a <b>current of injury</b>, tugging the ECG baseline. The <b>direction</b> the ST shifts tells you <b>how deep</b> the injury reaches (recall the wall layers from the T-wave section):</p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;font-size:14.5px;color:var(--t);line-height:1.6;"><b style="color:#ef9a9a;">Subendocardial (partial-thickness) ischemia →</b> injury vector points <b>into the cavity, away from the leads</b> → <b>ST depression</b> + T inversion. This is "demand" ischemia / NSTEMI / a positive stress test. (This — not a Q wave — is the "endocardial ischemia" picture.)</div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;font-size:14.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g4);">Transmural (full-thickness) injury →</b> vector points <b>out toward the facing leads</b> → <b>ST elevation</b> = STEMI. The opposite wall's camera sees the same vector head-on from behind → <b>reciprocal ST depression</b> (a useful confirmation).</div>
+      </div>
+      <div style="overflow-x:auto;margin-bottom:12px;">
+      <svg viewBox="0 0 340 110" style="width:100%;min-width:300px;max-width:380px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="60" x2="340" y2="60" stroke="var(--b)" stroke-width="1" stroke-dasharray="3 3"/>
+        <path d="M12,60 L28,60 L34,66 L44,30 L52,72 L60,72 Q75,74 90,72 L120,72" fill="none" stroke="var(--t)" stroke-width="2" stroke-linejoin="round"/>
+        <text x="66" y="100" font-family="monospace" font-size="10" fill="#ef9a9a" text-anchor="middle">ST depression (subendo)</text>
+        <path d="M200,60 L216,60 L222,66 L232,26 L240,48 Q258,42 272,48 L300,48" fill="none" stroke="var(--t)" stroke-width="2" stroke-linejoin="round"/>
+        <text x="256" y="100" font-family="monospace" font-size="10" fill="var(--g4)" text-anchor="middle">ST elevation (transmural)</text>
+      </svg>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:8px;">WHY THE ST SEGMENT SPECIFICALLY MOVES — two currents, one result</div>
+      <p style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:10px;">The ST segment is the moment when the whole healthy ventricle sits <b>uniformly depolarized</b> (phase-2 plateau) — normally there's no voltage gradient, so it's flat at baseline. Injury breaks that in <b>two</b> ways, and for transmural injury both push the ST the <b>same</b> direction:</p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;font-size:14px;color:var(--t);line-height:1.6;"><b style="color:var(--g2);">① Diastolic current of injury (the TQ segment):</b> between beats, healthy cells are fully polarized (outside +) but injured cells rest <b>partially depolarized</b> (outside less +). That gradient <b>depresses the TQ baseline</b> over the injury. The ECG amplifier is <b>AC-coupled</b> — it treats the TP/PR level as "zero" and re-draws that depressed baseline as flat. Lifting a depressed baseline to flat <b>drags the ST upward</b> → apparent ST elevation.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;font-size:14px;color:var(--t);line-height:1.6;"><b style="color:var(--g4);">② Systolic current of injury (the ST segment):</b> during the plateau, healthy tissue is at ~0 mV while injured tissue has a <b>lower, shorter plateau</b> → now the injured zone is relatively positive. Over a <b>transmural</b> injury that vector points <b>out toward the electrode</b> → a genuine ST elevation on top of ①.</div>
+      </div>
+      <div style="overflow-x:auto;margin-bottom:8px;">
+      <svg viewBox="0 0 360 130" style="width:100%;min-width:320px;max-width:400px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <!-- panel A: true voltages -->
+        <line x1="8" y1="52" x2="168" y2="52" stroke="#4fc3f7" stroke-width="1" stroke-dasharray="4 3"/>
+        <text x="8" y="46" font-family="monospace" font-size="8" fill="#4fc3f7">true zero</text>
+        <path d="M8,66 L34,66 L38,72 L44,30 L50,80 L58,52 L96,52 Q112,40 128,52 L134,66 L168,66" fill="none" stroke="var(--t)" stroke-width="2" stroke-linejoin="round"/>
+        <text x="88" y="118" font-family="monospace" font-size="9" fill="var(--t2)" text-anchor="middle">TQ depressed; ST at zero</text>
+        <text x="52" y="98" font-family="monospace" font-size="8" fill="#ef9a9a">TQ↓</text>
+        <!-- arrow -->
+        <text x="176" y="60" font-family="monospace" font-size="16" fill="var(--t3)">→</text>
+        <text x="176" y="72" font-family="monospace" font-size="7" fill="var(--t3)">AC</text>
+        <!-- panel B: as recorded -->
+        <line x1="196" y1="66" x2="352" y2="66" stroke="#4fc3f7" stroke-width="1" stroke-dasharray="4 3"/>
+        <text x="196" y="78" font-family="monospace" font-size="8" fill="#4fc3f7">re-zeroed baseline</text>
+        <path d="M196,66 L222,66 L226,72 L232,30 L238,80 L246,38 L284,38 Q300,26 316,38 L322,66 L352,66" fill="none" stroke="var(--t)" stroke-width="2" stroke-linejoin="round"/>
+        <text x="274" y="24" font-family="monospace" font-size="9" fill="var(--g4)" text-anchor="middle">ST now elevated</text>
+      </svg>
+      </div>
+      <div style="font-size:14px;color:var(--t);line-height:1.6;margin-bottom:14px;">For <b>subendocardial</b> ischemia the injured layer faces the cavity, so both currents point <b>inward, away from the surface leads</b> → <b>ST depression</b> (and aVR, which stares into the cavity, can rise — the left-main / diffuse-demand pattern).</div>
+
+      <div style="font-family:var(--mono);font-size:12px;color:#f4507a;margin-bottom:8px;">★ WHAT & WHERE IS THE J POINT</div>
+      <p style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:8px;">The <b>J point</b> ("junction") is the exact corner where the <b>QRS ends and the ST segment begins</b> — where the steep S-upstroke suddenly bends into the flat ST. It is <b>the spot you measure ST deviation</b>, always compared to the <b>TP/PR baseline</b> (never the T wave). Some criteria read 40–80 ms past it (J-60 / J-80) to judge the ST slope.</p>
+      <div style="overflow-x:auto;margin-bottom:14px;">
+      <svg viewBox="0 0 360 150" style="width:100%;min-width:320px;max-width:400px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <line x1="10" y1="100" x2="350" y2="100" stroke="#4fc3f7" stroke-width="1" stroke-dasharray="4 3"/>
+        <text x="348" y="114" font-family="monospace" font-size="9" fill="#4fc3f7" text-anchor="end">TP / PR baseline = zero</text>
+        <path d="M20,100 L38,100 Q48,93 58,100 L80,100 L84,104 L90,45 L98,116 L112,84 L150,82 Q175,58 200,82 Q210,90 220,100 L350,100" fill="none" stroke="var(--t)" stroke-width="2.2" stroke-linejoin="round"/>
+        <circle cx="112" cy="84" r="4.5" fill="#f4507a"/>
+        <line x1="112" y1="100" x2="112" y2="86" stroke="#ffd54f" stroke-width="1.5"/>
+        <line x1="124" y1="100" x2="124" y2="82" stroke="#ffd54f" stroke-width="1.5"/>
+        <text x="120" y="70" font-family="monospace" font-size="10" fill="#f4507a">J point</text>
+        <text x="138" y="94" font-family="monospace" font-size="9" fill="#ffd54f">ST↑ measured here</text>
+        <g font-family="monospace" font-size="9" fill="var(--t2)"><text x="86" y="140">Q</text><text x="86" y="40" fill="var(--g)">R</text><text x="100" y="130" fill="#ef9a9a">S</text><text x="188" y="52" fill="var(--g3)">T</text></g>
+      </svg>
+      </div>
+
+      <div style="background:rgba(239,83,80,.07);border:1px solid rgba(239,83,80,.3);border-radius:8px;padding:12px 14px;margin-bottom:14px;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--red);margin-bottom:8px;">★ STEMI — the box thresholds (new ST↑ at the J point, ≥2 contiguous leads)</div>
+        <div style="font-size:14.5px;color:var(--t);line-height:1.75;">
+          <b>Limb leads &amp; V4–V6:</b> ≥ <b>1 mm</b> (1 small box)<br>
+          <b>V2–V3:</b> ≥ <b>2 mm</b> men ≥40 · ≥ <b>2.5 mm</b> men &lt;40 · ≥ <b>1.5 mm</b> women<br>
+          <b>Posterior (V7–V9):</b> ≥ 0.5 mm · <b>RV (V4R):</b> ≥ 0.5 mm<br>
+          <b>ST depression</b> for infarct localization: ≥ 0.5 mm
+        </div>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:6px;">HOW TO LOOK — discipline</div>
+      <div style="font-size:14.5px;color:var(--t);line-height:1.65;margin-bottom:12px;">Measure ST at the <b>J point</b>, relative to the <b>PR/TP baseline</b>. Then ask three things: (1) Is it in a <b>contiguous territory</b>? (2) Is there <b>reciprocal depression</b>? (that's what separates true STEMI from pericarditis/BER). (3) What's the <b>morphology</b> — convex/"tombstone" &amp; localized = occlusion; concave &amp; diffuse with PR depression = pericarditis.</div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:6px;">EVOLUTION — the timeline in one line</div>
+      <div style="font-size:14.5px;color:var(--t);line-height:1.65;margin-bottom:12px;">Hyperacute T (min) → ST elevation (hrs) → <b>pathologic Q</b> + T inversion (hrs–days) → ST normalizes, Q &amp; inverted T persist (old MI). A Q wave = the wall is electrically silent, so the opposing vector wins the first 40 ms.</div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--red);margin-bottom:6px;">DON'T-MISS OCCLUSIONS THAT AREN'T "1 mm in 2 leads"</div>
+      <div style="font-size:14px;color:var(--t2);line-height:1.6;">Posterior MI (tall R + ST↓ V1–V3, get posterior leads) · de Winter (upsloping ST↓ + tall T at J point = LAD occlusion) · aVR elevation + diffuse ST↓ (left main / triple-vessel) · Sgarbossa in LBBB/paced · hyperacute T before any ST change.</div>
+    </div>
+  </div>
+
+  <!-- HYPERTROPHY / ENLARGEMENT -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g);" onclick="toggleSoap('ekg-hyper')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g);letter-spacing:.1em;">HYPERTROPHY & ENLARGEMENT — the voltage box counts</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ekg-hyper-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ekg-hyper" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">More muscle = a bigger vector = <b>taller deflections</b> in the leads that face it, plus <b>delayed activation</b> and a <b>strain</b> (repolarization) pattern. The named criteria are just "the vector got too big — count the boxes."</p>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:6px;">SOKOLOW-LYON — measure it on the grid</div>
+      <div style="overflow-x:auto;margin-bottom:8px;">
+      <svg viewBox="0 0 360 230" style="width:100%;min-width:320px;max-width:400px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="lvhsm" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M8 0H0V8" fill="none" stroke="rgba(244,80,122,0.10)" stroke-width="1"/></pattern>
+          <pattern id="lvhbg" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="url(#lvhsm)"/><path d="M40 0H0V40" fill="none" stroke="rgba(244,80,122,0.22)" stroke-width="1"/></pattern>
+        </defs>
+        <rect width="360" height="230" fill="url(#lvhbg)"/>
+        <line x1="6" y1="95" x2="354" y2="95" stroke="var(--b2)" stroke-width="1"/>
+        <!-- V1: deep S -->
+        <path d="M30,95 L52,95 L56,86 L60,95 L66,190 L72,95 L96,95" fill="none" stroke="var(--t)" stroke-width="2.2" stroke-linejoin="round"/>
+        <line x1="108" y1="95" x2="108" y2="190" stroke="#4fc3f7" stroke-width="1.4"/>
+        <line x1="104" y1="95" x2="112" y2="95" stroke="#4fc3f7" stroke-width="1.4"/><line x1="104" y1="190" x2="112" y2="190" stroke="#4fc3f7" stroke-width="1.4"/>
+        <text x="60" y="212" font-family="monospace" font-size="11" fill="var(--g2)" text-anchor="middle">V1</text>
+        <text x="118" y="150" font-family="monospace" font-size="10" fill="#4fc3f7">S ≈ 22 mm</text>
+        <!-- V5: tall R -->
+        <path d="M210,95 L230,95 L233,101 L238,20 L244,101 L248,95 L276,95" fill="none" stroke="var(--t)" stroke-width="2.2" stroke-linejoin="round"/>
+        <line x1="288" y1="95" x2="288" y2="20" stroke="#7fff6e" stroke-width="1.4"/>
+        <line x1="284" y1="95" x2="292" y2="95" stroke="#7fff6e" stroke-width="1.4"/><line x1="284" y1="20" x2="292" y2="20" stroke="#7fff6e" stroke-width="1.4"/>
+        <text x="238" y="212" font-family="monospace" font-size="11" fill="var(--g)" text-anchor="middle">V5</text>
+        <text x="298" y="60" font-family="monospace" font-size="10" fill="#7fff6e">R ≈ 15 mm</text>
+        <text x="150" y="30" font-family="monospace" font-size="10" fill="var(--t3)">1 big box = 5 mm</text>
+      </svg>
+      </div>
+      <div style="background:var(--s3);border-radius:8px;padding:10px 13px;margin-bottom:14px;font-size:14.5px;color:var(--t);line-height:1.6;">S(V1) <b>22</b> + R(V5) <b>15</b> = <b style="color:var(--g);">37 mm</b> &nbsp;≥&nbsp; <b>35 mm</b> threshold → <b style="color:var(--g);">LVH.</b> &nbsp;(Sum the deepest S in V1/V2 with the tallest R in V5/V6.) <b>Cornell</b> measures a different pair — R(aVL)+S(V3) — because that axis captures LV mass better in some chests.</div>
+      <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13.5px;min-width:440px;">
+        <thead><tr style="text-align:left;color:var(--g);font-family:var(--mono);font-size:11px;">
+          <th style="padding:6px 8px;border-bottom:1px solid var(--b2);">CHAMBER</th><th style="padding:6px 8px;border-bottom:1px solid var(--b2);">CRITERION (boxes = mm)</th><th style="padding:6px 8px;border-bottom:1px solid var(--b2);">+ SUPPORTING</th>
+        </tr></thead>
+        <tbody style="color:var(--t);">
+          <tr><td style="padding:7px 8px;border-bottom:1px solid var(--b);"><b>LVH</b></td><td style="padding:7px 8px;border-bottom:1px solid var(--b);"><b>Sokolow-Lyon:</b> S(V1) + R(V5 or V6) <b>≥ 35 mm</b> (7 big boxes). <b>Cornell:</b> R(aVL) + S(V3) &gt; 28 mm ♂ / &gt; 20 ♀. R(aVL) ≥ 11 mm alone.</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);color:var(--t2);">LV strain (down-sloping ST↓ + asymmetric T inv in I/aVL/V5–6), LAE, LAD</td></tr>
+          <tr><td style="padding:7px 8px;border-bottom:1px solid var(--b);"><b>RVH</b></td><td style="padding:7px 8px;border-bottom:1px solid var(--b);"><b>R &gt; S in V1</b> (R ≥ 7 mm), deep S in V5/V6; right axis deviation</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);color:var(--t2);">RV strain V1–V3, RAE, S1Q3T3 if acute (PE)</td></tr>
+          <tr><td style="padding:7px 8px;border-bottom:1px solid var(--b);"><b>LAE</b></td><td style="padding:7px 8px;border-bottom:1px solid var(--b);">P-mitrale: notched P ≥ 120 ms (II); terminal negative in V1 ≥ 1 mm × 40 ms</td><td style="padding:7px 8px;border-bottom:1px solid var(--b);color:var(--t2);">See P-wave section</td></tr>
+          <tr><td style="padding:7px 8px;"><b>RAE</b></td><td style="padding:7px 8px;">P-pulmonale: peaked P ≥ 2.5 mm (II/III/aVF)</td><td style="padding:7px 8px;color:var(--t2);">Tall initial + in V1</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div style="font-size:14px;color:var(--g);line-height:1.6;margin-top:12px;font-style:italic;">Caveats: voltage criteria over-call in thin/young chests and under-call in obese/COPD. <b>LBBB and paced rhythms invalidate</b> LVH voltage criteria. Strain pattern adds specificity.</div>
+    </div>
+  </div>
+
+  <!-- SYSTEMATIC READ -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid #f4507a;" onclick="toggleSoap('ekg-read')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:#f4507a;letter-spacing:.1em;">◆ THE SYSTEMATIC READ — same order every time</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ekg-read-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ekg-read" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:15px;line-height:1.65;color:var(--t2);margin-bottom:12px;">Read the same 10 steps on every tracing so you never miss the quiet killer. Speak it in this order on rounds, too.</p>
+      <div style="font-size:15px;color:var(--t);line-height:1.8;">
+        <div style="margin-bottom:4px;"><b style="color:#f4507a;">1. Rate</b> — 300÷big boxes; brady/tachy?</div>
+        <div style="margin-bottom:4px;"><b style="color:#f4507a;">2. Rhythm</b> — P before every QRS, upright in II, regular? = sinus</div>
+        <div style="margin-bottom:4px;"><b style="color:#f4507a;">3. Axis</b> — I &amp; aVF quadrant</div>
+        <div style="margin-bottom:4px;"><b style="color:#f4507a;">4. Intervals</b> — PR (120–200), QRS (&lt;120), QTc (&lt;440/460)</div>
+        <div style="margin-bottom:4px;"><b style="color:#f4507a;">5. P wave</b> — LAE/RAE morphology</div>
+        <div style="margin-bottom:4px;"><b style="color:#f4507a;">6. QRS</b> — width, BBB pattern, R-progression, pathologic Q</div>
+        <div style="margin-bottom:4px;"><b style="color:#f4507a;">7. Voltage</b> — LVH/RVH box counts</div>
+        <div style="margin-bottom:4px;"><b style="color:#f4507a;">8. ST segments</b> — elevation/depression by territory + reciprocal</div>
+        <div style="margin-bottom:4px;"><b style="color:#f4507a;">9. T &amp; U</b> — inversions, hyperacute, peaked, U waves</div>
+        <div style="margin-bottom:0;"><b style="color:#f4507a;">10. Compare to prior</b> — "new" is the most important word in cardiology</div>
+      </div>
+      <div style="background:rgba(244,80,122,.06);border:1px solid rgba(244,80,122,.28);border-radius:8px;padding:12px 14px;margin-top:14px;font-size:14.5px;color:var(--t);line-height:1.6;">Every abnormal finding traces back to one question: <b>which vector is wrong, and why?</b> That's the whole tab. See the <b>DATA</b> tab for the EKG quick-reference values and <b>CRITERIA</b> for Sgarbossa / Sokolow / QTc cutoffs in checklist form.</div>
+    </div>
+  </div>
+
+  <div style="height:40px;"></div>
+</div>
+
 <div id="panel-cases" class="panel">
   <div class="h1">Case <span>library</span></div>
   <div style="font-size:24px;color:var(--t3);margin-bottom:14px;">The bread-and-butter admits, written the way a seasoned resident would. Pick a diagnosis → the spoken one-liner, staged impression, narrative paragraph, and plan — with the <span style="color:#ffd54f;font-weight:600;">connectors highlighted</span> so you see each one doing its job. (The grammar behind them lives in the A&amp;P tab.)</div>
@@ -1826,6 +2610,7 @@ RECOMMENDATIONS:
   <button class="ni trials" id="ni-trials" onclick="gM('trials',this)"><span class="nicon">📚</span><span class="nlbl">Trials</span></button>
   <button class="ni lang" id="ni-lang" onclick="gM('lang',this)"><span class="nicon">🗣️</span><span class="nlbl">Lang</span></button>
   <button class="ni ap" id="ni-ap" onclick="gM('ap',this)"><span class="nicon">🧠</span><span class="nlbl">A&amp;P</span></button>
+  <button class="ni ekg" id="ni-ekg" onclick="gM('ekg',this)"><span class="nicon">🫀</span><span class="nlbl">EKG</span></button>
   <button class="ni cases" id="ni-cases" onclick="gM('cases',this)"><span class="nicon">🩺</span><span class="nlbl">Cases</span></button>
 </nav>
 
