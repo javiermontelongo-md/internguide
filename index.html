@@ -10,6 +10,13 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,400;0,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0d0f0e;--s1:#141614;--s2:#1a1d1a;--s3:#212421;--b:rgba(255,255,255,0.07);--b2:rgba(255,255,255,0.13);--g:#7fff6e;--g2:#4fc3f7;--g3:#ffb74d;--g4:#ef9a9a;--t:#e8ede8;--t2:#9aa89a;--t3:#5a665a;--red:#ef5350;--mono:'DM Mono',monospace;--serif:'Fraunces',serif;--sans:'DM Sans',sans-serif;--r:12px;--rl:18px;--nav:64px;--safe:env(safe-area-inset-bottom,0px);}
+:root[data-theme="light"]{--bg:#f5f7f3;--s1:#ffffff;--s2:#eef1ec;--s3:#e2e6df;--b:rgba(24,44,24,0.10);--b2:rgba(24,44,24,0.17);--g:#12924a;--g2:#0277bd;--g3:#b26a00;--g4:#c62828;--t:#1a231a;--t2:#4f5d4f;--t3:#8a968a;--red:#d32f2f;}
+:root[data-theme="light"] .bp{color:#fff;}
+:root[data-theme="light"] .bp:active{background:#0d7a3d;}
+:root[data-theme="light"] select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a968a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");}
+.theme-tgl{margin-left:auto;flex-shrink:0;background:var(--s2);border:1px solid var(--b2);color:var(--t2);border-radius:10px;width:44px;height:44px;font-size:24px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.theme-tgl:hover{border-color:var(--g);color:var(--t);}
+.theme-tgl:active{transform:scale(.94);}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html{height:100%;}
 body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:26px;line-height:1.7;min-height:100%;}
@@ -428,6 +435,10 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   .dot{width:5px;height:5px;}
 }
 </style>
+<script>
+// Apply saved theme before paint to avoid flash of wrong theme
+(function(){try{var t=localStorage.getItem('ig-theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+</script>
 </head>
 <body>
 <div class="app">
@@ -442,6 +453,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   <div class="htop">
     <div class="logo">Intern <span>Guide</span></div>
     <div class="ptag">CLINICAL REFERENCE</div>
+    <button class="theme-tgl" id="themeTgl" onclick="toggleTheme()" aria-label="Toggle light/dark mode"></button>
   </div>
   <div class="tabs">
     <button class="tab on" onclick="gT('abx',this)">ABX · BY BUG</button>
@@ -1820,6 +1832,25 @@ RECOMMENDATIONS:
 </div><!-- .app -->
 
 <script>
+// ============================================================
+// THEME
+// ============================================================
+function syncThemeIcon(){
+  var t=document.documentElement.getAttribute('data-theme')||'dark';
+  var b=document.getElementById('themeTgl');
+  if(!b) return;
+  // Show the icon of the mode you'll switch TO
+  b.textContent=t==='light'?'☾':'☀';
+  b.title=t==='light'?'Switch to dark mode':'Switch to light mode';
+}
+function toggleTheme(){
+  var cur=document.documentElement.getAttribute('data-theme')||'dark';
+  var next=cur==='light'?'dark':'light';
+  document.documentElement.setAttribute('data-theme',next);
+  try{localStorage.setItem('ig-theme',next);}catch(e){}
+  syncThemeIcon();
+}
+syncThemeIcon();
 // ============================================================
 // NAV
 // ============================================================
