@@ -2577,26 +2577,30 @@ RECOMMENDATIONS:
       <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">More muscle = a bigger vector = <b>taller deflections</b> in the leads that face it, plus <b>delayed activation</b> and a <b>strain</b> (repolarization) pattern. The named criteria are just "the vector got too big — count the boxes."</p>
       <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:6px;">SOKOLOW-LYON — measure it on the grid</div>
       <div style="overflow-x:auto;margin-bottom:8px;">
-      <svg viewBox="0 0 360 230" style="width:100%;min-width:320px;max-width:400px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 360 380" style="width:100%;min-width:320px;max-width:400px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id="lvhsm" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M8 0H0V8" fill="none" stroke="rgba(244,80,122,0.10)" stroke-width="1"/></pattern>
           <pattern id="lvhbg" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="url(#lvhsm)"/><path d="M40 0H0V40" fill="none" stroke="rgba(244,80,122,0.22)" stroke-width="1"/></pattern>
         </defs>
-        <rect width="360" height="230" fill="url(#lvhbg)"/>
-        <line x1="6" y1="95" x2="354" y2="95" stroke="var(--b2)" stroke-width="1"/>
-        <!-- V1: deep S -->
-        <path d="M30,95 L52,95 L56,86 L60,95 L66,190 L72,95 L96,95" fill="none" stroke="var(--t)" stroke-width="2.2" stroke-linejoin="round"/>
-        <line x1="108" y1="95" x2="108" y2="190" stroke="#4fc3f7" stroke-width="1.4"/>
-        <line x1="104" y1="95" x2="112" y2="95" stroke="#4fc3f7" stroke-width="1.4"/><line x1="104" y1="190" x2="112" y2="190" stroke="#4fc3f7" stroke-width="1.4"/>
-        <text x="60" y="212" font-family="monospace" font-size="11" fill="var(--g2)" text-anchor="middle">V1</text>
-        <text x="118" y="150" font-family="monospace" font-size="10" fill="#4fc3f7">S ≈ 22 mm</text>
-        <!-- V5: tall R -->
-        <path d="M210,95 L230,95 L233,101 L238,20 L244,101 L248,95 L276,95" fill="none" stroke="var(--t)" stroke-width="2.2" stroke-linejoin="round"/>
-        <line x1="288" y1="95" x2="288" y2="20" stroke="#7fff6e" stroke-width="1.4"/>
-        <line x1="284" y1="95" x2="292" y2="95" stroke="#7fff6e" stroke-width="1.4"/><line x1="284" y1="20" x2="292" y2="20" stroke="#7fff6e" stroke-width="1.4"/>
-        <text x="238" y="212" font-family="monospace" font-size="11" fill="var(--g)" text-anchor="middle">V5</text>
-        <text x="298" y="60" font-family="monospace" font-size="10" fill="#7fff6e">R ≈ 15 mm</text>
-        <text x="150" y="30" font-family="monospace" font-size="10" fill="var(--t3)">1 big box = 5 mm</text>
+        <rect width="360" height="380" fill="url(#lvhbg)"/>
+        <line x1="6" y1="160" x2="354" y2="160" stroke="var(--t3)" stroke-width="1.2"/>
+        <!-- V1: rS, S = 22 mm = 176 px below baseline (160 -> 336) -->
+        <path d="M20,160 L48,160 L54,144 L58,160 L64,336 L72,160 L100,160" fill="none" stroke="var(--t)" stroke-width="2.2" stroke-linejoin="round"/>
+        <line x1="108" y1="160" x2="108" y2="336" stroke="var(--g2)" stroke-width="1.4"/>
+        <line x1="103" y1="160" x2="113" y2="160" stroke="var(--g2)" stroke-width="1.4"/><line x1="103" y1="336" x2="113" y2="336" stroke="var(--g2)" stroke-width="1.4"/>
+        <text x="60" y="362" font-family="monospace" font-size="12" fill="var(--g2)" text-anchor="middle">V1</text>
+        <text x="118" y="244" font-family="monospace" font-size="10" fill="var(--g2)">S = 22 mm</text>
+        <text x="118" y="258" font-family="monospace" font-size="9" fill="var(--t3)">(4 big + 2 small)</text>
+        <!-- V5: qR, R = 15 mm = 120 px above baseline (160 -> 40) -->
+        <path d="M200,160 L228,160 L231,168 L238,40 L246,176 L250,160 L280,160" fill="none" stroke="var(--t)" stroke-width="2.2" stroke-linejoin="round"/>
+        <line x1="288" y1="160" x2="288" y2="40" stroke="var(--g)" stroke-width="1.4"/>
+        <line x1="283" y1="160" x2="293" y2="160" stroke="var(--g)" stroke-width="1.4"/><line x1="283" y1="40" x2="293" y2="40" stroke="var(--g)" stroke-width="1.4"/>
+        <text x="240" y="362" font-family="monospace" font-size="12" fill="var(--g)" text-anchor="middle">V5</text>
+        <text x="298" y="96" font-family="monospace" font-size="10" fill="var(--g)">R = 15 mm</text>
+        <text x="298" y="110" font-family="monospace" font-size="9" fill="var(--t3)">(3 big)</text>
+        <text x="10" y="22" font-family="monospace" font-size="10" fill="var(--t3)">1 big box = 5 mm</text>
+        <text x="10" y="34" font-family="monospace" font-size="9" fill="var(--t3)">1 small box = 1 mm</text>
+        <text x="180" y="376" font-family="monospace" font-size="9" fill="var(--t3)" text-anchor="middle">drawn to scale — count them</text>
       </svg>
       </div>
       <div style="background:var(--s3);border-radius:8px;padding:10px 13px;margin-bottom:14px;font-size:14.5px;color:var(--t);line-height:1.6;">S(V1) <b>22</b> + R(V5) <b>15</b> = <b style="color:var(--g);">37 mm</b> &nbsp;≥&nbsp; <b>35 mm</b> threshold → <b style="color:var(--g);">LVH.</b> &nbsp;(Sum the deepest S in V1/V2 with the tallest R in V5/V6.) <b>Cornell</b> measures a different pair — R(aVL)+S(V3) — because that axis captures LV mass better in some chests.</div>
