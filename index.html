@@ -288,6 +288,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   .ni.ap{background:rgba(121,134,203,.15);border-color:rgba(121,134,203,.4);}.ni.ap .nicon{color:#7986cb;}
   .ni.cases{background:rgba(127,255,110,.15);border-color:rgba(127,255,110,.4);}.ni.cases .nicon{color:var(--g);}
   .ni.ekg{background:rgba(244,80,122,.15);border-color:rgba(244,80,122,.4);}.ni.ekg .nicon{color:#f4507a;}
+  .ni.echo{background:rgba(140,110,255,.15);border-color:rgba(140,110,255,.4);}.ni.echo .nicon{color:#8c6eff;}
   .nicon{font-size:24px;color:var(--t2);line-height:1;font-weight:700;}
   .nlbl{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;margin-top:2px;}
   .ni.on{border:2px solid var(--g);box-shadow:0 0 8px rgba(127,255,110,.3);}
@@ -472,6 +473,7 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
     <button class="tab" onclick="gT('lang',this)">LANGUAGE</button>
     <button class="tab" onclick="gT('ap',this)">A&amp;P</button>
     <button class="tab" onclick="gT('ekg',this)">EKG</button>
+    <button class="tab" onclick="gT('echo',this)">ECHO</button>
     <button class="tab" onclick="gT('cases',this)">CASES</button>
   </div>
 </div>
@@ -1958,7 +1960,7 @@ RECOMMENDATIONS:
           <text x="232" y="250">RV</text><text x="108" y="250">LV</text>
         </g>
         <!-- conduction wires (static) -->
-        <path id="cTrunk" d="M250,92 Q212,118 180,150 L180,175" fill="none" stroke="#ffd54f" stroke-width="2.4" stroke-linecap="round"/>
+        <path id="cTrunk" d="M250,92 Q212,118 180,150 L180,175" fill="none" stroke="var(--g3)" stroke-width="2.4" stroke-linecap="round"/>
         <path id="cRBB" d="M180,175 C182,208 196,238 216,262" fill="none" stroke="#4fc3f7" stroke-width="2.4" stroke-linecap="round"/>
         <path id="cLBBmain" d="M180,175 C170,192 156,202 148,208" fill="none" stroke="#7fff6e" stroke-width="2.4" stroke-linecap="round"/>
         <path id="cLAF" d="M148,208 C132,196 118,180 106,166" fill="none" stroke="#7fff6e" stroke-width="2" stroke-linecap="round"/>
@@ -1971,7 +1973,7 @@ RECOMMENDATIONS:
         </g>
         <!-- nodes -->
         <circle cx="250" cy="92" r="7" fill="#ef5350"/><circle cx="250" cy="92" r="12" fill="none" stroke="#ef5350" stroke-width="1" opacity="0.5"/>
-        <circle cx="180" cy="150" r="6" fill="#ffd54f"/>
+        <circle cx="180" cy="150" r="6" fill="var(--g3)"/>
         <!-- traveling impulse dots (SMIL, looped over 2.6s) -->
         <circle r="5.5" fill="var(--t)"><animate attributeName="opacity" dur="2.6s" repeatCount="indefinite" values="1;1;1" keyTimes="0;0.45;1"/><animateMotion dur="2.6s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.42;1" calcMode="linear"><mpath href="#cTrunk"/></animateMotion></circle>
         <circle r="5" fill="#4fc3f7"><animateMotion dur="2.6s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;0.55;0.85;1" calcMode="linear"><mpath href="#cRBB"/></animateMotion></circle>
@@ -1980,8 +1982,8 @@ RECOMMENDATIONS:
         <!-- labels -->
         <g font-family="monospace" font-size="10" font-weight="bold">
           <text x="262" y="90" fill="#ef5350">SA node</text>
-          <text x="192" y="146" fill="#ffd54f">AV node</text>
-          <text x="190" y="172" fill="#ffd54f">His</text>
+          <text x="192" y="146" fill="var(--g3)">AV node</text>
+          <text x="190" y="172" fill="var(--g3)">His</text>
           <text x="222" y="240" fill="#4fc3f7">RBB</text>
           <text x="120" y="200" fill="#7fff6e">LBB</text>
           <text x="60" y="150" fill="#7fff6e">LAF</text>
@@ -1991,7 +1993,7 @@ RECOMMENDATIONS:
       </div>
       <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
         <div style="background:var(--s3);border-radius:8px;padding:10px 13px;font-size:14.5px;color:var(--t);line-height:1.6;"><b style="color:#ef5350;">SA node</b> (high RA) — the pacemaker, ~60–100/min. Fires → atria depolarize → <b>P wave</b>.</div>
-        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;font-size:14.5px;color:var(--t);line-height:1.6;"><b style="color:#ffd54f;">AV node</b> — the <b>only</b> electrical bridge between atria and ventricles, and deliberately <b>slow</b> (decremental). That built-in delay = the flat <b>PR segment</b>; it lets the atria finish filling the ventricles before they fire.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;font-size:14.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">AV node</b> — the <b>only</b> electrical bridge between atria and ventricles, and deliberately <b>slow</b> (decremental). That built-in delay = the flat <b>PR segment</b>; it lets the atria finish filling the ventricles before they fire.</div>
         <div style="background:var(--s3);border-radius:8px;padding:10px 13px;font-size:14.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g);">His → bundle branches → Purkinje</b> — the fast highway. <b style="color:#4fc3f7;">Right bundle</b> (one thin cord) feeds the RV; <b style="color:var(--g);">left bundle</b> splits into <b>anterior (LAF)</b> and <b>posterior (LPF)</b> fascicles feeding the LV. Because Purkinje delivers the signal everywhere at once, the whole ventricle depolarizes in <b>&lt;100 ms → the narrow QRS</b>.</div>
       </div>
       <div style="background:rgba(244,80,122,.06);border:1px solid rgba(244,80,122,.28);border-radius:8px;padding:11px 14px;font-size:14.5px;color:var(--t);line-height:1.6;">Break a wire and that territory loses its express lane — it gets reached late, muscle-to-muscle, so its vector arrives <b>slow and last</b>. That single idea generates every <b>bundle branch block</b> and <b>fascicular block</b> below.</div>
@@ -2160,8 +2162,8 @@ RECOMMENDATIONS:
         <!-- precordial -->
         <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g2);font-weight:bold;">V1</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q16,32 20,36 Q24,40 28,36 L40,36 L43,30 L48,52 L54,36 L64,36 Q73,39 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">rS · biphasic P</div></div>
         <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g2);font-weight:bold;">V2</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q16,32 20,36 Q24,41 28,36 L40,36 L43,28 L48,54 L54,36 L64,36 Q73,24 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">rS deep · tall T</div></div>
-        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:#ffd54f;font-weight:bold;">V3</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L40,36 L44,22 L50,50 L56,36 L64,36 Q73,26 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">RS · transition</div></div>
-        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:#ffd54f;font-weight:bold;">V4</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L40,36 L45,15 L51,44 L57,36 L64,36 Q73,26 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">Rs · tallest R</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g3);font-weight:bold;">V3</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L40,36 L44,22 L50,50 L56,36 L64,36 Q73,26 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">RS · transition</div></div>
+        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g3);font-weight:bold;">V4</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L40,36 L45,15 L51,44 L57,36 L64,36 Q73,26 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">Rs · tallest R</div></div>
         <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g);font-weight:bold;">V5</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L39,36 L42,39 L47,15 L53,42 L58,36 L64,36 Q73,27 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">qRs · ↑P ↑T</div></div>
         <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g);font-weight:bold;">V6</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L39,36 L42,39 L47,17 L53,41 L58,36 L64,36 Q73,28 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">qRs · septal q</div></div>
       </div>
@@ -2380,7 +2382,7 @@ RECOMMENDATIONS:
       </svg>
       </div>
       <div style="font-size:14.5px;color:var(--t);line-height:1.65;"><b style="color:var(--g4);">Wellens</b> (proximal LAD, reperfused): deep symmetric or biphasic T in <b>V2–V3</b> during pain-free windows — a warning of imminent anterior MI. <b>Hyperacute T</b> (tall, <b>broad-based</b>, symmetric) is the <i>earliest</i> STEMI change, before the ST rises — think of it as the whole wall's repolarization smeared and delayed by acute injury.</div>
-      <div style="background:var(--s3);border-radius:8px;padding:11px 14px;margin-top:10px;font-size:14px;color:var(--t);line-height:1.65;"><b style="color:#ffd54f;">Peaked "tented" T of hyperkalemia — why it's pointed, not broad:</b> extra extracellular K⁺ raises the resting membrane potential (less negative) <b>and</b> boosts K⁺ conductance (the I<sub>Kr</sub> channels) during phase 3. Repolarization therefore runs <b>faster and steeper</b> → a <b>tall, narrow, symmetric, sharply-pointed</b> T with a <b>narrow base</b>. Contrast with the hyperacute ischemic T, which is <b>broad-based</b>. Same "tall T" first impression, opposite width — and opposite emergency.</div>
+      <div style="background:var(--s3);border-radius:8px;padding:11px 14px;margin-top:10px;font-size:14px;color:var(--t);line-height:1.65;"><b style="color:var(--g3);">Peaked "tented" T of hyperkalemia — why it's pointed, not broad:</b> extra extracellular K⁺ raises the resting membrane potential (less negative) <b>and</b> boosts K⁺ conductance (the I<sub>Kr</sub> channels) during phase 3. Repolarization therefore runs <b>faster and steeper</b> → a <b>tall, narrow, symmetric, sharply-pointed</b> T with a <b>narrow base</b>. Contrast with the hyperacute ischemic T, which is <b>broad-based</b>. Same "tall T" first impression, opposite width — and opposite emergency.</div>
     </div>
   </div>
 
@@ -2474,10 +2476,10 @@ RECOMMENDATIONS:
         <text x="348" y="114" font-family="monospace" font-size="9" fill="#4fc3f7" text-anchor="end">TP / PR baseline = zero</text>
         <path d="M20,100 L38,100 Q48,93 58,100 L80,100 L84,104 L90,45 L98,116 L112,84 L150,82 Q175,58 200,82 Q210,90 220,100 L350,100" fill="none" stroke="var(--t)" stroke-width="2.2" stroke-linejoin="round"/>
         <circle cx="112" cy="84" r="4.5" fill="#f4507a"/>
-        <line x1="112" y1="100" x2="112" y2="86" stroke="#ffd54f" stroke-width="1.5"/>
-        <line x1="124" y1="100" x2="124" y2="82" stroke="#ffd54f" stroke-width="1.5"/>
+        <line x1="112" y1="100" x2="112" y2="86" stroke="var(--g3)" stroke-width="1.5"/>
+        <line x1="124" y1="100" x2="124" y2="82" stroke="var(--g3)" stroke-width="1.5"/>
         <text x="120" y="70" font-family="monospace" font-size="10" fill="#f4507a">J point</text>
-        <text x="138" y="94" font-family="monospace" font-size="9" fill="#ffd54f">ST↑ measured here</text>
+        <text x="138" y="94" font-family="monospace" font-size="9" fill="var(--g3)">ST↑ measured here</text>
         <g font-family="monospace" font-size="9" fill="var(--t2)"><text x="86" y="140">Q</text><text x="86" y="40" fill="var(--g)">R</text><text x="100" y="130" fill="#ef9a9a">S</text><text x="188" y="52" fill="var(--g3)">T</text></g>
       </svg>
       </div>
@@ -2644,6 +2646,805 @@ RECOMMENDATIONS:
   <div style="height:40px;"></div>
 </div>
 
+<div id="panel-echo" class="panel">
+  <div class="h1">Echo <span>from the probe up</span></div>
+  <div style="font-size:24px;color:var(--t3);margin-bottom:18px;">A complete study is three things layered: <b>2D anatomy</b>, <b>Doppler velocity</b>, and one equation that turns velocity into pressure. Learn the windows, learn where each caliper goes, and every number — gradient, area, filling pressure — becomes something you <i>derive</i>, not look up. Tap a section to expand.</div>
+
+  <!-- CORE IDEA -->
+  <div class="card" style="margin-bottom:14px;border-left:3px solid #8c6eff;">
+    <div style="font-family:var(--mono);font-size:11px;color:#8c6eff;letter-spacing:.1em;margin-bottom:10px;">THE TWO EQUATIONS THAT RUN THE WHOLE STUDY</div>
+    <div style="background:var(--s3);border-radius:8px;padding:12px 14px;margin-bottom:10px;">
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:6px;">① SIMPLIFIED BERNOULLI — velocity becomes pressure</div>
+      <div style="font-family:var(--mono);font-size:19px;color:var(--t);text-align:center;margin:8px 0;">ΔP = 4v²</div>
+      <div style="font-size:14px;color:var(--t);line-height:1.6;">Blood speeds up across a narrowing. Measure that peak velocity <b>v</b> (m/s) with Doppler and you get the <b>pressure difference</b> (mmHg) driving it. A 4 m/s aortic jet → 4×16 = <b>64 mmHg</b> gradient. A 3 m/s TR jet → 36 mmHg + RA pressure = your <b>PA systolic</b>. Same equation, every valve.</div>
+    </div>
+    <div style="background:var(--s3);border-radius:8px;padding:12px 14px;margin-bottom:10px;">
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:6px;">② CONTINUITY — what goes in must come out</div>
+      <div style="font-family:var(--mono);font-size:17px;color:var(--t);text-align:center;margin:8px 0;">A₁ × VTI₁ = A₂ × VTI₂</div>
+      <div style="font-size:14px;color:var(--t);line-height:1.6;">Stroke volume is conserved. Measure it where you <i>can</i> (the LVOT) to solve for an area you <i>can't</i> planimeter (a calcified aortic valve). This is how every valve <b>area</b> is calculated.</div>
+    </div>
+    <div style="font-size:14px;line-height:1.6;color:var(--t2);margin-bottom:0;">Everything below is either <b>where to put the probe</b>, <b>where to put the caliper</b>, or <b>which of these two equations to run.</b></div>
+  </div>
+
+  <!-- PHYSICS -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g2);" onclick="toggleSoap('echo-phys')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g2);letter-spacing:.1em;">◎ THE PHYSICS YOU ACTUALLY USE AT THE MACHINE</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="echo-phys-chevron">▸</div>
+    </div>
+  </div>
+  <div id="echo-phys" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:8px;">THE FOUR DOPPLER MODES — when to reach for each</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;border-left:3px solid var(--g2);font-size:14px;color:var(--t);line-height:1.6;"><b style="color:var(--g2);">PW (pulsed wave)</b> — samples <b>one specific depth</b> (you place a gate). Tells you velocity <b>at a known location</b>. Cost: it <b>aliases</b> above the Nyquist limit (~1.5–2 m/s). Use for: <b>LVOT VTI</b>, mitral inflow E/A, pulmonary veins.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;border-left:3px solid var(--g);font-size:14px;color:var(--t);line-height:1.6;"><b style="color:var(--g);">CW (continuous wave)</b> — samples <b>every depth along the line</b>. Never aliases, so it catches the <b>highest velocity anywhere on that beam</b> — but can't tell you where it came from. Use for: <b>AS jet, TR jet, MR jet</b> — anything fast.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;border-left:3px solid var(--g4);font-size:14px;color:var(--t);line-height:1.6;"><b style="color:var(--g4);">Color Doppler</b> — PW in a box, velocity mapped to color. <b>BART: Blue Away, Red Toward.</b> A mosaic//turbulent patch = high velocity + aliasing = <b>a lesion.</b> Use it as the <b>lesion-finder</b>, then interrogate with CW.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;border-left:3px solid #8c6eff;font-size:14px;color:var(--t);line-height:1.6;"><b style="color:#8c6eff;">Tissue Doppler (TDI)</b> — filters for <b>slow, dense myocardium</b> instead of fast blood. Gives <b>e′</b> (relaxation) and <b>S′</b>. Velocities are ~<b>cm/s</b>, not m/s. Use for: diastolic function, TAPSE-equivalents.</div>
+      </div>
+      <div style="background:rgba(239,83,80,.07);border:1px solid rgba(239,83,80,.3);border-radius:8px;padding:11px 14px;margin-bottom:12px;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--red);margin-bottom:6px;">★ THE #1 WAY TO GET A WRONG NUMBER — angle</div>
+        <div style="font-size:14px;color:var(--t);line-height:1.65;">Doppler measures only the component of motion <b>along the beam</b>: v<sub>measured</sub> = v<sub>true</sub> × cos θ. At <b>0° (parallel to flow)</b> cos = 1 → accurate. At <b>20°</b> you lose ~6% (tolerable). At <b>60°</b> you lose <b>half</b>. <b style="color:var(--red);">Doppler always UNDER-estimates</b> — it can never read too high from angle error. So if you're hunting a peak velocity, <b>interrogate from every window</b> (apical, right parasternal, suprasternal) and <b>keep the highest number you find.</b> This is why a real AS study uses a Pedof probe from multiple windows.</div>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:6px;">KNOBS THAT CHANGE YOUR ANSWER</div>
+      <div style="font-size:14px;color:var(--t);line-height:1.7;">
+        <div style="margin-bottom:4px;"><b>Depth</b> — shallowest that still shows the target; deeper = slower frame rate.</div>
+        <div style="margin-bottom:4px;"><b>Gain</b> — too high fattens borders and <b>inflates</b> your measurements; too low drops endocardium. Set so blood is black, tissue is grey.</div>
+        <div style="margin-bottom:4px;"><b>Nyquist / scale</b> — drop the color scale to see slow flow; raise it to unmask fast flow. <b>You must report the aliasing velocity for PISA.</b></div>
+        <div style="margin-bottom:0;"><b>Sector width / frame rate</b> — narrow the sector for better temporal resolution when timing matters.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WINDOWS & VIEWS -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid #8c6eff;" onclick="toggleSoap('echo-win')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:#8c6eff;letter-spacing:.1em;">★ THE FULL STUDY — every window, in order</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="echo-win-chevron">▸</div>
+    </div>
+  </div>
+  <div id="echo-win" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:12px;">A comprehensive TTE is a <b>fixed circuit</b> of four windows. Ribs and lung block ultrasound, so you're threading between them — the windows exist where a sliver of heart touches the chest wall. <b>Patient in left lateral decubitus</b> (drops the heart onto the chest wall) with the left arm up for parasternal/apical; <b>flat and knees bent</b> for subcostal.</p>
+      <div style="overflow-x:auto;margin-bottom:10px;">
+      <svg viewBox="0 0 340 260" style="width:100%;min-width:300px;max-width:380px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <!-- torso -->
+        <path d="M90,20 L250,20 Q268,20 268,44 L262,210 Q258,240 170,240 Q82,240 78,210 L72,44 Q72,20 90,20 Z" fill="none" stroke="var(--b2)" stroke-width="1.4"/>
+        <!-- sternum -->
+        <rect x="160" y="30" width="18" height="120" rx="3" fill="var(--b)" stroke="var(--b2)" stroke-width="0.8"/>
+        <text x="169" y="26" font-family="monospace" font-size="8" fill="var(--t3)" text-anchor="middle">sternum</text>
+        <!-- ribs hint -->
+        <g stroke="var(--b)" stroke-width="1" fill="none">
+          <path d="M158,50 Q120,56 92,74"/><path d="M158,72 Q118,80 90,100"/><path d="M158,94 Q118,104 90,126"/><path d="M158,116 Q120,128 94,150"/>
+        </g>
+        <!-- heart -->
+        <path d="M150,80 C120,66 92,92 100,126 C106,156 140,180 160,192 C186,176 214,146 216,116 C220,86 190,66 168,84 Z" fill="rgba(140,110,255,0.10)" stroke="#8c6eff" stroke-width="1.2"/>
+        <!-- windows -->
+        <circle cx="140" cy="92" r="9" fill="rgba(79,195,247,0.25)" stroke="var(--g2)" stroke-width="1.5"/>
+        <text x="106" y="88" font-family="monospace" font-size="9" fill="var(--g2)">① PARA-</text>
+        <text x="106" y="98" font-family="monospace" font-size="9" fill="var(--g2)">STERNAL</text>
+        <circle cx="163" cy="188" r="9" fill="rgba(127,255,110,0.25)" stroke="var(--g)" stroke-width="1.5"/>
+        <text x="176" y="192" font-family="monospace" font-size="9" fill="var(--g)">② APICAL</text>
+        <circle cx="176" cy="222" r="9" fill="rgba(255,183,77,0.25)" stroke="var(--g3)" stroke-width="1.5"/>
+        <text x="190" y="226" font-family="monospace" font-size="9" fill="var(--g3)">③ SUBCOSTAL</text>
+        <circle cx="169" cy="26" r="8" fill="rgba(244,80,122,0.25)" stroke="#f4507a" stroke-width="1.5"/>
+        <text x="182" y="24" font-family="monospace" font-size="9" fill="#f4507a">④ SUPRASTERNAL</text>
+        <text x="170" y="256" font-family="monospace" font-size="8" fill="var(--t3)" text-anchor="middle">left lateral decubitus for ① and ②</text>
+      </svg>
+      </div>
+      <div style="overflow-x:auto;margin-bottom:12px;">
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px;min-width:460px;">
+        <thead><tr style="text-align:left;color:#8c6eff;font-family:var(--mono);font-size:11px;">
+          <th style="padding:6px 6px;border-bottom:1px solid var(--b2);">WINDOW</th><th style="padding:6px 6px;border-bottom:1px solid var(--b2);">PROBE POSITION</th><th style="padding:6px 6px;border-bottom:1px solid var(--b2);">MARKER</th><th style="padding:6px 6px;border-bottom:1px solid var(--b2);">GIVES YOU</th>
+        </tr></thead>
+        <tbody style="color:var(--t);">
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--g2);"><b>① Parasternal</b></td><td style="padding:6px;border-bottom:1px solid var(--b);">L sternal border, 3rd–4th ICS</td><td style="padding:6px;border-bottom:1px solid var(--b);font-family:var(--mono);">R shoulder (LAX)<br>L shoulder (SAX)</td><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--t2);">Chamber sizes, wall thickness, LVOT, AV/MV anatomy</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--g);"><b>② Apical</b></td><td style="padding:6px;border-bottom:1px solid var(--b);">PMI / point of max impulse (~5th ICS, midclav)</td><td style="padding:6px;border-bottom:1px solid var(--b);font-family:var(--mono);">L flank (4C), then rotate CCW</td><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--t2);"><b>All Doppler</b>, EF (Simpson's), diastology, TR/PASP</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--g3);"><b>③ Subcostal</b></td><td style="padding:6px;border-bottom:1px solid var(--b);">Below xiphoid, probe nearly flat</td><td style="padding:6px;border-bottom:1px solid var(--b);font-family:var(--mono);">L shoulder (4C)</td><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--t2);"><b>IVC/RAP</b>, pericardium, ASD, the rescue window in COPD</td></tr>
+          <tr><td style="padding:6px;color:#f4507a;"><b>④ Suprasternal</b></td><td style="padding:6px;">Sternal notch, neck extended</td><td style="padding:6px;font-family:var(--mono);">L ear / 12–1 o'clock</td><td style="padding:6px;color:var(--t2);">Aortic arch, coarctation, AR diastolic reversal</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div style="background:rgba(140,110,255,.06);border:1px solid rgba(140,110,255,.28);border-radius:8px;padding:11px 14px;font-size:14px;color:var(--t);line-height:1.6;"><b style="color:#8c6eff;">Orientation rule:</b> the <b>probe marker</b> always maps to the <b>left side of the screen</b>. That single fact tells you which way to rotate to get from one view to the next — and why PLAX→PSAX is a <b>90° clockwise</b> turn.</div>
+    </div>
+  </div>
+
+  <!-- PLAX -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g2);" onclick="toggleSoap('echo-plax')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g2);letter-spacing:.1em;">① PLAX — parasternal long axis (where most numbers are born)</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="echo-plax-chevron">▸</div>
+    </div>
+  </div>
+  <div id="echo-plax" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:10px;"><b>Probe:</b> left sternal border, 3rd–4th ICS, marker to the <b>right shoulder</b>. You are slicing the heart along its long axis. <b>Apex points left, aorta points right.</b> Nearest the probe (top of screen) is the <b>RV</b> — always, because it's the most anterior chamber.</p>
+      <div style="overflow-x:auto;margin-bottom:10px;">
+      <svg viewBox="0 0 360 268" style="width:100%;min-width:330px;max-width:420px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="ecA" markerWidth="7" markerHeight="7" refX="5.5" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="var(--g3)"/></marker></defs>
+        <path d="M180,8 L74,236 Q180,262 286,236 Z" fill="rgba(140,110,255,0.04)" stroke="var(--b2)" stroke-width="1"/>
+        <text x="180" y="20" font-family="monospace" font-size="8" fill="var(--t3)" text-anchor="middle">probe</text>
+        <!-- RV -->
+        <path d="M118,64 Q168,46 234,56 L238,92 Q170,98 124,94 Z" fill="rgba(79,195,247,0.16)" stroke="var(--g2)" stroke-width="1.2"/>
+        <text x="176" y="80" font-family="monospace" font-size="11" fill="var(--g2)" text-anchor="middle">RV</text>
+        <!-- IVS -->
+        <path d="M122,96 L238,94 L240,108 L124,110 Z" fill="rgba(127,255,110,0.22)" stroke="var(--g)" stroke-width="1"/>
+        <text x="150" y="106" font-family="monospace" font-size="8" fill="var(--g)">IVS</text>
+        <!-- LV cavity -->
+        <path d="M96,142 Q108,114 168,112 L236,112 L240,158 Q160,178 104,164 Z" fill="rgba(140,110,255,0.10)" stroke="#8c6eff" stroke-width="1.2"/>
+        <text x="160" y="146" font-family="monospace" font-size="12" fill="#8c6eff" text-anchor="middle">LV</text>
+        <!-- PW -->
+        <path d="M104,166 Q160,180 240,160 L242,174 Q160,196 106,180 Z" fill="rgba(255,183,77,0.22)" stroke="var(--g3)" stroke-width="1"/>
+        <text x="140" y="188" font-family="monospace" font-size="8" fill="var(--g3)">LVPW</text>
+        <!-- Aorta -->
+        <path d="M240,92 L296,56 L302,70 L246,106 Z" fill="rgba(239,83,80,0.14)" stroke="var(--red)" stroke-width="1"/>
+        <path d="M248,124 L304,92 L310,106 L254,138 Z" fill="rgba(239,83,80,0.14)" stroke="var(--red)" stroke-width="1"/>
+        <text x="286" y="90" font-family="monospace" font-size="10" fill="var(--red)">Ao</text>
+        <line x1="248" y1="100" x2="256" y2="126" stroke="var(--t)" stroke-width="1.6"/>
+        <text x="228" y="118" font-family="monospace" font-size="8" fill="var(--t2)">AV</text>
+        <!-- LA -->
+        <path d="M252,142 Q300,140 306,160 L300,204 Q252,208 242,178 Z" fill="rgba(198,40,40,0.10)" stroke="var(--g4)" stroke-width="1.2"/>
+        <text x="276" y="176" font-family="monospace" font-size="11" fill="var(--g4)" text-anchor="middle">LA</text>
+        <!-- MV leaflets -->
+        <line x1="240" y1="116" x2="196" y2="146" stroke="var(--t)" stroke-width="1.8"/>
+        <line x1="244" y1="150" x2="206" y2="164" stroke="var(--t)" stroke-width="1.8"/>
+        <text x="188" y="170" font-family="monospace" font-size="8" fill="var(--t2)">MV</text>
+        <!-- CALIPERS -->
+        <g stroke="var(--g3)" stroke-width="1.4">
+          <line x1="150" y1="96" x2="150" y2="110" marker-start="url(#ecA)" marker-end="url(#ecA)"/>
+          <line x1="150" y1="112" x2="150" y2="172" marker-start="url(#ecA)" marker-end="url(#ecA)"/>
+          <line x1="150" y1="174" x2="150" y2="190" marker-start="url(#ecA)" marker-end="url(#ecA)"/>
+          <line x1="252" y1="106" x2="258" y2="128" marker-start="url(#ecA)" marker-end="url(#ecA)"/>
+        </g>
+        <text x="60" y="120" font-family="monospace" font-size="9" fill="var(--g3)">IVSd</text>
+        <text x="52" y="146" font-family="monospace" font-size="9" fill="var(--g3)">LVIDd</text>
+        <text x="48" y="186" font-family="monospace" font-size="9" fill="var(--g3)">LVPWd</text>
+        <text x="264" y="120" font-family="monospace" font-size="9" fill="var(--g3)">LVOT</text>
+        <line x1="70" y1="122" x2="146" y2="104" stroke="var(--g3)" stroke-width="0.7" stroke-dasharray="2 2"/>
+        <line x1="74" y1="146" x2="146" y2="142" stroke="var(--g3)" stroke-width="0.7" stroke-dasharray="2 2"/>
+        <line x1="70" y1="186" x2="146" y2="182" stroke="var(--g3)" stroke-width="0.7" stroke-dasharray="2 2"/>
+        <text x="180" y="256" font-family="monospace" font-size="8" fill="var(--t3)" text-anchor="middle">measure ⊥ to long axis, at the MV leaflet TIPS</text>
+      </svg>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:6px;">HOW TO TAKE EACH MEASUREMENT</div>
+      <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:12px;">
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">LVIDd / LVIDs, IVSd, LVPWd</b> — one caliper line, <b>perpendicular to the LV long axis, at the mitral leaflet TIPS.</b> Diastole = frame at the <b>QRS onset</b> (biggest cavity); systole = smallest cavity. <b>Normal LVIDd:</b> ♂ 4.2–5.8 cm · ♀ 3.8–5.2 cm. <b>Walls:</b> ≤1.0 cm ♂ / ≤0.9 cm ♀. <i>Angle the line wrong and you fake LVH.</i></div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">LVOT diameter</b> — <b>zoom in.</b> Measure <b>inner-edge to inner-edge, in mid-systole, 3–5 mm below the aortic annulus</b>, parallel to the annulus. <b style="color:var(--red);">This is the highest-stakes number in the study</b> — it gets <b>squared</b> in the area formula, so a 2 mm error becomes a ~20% error in valve area and stroke volume. <b>Normal ~1.8–2.2 cm.</b></div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">Aortic root</b> — measure at the <b>sinuses of Valsalva</b>, leading-edge to leading-edge, end-diastole. <b>Normal &lt;3.7 cm</b> (index to BSA/height). Also eyeball annulus, sinotubular junction, proximal ascending.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">LA A-P dimension</b> — end-systole (LA is biggest then). <b>Normal &lt;4.0 cm.</b> But this is a <b>single line through a 3-D bag</b> — always prefer <b>LA volume index</b> from the apical views (see LV/LA section).</div>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:6px;">ALSO INTERROGATE HERE</div>
+      <div style="font-size:13.5px;color:var(--t);line-height:1.6;">Color across the <b>AV and MV</b> (screen for AR/MR jets) · <b>M-mode</b> through the MV (look for <b>SAM</b> in HOCM, <b>EPSS</b> — E-point septal separation &gt;7 mm suggests reduced EF) · <b>RVOT</b> and pulmonic valve on a tilted view · pericardial fluid (anterior to descending aorta = pericardial; posterior to it = pleural — <b>the classic discriminator</b>).</div>
+    </div>
+  </div>
+
+  <!-- PSAX -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g);" onclick="toggleSoap('echo-psax')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g);letter-spacing:.1em;">② PSAX — parasternal short axis (the four donuts)</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="echo-psax-chevron">▸</div>
+    </div>
+  </div>
+  <div id="echo-psax" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:10px;">From PLAX, <b>rotate the probe 90° clockwise</b> (marker now to the <b>left shoulder</b>). You're now cutting the heart in cross-section. <b>Tilt/sweep from base → apex</b> to walk down the four levels. Every level answers a different question.</p>
+      <div style="overflow-x:auto;margin-bottom:10px;">
+      <svg viewBox="0 0 360 160" style="width:100%;min-width:340px;max-width:420px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <!-- 1 AV level -->
+        <g><circle cx="48" cy="66" r="30" fill="rgba(239,83,80,0.10)" stroke="var(--red)" stroke-width="1.2"/>
+          <path d="M48,66 L48,38 M48,66 L72,80 M48,66 L24,80" stroke="var(--t)" stroke-width="1.6"/>
+          <text x="48" y="112" font-family="monospace" font-size="9" fill="var(--red)" text-anchor="middle">AV "Mercedes"</text>
+          <text x="48" y="124" font-family="monospace" font-size="8" fill="var(--t2)" text-anchor="middle">AV, RVOT, PV, TV</text>
+          <text x="48" y="136" font-family="monospace" font-size="8" fill="var(--t3)" text-anchor="middle">→ TR jet, PV, ASD</text></g>
+        <!-- 2 mitral -->
+        <g><circle cx="136" cy="66" r="30" fill="rgba(140,110,255,0.10)" stroke="#8c6eff" stroke-width="1.2"/>
+          <path d="M122,52 Q136,66 122,80" fill="none" stroke="var(--t)" stroke-width="1.8"/>
+          <path d="M150,52 Q136,66 150,80" fill="none" stroke="var(--t)" stroke-width="1.8"/>
+          <text x="136" y="112" font-family="monospace" font-size="9" fill="#8c6eff" text-anchor="middle">MV "fish mouth"</text>
+          <text x="136" y="124" font-family="monospace" font-size="8" fill="var(--t2)" text-anchor="middle">MV orifice</text>
+          <text x="136" y="136" font-family="monospace" font-size="8" fill="var(--t3)" text-anchor="middle">→ planimeter MVA</text></g>
+        <!-- 3 papillary -->
+        <g><circle cx="224" cy="66" r="30" fill="rgba(140,110,255,0.10)" stroke="#8c6eff" stroke-width="1.2"/>
+          <circle cx="212" cy="82" r="5" fill="var(--t2)"/><circle cx="240" cy="74" r="5" fill="var(--t2)"/>
+          <text x="224" y="112" font-family="monospace" font-size="9" fill="#8c6eff" text-anchor="middle">PAPILLARY</text>
+          <text x="224" y="124" font-family="monospace" font-size="8" fill="var(--t2)" text-anchor="middle">2 pap muscles</text>
+          <text x="224" y="136" font-family="monospace" font-size="8" fill="var(--t3)" text-anchor="middle">→ RWMA, D-shape</text></g>
+        <!-- 4 apex -->
+        <g><circle cx="312" cy="66" r="24" fill="rgba(140,110,255,0.10)" stroke="#8c6eff" stroke-width="1.2"/>
+          <text x="312" y="112" font-family="monospace" font-size="9" fill="#8c6eff" text-anchor="middle">APEX</text>
+          <text x="312" y="124" font-family="monospace" font-size="8" fill="var(--t2)" text-anchor="middle">small cavity</text>
+          <text x="312" y="136" font-family="monospace" font-size="8" fill="var(--t3)" text-anchor="middle">→ apical thrombus</text></g>
+      </svg>
+      </div>
+      <div style="background:rgba(255,183,77,.07);border:1px solid rgba(255,183,77,.3);border-radius:8px;padding:11px 14px;margin-bottom:10px;font-size:13.5px;color:var(--t);line-height:1.65;"><b style="color:var(--g3);">The D-sign (papillary level) — highest-yield PSAX finding.</b> A normal LV is a <b>circle</b>. If the septum flattens and the LV looks like a <b>"D"</b>, the RV is overloaded: flattening in <b>diastole</b> = <b>volume</b> overload (ASD, TR); flattening in <b>systole</b> = <b>pressure</b> overload (PE, pulmonary HTN). Both = both.</div>
+      <div style="font-size:13.5px;color:var(--t);line-height:1.6;"><b>Also:</b> assess <b>regional wall motion</b> here (all 3 coronary territories are represented in one circle) and check for a <b>bicuspid AV</b> at the AV level (2 cusps, "fish-mouth" opening instead of a triangle).</div>
+    </div>
+  </div>
+
+  <!-- APICAL -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g);" onclick="toggleSoap('echo-apical')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g);letter-spacing:.1em;">③ APICAL — where every Doppler number comes from</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="echo-apical-chevron">▸</div>
+    </div>
+  </div>
+  <div id="echo-apical" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:10px;">Probe on the <b>PMI</b> (~5th ICS, midclavicular), pointing at the right shoulder. This window matters because <b>flow runs straight at the probe</b> — near 0° — so it's the only place your Doppler numbers are honest. Get the <b>true apex</b>: if the LV looks short and round, you're <b>foreshortened</b> and you'll <b>underestimate volumes and EF.</b> Slide laterally, don't tilt.</p>
+      <div style="overflow-x:auto;margin-bottom:10px;">
+      <svg viewBox="0 0 360 210" style="width:100%;min-width:330px;max-width:420px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <path d="M96,8 L28,190 Q96,206 164,190 Z" fill="rgba(140,110,255,0.04)" stroke="var(--b2)" stroke-width="1"/>
+        <path d="M96,26 L58,150 Q96,166 96,166 L96,26 Z" fill="rgba(140,110,255,0.12)" stroke="#8c6eff" stroke-width="1.2"/>
+        <path d="M96,26 L134,150 Q96,166 96,166 L96,26 Z" fill="rgba(79,195,247,0.12)" stroke="var(--g2)" stroke-width="1.2"/>
+        <text x="74" y="110" font-family="monospace" font-size="10" fill="#8c6eff">LV</text>
+        <text x="114" y="110" font-family="monospace" font-size="10" fill="var(--g2)">RV</text>
+        <line x1="58" y1="152" x2="134" y2="152" stroke="var(--t)" stroke-width="1.6"/>
+        <path d="M60,154 L64,186 Q96,196 96,180 L96,154 Z" fill="rgba(198,40,40,0.10)" stroke="var(--g4)" stroke-width="1"/>
+        <path d="M132,154 L128,186 Q96,196 96,180 L96,154 Z" fill="rgba(198,40,40,0.10)" stroke="var(--g4)" stroke-width="1"/>
+        <text x="74" y="176" font-family="monospace" font-size="9" fill="var(--g4)">LA</text>
+        <text x="112" y="176" font-family="monospace" font-size="9" fill="var(--g4)">RA</text>
+        <text x="96" y="202" font-family="monospace" font-size="9" fill="var(--t2)" text-anchor="middle">A4C</text>
+        <!-- Simpson's discs -->
+        <path d="M262,26 L224,150 Q262,166 262,166 L262,26 Z" fill="none" stroke="#8c6eff" stroke-width="1.4"/>
+        <path d="M262,26 L300,150 Q262,166 262,166 L262,26 Z" fill="none" stroke="#8c6eff" stroke-width="1.4"/>
+        <g stroke="var(--g3)" stroke-width="0.9">
+          <line x1="252" y1="46" x2="272" y2="46"/><line x1="246" y1="66" x2="278" y2="66"/><line x1="240" y1="86" x2="284" y2="86"/>
+          <line x1="235" y1="106" x2="289" y2="106"/><line x1="230" y1="126" x2="294" y2="126"/><line x1="226" y1="144" x2="298" y2="144"/>
+        </g>
+        <line x1="262" y1="26" x2="262" y2="160" stroke="var(--g)" stroke-width="1.2" stroke-dasharray="4 3"/>
+        <text x="262" y="182" font-family="monospace" font-size="9" fill="var(--g3)" text-anchor="middle">Simpson's discs</text>
+        <text x="262" y="196" font-family="monospace" font-size="8" fill="var(--t3)" text-anchor="middle">trace endocardium, A4C + A2C</text>
+        <text x="262" y="16" font-family="monospace" font-size="8" fill="var(--g)" text-anchor="middle">long axis</text>
+      </svg>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:6px;">THE APICAL SEQUENCE — rotate counter-clockwise from 4C</div>
+      <div style="overflow-x:auto;margin-bottom:12px;">
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px;min-width:440px;">
+        <thead><tr style="text-align:left;color:var(--g);font-family:var(--mono);font-size:11px;">
+          <th style="padding:6px;border-bottom:1px solid var(--b2);">VIEW</th><th style="padding:6px;border-bottom:1px solid var(--b2);">SHOWS</th><th style="padding:6px;border-bottom:1px solid var(--b2);">MEASURE HERE</th>
+        </tr></thead>
+        <tbody style="color:var(--t);">
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);"><b>A4C</b></td><td style="padding:6px;border-bottom:1px solid var(--b);">All 4 chambers, MV + TV</td><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--t2);">Simpson's, E/A, e′, <b>TAPSE</b>, <b>TR jet→PASP</b>, RV size, LAVi</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);"><b>A5C</b></td><td style="padding:6px;border-bottom:1px solid var(--b);">4C + <b>LVOT/AV</b> pops into center (tilt anteriorly)</td><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--t2);"><b>LVOT VTI (PW)</b>, AV jet (CW) → SV, CO, AVA</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);"><b>A2C</b></td><td style="padding:6px;border-bottom:1px solid var(--b);">LV + LA only (anterior & inferior walls)</td><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--t2);">Simpson's biplane 2nd plane, LAA</td></tr>
+          <tr><td style="padding:6px;"><b>A3C (ALAX)</b></td><td style="padding:6px;">LV, LA, <b>LVOT + AV</b> (like PLAX from apex)</td><td style="padding:6px;color:var(--t2);">Alternative LVOT/AV Doppler, MR jets</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div style="background:rgba(140,110,255,.06);border:1px solid rgba(140,110,255,.28);border-radius:8px;padding:11px 14px;font-size:13.5px;color:var(--t);line-height:1.65;"><b style="color:#8c6eff;">Simpson's biplane (method of discs) — the real EF.</b> Trace the endocardial border at <b>end-diastole</b> and <b>end-systole</b> in <b>both A4C and A2C</b>. The machine stacks ~20 discs, sums their volumes → EDV and ESV. <b>EF = (EDV − ESV) / EDV.</b> Include papillary muscles <b>in the cavity</b>, don't trace around them. Foreshortening is the #1 error.</div>
+    </div>
+  </div>
+
+  <!-- SUBCOSTAL -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g3);" onclick="toggleSoap('echo-sub')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g3);letter-spacing:.1em;">④ SUBCOSTAL & IVC — the RA pressure you plug into everything</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="echo-sub-chevron">▸</div>
+    </div>
+  </div>
+  <div id="echo-sub" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:10px;">Patient <b>flat, knees bent</b> (relaxes the abdomen), probe under the xiphoid pressed nearly <b>flat</b>, marker to the left. The liver is your acoustic window — this view rescues the study in <b>COPD, ventilated, and post-op</b> patients where parasternal windows are gone. Then <b>rotate the marker to 12 o'clock</b> to get the IVC in long axis.</p>
+      <div style="overflow-x:auto;margin-bottom:10px;">
+      <svg viewBox="0 0 360 180" style="width:100%;min-width:330px;max-width:420px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20,40 L150,40 Q170,40 172,52 L172,74 Q170,86 150,86 L20,86 Z" fill="rgba(79,195,247,0.14)" stroke="var(--g2)" stroke-width="1.2"/>
+        <text x="80" y="34" font-family="monospace" font-size="9" fill="var(--g2)">IVC</text>
+        <text x="186" y="66" font-family="monospace" font-size="9" fill="var(--g4)">→ RA</text>
+        <line x1="60" y1="40" x2="60" y2="86" stroke="var(--g3)" stroke-width="1.4"/>
+        <text x="24" y="106" font-family="monospace" font-size="8" fill="var(--g3)">measure 1–2 cm from RA junction</text>
+        <!-- M-mode strip -->
+        <rect x="200" y="34" width="150" height="92" rx="4" fill="var(--s3)" stroke="var(--b2)" stroke-width="1"/>
+        <path d="M206,52 L228,52 Q240,52 244,74 Q248,52 262,52 L284,52 Q296,52 300,74 Q304,52 318,52 L344,52" fill="none" stroke="var(--t)" stroke-width="1.6"/>
+        <path d="M206,108 L344,108" stroke="var(--t)" stroke-width="1.6"/>
+        <text x="275" y="26" font-family="monospace" font-size="8" fill="var(--t2)" text-anchor="middle">M-mode: IVC collapses on sniff</text>
+        <text x="244" y="88" font-family="monospace" font-size="8" fill="var(--g3)" text-anchor="middle">sniff</text>
+        <text x="275" y="140" font-family="monospace" font-size="8" fill="var(--t3)" text-anchor="middle">diameter vs respiration</text>
+      </svg>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:6px;">IVC → RA PRESSURE (the number that feeds PASP)</div>
+      <div style="overflow-x:auto;margin-bottom:10px;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;min-width:400px;">
+        <thead><tr style="text-align:left;color:var(--g3);font-family:var(--mono);font-size:11px;">
+          <th style="padding:6px;border-bottom:1px solid var(--b2);">IVC DIAMETER</th><th style="padding:6px;border-bottom:1px solid var(--b2);">COLLAPSE ON SNIFF</th><th style="padding:6px;border-bottom:1px solid var(--b2);">RA PRESSURE</th>
+        </tr></thead>
+        <tbody style="color:var(--t);">
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);">≤ 2.1 cm</td><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--g);">&gt; 50%</td><td style="padding:6px;border-bottom:1px solid var(--b);"><b style="color:var(--g);">3 mmHg</b> (0–5) — normal</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);">≤ 2.1 cm</td><td style="padding:6px;border-bottom:1px solid var(--b);">&lt; 50%</td><td style="padding:6px;border-bottom:1px solid var(--b);"><b>8 mmHg</b> (5–10)</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);">&gt; 2.1 cm</td><td style="padding:6px;border-bottom:1px solid var(--b);">&gt; 50%</td><td style="padding:6px;border-bottom:1px solid var(--b);"><b>8 mmHg</b> (5–10)</td></tr>
+          <tr><td style="padding:6px;">&gt; 2.1 cm</td><td style="padding:6px;color:var(--g4);">&lt; 50% (plethoric)</td><td style="padding:6px;"><b style="color:var(--g4);">15 mmHg</b> (10–20)</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div style="font-size:13px;color:var(--t2);line-height:1.6;"><b>Caveats:</b> invalid on <b>positive-pressure ventilation</b> (the whole relationship inverts), and athletes/young patients can have a big IVC that collapses fine. A <b>plethoric, non-collapsing IVC</b> + effusion = think <b>tamponade</b>. Also here: <b>ASD</b> (subcostal is the best angle for the interatrial septum), pericardium, and abdominal aorta.</div>
+    </div>
+  </div>
+
+  <!-- DOPPLER ENGINE -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid #8c6eff;" onclick="toggleSoap('echo-dop')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:#8c6eff;letter-spacing:.1em;">⚙ THE CALCULATION ENGINE — VTI, SV, continuity, PISA</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="echo-dop-chevron">▸</div>
+    </div>
+  </div>
+  <div id="echo-dop" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:6px;">VTI — the idea that unlocks everything</div>
+      <p style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:10px;">Trace the Doppler envelope and the machine integrates velocity over time → <b>VTI (velocity–time integral), in cm.</b> Think of it as <b>"stroke distance"</b>: how far a column of blood travels with one beat. Multiply that distance by the pipe's cross-sectional area and you get a <b>volume</b>.</p>
+      <div style="overflow-x:auto;margin-bottom:10px;">
+      <svg viewBox="0 0 360 214" style="width:100%;min-width:330px;max-width:420px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <line x1="8" y1="34" x2="352" y2="34" stroke="var(--b2)" stroke-width="1"/>
+        <text x="8" y="26" font-family="monospace" font-size="8" fill="var(--t3)">baseline (0)</text>
+        <!-- LVOT PW envelope -->
+        <path d="M30,34 Q46,86 62,86 Q80,86 96,34 Z" fill="rgba(140,110,255,0.25)" stroke="#8c6eff" stroke-width="1.6"/>
+        <line x1="20" y1="86" x2="104" y2="86" stroke="#8c6eff" stroke-width="0.8" stroke-dasharray="3 2"/>
+        <text x="108" y="90" font-family="monospace" font-size="8" fill="#8c6eff">~1 m/s</text>
+        <text x="62" y="168" font-family="monospace" font-size="9" fill="#8c6eff" text-anchor="middle">LVOT (PW)</text>
+        <text x="62" y="180" font-family="monospace" font-size="8" fill="var(--t2)" text-anchor="middle">VTI ≈ 18–22 cm</text>
+        <text x="62" y="192" font-family="monospace" font-size="8" fill="var(--t3)" text-anchor="middle">narrow, early peak</text>
+        <!-- AS CW envelope -->
+        <path d="M210,34 Q240,150 268,150 Q296,150 320,34 Z" fill="rgba(239,83,80,0.22)" stroke="var(--red)" stroke-width="1.6"/>
+        <line x1="200" y1="150" x2="330" y2="150" stroke="var(--red)" stroke-width="0.8" stroke-dasharray="3 2"/>
+        <text x="334" y="154" font-family="monospace" font-size="8" fill="var(--red)">4 m/s</text>
+        <text x="265" y="168" font-family="monospace" font-size="9" fill="var(--red)" text-anchor="middle">AS jet (CW)</text>
+        <text x="265" y="180" font-family="monospace" font-size="8" fill="var(--t2)" text-anchor="middle">tall, LATE-peaking</text>
+        <text x="265" y="192" font-family="monospace" font-size="8" fill="var(--t3)" text-anchor="middle">"dagger" = severe</text>
+        <text x="164" y="208" font-family="monospace" font-size="8" fill="var(--t3)" text-anchor="middle">shaded = VTI · both in A5C, flow AWAY from probe → below baseline</text>
+      </svg>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:6px;">STROKE VOLUME & CARDIAC OUTPUT</div>
+          <div style="font-family:var(--mono);font-size:14px;color:var(--t);line-height:1.7;">LVOT area = π × (D/2)² = <b>0.785 × D²</b><br>SV = LVOT area × LVOT VTI<br>CO = SV × HR &nbsp;|&nbsp; CI = CO / BSA</div>
+          <div style="font-size:13px;color:var(--t2);line-height:1.6;margin-top:6px;">Normal SV <b>60–100 mL</b>; SV index <b>&gt;35 mL/m²</b>. <b>SVi &lt;35</b> = "low-flow" — the flag that changes how you read an aortic gradient.</div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:6px;">CONTINUITY — solve for the area you can't see</div>
+          <div style="font-family:var(--mono);font-size:14px;color:var(--t);line-height:1.7;">AVA = (LVOT area × LVOT VTI) / AV VTI</div>
+          <div style="font-size:13px;color:var(--t2);line-height:1.6;margin-top:6px;">Same blood through both. Measure the LVOT (you can) and the AV jet (CW), and the valve area falls out. <b>DVI = LVOT VTI / AV VTI</b> — a unitless sanity check that needs no diameter (<b>&lt;0.25 = severe</b>). Use DVI when your LVOT measurement is shaky.</div>
+        </div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g4);margin-bottom:6px;">PISA — sizing a regurgitant orifice</div>
+          <div style="font-family:var(--mono);font-size:14px;color:var(--t);line-height:1.7;">Flow = 2π r² × V<sub>alias</sub> &nbsp;→&nbsp; ERO = Flow / V<sub>peak jet</sub><br>RVol = ERO × jet VTI</div>
+          <div style="font-size:13px;color:var(--t2);line-height:1.6;margin-top:6px;">Blood converging on a leak forms <b>hemispheric shells of equal velocity</b>. Shift the color baseline <b>toward the jet</b> to make a crisp hemisphere, measure its radius <b>r</b> at the aliasing velocity, and you've got the orifice. Biggest error: <b>r gets squared</b> — measure it carefully.</div>
+        </div>
+      </div>
+      <div style="background:rgba(140,110,255,.06);border:1px solid rgba(140,110,255,.28);border-radius:8px;padding:11px 14px;font-size:13.5px;color:var(--t);line-height:1.65;"><b style="color:#8c6eff;">Peak vs mean gradient:</b> <b>peak</b> = 4V<sub>max</sub>² (one instant). <b>Mean</b> = the machine averaging 4v² across the whole traced envelope — <b>this is the one that matters for AS grading</b>, and it's why you must trace the <i>outer edge</i> of a clean envelope. Note the echo "peak" is <b>instantaneous</b> and is always <b>higher</b> than the cath <b>peak-to-peak</b> gradient — they're different quantities, not a discrepancy.</div>
+    </div>
+  </div>
+
+  <!-- LV -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g);" onclick="toggleSoap('echo-lv')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g);letter-spacing:.1em;">LV — size, geometry, EF & wall motion</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="echo-lv-chevron">▸</div>
+    </div>
+  </div>
+  <div id="echo-lv" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:6px;">EF — grade it, and know which method you used</div>
+      <div style="overflow-x:auto;margin-bottom:12px;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;min-width:380px;">
+        <thead><tr style="text-align:left;color:var(--g);font-family:var(--mono);font-size:11px;">
+          <th style="padding:6px;border-bottom:1px solid var(--b2);">EF</th><th style="padding:6px;border-bottom:1px solid var(--b2);">GRADE</th><th style="padding:6px;border-bottom:1px solid var(--b2);">NOTE</th>
+        </tr></thead>
+        <tbody style="color:var(--t);">
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--g);"><b>≥ 55%</b></td><td style="padding:6px;border-bottom:1px solid var(--b);">Normal</td><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--t2);">♀ normal range runs slightly higher</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);">45–54%</td><td style="padding:6px;border-bottom:1px solid var(--b);">Mildly reduced</td><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--t2);">HFmrEF territory (41–49)</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);">30–44%</td><td style="padding:6px;border-bottom:1px solid var(--b);">Moderately reduced</td><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--t2);">—</td></tr>
+          <tr><td style="padding:6px;color:var(--g4);"><b>&lt; 30%</b></td><td style="padding:6px;">Severely reduced</td><td style="padding:6px;color:var(--t2);">ICD consideration at <b>≤35%</b> + GDMT</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div style="font-size:13.5px;color:var(--t);line-height:1.6;margin-bottom:12px;"><b>Simpson's biplane</b> is the reference. <b>Fractional shortening</b> = (LVIDd−LVIDs)/LVIDd (normal 25–45%) is a linear shortcut — <b>invalid with any RWMA</b>, because one line can't represent a segmentally-sick ventricle. <b>GLS</b> (strain, normal more negative than <b>−18%</b>) drops <i>before</i> EF does — the earliest marker of cardiotoxicity/infiltration.</div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:6px;">GEOMETRY — mass & relative wall thickness</div>
+      <div style="background:var(--s3);border-radius:8px;padding:11px 14px;margin-bottom:12px;font-size:13.5px;color:var(--t);line-height:1.65;">
+        <b>RWT = (2 × LVPWd) / LVIDd</b> &nbsp;·&nbsp; cut-off <b>0.42</b>. <b>LV mass index</b> abnormal &gt;<b>115 g/m²</b> ♂ / &gt;<b>95 g/m²</b> ♀.<br>
+        <span style="color:var(--g);">Normal mass + RWT ≤0.42</span> → normal · <span style="color:var(--g3);">Normal mass + RWT &gt;0.42</span> → <b>concentric remodeling</b><br>
+        <span style="color:var(--g4);">↑Mass + RWT &gt;0.42</span> → <b>concentric hypertrophy</b> (pressure: HTN, AS) · <span style="color:var(--g4);">↑Mass + RWT ≤0.42</span> → <b>eccentric hypertrophy</b> (volume: AR, MR)
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:6px;">WALL MOTION — the 17-segment model & whose artery it is</div>
+      <p style="font-size:13.5px;color:var(--t);line-height:1.6;margin-bottom:8px;">Score each segment: <b>1</b> normal · <b>2</b> hypokinetic · <b>3</b> akinetic · <b>4</b> dyskinetic (bulges out) · <b>5</b> aneurysmal. A <b>regional</b> abnormality that respects a coronary territory = ischemia/infarct; <b>global</b> = non-ischemic. Here's the mid-LV cross-section — one circle contains all three territories:</p>
+      <div style="overflow-x:auto;margin-bottom:8px;">
+      <svg viewBox="0 0 300 170" style="width:100%;min-width:270px;max-width:340px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <path d="M80,80 L52,31.5 A56,56 0 0,1 108,31.5 Z" fill="rgba(79,195,247,0.30)" stroke="var(--b2)" stroke-width="0.8"/>
+        <path d="M80,80 L24,80 A56,56 0 0,1 52,31.5 Z" fill="rgba(79,195,247,0.30)" stroke="var(--b2)" stroke-width="0.8"/>
+        <path d="M80,80 L108,31.5 A56,56 0 0,1 136,80 Z" fill="rgba(127,255,110,0.28)" stroke="var(--b2)" stroke-width="0.8"/>
+        <path d="M80,80 L136,80 A56,56 0 0,1 108,128.5 Z" fill="rgba(127,255,110,0.28)" stroke="var(--b2)" stroke-width="0.8"/>
+        <path d="M80,80 L108,128.5 A56,56 0 0,1 52,128.5 Z" fill="rgba(255,183,77,0.30)" stroke="var(--b2)" stroke-width="0.8"/>
+        <path d="M80,80 L52,128.5 A56,56 0 0,1 24,80 Z" fill="rgba(255,183,77,0.30)" stroke="var(--b2)" stroke-width="0.8"/>
+        <circle cx="80" cy="80" r="56" fill="none" stroke="var(--t3)" stroke-width="1"/>
+        <circle cx="80" cy="80" r="22" fill="var(--s1)" stroke="var(--t3)" stroke-width="1"/>
+        <g font-family="monospace" font-size="7" fill="var(--t)" text-anchor="middle">
+          <text x="80" y="42">ANT</text><text x="44" y="56">ANTSEP</text><text x="116" y="56">ANTLAT</text>
+          <text x="44" y="110">INFSEP</text><text x="118" y="110">INFLAT</text><text x="80" y="122">INF</text>
+        </g>
+        <text x="80" y="84" font-family="monospace" font-size="7" fill="var(--t3)" text-anchor="middle">cavity</text>
+        <g font-family="monospace" font-size="9">
+          <rect x="164" y="40" width="10" height="10" fill="rgba(79,195,247,0.5)"/><text x="180" y="49" fill="var(--g2)">LAD — ant, antsep, apex</text>
+          <rect x="164" y="62" width="10" height="10" fill="rgba(127,255,110,0.5)"/><text x="180" y="71" fill="var(--g)">LCx — antlat, inflat</text>
+          <rect x="164" y="84" width="10" height="10" fill="rgba(255,183,77,0.5)"/><text x="180" y="93" fill="var(--g3)">RCA — inf, infsep</text>
+        </g>
+        <text x="80" y="158" font-family="monospace" font-size="8" fill="var(--t3)" text-anchor="middle">PSAX mid (papillary) — septum left, lateral right</text>
+      </svg>
+      </div>
+      <div style="font-size:13px;color:var(--t2);line-height:1.6;">The full model = <b>6 basal + 6 mid + 4 apical + 1 apex = 17</b>. Territories overlap at the borders and vary with dominance, so read them as <b>likely</b>, not absolute. <b>Apical</b> segments are almost always <b>LAD</b>.</div>
+    </div>
+  </div>
+
+  <!-- DIASTOLE -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g2);" onclick="toggleSoap('echo-dias')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g2);letter-spacing:.1em;">DIASTOLIC FUNCTION — filling pressure without a catheter</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="echo-dias-chevron">▸</div>
+    </div>
+  </div>
+  <div id="echo-dias" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:10px;">Two signals, one question. <b>Mitral inflow (PW at the leaflet tips)</b> gives <b>E</b> (early passive filling) and <b>A</b> (atrial kick) — but E depends on <b>both</b> relaxation <i>and</i> LA pressure, so it can look normal in a sick heart. <b>Tissue Doppler e′ (at the annulus)</b> measures <b>relaxation alone</b>. Divide them and the load cancels: <b style="color:var(--g2);">E/e′ ≈ LA pressure.</b> That's the whole trick.</p>
+      <div style="overflow-x:auto;margin-bottom:10px;">
+      <svg viewBox="0 0 360 190" style="width:100%;min-width:340px;max-width:430px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <line x1="6" y1="80" x2="354" y2="80" stroke="var(--b2)" stroke-width="1"/>
+        <!-- normal -->
+        <g><path d="M14,80 Q26,26 38,80 Q46,52 54,80" fill="none" stroke="var(--t)" stroke-width="1.8"/>
+          <path d="M14,80 Q24,104 34,80" fill="none" stroke="#8c6eff" stroke-width="1.5"/>
+          <text x="26" y="20" font-family="monospace" font-size="7" fill="var(--t2)">E</text><text x="48" y="46" font-family="monospace" font-size="7" fill="var(--t2)">A</text>
+          <text x="34" y="130" font-family="monospace" font-size="9" fill="var(--g)" text-anchor="middle">NORMAL</text>
+          <text x="34" y="144" font-family="monospace" font-size="7" fill="var(--t2)" text-anchor="middle">E/A ≈1–2</text>
+          <text x="34" y="156" font-family="monospace" font-size="7" fill="var(--t2)" text-anchor="middle">e′ normal</text></g>
+        <!-- grade I -->
+        <g><path d="M100,80 Q112,50 124,80 Q134,22 146,80" fill="none" stroke="var(--t)" stroke-width="1.8"/>
+          <path d="M100,80 Q110,96 120,80" fill="none" stroke="#8c6eff" stroke-width="1.5"/>
+          <text x="122" y="130" font-family="monospace" font-size="9" fill="var(--g3)" text-anchor="middle">GRADE I</text>
+          <text x="122" y="144" font-family="monospace" font-size="7" fill="var(--t2)" text-anchor="middle">E/A &lt;0.8</text>
+          <text x="122" y="156" font-family="monospace" font-size="7" fill="var(--t2)" text-anchor="middle">impaired relax</text>
+          <text x="122" y="168" font-family="monospace" font-size="7" fill="var(--t3)" text-anchor="middle">LAP normal</text></g>
+        <!-- grade II -->
+        <g><path d="M188,80 Q200,26 212,80 Q220,54 228,80" fill="none" stroke="var(--t)" stroke-width="1.8"/>
+          <path d="M188,80 Q198,98 208,80" fill="none" stroke="#8c6eff" stroke-width="1.5"/>
+          <text x="210" y="130" font-family="monospace" font-size="9" fill="var(--g4)" text-anchor="middle">GRADE II</text>
+          <text x="210" y="144" font-family="monospace" font-size="7" fill="var(--t2)" text-anchor="middle">E/A 0.8–2</text>
+          <text x="210" y="156" font-family="monospace" font-size="7" fill="var(--t2)" text-anchor="middle">"pseudonormal"</text>
+          <text x="210" y="168" font-family="monospace" font-size="7" fill="var(--g4)" text-anchor="middle">LAP ↑ · e′ low</text></g>
+        <!-- grade III -->
+        <g><path d="M280,80 Q290,16 300,80 Q306,64 312,80" fill="none" stroke="var(--t)" stroke-width="1.8"/>
+          <path d="M280,80 Q289,99 298,80" fill="none" stroke="#8c6eff" stroke-width="1.5"/>
+          <text x="300" y="130" font-family="monospace" font-size="9" fill="var(--red)" text-anchor="middle">GRADE III</text>
+          <text x="300" y="144" font-family="monospace" font-size="7" fill="var(--t2)" text-anchor="middle">E/A &gt;2 · DT &lt;160</text>
+          <text x="300" y="156" font-family="monospace" font-size="7" fill="var(--t2)" text-anchor="middle">restrictive</text>
+          <text x="300" y="168" font-family="monospace" font-size="7" fill="var(--red)" text-anchor="middle">LAP ↑↑</text></g>
+        <text x="352" y="76" font-family="monospace" font-size="7" fill="var(--t3)" text-anchor="end">inflow ↑ / e′ ↓</text>
+      </svg>
+      </div>
+      <div style="background:rgba(79,195,247,.07);border:1px solid rgba(79,195,247,.3);border-radius:8px;padding:11px 14px;margin-bottom:10px;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:8px;">★ THE ASE ALGORITHM (normal EF) — score these 4</div>
+        <div style="font-size:13.5px;color:var(--t);line-height:1.8;">
+          ① <b>e′</b> septal &lt;7 or lateral &lt;10 cm/s &nbsp; ② <b>E/e′ (avg) &gt; 14</b><br>
+          ③ <b>LAVi &gt; 34 mL/m²</b> &nbsp; ④ <b>TR velocity &gt; 2.8 m/s</b><br>
+          <b style="color:var(--g);">≤1 positive</b> → normal · <b style="color:var(--g3);">2 positive</b> → indeterminate · <b style="color:var(--g4);">≥3 positive</b> → <b>elevated filling pressures</b>
+        </div>
+      </div>
+      <div style="font-size:13px;color:var(--t);line-height:1.65;"><b>Pearls:</b> <b>LAVi is the "HbA1c" of diastole</b> — a chronically big LA remembers months of high pressure, unlike E/A which changes beat to beat. <b>Grade I is common and often benign</b> (age, HTN). <b>The algorithm is void</b> in AF (no A wave), significant MS/MR, heavy MAC, and prosthetic mitral valves. In <b>reduced EF</b>, diastolic dysfunction is assumed — you're only grading how high the pressure is.</div>
+    </div>
+  </div>
+
+  <!-- RV -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g3);" onclick="toggleSoap('echo-rv')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g3);letter-spacing:.1em;">RV & PULMONARY PRESSURES — TAPSE, PASP, the D-sign</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="echo-rv-chevron">▸</div>
+    </div>
+  </div>
+  <div id="echo-rv" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:10px;">The RV is a <b>crescent wrapped around the LV</b>, not an ellipse — so no single formula gives its EF on TTE. You judge it with <b>surrogates</b>, and its longitudinal shortening carries most of its function, which is why a single M-mode line (<b>TAPSE</b>) works so well.</p>
+      <div style="overflow-x:auto;margin-bottom:10px;">
+      <svg viewBox="0 0 360 170" style="width:100%;min-width:330px;max-width:420px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <!-- TAPSE M-mode -->
+        <rect x="10" y="24" width="150" height="100" rx="4" fill="var(--s3)" stroke="var(--b2)" stroke-width="1"/>
+        <path d="M16,48 Q30,48 40,92 Q50,48 64,48 Q78,48 88,92 Q98,48 112,48 Q126,48 136,92 Q146,48 156,48" fill="none" stroke="var(--t)" stroke-width="1.6"/>
+        <line x1="40" y1="48" x2="40" y2="92" stroke="var(--g3)" stroke-width="1.4"/>
+        <text x="46" y="74" font-family="monospace" font-size="8" fill="var(--g3)">TAPSE</text>
+        <text x="85" y="18" font-family="monospace" font-size="8" fill="var(--t2)" text-anchor="middle">M-mode @ lateral tricuspid annulus</text>
+        <text x="85" y="140" font-family="monospace" font-size="9" fill="var(--g)" text-anchor="middle">normal &gt; 1.7 cm</text>
+        <text x="85" y="154" font-family="monospace" font-size="8" fill="var(--t3)" text-anchor="middle">how far the annulus travels</text>
+        <!-- TR jet CW -->
+        <line x1="196" y1="34" x2="350" y2="34" stroke="var(--b2)" stroke-width="1"/>
+        <path d="M212,34 Q238,110 262,110 Q288,110 308,34 Z" fill="rgba(198,40,40,0.22)" stroke="var(--g4)" stroke-width="1.5"/>
+        <line x1="200" y1="110" x2="330" y2="110" stroke="var(--g4)" stroke-width="0.8" stroke-dasharray="3 2"/>
+        <text x="332" y="114" font-family="monospace" font-size="8" fill="var(--g4)">V<tspan font-size="6">max</tspan></text>
+        <text x="272" y="140" font-family="monospace" font-size="9" fill="var(--g4)" text-anchor="middle">TR jet (CW)</text>
+        <text x="272" y="154" font-family="monospace" font-size="8" fill="var(--t3)" text-anchor="middle">PASP = 4v² + RAP</text>
+        <text x="272" y="22" font-family="monospace" font-size="8" fill="var(--t2)" text-anchor="middle">A4C, flow away → below</text>
+      </svg>
+      </div>
+      <div style="overflow-x:auto;margin-bottom:12px;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;min-width:400px;">
+        <thead><tr style="text-align:left;color:var(--g3);font-family:var(--mono);font-size:11px;">
+          <th style="padding:6px;border-bottom:1px solid var(--b2);">MEASURE</th><th style="padding:6px;border-bottom:1px solid var(--b2);">WHERE</th><th style="padding:6px;border-bottom:1px solid var(--b2);">ABNORMAL</th>
+        </tr></thead>
+        <tbody style="color:var(--t);">
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);"><b>TAPSE</b></td><td style="padding:6px;border-bottom:1px solid var(--b);">M-mode, lateral tricuspid annulus, A4C</td><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--g4);">&lt; 1.7 cm</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);"><b>RV S′</b></td><td style="padding:6px;border-bottom:1px solid var(--b);">TDI, lateral tricuspid annulus</td><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--g4);">&lt; 9.5 cm/s</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);"><b>FAC</b></td><td style="padding:6px;border-bottom:1px solid var(--b);">(EDA−ESA)/EDA, trace RV in A4C</td><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--g4);">&lt; 35%</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);"><b>RV basal diameter</b></td><td style="padding:6px;border-bottom:1px solid var(--b);">RV-focused A4C, basal third</td><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--g4);">&gt; 4.1 cm</td></tr>
+          <tr><td style="padding:6px;"><b>RV:LV ratio</b></td><td style="padding:6px;">A4C, end-diastole</td><td style="padding:6px;color:var(--g4);">&gt; 1.0 (RV dilated)</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div style="background:var(--s3);border-radius:8px;padding:11px 14px;margin-bottom:10px;font-size:13.5px;color:var(--t);line-height:1.65;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:6px;">PASP — the number everyone asks for</div>
+        <b>PASP = 4 × (TR V<sub>max</sub>)² + RAP</b> &nbsp;(RAP from the IVC table). In the absence of RVOT obstruction, <b>RVSP = PASP</b>.<br>
+        <span style="color:var(--t2);">Normal &lt;35 mmHg · 35–50 mild · 50–70 moderate · &gt;70 severe.</span> <b style="color:var(--red);">Requires a complete TR envelope</b> — a wispy, incomplete jet <b>underestimates</b>. No TR at all ≠ normal pressures; it means <b>no measurement.</b>
+      </div>
+      <div style="font-size:13px;color:var(--t);line-height:1.65;"><b style="color:var(--g3);">Acute PE pattern:</b> dilated hypokinetic RV + <b>D-sign in systole</b> + TAPSE ↓ + <b>McConnell's sign</b> (mid free-wall akinesis with a <b>preserved apex</b>) + <b>60/60 sign</b> (PASP &lt;60 with RVOT acceleration time &lt;60 ms). A <b>modest</b> PASP with a <b>failing</b> RV means the RV is acute and can't generate more — that's more ominous than a high number.</div>
+    </div>
+  </div>
+
+  <!-- REGURG ANATOMY -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g4);" onclick="toggleSoap('echo-jet')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--g4);letter-spacing:.1em;">ANATOMY OF A REGURGITANT JET — VC, PISA & why jet size lies</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="echo-jet-chevron">▸</div>
+    </div>
+  </div>
+  <div id="echo-jet" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:10px;">Every leak has the same three-part shape. Learn it once and it applies to MR, AR, TR identically.</p>
+      <div style="overflow-x:auto;margin-bottom:10px;">
+      <svg viewBox="0 0 360 190" style="width:100%;min-width:330px;max-width:420px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="24" width="120" height="140" rx="6" fill="rgba(140,110,255,0.06)" stroke="var(--b2)" stroke-width="1"/>
+        <text x="40" y="42" font-family="monospace" font-size="9" fill="#8c6eff">LV (high P)</text>
+        <rect x="176" y="24" width="174" height="140" rx="6" fill="rgba(198,40,40,0.06)" stroke="var(--b2)" stroke-width="1"/>
+        <text x="300" y="42" font-family="monospace" font-size="9" fill="var(--g4)">LA (low P)</text>
+        <!-- valve plane -->
+        <line x1="130" y1="24" x2="130" y2="86" stroke="var(--t)" stroke-width="3"/>
+        <line x1="130" y1="102" x2="130" y2="164" stroke="var(--t)" stroke-width="3"/>
+        <!-- PISA shells -->
+        <path d="M130,60 A26,26 0 0,0 130,128" fill="none" stroke="var(--g3)" stroke-width="1.4"/>
+        <path d="M130,72 A16,16 0 0,0 130,116" fill="none" stroke="var(--g3)" stroke-width="1.4"/>
+        <path d="M130,82 A8,8 0 0,0 130,106" fill="none" stroke="var(--g3)" stroke-width="1.4"/>
+        <line x1="104" y1="94" x2="130" y2="94" stroke="var(--g3)" stroke-width="1.4"/>
+        <text x="86" y="112" font-family="monospace" font-size="8" fill="var(--g3)">r</text>
+        <text x="60" y="152" font-family="monospace" font-size="8" fill="var(--g3)">① PISA</text>
+        <text x="52" y="164" font-family="monospace" font-size="7" fill="var(--t3)">converging shells</text>
+        <!-- vena contracta -->
+        <line x1="136" y1="88" x2="136" y2="100" stroke="var(--g3)" stroke-width="2.6"/>
+        <text x="140" y="80" font-family="monospace" font-size="8" fill="var(--g3)">② VC</text>
+        <text x="140" y="70" font-family="monospace" font-size="7" fill="var(--t3)">narrowest neck</text>
+        <!-- jet -->
+        <path d="M138,90 Q200,74 268,50 Q300,42 340,44 L340,144 Q300,146 268,138 Q200,114 138,98 Z" fill="rgba(198,40,40,0.18)" stroke="var(--g4)" stroke-width="1"/>
+        <text x="250" y="98" font-family="monospace" font-size="8" fill="var(--g4)" text-anchor="middle">③ jet — size depends on</text>
+        <text x="250" y="110" font-family="monospace" font-size="8" fill="var(--g4)" text-anchor="middle">driving pressure &amp; gain</text>
+      </svg>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:10px;">
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">① PISA (proximal isovelocity surface area)</b> — blood converging <i>before</i> the hole forms hemispheric shells. Measure radius <b>r</b> at the aliasing velocity → flow rate → <b>ERO</b>. Shift the color baseline toward the jet to sharpen the shell.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">② Vena contracta</b> — the jet's <b>narrowest neck</b>, just past the orifice. It <b>≈ the anatomic hole</b> and is relatively <b>independent of driving pressure and gain</b>. Zoom in, use a narrow sector. <b>This is your most reliable quick number.</b></div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g4);">③ The jet itself</b> — <b>the least trustworthy thing on the screen.</b> A jet's area balloons with higher driving pressure, higher gain, lower Nyquist, and it <b>hugs the wall</b> (Coandă effect) when eccentric — an eccentric severe MR can look small. <b style="color:var(--red);">Never grade off jet area alone.</b></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AORTIC VALVE -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--red);" onclick="toggleSoap('echo-av')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--red);letter-spacing:.1em;">AORTIC VALVE — AS & AR criteria</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="echo-av-chevron">▸</div>
+    </div>
+  </div>
+  <div id="echo-av" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <div style="font-family:var(--mono);font-size:12px;color:var(--red);margin-bottom:8px;">AORTIC STENOSIS — the three numbers must agree</div>
+      <div style="overflow-x:auto;margin-bottom:10px;">
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px;min-width:460px;">
+        <thead><tr style="text-align:left;color:var(--red);font-family:var(--mono);font-size:11px;">
+          <th style="padding:6px;border-bottom:1px solid var(--b2);">STAGE</th><th style="padding:6px;border-bottom:1px solid var(--b2);">V<tspan>max</tspan> (m/s)</th><th style="padding:6px;border-bottom:1px solid var(--b2);">MEAN ΔP (mmHg)</th><th style="padding:6px;border-bottom:1px solid var(--b2);">AVA (cm²)</th><th style="padding:6px;border-bottom:1px solid var(--b2);">DVI</th>
+        </tr></thead>
+        <tbody style="color:var(--t);">
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);">Sclerosis</td><td style="padding:6px;border-bottom:1px solid var(--b);">&lt; 2.5</td><td style="padding:6px;border-bottom:1px solid var(--b);">—</td><td style="padding:6px;border-bottom:1px solid var(--b);">—</td><td style="padding:6px;border-bottom:1px solid var(--b);">—</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--g);">Mild</td><td style="padding:6px;border-bottom:1px solid var(--b);">2.6–2.9</td><td style="padding:6px;border-bottom:1px solid var(--b);">&lt; 20</td><td style="padding:6px;border-bottom:1px solid var(--b);">&gt; 1.5</td><td style="padding:6px;border-bottom:1px solid var(--b);">&gt; 0.50</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--g3);">Moderate</td><td style="padding:6px;border-bottom:1px solid var(--b);">3.0–3.9</td><td style="padding:6px;border-bottom:1px solid var(--b);">20–39</td><td style="padding:6px;border-bottom:1px solid var(--b);">1.0–1.5</td><td style="padding:6px;border-bottom:1px solid var(--b);">0.25–0.50</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--g4);"><b>Severe</b></td><td style="padding:6px;border-bottom:1px solid var(--b);"><b>≥ 4.0</b></td><td style="padding:6px;border-bottom:1px solid var(--b);"><b>≥ 40</b></td><td style="padding:6px;border-bottom:1px solid var(--b);"><b>&lt; 1.0</b></td><td style="padding:6px;border-bottom:1px solid var(--b);"><b>&lt; 0.25</b></td></tr>
+          <tr><td style="padding:6px;color:var(--red);"><b>Very severe</b></td><td style="padding:6px;">≥ 5.0</td><td style="padding:6px;">≥ 60</td><td style="padding:6px;">—</td><td style="padding:6px;">—</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div style="font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:10px;">Also index it: <b>AVAi &lt; 0.6 cm²/m²</b> = severe (matters in small or large body habitus). Severe AS morphology: heavily calcified, <b>late-peaking "dagger"</b> CW envelope.</div>
+      <div style="background:rgba(239,83,80,.07);border:1px solid rgba(239,83,80,.3);border-radius:8px;padding:11px 14px;margin-bottom:12px;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--red);margin-bottom:6px;">★ WHEN THE NUMBERS DISAGREE — low-flow, low-gradient AS</div>
+        <div style="font-size:13.5px;color:var(--t);line-height:1.65;">A gradient is <b>flow-dependent</b> — a weak ventricle can't generate 40 mmHg through <i>any</i> valve. So <b>AVA &lt;1.0 but mean ΔP &lt;40</b> is not a contradiction, it's a flow problem. Check <b>SVi</b> first.<br><br>
+        <b style="color:var(--g4);">Classical LFLG</b> (EF &lt;50%, SVi &lt;35): do a <b>dobutamine stress echo.</b> If ΔP rises to ≥40 while AVA stays &lt;1.0 → <b>true severe</b>. If AVA opens up → <b>pseudosevere</b> (the valve was never the problem). <b>No contractile reserve</b> → poor prognosis.<br><br>
+        <b style="color:var(--g4);">Paradoxical LFLG</b> (EF ≥50%, SVi &lt;35): small, stiff, hypertrophied LV that can't fill. Confirm with <b>CT calcium score</b> (♂ ≥2000, ♀ ≥1200 = severe). Easy to under-call — don't.</div>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g4);margin-bottom:8px;">AORTIC REGURGITATION</div>
+      <div style="overflow-x:auto;margin-bottom:10px;">
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px;min-width:460px;">
+        <thead><tr style="text-align:left;color:var(--g4);font-family:var(--mono);font-size:11px;">
+          <th style="padding:6px;border-bottom:1px solid var(--b2);">MEASURE</th><th style="padding:6px;border-bottom:1px solid var(--b2);">MILD</th><th style="padding:6px;border-bottom:1px solid var(--b2);">MODERATE</th><th style="padding:6px;border-bottom:1px solid var(--b2);">SEVERE</th>
+        </tr></thead>
+        <tbody style="color:var(--t);">
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);">Vena contracta</td><td style="padding:6px;border-bottom:1px solid var(--b);">&lt; 0.3 cm</td><td style="padding:6px;border-bottom:1px solid var(--b);">0.3–0.6</td><td style="padding:6px;border-bottom:1px solid var(--b);"><b>&gt; 0.6 cm</b></td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);">Jet width / LVOT</td><td style="padding:6px;border-bottom:1px solid var(--b);">&lt; 25%</td><td style="padding:6px;border-bottom:1px solid var(--b);">25–64%</td><td style="padding:6px;border-bottom:1px solid var(--b);"><b>≥ 65%</b></td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);"><b>Pressure half-time</b></td><td style="padding:6px;border-bottom:1px solid var(--b);">&gt; 500 ms</td><td style="padding:6px;border-bottom:1px solid var(--b);">200–500</td><td style="padding:6px;border-bottom:1px solid var(--b);"><b>&lt; 200 ms</b></td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);">RVol / RF</td><td style="padding:6px;border-bottom:1px solid var(--b);">&lt;30 mL / &lt;30%</td><td style="padding:6px;border-bottom:1px solid var(--b);">30–59 / 30–49%</td><td style="padding:6px;border-bottom:1px solid var(--b);"><b>≥60 mL / ≥50%</b></td></tr>
+          <tr><td style="padding:6px;">ERO</td><td style="padding:6px;">&lt; 0.10 cm²</td><td style="padding:6px;">0.10–0.29</td><td style="padding:6px;"><b>≥ 0.30 cm²</b></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div style="font-size:13px;color:var(--t);line-height:1.65;"><b>The two signs that settle it:</b> <b style="color:var(--g4);">holodiastolic flow reversal in the descending aorta</b> (suprasternal/subcostal PW — blood running backwards all diastole) = severe. And a <b>short PHT (&lt;200 ms)</b> means aortic and LV diastolic pressures equalize fast — a wide-open leak. <b>Acute severe AR</b> (dissection, endocarditis) is different: normal-sized LV, <b>short PHT, premature MV closure</b>, tachycardia — a surgical emergency that can look "unimpressive" on 2D.</div>
+    </div>
+  </div>
+
+  <!-- MITRAL VALVE -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid #8c6eff;" onclick="toggleSoap('echo-mv')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:#8c6eff;letter-spacing:.1em;">MITRAL VALVE — MR & MS criteria</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="echo-mv-chevron">▸</div>
+    </div>
+  </div>
+  <div id="echo-mv" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <div style="font-family:var(--mono);font-size:12px;color:#8c6eff;margin-bottom:8px;">MITRAL REGURGITATION</div>
+      <div style="overflow-x:auto;margin-bottom:10px;">
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px;min-width:460px;">
+        <thead><tr style="text-align:left;color:#8c6eff;font-family:var(--mono);font-size:11px;">
+          <th style="padding:6px;border-bottom:1px solid var(--b2);">MEASURE</th><th style="padding:6px;border-bottom:1px solid var(--b2);">MILD</th><th style="padding:6px;border-bottom:1px solid var(--b2);">MODERATE</th><th style="padding:6px;border-bottom:1px solid var(--b2);">SEVERE</th>
+        </tr></thead>
+        <tbody style="color:var(--t);">
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);"><b>Vena contracta</b></td><td style="padding:6px;border-bottom:1px solid var(--b);">&lt; 0.3 cm</td><td style="padding:6px;border-bottom:1px solid var(--b);">0.3–0.69</td><td style="padding:6px;border-bottom:1px solid var(--b);"><b>≥ 0.7 cm</b></td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);"><b>ERO</b></td><td style="padding:6px;border-bottom:1px solid var(--b);">&lt; 0.20 cm²</td><td style="padding:6px;border-bottom:1px solid var(--b);">0.20–0.39</td><td style="padding:6px;border-bottom:1px solid var(--b);"><b>≥ 0.40 cm²</b></td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);">RVol</td><td style="padding:6px;border-bottom:1px solid var(--b);">&lt; 30 mL</td><td style="padding:6px;border-bottom:1px solid var(--b);">30–59</td><td style="padding:6px;border-bottom:1px solid var(--b);"><b>≥ 60 mL</b></td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);">RF</td><td style="padding:6px;border-bottom:1px solid var(--b);">&lt; 30%</td><td style="padding:6px;border-bottom:1px solid var(--b);">30–49%</td><td style="padding:6px;border-bottom:1px solid var(--b);"><b>≥ 50%</b></td></tr>
+          <tr><td style="padding:6px;">Pulm vein flow</td><td style="padding:6px;">systolic dominant</td><td style="padding:6px;">blunted</td><td style="padding:6px;"><b>systolic reversal</b></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div style="background:var(--s3);border-radius:8px;padding:11px 14px;margin-bottom:12px;font-size:13.5px;color:var(--t);line-height:1.65;">
+        <b style="color:#8c6eff;">Primary vs secondary — the distinction that drives management.</b> <b>Primary (degenerative):</b> the valve itself is broken (prolapse, flail, rheumatic, endocarditis) → <b>fix the valve</b>. <b>Secondary (functional):</b> the valve is normal but the <b>ventricle</b> tethers/dilates it → <b>treat the ventricle</b> (GDMT first). Secondary MR causes damage at <b>lower</b> ERO, so many read <b>ERO ≥0.20 / RVol ≥30</b> as severe in that context.<br><br>
+        <b>Carpentier:</b> <b>I</b> normal leaflet motion (annular dilation, perforation) · <b>II</b> excessive motion (prolapse/flail → jet points <b>away</b> from the bad leaflet) · <b>IIIa</b> restricted in systole+diastole (rheumatic) · <b>IIIb</b> restricted in systole (ischemic tethering).
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:8px;">MITRAL STENOSIS</div>
+      <div style="overflow-x:auto;margin-bottom:10px;">
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px;min-width:440px;">
+        <thead><tr style="text-align:left;color:var(--g2);font-family:var(--mono);font-size:11px;">
+          <th style="padding:6px;border-bottom:1px solid var(--b2);">MEASURE</th><th style="padding:6px;border-bottom:1px solid var(--b2);">MILD</th><th style="padding:6px;border-bottom:1px solid var(--b2);">MODERATE</th><th style="padding:6px;border-bottom:1px solid var(--b2);">SEVERE</th>
+        </tr></thead>
+        <tbody style="color:var(--t);">
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);"><b>MVA</b></td><td style="padding:6px;border-bottom:1px solid var(--b);">&gt; 1.5 cm²</td><td style="padding:6px;border-bottom:1px solid var(--b);">1.0–1.5</td><td style="padding:6px;border-bottom:1px solid var(--b);"><b>&lt; 1.0 cm²</b></td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);">Mean gradient</td><td style="padding:6px;border-bottom:1px solid var(--b);">&lt; 5 mmHg</td><td style="padding:6px;border-bottom:1px solid var(--b);">5–10</td><td style="padding:6px;border-bottom:1px solid var(--b);"><b>&gt; 10 mmHg</b></td></tr>
+          <tr><td style="padding:6px;">PASP</td><td style="padding:6px;">&lt; 30</td><td style="padding:6px;">30–50</td><td style="padding:6px;"><b>&gt; 50 mmHg</b></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div style="font-size:13px;color:var(--t);line-height:1.65;"><b>Three ways to get MVA:</b> <b>planimetry</b> at the PSAX "fish-mouth" (most direct — trace at the leaflet tips, gain-sensitive) · <b>PHT: MVA = 220 / PHT</b> (invalid right after valvuloplasty, and in significant AR or abnormal LV compliance) · <b>continuity</b>. Note <b>AHA intervention threshold is MVA ≤1.5 cm²</b> — normal is 4–6 cm². <b>Mean gradient is HR-dependent</b> (tachycardia shortens diastole → gradient rises), so report the heart rate. Assess the <b>Wilkins score</b> (leaflet mobility, thickening, calcification, subvalvular disease — each 1–4; <b>≤8</b> favors balloon valvuloplasty) and always hunt the <b>LAA for thrombus</b> on TEE first.</div>
+    </div>
+  </div>
+
+  <!-- TRICUSPID -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;" onclick="toggleSoap('echo-tv')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--t2);letter-spacing:.1em;">TRICUSPID / PULMONIC & PROSTHETIC VALVES</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="echo-tv-chevron">▸</div>
+    </div>
+  </div>
+  <div id="echo-tv" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g4);margin-bottom:8px;">TRICUSPID REGURGITATION — severe if:</div>
+      <div style="font-size:13.5px;color:var(--t);line-height:1.7;margin-bottom:12px;"><b>VC &gt; 0.7 cm</b> · <b>ERO ≥ 0.40 cm²</b> · <b>RVol ≥ 45 mL</b> · <b>systolic flow reversal in the hepatic veins</b> (the TR analogue of pulmonary vein reversal) · a <b>dense, triangular, early-peaking</b> CW jet (the RV and RA equalize early = wide-open leak) · <b>PISA radius ≥0.9 cm</b>. Beyond severe there is <b>massive</b> and <b>torrential</b> (VC ≥1.4 / ≥2.1 cm) — worth naming, since they drive tricuspid intervention referrals.<br><br><b>Most TR is functional</b> — the annulus dilates because the RV/RA did. Fix the left heart or the pulmonary pressure and the TR often follows.</div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:6px;">PULMONIC</div>
+      <div style="font-size:13.5px;color:var(--t);line-height:1.65;margin-bottom:12px;"><b>PS:</b> peak velocity &gt;4 m/s (ΔP &gt;64) = severe. <b>PR:</b> the <b>PR end-diastolic velocity</b> gives you <b>PA diastolic pressure</b> = 4v²<sub>end-diast</sub> + RAP; the PR <b>peak</b> velocity gives mean PA pressure. Handy when the TR jet is poor.</div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:6px;">PROSTHETIC VALVES — what makes them different</div>
+      <div style="font-size:13px;color:var(--t);line-height:1.65;">Every prosthesis is <b>mildly stenotic by design</b>, so "a gradient" isn't news — you need the <b>expected</b> gradient for that model and size. Compare against the patient's own <b>baseline post-op study</b> (this is why that study exists). Rising gradient + <b>falling DVI</b> + <b>longer acceleration time (&gt;100 ms)</b> = obstruction (pannus vs thrombus). <b>Mechanical valves shadow everything behind them</b> — a mitral prosthesis hides the LA on TTE, so <b>suspected prosthetic MR or endocarditis goes straight to TEE.</b> Small ring + big patient = <b>patient–prosthesis mismatch</b> (indexed EOA &lt;0.65 cm²/m² severe), which looks like stenosis but is a sizing problem.</div>
+    </div>
+  </div>
+
+  <!-- PERICARDIUM -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--red);" onclick="toggleSoap('echo-peri')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--red);letter-spacing:.1em;">⚠ PERICARDIUM — effusion, tamponade, constriction</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="echo-peri-chevron">▸</div>
+    </div>
+  </div>
+  <div id="echo-peri" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:6px;">EFFUSION SIZE (measure the echo-free space in DIASTOLE)</div>
+      <div style="font-size:13.5px;color:var(--t);line-height:1.7;margin-bottom:10px;">Trivial (systole only) · <b>Small &lt;1 cm</b> · <b>Moderate 1–2 cm</b> · <b>Large &gt;2 cm</b>. <b style="color:var(--red);">Size does not equal tamponade</b> — 150 mL accumulating in an hour tamponades; 1 L over a year may not. <b>Rate &gt; volume.</b><br><b>Pericardial vs pleural:</b> a pericardial effusion tracks <b>anterior</b> to the descending aorta on PLAX; a pleural effusion runs <b>posterior</b> to it.</div>
+      <div style="background:rgba(239,83,80,.07);border:1px solid rgba(239,83,80,.3);border-radius:8px;padding:11px 14px;margin-bottom:12px;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--red);margin-bottom:8px;">★ TAMPONADE — the physiology is one sentence</div>
+        <div style="font-size:13.5px;color:var(--t);line-height:1.65;">Fluid under pressure makes the pericardium a <b>fixed box</b>, so the chambers must <b>compete</b> for one shared volume. Everything below follows from that.<br><br>
+        <b>① RA systolic collapse</b> — lasting &gt;⅓ of systole. Most <b>sensitive</b> early sign.<br>
+        <b>② RV diastolic collapse</b> — most <b>specific</b>. The RV is the thin-walled loser.<br>
+        <b>③ IVC plethoric</b> (&gt;2.1 cm, &lt;50% collapse) — required; a collapsing IVC argues strongly against it.<br>
+        <b>④ Exaggerated respirophasic variation</b> — the echo pulsus paradoxus: mitral inflow E varies <b>&gt;25%</b>, tricuspid <b>&gt;40–60%</b>. Inspiration → RV fills → septum shoves left → LV can't fill.<br>
+        <b>⑤ Septal bounce / "swinging heart"</b> (the source of electrical alternans).<br><br>
+        <b style="color:var(--red);">Tamponade is a clinical diagnosis</b> the echo supports. Treat the patient. Beware <b>low-pressure tamponade</b> in hypovolemia and <b>loculated/post-op</b> effusions that compress one chamber only.</div>
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g2);margin-bottom:6px;">CONSTRICTION vs RESTRICTION — the classic board split</div>
+      <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px;min-width:420px;">
+        <thead><tr style="text-align:left;color:var(--g2);font-family:var(--mono);font-size:11px;">
+          <th style="padding:6px;border-bottom:1px solid var(--b2);">FEATURE</th><th style="padding:6px;border-bottom:1px solid var(--b2);">CONSTRICTION (pericardium)</th><th style="padding:6px;border-bottom:1px solid var(--b2);">RESTRICTION (myocardium)</th>
+        </tr></thead>
+        <tbody style="color:var(--t);">
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);"><b>e′</b></td><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--g);"><b>Normal or HIGH</b> (≥8) — muscle is fine</td><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--g4);"><b>LOW</b> (&lt;8) — muscle is sick</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);"><b>Annulus reversus</b></td><td style="padding:6px;border-bottom:1px solid var(--b);">medial e′ <b>&gt;</b> lateral e′</td><td style="padding:6px;border-bottom:1px solid var(--b);">normal (lateral &gt; medial)</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);">Septal bounce</td><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--g);">Present</td><td style="padding:6px;border-bottom:1px solid var(--b);">Absent</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);">Respirophasic septal shift</td><td style="padding:6px;border-bottom:1px solid var(--b);color:var(--g);">Present (interdependence)</td><td style="padding:6px;border-bottom:1px solid var(--b);">Absent</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--b);">Hepatic vein</td><td style="padding:6px;border-bottom:1px solid var(--b);"><b>Expiratory</b> diastolic reversal</td><td style="padding:6px;border-bottom:1px solid var(--b);"><b>Inspiratory</b> reversal</td></tr>
+          <tr><td style="padding:6px;">Other</td><td style="padding:6px;">Thick pericardium, dilated IVC</td><td style="padding:6px;">Thick walls, big atria (amyloid)</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div style="font-size:13px;color:var(--t);line-height:1.6;margin-top:10px;"><b>The unifying idea:</b> constriction is a <b>shell problem</b> with healthy muscle → the annulus still moves (e′ preserved), and the two ventricles are <b>coupled</b> (interdependence, respiratory variation). Restriction is a <b>muscle problem</b> → e′ is dead and there's no interdependence.</div>
+    </div>
+  </div>
+
+  <!-- TEE -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid #8c6eff;" onclick="toggleSoap('echo-tee')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:#8c6eff;letter-spacing:.1em;">TEE — when to go down the esophagus, and the views</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="echo-tee-chevron">▸</div>
+    </div>
+  </div>
+  <div id="echo-tee" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:10px;">One anatomical fact explains all of TEE: <b>the esophagus sits directly behind the left atrium.</b> No ribs, no lung, no fat — and a higher-frequency probe. So TEE is dramatically better at everything <b>posterior</b>: LA, <b>LAA</b>, mitral valve, interatrial septum, and prosthetic valves (which shadow on TTE). It's worse at the apex, which is now farthest away.</p>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:6px;">WHEN TEE BEATS TTE</div>
+      <div style="font-size:13.5px;color:var(--t);line-height:1.7;margin-bottom:12px;"><b>Endocarditis</b> (vegetations, abscess, leaflet perforation — TTE sensitivity ~60%, TEE &gt;90%) · <b>LAA thrombus</b> before cardioversion/ablation · <b>prosthetic valve</b> dysfunction or endocarditis · <b>aortic dissection</b> · <b>cardiac source of embolism / PFO</b> (with bubble study) · <b>intra-op</b> valve repair guidance · uninterpretable TTE windows.<br><b>Contraindications:</b> esophageal stricture/varices/recent surgery, perforation, unstable C-spine. Needs sedation + NPO.</div>
+      <div style="font-family:var(--mono);font-size:12px;color:#8c6eff;margin-bottom:6px;">THE OMNIPLANE — one probe, rotate the beam 0→180°</div>
+      <div style="overflow-x:auto;margin-bottom:10px;">
+      <svg viewBox="0 0 340 180" style="width:100%;min-width:310px;max-width:400px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20,150 A70,70 0 0,1 160,150 Z" fill="rgba(140,110,255,0.07)" stroke="var(--b2)" stroke-width="1"/>
+        <line x1="20" y1="150" x2="160" y2="150" stroke="var(--t3)" stroke-width="1"/>
+        <line x1="90" y1="150" x2="90" y2="80" stroke="var(--g)" stroke-width="1.6" stroke-dasharray="4 3"/>
+        <line x1="90" y1="150" x2="139" y2="101" stroke="var(--g3)" stroke-width="1.6" stroke-dasharray="4 3"/>
+        <line x1="90" y1="150" x2="41" y2="101" stroke="var(--g2)" stroke-width="1.6" stroke-dasharray="4 3"/>
+        <circle cx="90" cy="150" r="4" fill="#8c6eff"/>
+        <text x="14" y="164" font-family="monospace" font-size="9" fill="var(--t2)">0°</text>
+        <text x="86" y="74" font-family="monospace" font-size="9" fill="var(--g)">90°</text>
+        <text x="146" y="98" font-family="monospace" font-size="9" fill="var(--g3)">45°</text>
+        <text x="26" y="98" font-family="monospace" font-size="9" fill="var(--g2)">135°</text>
+        <text x="156" y="164" font-family="monospace" font-size="9" fill="var(--t2)">180°</text>
+        <g font-family="monospace" font-size="9">
+          <text x="182" y="52" fill="var(--t2)">0°   → ME 4-chamber</text>
+          <text x="182" y="72" fill="var(--g3)">30–45° → AV short axis</text>
+          <text x="182" y="92" fill="var(--g)">90°  → ME 2C · bicaval</text>
+          <text x="182" y="112" fill="var(--g2)">120–140° → ME LAX / AV LAX</text>
+          <text x="182" y="132" fill="#8c6eff">TG 0–20° → SAX, RWMA</text>
+        </g>
+      </svg>
+      </div>
+      <div style="font-size:13px;color:var(--t);line-height:1.65;"><b>The essential sequence:</b> <b>ME 4C (0°)</b> → <b>ME AV SAX (~40°)</b> (count the cusps, find the bicuspid) → <b>ME 2C (90°)</b> → <b>ME bicaval (~100°)</b> (interatrial septum, PFO, lines) → <b>ME LAX (~130°)</b> (LVOT, AV, MV scallops) → <b>LAA (~45–90°, sweep)</b> → <b>transgastric SAX</b> (RWMA, and <b>deep TG</b> for the only decent AV Doppler alignment on TEE). <b style="color:var(--red);">LAA caution:</b> pectinate muscles mimic thrombus — sweep through multiple angles and use contrast before you call a clot.</div>
+    </div>
+  </div>
+
+  <!-- PROTOCOL -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid #8c6eff;" onclick="toggleSoap('echo-proto')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:#8c6eff;letter-spacing:.1em;">◆ THE FULL STUDY — run it in this order, every time</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="echo-proto-chevron">▸</div>
+    </div>
+  </div>
+  <div id="echo-proto" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:14px;color:var(--t2);line-height:1.6;margin-bottom:12px;">A comprehensive TTE is ~60–80 images. Fixed order = nothing gets missed, and you build the report as you go.</p>
+      <div style="font-size:13.5px;color:var(--t);line-height:1.75;margin-bottom:12px;">
+        <div style="margin-bottom:6px;"><b style="color:var(--g2);">1. PLAX</b> — 2D sweep · LVIDd/s, IVSd, LVPWd · LVOT diameter (zoom!) · Ao root · LA · color MV+AV · M-mode (EPSS, SAM) · RV inflow &amp; RVOT tilts</div>
+        <div style="margin-bottom:6px;"><b style="color:var(--g);">2. PSAX</b> — sweep base→apex · AV level (cusps, RVOT, PV, <b>TR jet</b>) · MV level (planimetry) · papillary (<b>D-sign</b>, RWMA) · apex</div>
+        <div style="margin-bottom:6px;"><b style="color:var(--g);">3. A4C</b> — <b>Simpson's EDV/ESV</b> · LAVi · RV size &amp; FAC · <b>TAPSE</b> · RV S′ · E/A · <b>e′ septal + lateral</b> · <b>TR CW → PASP</b> · color MV/TV</div>
+        <div style="margin-bottom:6px;"><b style="color:var(--g);">4. A5C</b> — <b>LVOT VTI (PW)</b> · <b>AV CW</b> → SV, CO, mean ΔP, AVA, DVI · AR</div>
+        <div style="margin-bottom:6px;"><b style="color:var(--g);">5. A2C / A3C</b> — Simpson's 2nd plane · inferior/anterior walls · LVOT alternative</div>
+        <div style="margin-bottom:6px;"><b style="color:var(--g3);">6. Subcostal</b> — 4C · <b>IVC + sniff → RAP</b> · pericardium · IAS/ASD · abdominal aorta</div>
+        <div style="margin-bottom:0;"><b style="color:#f4507a;">7. Suprasternal</b> — arch · coarctation · <b>AR diastolic reversal</b> in descending aorta</div>
+      </div>
+      <div style="background:rgba(140,110,255,.06);border:1px solid rgba(140,110,255,.28);border-radius:8px;padding:11px 14px;font-size:13.5px;color:var(--t);line-height:1.65;"><b style="color:#8c6eff;">Then reconcile before you sign.</b> Do the numbers tell one story? Severe AS should have LVH. Severe MR should have a big LA. A PASP of 70 should have a dilated RV. <b>If a number doesn't fit the rest of the heart, the number is probably wrong</b> — re-measure it (usually the LVOT diameter, an off-axis caliper, or a foreshortened apex) before you believe it. Cross-check against the <b>EKG</b> tab: LVH voltage, prior Q waves, and the rhythm all constrain what the echo should show.</div>
+    </div>
+  </div>
+
+  <!-- ECHO-END -->
+  <div style="height:40px;"></div>
+</div>
+
 <div id="panel-cases" class="panel">
   <div class="h1">Case <span>library</span></div>
   <div style="font-size:24px;color:var(--t3);margin-bottom:14px;">The bread-and-butter admits, written the way a seasoned resident would. Pick a diagnosis → the spoken one-liner, staged impression, narrative paragraph, and plan — with the <span style="color:#ffd54f;font-weight:600;">connectors highlighted</span> so you see each one doing its job. (The grammar behind them lives in the A&amp;P tab.)</div>
@@ -2674,6 +3475,7 @@ RECOMMENDATIONS:
   <button class="ni lang" id="ni-lang" onclick="gM('lang',this)"><span class="nicon">🗣️</span><span class="nlbl">Lang</span></button>
   <button class="ni ap" id="ni-ap" onclick="gM('ap',this)"><span class="nicon">🧠</span><span class="nlbl">A&amp;P</span></button>
   <button class="ni ekg" id="ni-ekg" onclick="gM('ekg',this)"><span class="nicon">🫀</span><span class="nlbl">EKG</span></button>
+  <button class="ni echo" id="ni-echo" onclick="gM('echo',this)"><span class="nicon">🔊</span><span class="nlbl">Echo</span></button>
   <button class="ni cases" id="ni-cases" onclick="gM('cases',this)"><span class="nicon">🩺</span><span class="nlbl">Cases</span></button>
 </nav>
 
