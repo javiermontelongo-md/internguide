@@ -2679,12 +2679,76 @@ RECOMMENDATIONS:
   </div>
   <div id="echo-phys" style="display:none;margin-bottom:14px;">
     <div class="card">
+      <div style="background:rgba(140,110,255,.06);border:1px solid rgba(140,110,255,.28);border-radius:8px;padding:11px 14px;margin-bottom:14px;font-size:13.5px;color:var(--t);line-height:1.65;">
+        <b style="color:#8c6eff;">Jargon decoder</b> — three terms used below, each unpacked in its own section later:<br>
+        <b>VTI</b> = <i>velocity–time integral.</i> You trace around a Doppler waveform; the machine gives you the area under it, in <b>cm</b>. It's the <b>distance a column of blood travels in one beat</b> ("stroke distance"). <b>LVOT VTI</b> = that tracing taken in the outflow tract → gives stroke volume &amp; cardiac output.<br>
+        <b>E and A</b> = the <b>two waves of blood entering the LV</b> through the mitral valve each beat. <b>E</b> = <i>early</i>, passive suction. <b>A</b> = the <i>atrial</i> kick at the end. Their ratio grades diastolic function.<br>
+        <b>e′</b> ("e-prime") = how fast the <b>mitral annulus (the muscle ring)</b> recoils outward in early diastole. Muscle speed, not blood speed.
+      </div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:6px;">PW vs CW — the whole trade-off in one picture</div>
+      <div style="overflow-x:auto;margin-bottom:8px;">
+      <svg viewBox="0 0 360 228" style="width:100%;min-width:330px;max-width:420px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <!-- PW -->
+        <rect x="78" y="12" width="24" height="11" rx="2" fill="#8c6eff"/>
+        <text x="90" y="9" font-family="monospace" font-size="7" fill="var(--t3)" text-anchor="middle">probe</text>
+        <path d="M82,23 L64,160 L116,160 L98,23 Z" fill="rgba(255,255,255,0.04)" stroke="var(--b2)" stroke-width="1"/>
+        <rect x="72" y="86" width="34" height="18" rx="3" fill="rgba(79,195,247,0.45)" stroke="var(--g2)" stroke-width="1.6"/>
+        <text x="126" y="92" font-family="monospace" font-size="8" fill="var(--g2)">sample</text>
+        <text x="126" y="102" font-family="monospace" font-size="8" fill="var(--g2)">gate</text>
+        <text x="90" y="176" font-family="monospace" font-size="11" fill="var(--g2)" text-anchor="middle" font-weight="bold">PW</text>
+        <text x="90" y="189" font-family="monospace" font-size="8" fill="var(--t2)" text-anchor="middle">listens at ONE depth</text>
+        <text x="90" y="205" font-family="monospace" font-size="8.5" fill="var(--g)" text-anchor="middle">✓ knows WHERE</text>
+        <text x="90" y="219" font-family="monospace" font-size="8.5" fill="var(--g4)" text-anchor="middle">✗ speed capped</text>
+        <!-- CW -->
+        <rect x="258" y="12" width="24" height="11" rx="2" fill="#8c6eff"/>
+        <path d="M262,23 L244,160 L296,160 L278,23 Z" fill="rgba(127,255,110,0.35)" stroke="var(--g)" stroke-width="1.6"/>
+        <text x="306" y="92" font-family="monospace" font-size="8" fill="var(--g)">listens</text>
+        <text x="306" y="102" font-family="monospace" font-size="8" fill="var(--g)">everywhere</text>
+        <text x="270" y="176" font-family="monospace" font-size="11" fill="var(--g)" text-anchor="middle" font-weight="bold">CW</text>
+        <text x="270" y="189" font-family="monospace" font-size="8" fill="var(--t2)" text-anchor="middle">whole line at once</text>
+        <text x="270" y="205" font-family="monospace" font-size="8.5" fill="var(--g)" text-anchor="middle">✓ ANY speed</text>
+        <text x="270" y="219" font-family="monospace" font-size="8.5" fill="var(--g4)" text-anchor="middle">✗ depth unknown</text>
+      </svg>
+      </div>
+      <div style="font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:14px;text-align:center;">You get to pick <b>one</b>: know <i>where</i> the speed is (PW), or measure <i>any</i> speed (CW). Never both.</div>
       <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:8px;">THE FOUR DOPPLER MODES — when to reach for each</div>
       <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
-        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;border-left:3px solid var(--g2);font-size:14px;color:var(--t);line-height:1.6;"><b style="color:var(--g2);">PW (pulsed wave)</b> — samples <b>one specific depth</b> (you place a gate). Tells you velocity <b>at a known location</b>. Cost: it <b>aliases</b> above the Nyquist limit (~1.5–2 m/s). Use for: <b>LVOT VTI</b>, mitral inflow E/A, pulmonary veins.</div>
-        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;border-left:3px solid var(--g);font-size:14px;color:var(--t);line-height:1.6;"><b style="color:var(--g);">CW (continuous wave)</b> — samples <b>every depth along the line</b>. Never aliases, so it catches the <b>highest velocity anywhere on that beam</b> — but can't tell you where it came from. Use for: <b>AS jet, TR jet, MR jet</b> — anything fast.</div>
-        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;border-left:3px solid var(--g4);font-size:14px;color:var(--t);line-height:1.6;"><b style="color:var(--g4);">Color Doppler</b> — PW in a box, velocity mapped to color. <b>BART: Blue Away, Red Toward.</b> A mosaic//turbulent patch = high velocity + aliasing = <b>a lesion.</b> Use it as the <b>lesion-finder</b>, then interrogate with CW.</div>
-        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;border-left:3px solid #8c6eff;font-size:14px;color:var(--t);line-height:1.6;"><b style="color:#8c6eff;">Tissue Doppler (TDI)</b> — filters for <b>slow, dense myocardium</b> instead of fast blood. Gives <b>e′</b> (relaxation) and <b>S′</b>. Velocities are ~<b>cm/s</b>, not m/s. Use for: diastolic function, TAPSE-equivalents.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;border-left:3px solid var(--g2);font-size:14px;color:var(--t);line-height:1.6;"><b style="color:var(--g2);">PW (pulsed wave)</b> — fires a pulse, waits, and listens <b>only at one depth</b> you choose by dropping a little box (the <b>sample gate</b>) on the image. Answers: <b>"how fast is blood moving right HERE?"</b> Cost: it can only count up to a <b>speed limit of ~1.5–2 m/s</b> before the signal garbles — see <b>aliasing</b> below. So use it for <b>slow flows where location matters</b>: <b>LVOT VTI</b> (stroke volume/cardiac output), <b>mitral inflow E/A</b> (diastolic function), pulmonary veins.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;border-left:3px solid var(--g);font-size:14px;color:var(--t);line-height:1.6;"><b style="color:var(--g);">CW (continuous wave)</b> — transmits and listens <b>nonstop</b> along the whole beam. Because it never pauses to sample, it has <b>no speed limit</b> and <b>never aliases</b> — it catches the fastest velocity <b>anywhere</b> on that line, but <b>can't tell you which depth it came from</b> ("range ambiguity"). Use for <b>anything fast</b>: AS jet, TR jet, MR jet.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;border-left:3px solid var(--g4);font-size:14px;color:var(--t);line-height:1.6;"><b style="color:var(--g4);">Color Doppler</b> — PW repeated across a whole box, with velocity painted as color. <b>BART: Blue = Away, Red = Toward.</b> Because it's PW, it <b>aliases too</b> — and that's a <b>feature</b>: the messy <b>mosaic</b> patch it makes over a fast jet is how you <b>spot</b> lesions. Find it with color, then measure it with CW.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:10px 13px;border-left:3px solid #8c6eff;font-size:14px;color:var(--t);line-height:1.6;"><b style="color:#8c6eff;">Tissue Doppler (TDI)</b> — same trick, but the filters are flipped to ignore fast/faint blood and track <b>slow, dense muscle</b> instead. Velocities come out in <b>cm/s</b>, not m/s. Gives <b>e′</b> (relaxation) and <b>S′</b> (contraction). Use for diastolic function and RV function.</div>
+      </div>
+      <div style="background:rgba(255,183,77,.07);border:1px solid rgba(255,183,77,.32);border-radius:8px;padding:12px 14px;margin-bottom:14px;">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--g3);margin-bottom:8px;">★ ALIASING & THE NYQUIST LIMIT — the speed limit, and why it exists</div>
+        <p style="font-size:14px;color:var(--t);line-height:1.65;margin-bottom:10px;"><b>Start with the wagon wheel.</b> In an old movie, a fast-spinning wheel looks like it's turning <b>slowly backwards</b>. Nothing is wrong with the wheel — the <b>camera</b> is the problem. It only grabs 24 snapshots a second, and between two snapshots the spoke moved <i>almost</i> a full gap. The camera can't tell "moved forward a lot" from "moved back a little," so it guesses wrong.</p>
+        <p style="font-size:14px;color:var(--t);line-height:1.65;margin-bottom:10px;"><b>PW Doppler is that camera.</b> It doesn't listen continuously — it sends a pulse, waits for the echo to come back from your chosen depth, then sends the next one. How often it can do that is the <b>PRF (pulse repetition frequency)</b> = its "frames per second." To pin down a speed you need at least <b>two samples per cycle</b>, so the fastest shift it can read is <b>half the PRF</b> — and <b>that half is the Nyquist limit.</b> Go faster than it and the signal <b>wraps around</b>: the top of the waveform is chopped off and reappears out the <b>bottom</b> of the display, the same backwards wheel.</p>
+        <div style="overflow-x:auto;margin-bottom:8px;">
+        <svg viewBox="0 0 360 175" style="width:100%;min-width:340px;max-width:420px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
+          <rect x="12" y="20" width="152" height="122" rx="3" fill="rgba(255,255,255,0.02)" stroke="var(--b2)" stroke-width="1"/>
+          <line x1="12" y1="82" x2="164" y2="82" stroke="var(--t3)" stroke-width="1" stroke-dasharray="3 2"/>
+          <line x1="12" y1="32" x2="164" y2="32" stroke="var(--g3)" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <line x1="12" y1="132" x2="164" y2="132" stroke="var(--g3)" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <text x="16" y="29" font-family="monospace" font-size="7" fill="var(--g3)">Nyquist +</text>
+          <text x="16" y="141" font-family="monospace" font-size="7" fill="var(--g3)">Nyquist −</text>
+          <path d="M26,82 Q52,2 78,82" fill="none" stroke="var(--t3)" stroke-width="1.4" stroke-dasharray="3 3"/>
+          <text x="84" y="14" font-family="monospace" font-size="7" fill="var(--t3)">true speed</text>
+          <path d="M26,82 L42,32 L62,32 L78,82" fill="none" stroke="var(--t)" stroke-width="2"/>
+          <path d="M42,132 L48,104 L58,104 L62,132" fill="none" stroke="var(--t)" stroke-width="2"/>
+          <text x="70" y="120" font-family="monospace" font-size="7" fill="var(--g4)">wrapped peak</text>
+          <text x="88" y="162" font-family="monospace" font-size="8" fill="var(--t2)" text-anchor="middle">PW: peak chopped, reappears below</text>
+          <!-- color aliasing -->
+          <path d="M200,50 Q250,44 300,30 L348,26 L348,138 L300,134 Q250,120 200,114 Z" fill="rgba(198,40,40,0.30)" stroke="var(--b2)" stroke-width="0.8"/>
+          <path d="M214,58 Q244,54 276,44 L276,120 Q244,110 214,106 Z" fill="rgba(79,195,247,0.45)" stroke="var(--b2)" stroke-width="0.8"/>
+          <path d="M228,68 Q244,64 258,58 L258,106 Q244,100 228,96 Z" fill="rgba(198,40,40,0.45)" stroke="var(--b2)" stroke-width="0.8"/>
+          <circle cx="198" cy="82" r="4" fill="var(--t)"/>
+          <text x="182" y="98" font-family="monospace" font-size="7" fill="var(--t2)">leak</text>
+          <text x="274" y="162" font-family="monospace" font-size="8" fill="var(--t2)" text-anchor="middle">Color: red→blue→red = wraps, not turns</text>
+          <text x="286" y="18" font-family="monospace" font-size="7" fill="var(--g4)">"mosaic" = fast jet</text>
+        </svg>
+        </div>
+        <div style="font-size:13.5px;color:var(--t);line-height:1.65;margin-bottom:8px;"><b>In color, the same wrap looks like an abrupt red→blue flip in the core of a jet.</b> That is <b>not</b> blood changing direction — it's the scale wrapping. Wrap it several times and you get the speckled <b>mosaic</b> that screams "lesion here."</div>
+        <div style="font-size:13.5px;color:var(--t);line-height:1.7;"><b style="color:var(--g3);">Deeper = worse.</b> A deeper target means waiting longer for each echo → <b>lower PRF</b> → <b>lower Nyquist</b> → aliases sooner. That's why a deep mitral inflow aliases easily.<br>
+        <b style="color:var(--g);">How to fix it:</b> ① <b>raise the scale</b> (↑PRF) — first move, always · ② <b>shift the baseline</b> to spend your whole range in one direction · ③ use a <b>lower transducer frequency</b> · ④ get <b>closer/shallower</b> · ⑤ <b>switch to CW</b> and accept losing depth. <b style="color:var(--red);">Never report an aliased peak velocity</b> — it's an underestimate, and every gradient you build on it (4v²) will be wrong.</div>
       </div>
       <div style="background:rgba(239,83,80,.07);border:1px solid rgba(239,83,80,.3);border-radius:8px;padding:11px 14px;margin-bottom:12px;">
         <div style="font-family:var(--mono);font-size:12px;color:var(--red);margin-bottom:6px;">★ THE #1 WAY TO GET A WRONG NUMBER — angle</div>
