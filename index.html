@@ -436,6 +436,14 @@ details.disc .disc-body{font-size:15px;color:var(--t2);line-height:1.7;margin-to
   .spin{font-size:11px !important;}
   .dot{width:5px;height:5px;}
 }
+:root{--ekg-p:#4fc3f7;--ekg-q:#ffb74d;--ekg-r:#7fff6e;--ekg-s:#b388ff;--ekg-st:#f4507a;--ekg-t:#26c6da;--ekg-flat:#9aa89a;--ekg-grid:rgba(244,80,122,.20);--ekg-grid2:rgba(244,80,122,.42);}
+:root[data-theme="light"]{--ekg-p:#0277bd;--ekg-q:#b26a00;--ekg-r:#12924a;--ekg-s:#6a3ab2;--ekg-st:#c2185b;--ekg-t:#00838f;--ekg-flat:#6b776b;--ekg-grid:rgba(216,27,96,.22);--ekg-grid2:rgba(216,27,96,.45);}
+.ekg12{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0;}
+@media(max-width:900px){.ekg12{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:640px){.ekg12{grid-template-columns:repeat(2,1fr);gap:5px;}}
+.ekg-pill:hover{border-color:var(--t2);}
+.ekg-legend{display:flex;flex-wrap:wrap;gap:5px 12px;font-family:var(--mono);font-size:10.5px;color:var(--t2);}
+.ekg-legend i{display:inline-block;width:16px;height:3px;border-radius:2px;vertical-align:middle;margin-right:4px;font-style:normal;}
 </style>
 <script>
 // Apply saved theme before paint to avoid flash of wrong theme
@@ -2150,23 +2158,38 @@ RECOMMENDATIONS:
           <b style="color:#ef9a9a;">QS</b> — a <b>single, entirely negative</b> complex that never rises above baseline (no R was ever made). Normal in aVR; pathologic over a transmural scar.
         </div>
       </div>
-      <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:10px;">NORMAL MORPHOLOGY — all 12 (colored by territory)</div>
-      <div style="display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-bottom:12px;">
-        <!-- limb leads -->
-        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g);font-weight:bold;">I</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,30 28,36 L39,36 L42,40 L47,16 L52,40 L58,36 L64,36 Q73,28 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">qR · ↑P ↑T</div></div>
-        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g3);font-weight:bold;">II</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,29 28,36 L39,36 L42,40 L47,12 L52,42 L58,36 L64,36 Q73,26 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">qR tall · ↑P ↑T</div></div>
-        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g3);font-weight:bold;">III</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L40,36 L44,26 L49,46 L55,36 L64,36 Q73,32 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">variable · small Q ok</div></div>
-        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:#ef9a9a;font-weight:bold;">aVR</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,42 28,36 L40,36 L48,54 L56,36 L64,36 Q73,44 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">QS · ↓P ↓T (all inv)</div></div>
-        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g);font-weight:bold;">aVL</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L39,36 L42,39 L47,18 L52,39 L58,36 L64,36 Q73,29 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">qR · ↑P ↑T</div></div>
-        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g3);font-weight:bold;">aVF</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,30 28,36 L39,36 L42,40 L47,17 L52,41 L58,36 L64,36 Q73,28 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">qR · ↑P ↑T</div></div>
-        <!-- precordial -->
-        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g2);font-weight:bold;">V1</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q16,32 20,36 Q24,40 28,36 L40,36 L43,30 L48,52 L54,36 L64,36 Q73,39 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">rS · biphasic P</div></div>
-        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g2);font-weight:bold;">V2</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q16,32 20,36 Q24,41 28,36 L40,36 L43,28 L48,54 L54,36 L64,36 Q73,24 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">rS deep · tall T</div></div>
-        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g3);font-weight:bold;">V3</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L40,36 L44,22 L50,50 L56,36 L64,36 Q73,26 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">RS · transition</div></div>
-        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g3);font-weight:bold;">V4</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L40,36 L45,15 L51,44 L57,36 L64,36 Q73,26 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">Rs · tallest R</div></div>
-        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g);font-weight:bold;">V5</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L39,36 L42,39 L47,15 L53,42 L58,36 L64,36 Q73,27 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">qRs · ↑P ↑T</div></div>
-        <div style="background:var(--s3);border-radius:8px;padding:6px 4px;text-align:center;width:98px;"><div style="font-family:var(--mono);font-size:12px;color:var(--g);font-weight:bold;">V6</div><svg viewBox="0 0 96 56" style="width:100%;height:auto;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L39,36 L42,39 L47,17 L53,41 L58,36 L64,36 Q73,28 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg><div style="font-family:var(--mono);font-size:10px;color:var(--t2);">qRs · septal q</div></div>
+      <div id="ekg-defs"></div>
+
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:6px;">HOW TO READ THE PAPER — every panel below is drawn to scale</div>
+      <div style="background:var(--s3);border-radius:8px;padding:11px 14px;margin-bottom:12px;font-size:14px;color:var(--t);line-height:1.7;">
+        Standard calibration is <b>25 mm/s</b> and <b>10 mm/mV</b>. That fixes the meaning of every box, and it is why we can talk in "boxes" instead of numbers:<br>
+        <b style="color:var(--ekg-st);">Horizontal (time):</b> 1 small box = <b>0.04 s (40 ms)</b> · 1 big box = <b>0.20 s (200 ms)</b> · 5 big boxes = <b>1 second</b><br>
+        <b style="color:var(--ekg-st);">Vertical (voltage):</b> 1 small box = <b>0.1 mV (1 mm)</b> · 1 big box = <b>0.5 mV (5 mm)</b><br>
+        <span style="color:var(--t2);">So "a pathologic Q is ≥40 ms" literally means <b>one small box wide</b>, and "2 mm of ST elevation" means <b>two small boxes above the baseline</b> — the same grid you see under every waveform here.</span>
       </div>
+
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:6px;">THE COLOR CODE — what tissue is doing what</div>
+      <div style="background:var(--s3);border-radius:8px;padding:11px 14px;margin-bottom:12px;">
+        <div class="ekg-legend" style="margin-bottom:8px;">
+          <span><i style="background:var(--ekg-p);"></i>P — atria depolarizing</span>
+          <span><i style="background:var(--ekg-q);"></i>Q — septum depolarizing</span>
+          <span><i style="background:var(--ekg-r);"></i>R — ventricle toward the lead</span>
+          <span><i style="background:var(--ekg-s);"></i>S — ventricle away from the lead</span>
+          <span><i style="background:var(--ekg-st);"></i>ST — injury current</span>
+          <span><i style="background:var(--ekg-t);"></i>T — ventricles repolarizing</span>
+        </div>
+        <div style="font-size:14px;color:var(--t);line-height:1.7;">
+          The colors are <b>the same in every tracing on this page</b>, so you can track one piece of tissue across all twelve cameras. The key idea: <b style="color:var(--ekg-r);">green and</b> <b style="color:var(--ekg-s);">violet are the same event</b> — the LV free wall depolarizing — just seen from opposite sides.
+          <b>In V1 the big <span style="color:var(--ekg-s);">violet S</span> <i>is</i> the left ventricle</b> firing away from you; by <b>V6 that identical wall has become the big <span style="color:var(--ekg-r);">green R</span></b> firing toward you. Nothing about the heart changed between those two panels. Only the camera moved.
+          Each wave is drawn from one <b>baseline crossing to the next</b> — that is exactly how the letters are defined, so the color changes precisely where the name changes.
+        </div>
+      </div>
+
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g);margin-bottom:2px;">NORMAL MORPHOLOGY — all 12, on real graph paper</div>
+      <div style="font-family:var(--mono);font-size:10.5px;color:var(--t3);margin-bottom:4px;">lead name colored by territory · complex auto-named by the rule above · each wave labeled</div>
+      <div id="ekg-atlas-12"></div>
+      <div style="font-size:13.5px;color:var(--t2);line-height:1.6;margin:8px 0 12px;"><b style="color:var(--t);">Note the two labels that surprise people:</b> <b style="color:var(--ekg-r);">V1 has no q at all</b> — its first deflection is a small upward <b style="color:var(--ekg-r);">r</b> (the septum firing left→right, <i>toward</i> V1). A Q wave in V1 is therefore never "the septal q"; the septal q lives only in <b>I, aVL, V5, V6</b>, where the same septal vector points away. And <b>aVR is labeled QS</b> — one entirely negative complex — which is normal there and pathologic nowhere else.</div>
+
       <div style="font-size:14px;color:var(--t);line-height:1.65;"><b style="color:var(--g);">Reading the atlas:</b> the septal <b>q</b> appears only in the left leads (I, aVL, V5, V6). The precordials march <b>rS → RS → Rs → qR</b> as the vector turns toward you. <b>aVR is fully upside-down</b> and normal. <b>T inversions are allowed</b> in aVR and V1 (and sometimes III) — everywhere else an inverted T is a finding.</div>
     </div>
   </div>
@@ -2210,6 +2233,21 @@ RECOMMENDATIONS:
       </div>
       <div style="font-family:var(--mono);font-size:12px;color:var(--g4);margin-bottom:6px;">PATHOLOGIC Q — the criteria</div>
       <div style="font-size:15px;color:var(--t);line-height:1.7;margin-bottom:10px;">Any of: <b>≥ 40 ms wide</b> (≥1 small box) · <b>≥ 25% of the R-wave height</b> · <b>&gt; 1 mm deep</b> · <b>any Q in V2–V3</b> (should be pure r there) · a <b>QS complex</b>. Localizes to a territory exactly like STEMI (inferior Q in II/III/aVF, etc.) and usually means <b>old completed infarct</b>.</div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g4);margin:16px 0 8px;">★ THE WINDOW, PROPERLY — why the size of the Q means something</div>
+      <p style="font-size:15px;color:var(--t);line-height:1.7;margin-bottom:10px;">The window isn't a metaphor you can only use qualitatively. Scar is <b>inert tissue that generates no current and conducts no impulse</b> — but it still <b>transmits</b> voltage from whatever is behind it. So an electrode over a scar stops being a camera pointed at its own wall and becomes a <b>hole you look through</b>, recording the <b>opposite</b> wall firing <b>away</b> from you. The two dimensions of that hole are written into the two dimensions of the Q:</p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;border-left:3px solid var(--ekg-q);font-size:14.5px;color:var(--t);line-height:1.65;"><b style="color:var(--ekg-q);">Q width ← how much wall is dead <i>side to side</i>.</b> A wider scar silences more tissue, so the opposing wall's vector goes unopposed for <b>longer</b> before surviving muscle finally generates an R. Duration is the more specific criterion — a Q can be <b>shallow but pathologic</b> purely because it's ≥40 ms.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:11px 14px;border-left:3px solid var(--ekg-s);font-size:14.5px;color:var(--t);line-height:1.65;"><b style="color:var(--ekg-s);">Q depth (as a % of R) ← how much wall is dead <i>through its thickness</i>.</b> The R that follows is whatever muscle survived under that electrode. So the <b>Q:R ratio</b> is really a "dead : alive" ratio — which is why the criterion is <b>≥25% of R</b> and not a fixed millimetre value. A 2 mm Q under a 20 mm R is nothing; a 2 mm Q under a 4 mm R is a scar.</div>
+      </div>
+      <div id="ekg-window-3"></div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--g4);margin:14px 0 8px;">WHY Q WAVES ARE CHRONIC — and why the big ones are permanent</div>
+      <p style="font-size:15px;color:var(--t);line-height:1.7;margin-bottom:10px;">ST elevation is a <b>metabolic</b> sign: it comes from living but injured cells leaking charge, so it resolves within hours-to-days once the tissue either reperfuses or finishes dying. A Q wave is a <b>structural</b> sign: it comes from tissue that is simply <b>not there anymore</b>. Collagen does not repolarize, does not depolarize, and does not grow back — so <b>the window is a permanent architectural feature of that heart</b>, and the Q it writes is permanent too. That's the whole reason a Q wave is the ECG's memory: an old ECG with anterior Qs tells you this patient infarcted, whether or not anyone ever wrote it down.</p>
+      <div style="background:rgba(239,154,154,.07);border:1px solid rgba(239,154,154,.3);border-radius:8px;padding:12px 14px;margin-bottom:12px;font-size:14.5px;color:var(--t);line-height:1.7;">
+        <b style="color:var(--g4);">The size–chronicity link:</b> whether a Q persists depends on whether the window is <b>real scar or borrowed time</b>. A <b>small, narrow</b> Q may sit over a mix of scar and <b>stunned-but-alive</b> myocardium — as that muscle recovers and starts generating current again, it fills the window back in and the <b>Q can regress</b> (documented in up to ~30% of inferior MIs over months, especially with early reperfusion). A <b>large, wide, deep</b> Q means the window is <b>big enough that it cannot be anything but confluent scar</b> — there is no borderline tissue left to come back — so it is essentially always <b>permanent</b>. Hence the clinical shorthand: <b>the bigger the Q, the older it can be, and the more certainly it will still be there next year.</b>
+      </div>
+      <div style="background:var(--s3);border-radius:8px;padding:11px 14px;margin-bottom:12px;font-size:14px;color:var(--t);line-height:1.7;">
+        <b style="color:#4fc3f7;">One correction worth carrying, because the classic teaching is wrong:</b> "Q wave = transmural, non-Q = subendocardial" is <b>outdated</b>. Cardiac MRI work (Moon et al., <i>JACC</i> 2004) showed Q waves track <b>total infarct volume</b> far better than they track <b>transmurality</b> — a big enough subendocardial infarct makes Qs, and a small transmural one may not. This is why the terminology moved to <b>STEMI/NSTEMI</b> (how it presents) rather than <b>Q-wave/non-Q-wave MI</b> (how it scarred). Read the Q as <b>"how much muscle did we lose"</b>, not <b>"did it go all the way through."</b>
+      </div>
       <div style="font-size:14px;color:var(--t2);line-height:1.6;"><b>Q/QS that isn't infarct:</b> LBBB &amp; LVH (QS in V1–V3), WPW (delta wave mimics a Q), HCM (deep septal Q in lateral/inferior), acute PE/cor pulmonale (S1Q3T3), dextrocardia/lead reversal, and normal isolated Q in III or aVR.</div>
     </div>
   </div>
@@ -2256,7 +2294,7 @@ RECOMMENDATIONS:
       <svg viewBox="0 0 360 210" style="width:100%;min-width:320px;max-width:420px;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <marker id="vgrn" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7fff6e"/></marker>
-          <marker id="vorg" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ffb74d"/></marker>
+          <marker id="vorg" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--ekg-q)"/></marker>
         </defs>
         <!-- ===== NORMAL (cx=62) ===== -->
         <g>
@@ -2562,6 +2600,27 @@ RECOMMENDATIONS:
       <div style="font-size:14.5px;color:var(--t);line-height:1.65;margin-bottom:12px;">Hyperacute T (min) → ST elevation (hrs) → <b>pathologic Q</b> + T inversion (hrs–days) → ST normalizes, Q &amp; inverted T persist (old MI). A Q wave = the wall is electrically silent, so the opposing vector wins the first 40 ms.</div>
       <div style="font-family:var(--mono);font-size:12px;color:var(--red);margin-bottom:6px;">DON'T-MISS OCCLUSIONS THAT AREN'T "1 mm in 2 leads"</div>
       <div style="font-size:14px;color:var(--t2);line-height:1.6;">Posterior MI (tall R + ST↓ V1–V3, get posterior leads) · de Winter (upsloping ST↓ + tall T at J point = LAD occlusion) · aVR elevation + diffuse ST↓ (left main / triple-vessel) · Sgarbossa in LBBB/paced · hyperacute T before any ST change.</div>
+    </div>
+  </div>
+
+  <!-- 12-LEAD PATHOLOGY GALLERY -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--red);" onclick="toggleSoap('ekg-gal')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--red);letter-spacing:.1em;">▦ 12-LEAD GALLERY — every pathology, all 12 cameras, on the grid</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ekg-gal-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ekg-gal" style="display:none;margin-bottom:14px;">
+    <div class="card">
+      <p style="font-size:16px;line-height:1.65;color:var(--t);margin-bottom:10px;">Pick a diagnosis. You get <b>all twelve leads</b> — <i>including the ones that stay perfectly normal</i>, because knowing which cameras <b>should</b> see nothing is half of localizing an infarct. Every panel is drawn on real graph paper at 25 mm/s, 10 mm/mV, so you can <b>count the boxes and check the criteria yourself.</b></p>
+      <div style="background:var(--s3);border-radius:8px;padding:10px 13px;margin-bottom:12px;font-size:13.5px;color:var(--t2);line-height:1.65;">
+        <b style="color:var(--t);">Reading each panel:</b> the <b style="color:var(--ekg-st);">pink dot</b> marks the <b>J point</b> with the ST deviation in mm; the dashed line is the <b>TP/PR baseline</b> it's measured from. A <b>colored border</b> means that lead is abnormal; a plain border means it's normal and that fact is diagnostic. The complex name (qR, rS, rsR′…) is generated by the naming rule, not typed in — so it is always internally consistent with the shape you're looking at.
+      </div>
+      <div id="ekg-gal-pills" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;"></div>
+      <div id="ekg-gal-body"></div>
+      <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--b);font-size:13.5px;color:var(--t2);line-height:1.65;">
+        <b style="color:var(--t);">Waveforms are schematic but dimensionally honest</b> — amplitudes, durations and ST deviations are drawn at the millimetre values a real tracing would show, so box-counting works. Real tracings add noise, rate, and a patient. Localization and criteria follow the <b>Fourth Universal Definition of MI</b> and the <b>ACC/AHA</b> STEMI/NSTE-ACS documents.
+      </div>
     </div>
   </div>
 
@@ -10932,6 +10991,615 @@ function onLoad(){
 }
 
 window.addEventListener('DOMContentLoaded', onLoad);
+
+/* ============================================================
+   EKG 12-LEAD ENGINE — draws real graph paper (25 mm/s, 10 mm/mV)
+   Every waveform below is specified in MILLIMETRES on that paper,
+   so what you measure on screen is what you'd measure on the strip.
+   ============================================================ */
+/* one palette, resolved per theme via CSS vars — the dark neons wash out on light paper */
+const EKG_C = {p:'var(--ekg-p)', q:'var(--ekg-q)', r:'var(--ekg-r)', s:'var(--ekg-s)',
+               st:'var(--ekg-st)', t:'var(--ekg-t)', flat:'var(--ekg-flat)'};
+const EKG_MM = 5;                 // px per mm
+const EKG_PW = 22, EKG_PH = 29, EKG_Y0 = 14.5; // panel mm: width, height, baseline depth
+/* headroom: tallest R (V5 13mm) and deepest S (LBBB V2 13mm) both clear their labels */
+const EX = mm => +(mm*EKG_MM).toFixed(2);
+const EY = a  => +((EKG_Y0-a)*EKG_MM).toFixed(2);
+
+/* ---- QRS naming rule, applied automatically ---- */
+function ekgName(comps){
+  if(comps.length===1 && comps[0][1]<0) return 'QS';
+  let out='', rSeen=false;
+  for(const c of comps){
+    let L;
+    if(c[1]>=0){ L = rSeen ? "r'" : 'r'; rSeen = true; }
+    else       { L = rSeen ? 's'  : 'q'; }
+    out += Math.abs(c[1])>=5 ? L.toUpperCase() : L;
+  }
+  return out;
+}
+function ekgLetter(c, i, comps){
+  let rSeen=false, L='';
+  for(let k=0;k<=i;k++){
+    if(comps[k][1]>=0){ L = rSeen ? "r'" : 'r'; rSeen=true; }
+    else             { L = rSeen ? 's'  : 'q'; }
+  }
+  if(comps.length===1 && comps[0][1]<0) return 'QS';
+  return Math.abs(comps[i][1])>=5 ? L.toUpperCase() : L;
+}
+function ekgCross(a,b){
+  if((a[1]<0)===(b[1]<0)) return [(a[0]+b[0])/2, 0];
+  const t=(0-a[1])/(b[1]-a[1]);
+  return [a[0]+t*(b[0]-a[0]), 0];
+}
+const ekgPoly = pts => 'M'+pts.map(p=>EX(p[0])+','+EY(p[1])).join(' L');
+
+/* ---- one lead ---- */
+function ekgLead(name, o, opt){
+  opt = opt||{};
+  const s = Object.assign({
+    pAmp:1, pDur:2.5, pBi:false, pr:4, comps:[['r',8,1.2]],
+    stJ:0, stEnd:null, stBow:0, stDur:2.4,
+    tAmp:2.5, tDur:4, tSym:false, tBi:false, note:'', flag:''
+  }, o);
+  if(s.stEnd===null) s.stEnd = s.stJ;
+
+  const g = [];
+  const pX = 2, pEnd = pX + s.pDur;
+  const qX = pX + s.pr;
+  const qrsW = s.comps.reduce((a,c)=>a+c[2],0);
+  const jX  = qX + qrsW;
+  const tX  = jX + s.stDur;
+  const tEnd = tX + s.tDur;
+
+  /* baseline / isoelectric stretches */
+  const seg = (x1,x2,y) => `<path d="${ekgPoly([[x1,y],[x2,y]])}" fill="none" stroke="${EKG_C.flat}" stroke-width="2"/>`;
+  g.push(seg(0.6, pX, 0));
+  g.push(seg(pEnd, qX, 0));                       // PR segment
+  g.push(seg(tEnd, EKG_PW-0.6, 0));
+
+  /* P wave */
+  if(Math.abs(s.pAmp) > 0.05){
+    const a = s.pAmp*1.35, h = s.pDur/2;
+    const d = s.pBi
+      ? `M${EX(pX)},${EY(0)} Q${EX(pX+h/2)},${EY(a)} ${EX(pX+h)},${EY(0)} Q${EX(pX+h*1.5)},${EY(-a)} ${EX(pEnd)},${EY(0)}`
+      : `M${EX(pX)},${EY(0)} Q${EX(pX+h)},${EY(a)} ${EX(pEnd)},${EY(0)}`;
+    g.push(`<path d="${d}" fill="none" stroke="${EKG_C.p}" stroke-width="2.2" stroke-linecap="round"/>`);
+    if(opt.labels) g.push(`<text x="${EX(pX+h)}" y="${EY(s.pAmp) + (s.pAmp>=0?-4:11)}" font-family="monospace" font-size="9" fill="${EKG_C.p}" text-anchor="middle">P</text>`);
+  } else { g.push(seg(pX, pEnd, 0)); }
+
+  /* QRS. Each comp is [letter-agnostic, amplitude mm, duration mm, 'notch'?].
+     We build its peak vertices, then cut each wave at the BASELINE CROSSINGS on
+     either side — which is precisely where the naming rule says one wave ends and
+     the next begins, so the color boundary and the letter boundary always agree. */
+  const peaks = []; let x = qX;
+  s.comps.forEach(c => {
+    const d = c[2];
+    if(c[3]==='notch')      peaks.push([[x+d*0.28, c[1]], [x+d*0.5, c[1]*0.74], [x+d*0.72, c[1]]]); // notched "M"/"W" plateau
+    else if(c[3]==='slur')  peaks.push([[x+d*0.3, c[1]], [x+d*0.62, c[1]*0.5]]);   // fast down, lazy drag back = a slurred S
+    else                    peaks.push([[x+d/2, c[1]]]);
+    x += d;
+  });
+  const first = i => peaks[i][0], last = i => peaks[i][peaks[i].length-1];
+  s.comps.forEach((c,i) => {
+    const entry = i===0 ? [qX,0] : ekgCross(last(i-1), first(i));
+    const exit  = i===s.comps.length-1 ? [jX, s.stJ] : ekgCross(last(i), first(i+1));
+    const L = ekgLetter(c, i, s.comps);
+    const col = c[1] >= 0 ? EKG_C.r : (L[0]==='q'||L[0]==='Q' ? EKG_C.q : EKG_C.s);
+    g.push(`<path d="${ekgPoly([entry, ...peaks[i], exit])}" fill="none" stroke="${col}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>`);
+    if(opt.labels) g.push(`<text x="${EX(peaks[i][0][0])}" y="${EY(c[1]) + (c[1]>=0?-4:11)}" font-family="monospace" font-size="9.5" font-weight="bold" fill="${col}" text-anchor="middle">${L}</text>`);
+  });
+
+  /* ST segment */
+  const bow = s.stBow||0;
+  const stD = bow
+    ? `M${EX(jX)},${EY(s.stJ)} Q${EX((jX+tX)/2)},${EY((s.stJ+s.stEnd)/2 + bow)} ${EX(tX)},${EY(s.stEnd)}`
+    : `M${EX(jX)},${EY(s.stJ)} L${EX(tX)},${EY(s.stEnd)}`;
+  const stMoved = Math.abs(s.stJ) >= 0.5;
+  g.push(`<path d="${stD}" fill="none" stroke="${stMoved?EKG_C.st:EKG_C.flat}" stroke-width="${stMoved?2.6:2}" stroke-linecap="round"/>`);
+
+  /* T wave */
+  const pk = tX + s.tDur*(s.tSym?0.5:0.6);
+  let tD;
+  if(s.tBi){
+    const h = s.tDur/2;
+    tD = `M${EX(tX)},${EY(s.stEnd)} Q${EX(tX+h*0.5)},${EY(s.tAmp*1.3)} ${EX(tX+h)},${EY(0)} Q${EX(tX+h*1.5)},${EY(-Math.abs(s.tAmp)*1.5)} ${EX(tEnd)},${EY(0)}`;
+  } else {
+    tD = `M${EX(tX)},${EY(s.stEnd)} Q${EX(tX+(pk-tX)*0.55)},${EY(s.tAmp*0.98)} ${EX(pk)},${EY(s.tAmp)} Q${EX(pk+(tEnd-pk)*0.45)},${EY(s.tAmp*0.98)} ${EX(tEnd)},${EY(0)}`;
+  }
+  g.push(`<path d="${tD}" fill="none" stroke="${EKG_C.t}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>`);
+  if(opt.labels && Math.abs(s.tAmp)>0.4)
+    g.push(`<text x="${EX(pk)}" y="${EY(s.tAmp) + (s.tAmp>=0?-4:11)}" font-family="monospace" font-size="9" fill="${EKG_C.t}" text-anchor="middle">T</text>`);
+
+  /* J point + ST deviation callout */
+  if(stMoved){
+    g.push(`<line x1="${EX(jX)}" y1="${EY(0)}" x2="${EX(jX)}" y2="${EY(s.stJ)}" stroke="${EKG_C.st}" stroke-width="1.2" stroke-dasharray="2 2"/>`);
+    g.push(`<circle cx="${EX(jX)}" cy="${EY(s.stJ)}" r="2.4" fill="${EKG_C.st}"/>`);
+
+  }
+
+  const morph = ekgName(s.comps);
+  const stTag = stMoved ? `<span style="color:${EKG_C.st};font-weight:bold;"> · ST${s.stJ>0?'↑':'↓'}${Math.abs(s.stJ)}</span>` : '';
+  const flagC = {up:EKG_C.st, down:EKG_C.st, q:EKG_C.q, bbb:EKG_C.s, ok:'var(--t3)'}[s.flag] || 'var(--t3)';
+  const terr = EKG_TERR[name] || 'var(--t2)';
+
+  return `<div style="background:var(--s3);border-radius:8px;padding:5px 5px 6px;border:1px solid ${s.flag && s.flag!=='ok' ? flagC+'66' : 'var(--b)'};">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;padding:0 3px 2px;">
+      <span style="font-family:var(--mono);font-size:11.5px;font-weight:bold;color:${terr};">${name}</span>
+      <span style="font-family:var(--mono);font-size:10px;color:var(--t2);">${morph}${stTag}</span>
+    </div>
+    <svg viewBox="0 0 ${EKG_PW*EKG_MM} ${EKG_PH*EKG_MM}" style="width:100%;height:auto;display:block;">
+      <rect width="${EKG_PW*EKG_MM}" height="${EKG_PH*EKG_MM}" fill="url(#ekgGridSm)"/>
+      <rect width="${EKG_PW*EKG_MM}" height="${EKG_PH*EKG_MM}" fill="url(#ekgGridBig)"/>
+      <line x1="0" y1="${EY(0)}" x2="${EKG_PW*EKG_MM}" y2="${EY(0)}" stroke="var(--b2)" stroke-width="1" stroke-dasharray="3 3"/>
+      ${g.join('')}
+    </svg>
+    ${s.note ? `<div style="font-family:var(--mono);font-size:9.5px;line-height:1.45;color:${s.flag&&s.flag!=='ok'?flagC:'var(--t3)'};padding:3px 3px 0;">${s.note}</div>` : ''}
+  </div>`;
+}
+
+const EKG_TERR = {
+  I:'var(--ekg-r)', aVL:'var(--ekg-r)', V5:'var(--ekg-r)', V6:'var(--ekg-r)',
+  II:'var(--ekg-q)', III:'var(--ekg-q)', aVF:'var(--ekg-q)',
+  V1:'var(--ekg-p)', V2:'var(--ekg-p)', V3:'var(--ekg-q)', V4:'var(--ekg-q)',
+  aVR:'var(--g4)'
+};
+const EKG_ORDER = ['I','II','III','aVR','aVL','aVF','V1','V2','V3','V4','V5','V6'];
+
+/* shared graph-paper patterns, emitted once */
+const EKG_DEFS = `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <pattern id="ekgGridSm" width="${EKG_MM}" height="${EKG_MM}" patternUnits="userSpaceOnUse">
+    <path d="M${EKG_MM},0 L0,0 0,${EKG_MM}" fill="none" stroke="var(--ekg-grid)" stroke-width="0.6"/>
+  </pattern>
+  <pattern id="ekgGridBig" width="${EKG_MM*5}" height="${EKG_MM*5}" patternUnits="userSpaceOnUse">
+    <path d="M${EKG_MM*5},0 L0,0 0,${EKG_MM*5}" fill="none" stroke="var(--ekg-grid2)" stroke-width="1.1"/>
+  </pattern>
+</defs></svg>`;
+
+/* ---- the full 12 ---- */
+function ekg12(over, opt){
+  over = over||{}; opt = opt||{};
+  const cells = EKG_ORDER.map(L => ekgLead(L, Object.assign({}, EKG_NL[L], over[L]||{}), opt)).join('');
+  return `<div class="ekg12">${cells}</div>`;
+}
+
+/* ---- NORMAL 12-lead, in mm on real paper ---- */
+const EKG_NL = {
+  I:  {pAmp:.9, comps:[['q',-.8,.45],['r',8,1.3]], tAmp:2.2, note:'septal q · upright P/T'},
+  II: {pAmp:1.3,comps:[['q',-.8,.45],['r',11,1.3]], tAmp:3,  note:'tallest limb R · axis lead'},
+  III:{pAmp:.6, comps:[['q',-.6,.4],['r',5,1.2],['s',-1.2,.5]], tAmp:.9, note:'variable · small Q & flat T ok'},
+  aVR:{pAmp:-1.1,comps:[['q',-9,1.7]], tAmp:-2.2, note:'everything inverted — normal'},
+  aVL:{pAmp:.6, comps:[['q',-.6,.4],['r',5,1.2]], tAmp:1.5, note:'septal q · high lateral'},
+  aVF:{pAmp:1,  comps:[['q',-.6,.4],['r',7,1.3]], tAmp:2, note:'septal q · inferior'},
+  V1: {pAmp:.8, pBi:true, comps:[['r',1.8,.5],['s',-9,1.5]], tAmp:-.6, note:'r = septum toward · S = LV away'},
+  V2: {pAmp:1,  pBi:true, comps:[['r',2.5,.5],['s',-12,1.6]], tAmp:4, note:'deepest S · tall T normal here'},
+  V3: {pAmp:1,  comps:[['r',6,.7],['s',-7,1.2]], tAmp:4, note:'transition — R ≈ S'},
+  V4: {pAmp:1,  comps:[['r',12,1]  ,['s',-3,.8]], tAmp:3.5, note:'tallest R · apex'},
+  V5: {pAmp:1,  comps:[['q',-.8,.45],['r',13,1],['s',-1.5,.6]], tAmp:3, note:'septal q returns'},
+  V6: {pAmp:.9, comps:[['q',-.8,.45],['r',10,1],['s',-1,.5]], tAmp:2.2, note:'septal q · S nearly gone'}
+};
+
+/* ---- pathologies: each lead is a diff off normal ---- */
+const EKG_DX = {
+
+normal: {
+  label:'NORMAL', artery:'—', walls:[], color:'#7fff6e',
+  head:'The reference. Every panel below is a diff against this one.',
+  why:'Read this first and the pathologies become subtraction. Note what is <b>already</b> allowed to be "abnormal": aVR is entirely inverted, V1 may have an inverted T, III may carry a small Q and a flat T. Everywhere else, an inverted T or a Q is a finding.',
+  crit:['Rate 60–100 · PR 120–200 ms · QRS &lt;120 ms · QTc &lt;440 (M) / &lt;460 (F)',
+        'R-wave progression rS → RS → Rs → qR across V1→V6, transition at V3–V4',
+        'Septal q &lt;40 ms and &lt;25% of R, only in I / aVL / V5 / V6',
+        'ST within 0.5 mm of the TP baseline in every lead'],
+  over:{}
+},
+
+lad: {
+  label:'ANTERIOR STEMI', artery:'Proximal LAD', walls:['anterior','anteroseptal','anterolateral'], color:'#ef5350',
+  head:'ST↑ V1–V4 (+ I/aVL if proximal) · reciprocal ST↓ inferiorly',
+  why:'The LAD feeds the <b>septum and anterior wall</b> — the tissue sitting directly under V1–V4. Transmural injury throws its ST vector <b>forward, out of the chest</b>, straight into those electrodes. Because the vector also points <b>superiorly</b> when the LAD is occluded proximal to the first diagonal, I and aVL rise too, and the inferior leads — staring up the tail of that same vector — write it upside-down as reciprocal depression. Loss of the r wave in V1–V3 is the septum going electrically silent in real time.',
+  crit:['ST↑ ≥2 mm (men ≥40) / ≥2.5 mm (men &lt;40) / ≥1.5 mm (women) in <b>V2–V3</b>; ≥1 mm in other leads, ≥2 contiguous',
+        '<b>Proximal</b> LAD: ST↑ in aVL + ST↓ in II/III/aVF, ST↑ V1 &gt;2.5 mm, new RBBB/LAFB',
+        '<b>Distal</b> LAD: changes confined to V3–V5, no inferior reciprocal (the vector lost its superior tilt)',
+        'Convex / "tombstone" morphology + hyperacute T = occlusion, not pericarditis'],
+  over:{
+    V1:{comps:[['r',.8,.4],['s',-6,1.3]], stJ:3, stBow:1.2, tAmp:5, note:'r shrinking — septum dying', flag:'up'},
+    V2:{comps:[['r',1.2,.5],['s',-8,1.4]], stJ:5, stBow:1.6, tAmp:7, note:'tombstone · ST↑ 5 mm', flag:'up'},
+    V3:{comps:[['r',1.8,.6],['s',-5,1.1]], stJ:6, stBow:1.7, tAmp:7, note:'maximal injury vector', flag:'up'},
+    V4:{comps:[['r',5,.9],['s',-2,.7]], stJ:4, stBow:1.2, tAmp:5, note:'ST↑ 4 mm', flag:'up'},
+    V5:{stJ:2, stBow:.6, tAmp:3.5, note:'apex involved', flag:'up'},
+    V6:{stJ:1, tAmp:2.4, note:'edge of territory — 1 mm', flag:'up'},
+    I:{stJ:1.2, tAmp:2.6, note:'↑ = proximal (D1 taken)', flag:'up'},
+    aVL:{stJ:1.5, tAmp:2, note:'↑ = proximal to D1', flag:'up'},
+    II:{stJ:-1, tAmp:1.5, note:'reciprocal — mirror of aVL', flag:'down'},
+    III:{stJ:-1.5, tAmp:-.5, note:'reciprocal ST↓ + TWI', flag:'down'},
+    aVF:{stJ:-1.2, tAmp:.8, note:'reciprocal', flag:'down'},
+    aVR:{stJ:.5, note:'unchanged', flag:'ok'}
+  }
+},
+
+rca: {
+  label:'INFERIOR STEMI', artery:'RCA', walls:['inferior','inferoseptal'], color:'#ffb74d',
+  head:'ST↑ II/III/aVF with <b>III &gt; II</b> · reciprocal ST↓ aVL and I',
+  why:'The inferior wall sits on the diaphragm and is read by the three leads that look up from below. The injury vector points <b>down and to the right</b>. aVL — pointed up and to the left, ~180° opposite — is aimed directly up the tail of it, so it writes the deepest reciprocal depression on the tracing. <b>III &gt; II</b> and <b>ST↓ in lead I</b> mean the vector is tilted rightward: that is the RCA, not the circumflex. Always chase V4R, because a right-sided infarct makes the patient preload-dependent and nitroglycerin can drop their pressure through the floor.',
+  crit:['ST↑ ≥1 mm in ≥2 of II, III, aVF',
+        '<b>RCA vs LCx:</b> RCA → III &gt; II <i>and</i> ST↓ in lead I. LCx → II ≥ III, no ST↓ in I, often lateral ST↑',
+        '<b>Get V4R on every inferior STEMI:</b> ST↑ ≥0.5 mm = RV infarct → preload-dependent, <b>no nitrates</b>, fluids + avoid morphine',
+        'ST↓ in aVL is ≥0.5 mm sensitive and often precedes convincing inferior elevation',
+        'Watch V1–V3 for the posterior mirror — RCA/LCx frequently take the posterior wall too'],
+  over:{
+    II:{stJ:3, stBow:1.2, tAmp:4, note:'ST↑ 3 mm', flag:'up'},
+    III:{comps:[['q',-2,.6],['r',5.5,1.1],['s',-1,.4]], stJ:4.5, stBow:1.4, tAmp:4.5, note:'ST↑ 4.5 — III &gt; II = RCA', flag:'up'},
+    aVF:{stJ:3.5, stBow:1.3, tAmp:4, note:'ST↑ 3.5 mm', flag:'up'},
+    aVL:{stJ:-2, tAmp:-1.5, note:'★ deepest reciprocal — 180° away', flag:'down'},
+    I:{stJ:-1, tAmp:.8, note:'ST↓ in I → RCA over LCx', flag:'down'},
+    V1:{stJ:1, tAmp:.5, note:'ST↑ V1 → suspect RV — get V4R', flag:'up'},
+    V2:{stJ:-.5, note:'blunted vs V1 — RV vs posterior tug', flag:'ok'},
+    aVR:{note:'unchanged', flag:'ok'}, V3:{note:'unchanged', flag:'ok'},
+    V4:{note:'unchanged — territory not fed by RCA', flag:'ok'},
+    V5:{note:'unchanged', flag:'ok'}, V6:{note:'unchanged', flag:'ok'}
+  }
+},
+
+lcx: {
+  label:'LATERAL STEMI', artery:'LCx (or OM / D1)', walls:['anterolateral','inferolateral'], color:'#7fff6e',
+  head:'ST↑ I, aVL, V5, V6 · reciprocal ST↓ III/aVF · the "electrically silent" MI',
+  why:'The circumflex wraps around the <b>left lateral and posterior</b> wall — the region the standard 12 leads cover worst. The lateral leads (I, aVL, V5, V6) all point leftward, so a lateral injury vector goes straight into them, and the inferior leads mirror it. LCx occlusion is the classic <b>missed</b> STEMI: if the infarct is mostly posterior, no standard lead faces it at all and you get only the V1–V3 mirror.',
+  crit:['ST↑ ≥1 mm in ≥2 of I, aVL, V5, V6',
+        '<b>LCx vs RCA</b> when inferior leads are also up: II ≥ III, and <b>no</b> ST↓ in lead I',
+        'Highest rate of angiographic occlusion with a non-diagnostic ECG → low threshold for V7–V9',
+        'A "high lateral" pattern of I + aVL alone (with inferior reciprocal) is usually D1 or an OM branch'],
+  over:{
+    I:{stJ:2.5, stBow:1, tAmp:3, note:'ST↑ 2.5 mm', flag:'up'},
+    aVL:{stJ:2.5, stBow:1, tAmp:3, note:'ST↑ 2.5 mm', flag:'up'},
+    V5:{stJ:2.5, stBow:1, tAmp:4, note:'ST↑ 2.5 mm', flag:'up'},
+    V6:{stJ:2, stBow:.8, tAmp:3, note:'ST↑ 2 mm', flag:'up'},
+    III:{stJ:-2, tAmp:-1, note:'reciprocal — mirror of aVL', flag:'down'},
+    aVF:{stJ:-1.5, tAmp:.5, note:'reciprocal', flag:'down'},
+    II:{stJ:-1, tAmp:1.5, note:'reciprocal', flag:'down'},
+    V1:{stJ:-1, tAmp:-.6, note:'posterior extension?', flag:'down'},
+    V2:{comps:[['r',5,.8],['s',-8,1.4]], stJ:-1.5, note:'R growing = posterior mirror', flag:'down'},
+    V3:{note:'unchanged', flag:'ok'}, V4:{note:'unchanged', flag:'ok'},
+    aVR:{note:'unchanged', flag:'ok'}
+  }
+},
+
+post: {
+  label:'POSTERIOR MI', artery:'LCx or RCA (PDA)', walls:['posterior'], color:'#4fc3f7',
+  head:'No ST↑ anywhere · tall R + ST↓ + upright T in V1–V3 <b>is</b> the diagnosis',
+  why:'The back of the heart faces <b>away from all twelve standard electrodes</b>. So you never see the elevation — you see its mirror. V1–V3 sit on the exact opposite side of the chest from the posterior wall, so they record everything backwards: the posterior <b>Q</b> becomes a <b>tall R</b>, posterior <b>ST↑</b> becomes <b>ST↓</b>, and the posterior <b>inverted T</b> becomes an <b>upright T</b>. Turn the paper over and hold it to the light — you are looking at an ordinary STEMI. This is a STEMI and gets a cath, not a "NSTEMI with anterior ischemia."',
+  crit:['V1–V3: <b>horizontal ST↓ ≥0.5 mm</b> + <b>R/S &gt; 1 in V2</b> + <b>R ≥40 ms wide</b> + upright T',
+        'Confirm with <b>V7–V9</b> (5th ICS: posterior axillary, mid-scapular, paraspinal): ST↑ <b>≥0.5 mm</b> is diagnostic',
+        'Isolated posterior MI = ~5% of STEMIs and the most commonly missed — it fails every "1 mm in 2 leads" rule',
+        'Very often accompanies an inferior or lateral STEMI — always check V1–V3 on those'],
+  over:{
+    V1:{comps:[['r',5,1.0],['s',-3,.9]], stJ:-1.5, tAmp:1.5, note:'R growing = mirrored Q', flag:'down'},
+    V2:{comps:[['r',10,1.2],['s',-2,.7]], stJ:-2.5, tAmp:2.5, note:'★ R/S &gt;1, R wide, ST↓, T up', flag:'down'},
+    V3:{comps:[['r',10,1.1],['s',-2,.6]], stJ:-2, tAmp:3, note:'tall R · ST↓ 2 mm', flag:'down'},
+    V4:{stJ:-.5, note:'edge of the mirror', flag:'ok'},
+    I:{note:'unchanged — no camera on the back', flag:'ok'},
+    II:{note:'unchanged', flag:'ok'}, III:{note:'unchanged', flag:'ok'},
+    aVR:{note:'unchanged', flag:'ok'}, aVL:{note:'unchanged', flag:'ok'},
+    aVF:{note:'unchanged', flag:'ok'}, V5:{note:'unchanged', flag:'ok'}, V6:{note:'unchanged', flag:'ok'}
+  }
+},
+
+lmca: {
+  label:'LEFT MAIN / 3-VESSEL', artery:'LMCA or severe 3-vessel', walls:['circumferential'], color:'#ef5350',
+  head:'Diffuse ST↓ in ≥6 leads <b>+ ST↑ in aVR</b> (and often V1)',
+  why:'This is <b>not</b> a wall — it is the whole <b>subendocardium</b>, the innermost layer, which is perfused last and dies first. Injury there points <b>inward toward the cavity</b>, away from every surface electrode, so all of them write depression. aVR is the one lead whose camera <b>stares into the cavity from the right shoulder</b> — it is aimed straight down the barrel of that inward vector, so it is the only lead that goes <b>up</b>. That is why aVR, the lead everyone ignores, is the money lead here.',
+  crit:['ST↓ ≥1 mm in ≥6 leads (maximal in I, II, V4–V6) <b>with</b> ST↑ in aVR',
+        '<b>ST↑ aVR &gt; ST↑ V1</b> favors left main; aVR ≥1 mm predicts LMCA/3-vessel disease and high mortality',
+        'This is a <b>NSTE-ACS</b> pattern, not a STEMI — but it is a guideline indication for <b>urgent (&lt;2 h) angiography</b>',
+        'Same picture can come from demand ischemia: tachycardia, severe anemia, hypoxia, aortic stenosis. Fix the demand and repeat.'],
+  over:{
+    aVR:{stJ:2, tAmp:-.5, note:'★ THE lead — ST↑ into the cavity', flag:'up'},
+    V1:{stJ:1, note:'ST↑ (less than aVR)', flag:'up'},
+    I:{stJ:-2, tAmp:-1, note:'ST↓ 2 mm', flag:'down'},
+    II:{stJ:-2.5, tAmp:-1.5, note:'ST↓ 2.5 mm', flag:'down'},
+    III:{stJ:-1.5, tAmp:-.5, note:'ST↓ 1.5 mm', flag:'down'},
+    aVL:{stJ:-1.5, tAmp:-.5, note:'ST↓ 1.5 mm', flag:'down'},
+    aVF:{stJ:-2, tAmp:-1, note:'ST↓ 2 mm', flag:'down'},
+    V2:{stJ:-1.5, tAmp:2, note:'ST↓ 1.5 mm', flag:'down'},
+    V3:{stJ:-2.5, tAmp:-1, note:'ST↓ 2.5 mm', flag:'down'},
+    V4:{stJ:-3, tAmp:-2, note:'ST↓ 3 mm — maximal', flag:'down'},
+    V5:{stJ:-3.5, tAmp:-2, note:'ST↓ 3.5 mm — maximal', flag:'down'},
+    V6:{stJ:-3, tAmp:-1.5, note:'ST↓ 3 mm', flag:'down'}
+  }
+},
+
+dewinter: {
+  label:'de WINTER', artery:'Proximal LAD (occluded)', walls:['anterior','anteroseptal'], color:'#ef5350',
+  head:'Upsloping ST↓ at the J point + <b>tall symmetric T</b> in V1–V6 · ST↑ aVR',
+  why:'A <b>STEMI equivalent that never elevates.</b> The LAD is occluded, but individual collateral/conduction anatomy keeps the injury current subendocardial, so the ST goes <b>down</b> at the J point and then ramps <b>up</b> into a huge, symmetric, hyperacute T. Roughly 2% of LAD occlusions look like this, it is <b>static</b> (it does not evolve into elevation while you watch), and it is the single most-missed cath-lab activation on the floor. If you wait for elevation, the patient infarcts their entire anterior wall.',
+  crit:['<b>Upsloping</b> ST↓ 1–3 mm at the J point in V1–V6',
+        'Tall, <b>symmetric</b>, prominent T waves continuing from that upslope',
+        'ST↑ 1–2 mm in aVR · no ST elevation precordially',
+        '<b>Activate the cath lab.</b> Treat exactly as a STEMI — this pattern does not evolve, and troponin lags'],
+  over:{
+    V1:{stJ:-1.5, stEnd:.5, tAmp:5, tSym:true, note:'J↓ then upslope', flag:'down'},
+    V2:{stJ:-2.5, stEnd:1, tAmp:9, tSym:true, note:'★ ST↓ at J → tall symmetric T', flag:'down'},
+    V3:{stJ:-3, stEnd:1, tAmp:10, tSym:true, note:'★ hyperacute symmetric T', flag:'down'},
+    V4:{stJ:-2.5, stEnd:1, tAmp:9, tSym:true, note:'upsloping ST↓ + tall T', flag:'down'},
+    V5:{stJ:-2, stEnd:.5, tAmp:7, tSym:true, note:'upsloping ST↓ + tall T', flag:'down'},
+    V6:{stJ:-1.5, stEnd:.5, tAmp:5, tSym:true, note:'upsloping ST↓ + tall T', flag:'down'},
+    aVR:{stJ:1.5, note:'★ ST↑ — the giveaway', flag:'up'},
+    I:{stJ:-.5, note:'minimal', flag:'ok'}, II:{note:'unchanged', flag:'ok'},
+    III:{note:'unchanged', flag:'ok'}, aVL:{note:'unchanged', flag:'ok'}, aVF:{note:'unchanged', flag:'ok'}
+  }
+},
+
+wellens: {
+  label:'WELLENS', artery:'Critical proximal LAD stenosis', walls:['anterior'], color:'#ffb74d',
+  head:'Deep symmetric TWI (or biphasic T) V2–V4, <b>while pain-free</b>, with preserved R waves',
+  why:'This is the <b>reperfused</b> LAD — the artery opened, the pain stopped, and what you are looking at is the stunned myocardium\'s repolarization memory. The tell is the mismatch: the patient is comfortable, the troponin is normal or barely up, the R waves are intact (no infarct yet) — and the T waves look terrible. That is a critically stenosed LAD that has re-occluded once and will do it again. <b>Do not stress test them.</b> Type A (biphasic, ~25%) usually evolves into Type B (deep symmetric, ~75%).',
+  crit:['<b>Type A:</b> biphasic T in V2–V3 (up-then-down) · <b>Type B:</b> deep, symmetric T inversion V2–V4',
+        'Present <b>during a pain-free interval</b> — the pattern vanishes when pain returns (pseudo-normalization)',
+        '<b>Preserved R-wave progression, no pathologic Q, isoelectric or minimally elevated (&lt;1 mm) ST</b>',
+        'Normal or minimally elevated troponin · history of recent anginal chest pain',
+        '→ <b>Angiography, not a stress test.</b> Stressing a Wellens patient can infarct the anterior wall'],
+  over:{
+    V1:{tAmp:-2, tSym:true, note:'shallow TWI', flag:'down'},
+    V2:{tAmp:-6, tSym:true, note:'★ deep symmetric TWI · R preserved', flag:'down'},
+    V3:{tAmp:-7, tSym:true, note:'★ deepest — symmetric, no Q', flag:'down'},
+    V4:{tAmp:-5, tSym:true, note:'★ symmetric TWI', flag:'down'},
+    V5:{tAmp:-2.5, tSym:true, note:'shallow TWI', flag:'down'},
+    V6:{tAmp:-1, tSym:true, note:'nearly normal', flag:'ok'},
+    I:{note:'unchanged', flag:'ok'}, II:{note:'unchanged', flag:'ok'}, III:{note:'unchanged', flag:'ok'},
+    aVR:{note:'unchanged', flag:'ok'}, aVL:{note:'unchanged', flag:'ok'}, aVF:{note:'unchanged', flag:'ok'}
+  }
+},
+
+rbbb: {
+  label:'RBBB', artery:'— (conduction)', walls:[], color:'#b388ff',
+  head:'QRS ≥120 · <b>rsR′ in V1–V2</b> · wide slurred S in I and V6 · discordant TWI V1–V3',
+  why:'The right bundle is out, so the RV can\'t be activated down its own wire. The LV depolarizes on time through the intact left bundle, then the impulse crawls <b>cell-to-cell across the septum</b> into the RV — slow, and <b>late</b>. That late, unopposed rightward-and-anterior force is the entire ECG: it points <b>toward V1</b> (a terminal R′) and <b>away from I and V6</b> (a wide, lazy terminal S). Crucially the first half of the QRS is still normal, because the LV still fires first — <b>which is why you can still read a STEMI through a RBBB.</b>',
+  crit:['<b>QRS ≥120 ms</b> (incomplete = 110–120 ms with the same shape)',
+        '<b>rsR′ / rSR′ / "M" or "rabbit ears" in V1–V2</b> — the terminal R′ is the late RV',
+        '<b>Wide slurred S wave in I, aVL, V5, V6</b> (≥40 ms) — the same late force going away',
+        'Appropriate discordance: T inverted in V1–V3. <b>TWI in V5–V6 or lateral is NOT explained by RBBB</b> — that is ischemia',
+        'ST analysis stays valid: <b>ST↑ in a RBBB means STEMI.</b> New RBBB + anterior STEMI = proximal LAD, high mortality'],
+  over:{
+    V1:{comps:[['r',2,.5],['s',-3,.9],['r',7,1.8]], tAmp:-3, note:'★ rsR′ — R′ = late RV toward V1', flag:'bbb'},
+    V2:{comps:[['r',2,.5],['s',-4,.9],['r',5,1.7]], tAmp:-2.5, note:'★ rsR′ · discordant TWI', flag:'bbb'},
+    V3:{comps:[['r',5,.7],['s',-6,1.2],['r',3,1.4]], tAmp:-1.5, note:'terminal R′ persists', flag:'bbb'},
+    V4:{comps:[['r',11,1],['s',-4,1.8,'slur']], note:'wide terminal S appears', flag:'bbb'},
+    V5:{comps:[['q',-.8,.45],['r',12,1],['s',-3,1.9,'slur']], note:'wide slurred S', flag:'bbb'},
+    V6:{comps:[['q',-.8,.45],['r',9,1],['s',-3,2,'slur']], note:'★ wide slurred S = late RV away', flag:'bbb'},
+    I:{comps:[['q',-.6,.4],['r',7,1.1],['s',-2.5,2,'slur']], note:'★ wide slurred S', flag:'bbb'},
+    aVL:{comps:[['q',-.6,.4],['r',5,1.1],['s',-2,1.9,'slur']], note:'wide slurred S', flag:'bbb'},
+    II:{comps:[['q',-.8,.45],['r',10,1.3],['s',-2,1.6]], note:'wide terminal S', flag:'bbb'},
+    III:{comps:[['q',-.6,.4],['r',5,1.2],['s',-2,1.6]], note:'wide terminal S', flag:'bbb'},
+    aVF:{comps:[['q',-.6,.4],['r',6,1.3],['s',-2,1.6]], note:'wide terminal S', flag:'bbb'},
+    aVR:{comps:[['q',-8,1.6],['r',2.5,1.5]], tAmp:-1.5, note:'terminal R — late RV toward aVR', flag:'bbb'}
+  }
+},
+
+lbbb: {
+  label:'LBBB', artery:'— (conduction)', walls:[], color:'#b388ff',
+  head:'QRS ≥120 · broad monophasic R in I/V5/V6 with <b>no septal q</b> · QS/rS in V1–V3 · discordant ST/T',
+  why:'The left bundle is out, so <b>the whole activation sequence reverses.</b> The septum now fires <b>right→left</b> instead of left→right — which <b>deletes the septal q</b> from I, aVL, V5 and V6 (its absence is a diagnostic finding, not an oversight) and deletes the septal r from V1. The LV is then depolarized slowly, cell-to-cell, from right to left: one long leftward force → a broad monophasic <b>R</b> in the lateral leads and a deep <b>QS</b> in V1–V3. Because depolarization is abnormal, <b>repolarization must be too</b>: the ST/T are driven <b>opposite</b> to the QRS. That expected discordance is why you cannot read ischemia off a LBBB by eye — you need Sgarbossa.',
+  crit:['<b>QRS ≥120 ms</b> · broad <b>monophasic R</b> in I, aVL, V5, V6 (often notched/"M")',
+        '<b>Absent septal q</b> in I, aVL, V5, V6 — the septum now fires the other way',
+        '<b>QS or rS in V1–V3</b> with poor R progression · left axis common',
+        '<b>Appropriate discordance:</b> ST/T point opposite the terminal QRS. Expected — not ischemia',
+        '<b>Sgarbossa (≥3 pts = MI):</b> concordant ST↑ ≥1 mm <b>(5 pts)</b> · concordant ST↓ ≥1 mm in V1–V3 <b>(3 pts)</b> · excessively discordant ST↑ ≥5 mm <b>(2 pts)</b>',
+        '<b>Modified Sgarbossa (Smith):</b> replaces the 5 mm rule with <b>ST/S ratio ≤ −0.25</b> — far more sensitive. Same rule applies to <b>ventricular paced</b> rhythms'],
+  over:{
+    V1:{comps:[['q',-11,2.8,'notch']], stJ:2, stBow:.8, tAmp:4, note:'★ QS · discordant ST↑ (expected)', flag:'bbb'},
+    V2:{comps:[['r',.8,.5],['s',-12,2.8,'notch']], stJ:3, stBow:.9, tAmp:5, note:'★ discordant ST↑ — use ST/S ratio', flag:'bbb'},
+    V3:{comps:[['r',1,.6],['s',-11,2.6,'notch']], stJ:2.5, stBow:.8, tAmp:4, note:'discordant ST↑', flag:'bbb'},
+    V4:{comps:[['r',3,1.3],['s',-6,2.1]], stJ:1, tAmp:2.5, note:'poor R progression', flag:'bbb'},
+    V5:{comps:[['r',11,3.1,'notch']], stJ:-1.5, tAmp:-3, note:'★ broad monophasic R · NO septal q', flag:'bbb'},
+    V6:{comps:[['r',12,3.2,'notch']], stJ:-2, tAmp:-3.5, note:'★ NO septal q · discordant ST↓/TWI', flag:'bbb'},
+    I:{comps:[['r',9,3,'notch']], stJ:-1.5, tAmp:-2.5, note:'★ monophasic R · septal q gone', flag:'bbb'},
+    aVL:{comps:[['r',7,2.9,'notch']], stJ:-1.5, tAmp:-2, note:'★ septal q gone', flag:'bbb'},
+    II:{comps:[['r',7,3,'notch']], stJ:-1, tAmp:-1.5, note:'broad R · discordant T', flag:'bbb'},
+    III:{comps:[['r',3,2.6],['s',-2,.6]], tAmp:-1, note:'broad, notched', flag:'bbb'},
+    aVF:{comps:[['r',6,3,'notch']], stJ:-1, tAmp:-1, note:'broad R', flag:'bbb'},
+    aVR:{comps:[['q',-10,3,'notch']], tAmp:3, note:'wide QS · discordant T up', flag:'bbb'}
+  }
+},
+
+oldmi: {
+  label:'OLD ANTERIOR MI', artery:'LAD (completed, weeks–years ago)', walls:['anterior','anteroseptal'], color:'#ffb74d',
+  head:'Q/QS V1–V4 · ST back to baseline · the scar\'s permanent signature',
+  why:'The ST came home; the Q never will. Where the anterior wall used to be there is now collagen — <b>electrically silent</b>. V1–V4 sit over a hole and see <b>through</b> it, recording the opposite (inferoposterior) wall depolarizing <b>away</b> from them for the first 40 ms. That is the Q. Because scar does not reconduct, the Q is <b>permanent</b>, which is exactly what makes it useful: a Q wave tells you an infarct happened, and the <b>size of the Q tells you how big the window is.</b> The T inversions may persist for years; if the ST stays elevated &gt;6 weeks, think <b>LV aneurysm</b>.',
+  crit:['<b>Q ≥40 ms wide</b> (≥1 small box) <b>or ≥25% of the R height</b> in ≥2 contiguous leads',
+        '<b>Any</b> Q in V2–V3 ≥20 ms, or a QS complex in V2–V3, is pathologic (there should be a pure r there)',
+        'Localizes exactly like the STEMI did: V1–V4 anteroseptal · II/III/aVF inferior · I/aVL/V5/V6 lateral · tall R V1–V2 = old posterior',
+        '<b>Persistent ST↑ &gt;6 weeks with Qs = LV aneurysm</b> → echo, anticoagulation question',
+        'Q-wave mimics: LBBB & LVH (QS V1–V3) · WPW (delta = pseudo-Q) · HCM (deep narrow lateral/inferior Q) · PE (S1Q3T3) · lead reversal / dextrocardia'],
+  over:{
+    V1:{comps:[['q',-6,1.7]], tAmp:-1, note:'★ QS — septal window', flag:'q'},
+    V2:{comps:[['q',-9,1.9]], tAmp:-2, note:'★ QS — any Q here is pathologic', flag:'q'},
+    V3:{comps:[['q',-7,1.7],['r',1,.5]], tAmp:-3, note:'★ Qr — R never recovers', flag:'q'},
+    V4:{comps:[['q',-6,1.5],['r',3,.9]], tAmp:-2.5, note:'★ Qr — Q &gt;25% of R', flag:'q'},
+    V5:{comps:[['q',-2.5,1.2],['r',9,1.1]], tAmp:1.5, note:'★ q is 48 ms — wide = pathologic', flag:'q'},
+    V6:{comps:[['q',-.9,.45],['r',10,1]], tAmp:2.2, note:'normal septal q (&lt;40 ms, &lt;25% R)', flag:'ok'},
+    I:{note:'unchanged — septal q is normal here', flag:'ok'},
+    II:{note:'unchanged', flag:'ok'}, III:{note:'unchanged', flag:'ok'},
+    aVR:{note:'unchanged', flag:'ok'}, aVL:{note:'unchanged', flag:'ok'}, aVF:{note:'unchanged', flag:'ok'}
+  }
+}
+};
+
+/* ---- short-axis heart: which wall is hurt, which cameras face it ---- */
+const EKG_SEG = [
+  {k:'anteroseptal', a1:-165, a2:-105, lab:'SEPTAL',   leads:'V1–V2',      lx:-135},
+  {k:'anterior',     a1:-105, a2:-45,  lab:'ANTERIOR', leads:'V3–V4',      lx:-75},
+  {k:'anterolateral',a1:-45,  a2:15,   lab:'HIGH LAT', leads:'I · aVL',    lx:-15},
+  {k:'inferolateral',a1:15,   a2:75,   lab:'LATERAL',  leads:'V5–V6',      lx:45},
+  {k:'inferior',     a1:75,   a2:135,  lab:'INFERIOR', leads:'II·III·aVF', lx:105},
+  {k:'inferoseptal', a1:135,  a2:195,  lab:'INF-SEPT', leads:'II·III',     lx:165}
+];
+const EKG_POL = (cx,cy,r,deg) => [cx + r*Math.cos(deg*Math.PI/180), cy + r*Math.sin(deg*Math.PI/180)];
+function ekgWedge(cx,cy,ri,ro,a1,a2){
+  const [x1,y1]=EKG_POL(cx,cy,ro,a1), [x2,y2]=EKG_POL(cx,cy,ro,a2);
+  const [x3,y3]=EKG_POL(cx,cy,ri,a2), [x4,y4]=EKG_POL(cx,cy,ri,a1);
+  const big = (a2-a1) > 180 ? 1 : 0;
+  return `M${x1.toFixed(1)},${y1.toFixed(1)} A${ro},${ro} 0 ${big} 1 ${x2.toFixed(1)},${y2.toFixed(1)} L${x3.toFixed(1)},${y3.toFixed(1)} A${ri},${ri} 0 ${big} 0 ${x4.toFixed(1)},${y4.toFixed(1)} Z`;
+}
+function ekgHeart(dx){
+  const cx=150, cy=134, ri=42, ro=84;
+  const W = dx.walls||[];
+  const dead = w => W.includes(w);
+  const circ = W.includes('circumferential');
+  const post = W.includes('posterior');
+  let g='';
+
+  /* cavity */
+  g += `<circle cx="${cx}" cy="${cy}" r="${ri}" fill="rgba(79,195,247,.05)" stroke="var(--b)" stroke-width="1"/>`;
+  g += `<text x="${cx}" y="${cy+3}" font-family="monospace" font-size="9" fill="var(--t3)" text-anchor="middle">LV cavity</text>`;
+
+  /* wedges */
+  EKG_SEG.forEach(s=>{
+    const hit = dead(s.k) || circ;
+    const fill = circ ? 'rgba(198,40,40,.10)' : (hit ? 'rgba(198,40,40,.34)' : 'rgba(255,255,255,.05)');
+    const stk  = hit ? '#ef5350' : 'var(--b2)';
+    g += `<path d="${ekgWedge(cx,cy,ri,ro,s.a1,s.a2)}" fill="${fill}" stroke="${stk}" stroke-width="${hit?1.6:1}"/>`;
+    const [tx,ty] = EKG_POL(cx,cy,(ri+ro)/2,s.lx);
+    g += `<text x="${tx.toFixed(0)}" y="${(ty-2).toFixed(0)}" font-family="monospace" font-size="8.4" font-weight="bold" fill="${hit&&!circ?'#ef9a9a':'var(--t2)'}" text-anchor="middle">${s.lab}</text>`;
+    g += `<text x="${tx.toFixed(0)}" y="${(ty+8).toFixed(0)}" font-family="monospace" font-size="7.6" fill="${hit&&!circ?'#ef9a9a':'var(--t3)'}" text-anchor="middle">${s.leads}</text>`;
+  });
+
+  /* subendocardial ring — the layer that dies first */
+  if(circ){
+    g += `<circle cx="${cx}" cy="${cy}" r="${ri+6}" fill="none" stroke="#ef5350" stroke-width="11" opacity=".55"/>`;
+    g += `<text x="${cx}" y="${cy-14}" font-family="monospace" font-size="8" fill="#ef9a9a" text-anchor="middle">subendocardium — ischemic ring</text>`;
+    g += `<line x1="${cx-30}" y1="${cy+30}" x2="${cx-64}" y2="${cy+64}" stroke="#4fc3f7" stroke-width="2.4" marker-end="url(#ekgAr)"/>`;
+    g += `<text x="${cx-58}" y="${cy+80}" font-family="monospace" font-size="8" fill="#4fc3f7" text-anchor="middle">vector points INTO cavity</text>`;
+  }
+
+  /* the dead-wall window: opposite wall fires away from the facing electrode */
+  if(!circ && W.length && !post){
+    const s = EKG_SEG.find(x=>dead(x.k)) || EKG_SEG[1];
+    const mid = (s.a1+s.a2)/2;
+    const [ex,ey] = EKG_POL(cx,cy,ro+22,mid);
+    const [ax,ay] = EKG_POL(cx,cy,ro-6,mid+180);
+    g += `<circle cx="${ex.toFixed(0)}" cy="${ey.toFixed(0)}" r="3.6" fill="var(--t)"/>`;
+    g += `<line x1="${ex.toFixed(0)}" y1="${ey.toFixed(0)}" x2="${ax.toFixed(0)}" y2="${ay.toFixed(0)}" stroke="#ffb74d" stroke-width="1.4" stroke-dasharray="4 3" opacity=".8"/>`;
+    const [vx,vy] = EKG_POL(cx,cy,ro+16,mid+180);
+    g += `<line x1="${ax.toFixed(0)}" y1="${ay.toFixed(0)}" x2="${vx.toFixed(0)}" y2="${vy.toFixed(0)}" stroke="#ffb74d" stroke-width="2.6" marker-end="url(#ekgArQ)"/>`;
+  }
+
+  /* posterior: no camera, only the mirror */
+  if(post){
+    g += `<path d="${ekgWedge(cx,cy,ri,ro,15,135)}" fill="rgba(198,40,40,.34)" stroke="#ef5350" stroke-width="1.6"/>`;
+    g += `<text x="${cx+52}" y="${cy+52}" font-family="monospace" font-size="8" font-weight="bold" fill="#ef9a9a" text-anchor="middle">POSTERIOR</text>`;
+    g += `<text x="${cx+52}" y="${cy+62}" font-family="monospace" font-size="7" fill="#ef9a9a" text-anchor="middle">no camera</text>`;
+    const [px,py] = EKG_POL(cx,cy,ro+8,60);
+    const [mx,my] = EKG_POL(cx,cy,ro+30,240);
+    g += `<line x1="${px.toFixed(0)}" y1="${py.toFixed(0)}" x2="${mx.toFixed(0)}" y2="${my.toFixed(0)}" stroke="#4fc3f7" stroke-width="2.4" stroke-dasharray="5 3" marker-end="url(#ekgAr)"/>`;
+    g += `<text x="${(mx-6).toFixed(0)}" y="${(my-8).toFixed(0)}" font-family="monospace" font-size="8" fill="#4fc3f7" text-anchor="middle">mirror → V1–V3</text>`;
+  }
+
+  return `<svg viewBox="0 0 300 232" style="width:100%;min-width:250px;max-width:320px;height:auto;display:block;margin:0 auto;">
+    <defs>
+      <marker id="ekgAr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--ekg-p)"/></marker>
+      <marker id="ekgArQ" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--ekg-q)"/></marker>
+    </defs>
+    <text x="150" y="14" font-family="monospace" font-size="9" fill="var(--t2)" text-anchor="middle">SHORT AXIS — viewed from the apex</text>
+    <text x="150" y="26" font-family="monospace" font-size="8" fill="var(--t3)" text-anchor="middle">${circ?'the whole inner layer, not one wall':(W.length?'red = infarct (electrically silent)':'no infarct — all walls conducting')}</text>
+    ${g}
+  </svg>`;
+}
+
+/* ---- gallery ---- */
+let EKG_CUR = 'normal';
+function ekgPick(k){
+  EKG_CUR = k;
+  document.querySelectorAll('.ekg-pill').forEach(b=>{
+    const on = b.dataset.k===k;
+    b.style.background = on ? EKG_DX[b.dataset.k].color+'22' : 'var(--s3)';
+    b.style.borderColor = on ? EKG_DX[b.dataset.k].color : 'var(--b2)';
+    b.style.color = on ? EKG_DX[b.dataset.k].color : 'var(--t2)';
+  });
+  const d = EKG_DX[k];
+  const body = document.getElementById('ekg-gal-body');
+  if(!body) return;
+  body.innerHTML = `
+    <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin-bottom:6px;">
+      <span style="font-family:var(--mono);font-size:15px;font-weight:bold;color:${d.color};">${d.label}</span>
+      <span style="font-family:var(--mono);font-size:11.5px;color:var(--t2);">culprit: ${d.artery}</span>
+    </div>
+    <div style="font-size:14px;color:var(--t);line-height:1.6;margin-bottom:12px;">${d.head}</div>
+    <div style="background:var(--s3);border-radius:8px;padding:12px 14px;margin-bottom:12px;">
+      <div style="font-family:var(--mono);font-size:11px;color:${d.color};margin-bottom:7px;">WHY IT LOOKS LIKE THIS</div>
+      <div style="font-size:14.5px;color:var(--t);line-height:1.75;">${d.why}</div>
+    </div>
+    ${ekg12(d.over, {labels:true})}
+    <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start;margin-top:14px;">
+      <div style="flex:1 1 250px;min-width:230px;">${ekgHeart(d)}</div>
+      <div style="flex:1 1 300px;min-width:250px;">
+        <div style="font-family:var(--mono);font-size:11px;color:${d.color};margin-bottom:7px;">CRITERIA — what actually counts</div>
+        <ul style="margin:0;padding-left:17px;font-size:13.5px;color:var(--t);line-height:1.72;">
+          ${d.crit.map(c=>`<li style="margin-bottom:5px;">${c}</li>`).join('')}
+        </ul>
+      </div>
+    </div>`;
+}
+function ekgGalInit(){
+  const host = document.getElementById('ekg-gal-pills');
+  if(!host || host.dataset.done) return;
+  host.dataset.done = '1';
+  host.innerHTML = Object.keys(EKG_DX).map(k=>
+    `<button class="ekg-pill" data-k="${k}" onclick="ekgPick('${k}')" style="font-family:var(--mono);font-size:11px;padding:7px 11px;border-radius:7px;border:1px solid var(--b2);background:var(--s3);color:var(--t2);cursor:pointer;white-space:nowrap;">${EKG_DX[k].label}</button>`
+  ).join('');
+  ekgPick('normal');
+}
+/* the atlas panel — normal 12 with grid + wave labels */
+function ekgAtlasInit(){
+  const host = document.getElementById('ekg-atlas-12');
+  if(!host || host.dataset.done) return;
+  host.dataset.done = '1';
+  host.innerHTML = ekg12({}, {labels:true});
+}
+function ekgDefsInit(){
+  const d = document.getElementById('ekg-defs');
+  if(d && !d.dataset.done){ d.dataset.done='1'; d.innerHTML = EKG_DEFS; }
+}
+document.addEventListener('DOMContentLoaded', ()=>{ ekgDefsInit(); ekgAtlasInit(); ekgGalInit(); });
+
+
+/* ---- graded window: scar size → Q size ---- */
+const EKG_WIN = [
+  {t:'NO SCAR', arc:0, col:'var(--t2)',
+   spec:{comps:[['q',-.8,.45],['r',12,1.1],['s',-1,.5]], tAmp:3, note:'septal q: 18 ms, 7% of R → normal', flag:'ok'},
+   d:'Tiny septal q only. Window closed.'},
+  {t:'SMALL SCAR', arc:44, col:'var(--ekg-q)',
+   spec:{comps:[['q',-2.5,1.1],['r',8,1.1],['s',-.8,.4]], tAmp:1.5, note:'Q 44 ms, 31% of R → pathologic', flag:'q'},
+   d:'Narrow window. Some muscle survives → an R still follows. This is the Q that <b>can regress</b> if the tissue was stunned.'},
+  {t:'LARGE SCAR', arc:88, col:'var(--red)',
+   spec:{comps:[['q',-9,2]], tAmp:-2.5, note:'QS — no R ever generated', flag:'q'},
+   d:'Wide, full window. No surviving muscle under the electrode → <b>QS</b>. Confluent scar: permanent.'}
+];
+function ekgMiniHeart(arc, col){
+  const cx=60, cy=50, ri=22, ro=38;
+  let g = `<circle cx="${cx}" cy="${cy}" r="${ri}" fill="rgba(79,195,247,.05)" stroke="var(--b)"/>`;
+  g += `<circle cx="${cx}" cy="${cy}" r="${(ri+ro)/2}" fill="none" stroke="var(--b2)" stroke-width="${ro-ri}"/>`;
+  if(arc>0) g += `<path d="${ekgWedge(cx,cy,ri,ro,-90-arc/2,-90+arc/2)}" fill="rgba(198,40,40,.42)" stroke="#ef5350" stroke-width="1.2"/>`;
+  g += `<circle cx="${cx}" cy="6" r="3" fill="var(--t)"/>`;
+  g += `<text x="${cx+7}" y="9" font-family="monospace" font-size="7" fill="var(--t2)">electrode</text>`;
+  if(arc>0){
+    g += `<line x1="${cx}" y1="${cy+ro-4}" x2="${cx}" y2="${cy+ro+16}" stroke="var(--ekg-q)" stroke-width="2.2" marker-end="url(#ekgArQ)"/>`;
+    g += `<text x="${cx}" y="${cy+ro+27}" font-family="monospace" font-size="7" fill="var(--ekg-q)" text-anchor="middle">far wall fires away</text>`;
+  }
+  return `<svg viewBox="0 0 120 126" style="width:100%;max-width:132px;height:auto;display:block;margin:0 auto 4px;">${g}</svg>`;
+}
+function ekgWindowInit(){
+  const host = document.getElementById('ekg-window-3');
+  if(!host || host.dataset.done) return;
+  host.dataset.done='1';
+  host.innerHTML = `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">` + EKG_WIN.map(w=>`
+    <div>
+      <div style="font-family:var(--mono);font-size:10px;color:${w.col};text-align:center;margin-bottom:3px;font-weight:bold;">${w.t}</div>
+      ${ekgMiniHeart(w.arc, w.col)}
+      ${ekgLead('V3', Object.assign({pAmp:1}, w.spec), {labels:true})}
+      <div style="font-size:11.5px;color:var(--t2);line-height:1.5;margin-top:5px;">${w.d}</div>
+    </div>`).join('') + `</div>
+    <div style="font-size:13px;color:var(--t3);line-height:1.55;margin-top:8px;text-align:center;">Same lead, same patient, three window sizes. The <b style="color:var(--ekg-q);">Q grows in both dimensions as the scar does</b> — and the R shrinks by exactly the muscle that was lost.</div>`;
+}
+document.addEventListener('DOMContentLoaded', ekgWindowInit);
 </script>
 </body>
 </html>
