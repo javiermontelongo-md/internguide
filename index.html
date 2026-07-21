@@ -2194,6 +2194,260 @@ RECOMMENDATIONS:
     </div>
   </div>
 
+  <!-- PER-LEAD DEEP DIVE -->
+  <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid #f4507a;" onclick="toggleSoap('ekg-perlead')">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--mono);font-size:11px;color:#f4507a;letter-spacing:.1em;">🔬 EVERY LEAD, ONE AT A TIME — anatomy, EP, normal & pathology</div>
+      <div style="font-family:var(--mono);font-size:18px;color:var(--t3);" id="ekg-perlead-chevron">▸</div>
+    </div>
+  </div>
+  <div id="ekg-perlead" style="display:none;margin-bottom:14px;">
+    <div class="card" style="margin-bottom:10px;">
+      <p style="font-size:15px;color:var(--t);line-height:1.65;margin-bottom:0;">One dropdown per lead. Each answers the same five questions: <b>what does this camera see</b>, <b>why is the normal tracing shaped the way it is</b> (the vector), <b>what's normal</b>, <b>what's a benign variant</b>, and <b>what pathology to hunt for here</b> — with the mechanism, not just the pattern. Colored by territory: <span style="color:var(--g3);">inferior</span> · <span style="color:var(--g);">lateral</span> · <span style="color:var(--g2);">septal</span> · <span style="color:#7986cb;">anterior</span> · <span style="color:var(--g4);">aVR</span>.</p>
+    </div>
+
+    <!-- LEAD I -->
+    <div class="card lang-section" style="margin:0 0 8px;cursor:pointer;border-left:3px solid var(--g);" onclick="toggleSoap('ekg-pl-1')">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <svg viewBox="0 0 96 56" width="54" style="flex:none;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,30 28,36 L39,36 L42,40 L47,16 L52,40 L58,36 L64,36 Q73,28 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg>
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g);letter-spacing:.08em;">LEAD I — high lateral · 0°</div>
+        </div>
+        <div style="font-family:var(--mono);font-size:16px;color:var(--t3);" id="ekg-pl-1-chevron">▸</div>
+      </div>
+    </div>
+    <div id="ekg-pl-1" style="display:none;margin-bottom:10px;">
+      <div class="card">
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g);">LOOKS AT</b> — the high/lateral LV wall, from the patient's left. Frontal plane, pointing to <b>0°</b> (straight left). Territory-mate of aVL. <b>Artery:</b> left circumflex / first diagonal.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g2);">ELECTROPHYSIOLOGY</b> — the mean QRS vector (~+60°) has a big positive projection onto the 0° axis → <b>dominant R</b>. The first septal vector runs left→right, i.e. <b>away</b> from lead I → a small <b>septal q</b>. Repolarization vector also heads leftward → <b>upright T</b>. Net normal shape: <b>qR, upright P, upright T.</b></div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b>NORMAL</b> — upright P (&lt;2.5 mm), small or absent septal q (&lt;40 ms, &lt;25% of R), dominant R, upright asymmetric T.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">NORMAL VARIANTS</b> — an isolated small q is fine. Lower voltage in some. With a vertical heart the R can be modest.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;font-size:13.5px;color:var(--t);line-height:1.65;"><b style="color:var(--g4);">HUNT FOR</b><br>• <b>Lateral MI</b> — pathologic Q or lost R (with aVL/V5–V6); <b>ST elevation</b> = high-lateral STEMI (LCx/diagonal), mirrored by inferior ST depression.<br>• <b>LVH strain</b> — down-sloping ST depression + asymmetric T inversion.<br>• <b>Axis clue</b> — I upright + aVF down = left axis. <b>I negative</b> → right/extreme axis (RVH, VT) <i>or</i> <b>limb-lead reversal / dextrocardia</b> (in dextrocardia the P is also inverted in I and precordial R regresses V1→V6).<br>• <b>Delta wave</b> (WPW), low voltage (effusion, COPD, infiltrate).</div>
+      </div>
+    </div>
+
+    <!-- LEAD II -->
+    <div class="card lang-section" style="margin:0 0 8px;cursor:pointer;border-left:3px solid var(--g3);" onclick="toggleSoap('ekg-pl-2')">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <svg viewBox="0 0 96 56" width="54" style="flex:none;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,29 28,36 L39,36 L42,40 L47,12 L52,42 L58,36 L64,36 Q73,26 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg>
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g3);letter-spacing:.08em;">LEAD II — inferior · +60° · the rhythm lead</div>
+        </div>
+        <div style="font-family:var(--mono);font-size:16px;color:var(--t3);" id="ekg-pl-2-chevron">▸</div>
+      </div>
+    </div>
+    <div id="ekg-pl-2" style="display:none;margin-bottom:10px;">
+      <div class="card">
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">LOOKS AT</b> — the inferior wall from below-left, at <b>+60°</b>. This axis sits almost exactly along the heart's mean electrical vector <b>and</b> the atrial (P) vector. <b>Artery:</b> RCA (or LCx if left-dominant).</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g2);">ELECTROPHYSIOLOGY</b> — because the beam is parallel to both the P vector and the QRS vector, everything projects near-maximally → the <b>tallest, most upright, cleanest P–QRS–T</b> of any lead. That's exactly why II is the default <b>rhythm strip</b> and the <b>best lead to judge P-wave morphology</b>.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b>NORMAL</b> — smooth upright P &lt;120 ms &amp; &lt;2.5 mm, qR, upright T. One upright P before every QRS in II = <b>sinus rhythm</b>.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">NORMAL VARIANTS</b> — tall, sharp R common in thin/young. Slight PR baseline undulation.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;font-size:13.5px;color:var(--t);line-height:1.65;"><b style="color:var(--g4);">HUNT FOR</b><br>• <b>Inferior MI</b> — Q waves + ST elevation with III &amp; aVF (RCA); always then check <b>V4R for RV infarct</b> and <b>V1–V3 for posterior</b>.<br>• <b>P-pulmonale (RAE)</b> — tall, peaked P <b>≥ 2.5 mm</b>.<br>• <b>P-mitrale (LAE)</b> — notched, <b>≥120 ms</b> P.<br>• <b>Atrial flutter</b> — sawtooth F-waves are clearest in II/III/aVF.<br>• <b>Rate-related ST depression</b> — demand ischemia shows here early.</div>
+      </div>
+    </div>
+
+    <!-- LEAD III -->
+    <div class="card lang-section" style="margin:0 0 8px;cursor:pointer;border-left:3px solid var(--g3);" onclick="toggleSoap('ekg-pl-3')">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <svg viewBox="0 0 96 56" width="54" style="flex:none;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L40,36 L44,26 L49,46 L55,36 L64,36 Q73,32 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg>
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g3);letter-spacing:.08em;">LEAD III — inferior · +120° · the moody one</div>
+        </div>
+        <div style="font-family:var(--mono);font-size:16px;color:var(--t3);" id="ekg-pl-3-chevron">▸</div>
+      </div>
+    </div>
+    <div id="ekg-pl-3" style="display:none;margin-bottom:10px;">
+      <div class="card">
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">LOOKS AT</b> — the inferior wall from the most <b>rightward</b> inferior angle, <b>+120°</b>. Because it's near-perpendicular to many hearts' mean axis, it's the <b>most variable, most position-sensitive</b> lead. <b>Artery:</b> RCA (PDA).</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g2);">ELECTROPHYSIOLOGY</b> — at +120° the QRS and T vectors can project weakly or even negatively, so a <b>small Q and a flat/inverted T can be entirely normal here</b> — especially if they <b>vanish on deep inspiration</b> (the diaphragm drops, the heart swings more vertical, and the axis shifts). That positional test is the whole trick to reading lead III.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b>NORMAL</b> — variable rS or qR; an isolated small q and a lone inverted/flat T that normalize with inspiration are benign.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">NORMAL VARIANTS</b> — isolated Q3 + T3 inversion that is <b>positional</b> (fixes on inspiration) = benign. Part of the nonspecific <b>S1Q3T3</b>, which by itself means little.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;font-size:13.5px;color:var(--t);line-height:1.65;"><b style="color:var(--g4);">HUNT FOR</b><br>• <b>Inferior MI</b> — real when the Q/ST change is shared by <b>II and aVF</b> (a change in III <i>alone</i> is usually positional).<br>• <b>RCA vs LCx culprit</b> — in inferior STEMI, <b>ST elevation III &gt; II</b> + ST depression in I/aVL points to <b>RCA</b>; suspect <b>RV infarct</b> and get V4R.<br>• <b>Acute cor pulmonale / PE</b> — the classic (but insensitive) <b>S1Q3T3</b>.</div>
+      </div>
+    </div>
+
+    <!-- aVR -->
+    <div class="card lang-section" style="margin:0 0 8px;cursor:pointer;border-left:3px solid var(--g4);" onclick="toggleSoap('ekg-pl-avr')">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <svg viewBox="0 0 96 56" width="54" style="flex:none;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,42 28,36 L40,36 L48,54 L56,36 L64,36 Q73,44 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg>
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g4);letter-spacing:.08em;">aVR — cavity / right shoulder · −150°</div>
+        </div>
+        <div style="font-family:var(--mono);font-size:16px;color:var(--t3);" id="ekg-pl-avr-chevron">▸</div>
+      </div>
+    </div>
+    <div id="ekg-pl-avr" style="display:none;margin-bottom:10px;">
+      <div class="card">
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g4);">LOOKS AT</b> — down into the <b>LV cavity and the basal septum/RVOT</b>, from the right shoulder (<b>−150°</b>). It's the only lead that stares at the chambers head-on rather than at a wall.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g2);">ELECTROPHYSIOLOGY</b> — nearly every normal vector (atrial, ventricular, repolarization) points <b>down-and-left, i.e. away from aVR</b>. So the normal aVR is <b>everything upside-down</b>: inverted P, a mostly negative QRS (<b>QS</b> or rSr′), inverted T. It's the built-in "mirror" lead.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b>NORMAL</b> — inverted P, negative QRS (QS), inverted T. All of that is <i>expected</i>.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">NORMAL VARIANTS</b> — a small terminal r (rSr′) is fine. The degree of negativity tracks the QRS axis.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;font-size:13.5px;color:var(--t);line-height:1.65;"><b style="color:var(--g4);">HUNT FOR</b><br>• <b>★ ST ELEVATION in aVR</b> (≥1 mm, and <b>aVR &gt; V1</b>) <b>with diffuse ST depression</b> in ≥6 other leads → <b>left main / proximal LAD / severe triple-vessel</b> subendocardial ischemia. The global injury vector points into the cavity = toward aVR. High-yield, easy to miss.<br>• <b>Upright P in aVR</b> → limb-lead reversal or <b>ectopic/low atrial rhythm</b> (not sinus).<br>• <b>Tall terminal R (last 40 ms) &gt; 3 mm in aVR</b> → <b>sodium-channel-blocker / TCA toxicity</b>.<br>• Helps distinguish <b>VT</b> (positive aVR, Vereckei) and <b>pericarditis</b> (PR elevation in aVR).</div>
+      </div>
+    </div>
+
+    <!-- aVL -->
+    <div class="card lang-section" style="margin:0 0 8px;cursor:pointer;border-left:3px solid var(--g);" onclick="toggleSoap('ekg-pl-avl')">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <svg viewBox="0 0 96 56" width="54" style="flex:none;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L39,36 L42,39 L47,18 L52,39 L58,36 L64,36 Q73,29 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg>
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g);letter-spacing:.08em;">aVL — high lateral · −30°</div>
+        </div>
+        <div style="font-family:var(--mono);font-size:16px;color:var(--t3);" id="ekg-pl-avl-chevron">▸</div>
+      </div>
+    </div>
+    <div id="ekg-pl-avl" style="display:none;margin-bottom:10px;">
+      <div class="card">
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g);">LOOKS AT</b> — the <b>high (superior) lateral</b> LV wall, from the left shoulder at <b>−30°</b>. It sits almost exactly <b>opposite</b> the inferior leads (II/III/aVF), which is the key to its biggest clinical use. <b>Artery:</b> first diagonal / LCx.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g2);">ELECTROPHYSIOLOGY</b> — with a <b>horizontal</b> heart the mean vector projects positively → <b>qR</b>; with a <b>vertical</b> heart it projects negatively → a normal <b>rS</b>. Because −30° is ~180° from the inferior wall, aVL is the <b>dedicated reciprocal mirror</b> of inferior events.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b>NORMAL</b> — qR with upright T (horizontal heart) <b>or</b> rS (vertical heart). Small septal q allowed.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">NORMAL VARIANTS</b> — a predominantly negative (rS) complex is normal in a vertical heart; the T may follow the QRS.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;font-size:13.5px;color:var(--t);line-height:1.65;"><b style="color:var(--g4);">HUNT FOR</b><br>• <b>★ Reciprocal ST depression in aVL</b> — often the <b>earliest and most sensitive</b> sign of an <b>inferior MI</b>, appearing before the inferior ST elevation is convincing. Even 0.5 mm counts.<br>• <b>High-lateral STEMI</b> — ST elevation in aVL (± I) with reciprocal inferior depression.<br>• <b>LVH</b> — <b>R in aVL ≥ 11 mm</b> (voltage criterion; part of Cornell), with a strain pattern.<br>• <b>LAFB</b> — qR in aVL with left axis deviation.</div>
+      </div>
+    </div>
+
+    <!-- aVF -->
+    <div class="card lang-section" style="margin:0 0 8px;cursor:pointer;border-left:3px solid var(--g3);" onclick="toggleSoap('ekg-pl-avf')">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <svg viewBox="0 0 96 56" width="54" style="flex:none;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,30 28,36 L39,36 L42,40 L47,17 L52,41 L58,36 L64,36 Q73,28 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg>
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g3);letter-spacing:.08em;">aVF — inferior · +90°</div>
+        </div>
+        <div style="font-family:var(--mono);font-size:16px;color:var(--t3);" id="ekg-pl-avf-chevron">▸</div>
+      </div>
+    </div>
+    <div id="ekg-pl-avf" style="display:none;margin-bottom:10px;">
+      <div class="card">
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">LOOKS AT</b> — the inferior wall <b>straight down</b> the frontal plane at <b>+90°</b>. Together with lead I it defines the <b>QRS axis quadrant</b>. <b>Artery:</b> RCA (PDA).</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g2);">ELECTROPHYSIOLOGY</b> — a normal downward-and-leftward mean vector projects positively onto +90° → <b>upright qR</b>. If aVF goes <b>negative</b> while I stays positive, the axis has swung <b>leftward</b> (LAFB, inferior MI, etc.).</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b>NORMAL</b> — upright qR, upright T. Can be small/isoelectric when the axis sits near 0°.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">NORMAL VARIANTS</b> — low-amplitude complex with a leftward-but-normal axis.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;font-size:13.5px;color:var(--t);line-height:1.65;"><b style="color:var(--g4);">HUNT FOR</b><br>• <b>Inferior MI</b> — the third member of the II/III/aVF triad (Q waves, ST elevation).<br>• <b>Left axis deviation</b> — aVF negative + I positive → LAFB, inferior MI, LVH.<br>• <b>Flutter waves</b> — inferior leads show them best.</div>
+      </div>
+    </div>
+
+    <!-- V1 -->
+    <div class="card lang-section" style="margin:0 0 8px;cursor:pointer;border-left:3px solid var(--g2);" onclick="toggleSoap('ekg-pl-v1')">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <svg viewBox="0 0 96 56" width="54" style="flex:none;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q16,32 20,36 Q24,40 28,36 L40,36 L43,30 L48,52 L54,36 L64,36 Q73,39 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg>
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g2);letter-spacing:.08em;">V1 — RV / septum · 4th ICS, R sternal border</div>
+        </div>
+        <div style="font-family:var(--mono);font-size:16px;color:var(--t3);" id="ekg-pl-v1-chevron">▸</div>
+      </div>
+    </div>
+    <div id="ekg-pl-v1" style="display:none;margin-bottom:10px;">
+      <div class="card">
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g2);">LOOKS AT</b> — the <b>right ventricle and the interventricular septum</b>; the most <b>anterior and rightward</b> chest lead. It also sits closest to the atria, making it the best <b>precordial P-wave</b> lead. <b>Artery:</b> LAD (septal branches).</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:#7986cb;">ELECTROPHYSIOLOGY</b> — the septum fires <b>left→right, toward V1</b> → a small initial <b>r (septal r)</b>. Then the dominant LV free-wall vector heads left/posterior = <b>away</b> from V1 → a deep <b>S</b>. Net <b>rS</b>. The P is <b>biphasic</b>: an initial positive hump (RA, anterior) then a terminal negative (LA, posterior). The T is often <b>inverted here normally</b>.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b>NORMAL</b> — rS (small r, deep S), biphasic P, T upright <i>or</i> inverted (an inverted T in V1 is allowed).</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">NORMAL VARIANTS</b> — a narrow <b>rSr′</b> (incomplete RBBB pattern) can be benign. <b>Persistent juvenile T-wave inversion</b> in V1–V3 is normal in young and Afro-Caribbean patients.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;font-size:13.5px;color:var(--t);line-height:1.65;"><b style="color:var(--g4);">HUNT FOR</b><br>• <b>RBBB</b> — <b>rSR′ ("M")</b> with QRS ≥120 ms (late RV vector points back toward V1).<br>• <b>Dominant R (R &gt; S or R &gt; 7 mm)</b> → <b>posterior MI</b> (mirror), <b>RVH</b>, RBBB, <b>WPW type A</b>, HCM, Duchenne.<br>• <b>★ Brugada</b> — coved <b>type-1 ST elevation</b> in V1–V2.<br>• <b>QS</b> → anteroseptal MI, LBBB, LVH.<br>• <b>P-wave</b> — deep/wide terminal negative = <b>LAE</b>; tall initial = <b>RAE</b>.<br>• <b>Epsilon wave</b> (terminal notch) → <b>ARVC</b>.</div>
+      </div>
+    </div>
+
+    <!-- V2 -->
+    <div class="card lang-section" style="margin:0 0 8px;cursor:pointer;border-left:3px solid var(--g2);" onclick="toggleSoap('ekg-pl-v2')">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <svg viewBox="0 0 96 56" width="54" style="flex:none;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q16,32 20,36 Q24,41 28,36 L40,36 L43,28 L48,54 L54,36 L64,36 Q73,24 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg>
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g2);letter-spacing:.08em;">V2 — septal / anterior · 4th ICS, L sternal border</div>
+        </div>
+        <div style="font-family:var(--mono);font-size:16px;color:var(--t3);" id="ekg-pl-v2-chevron">▸</div>
+      </div>
+    </div>
+    <div id="ekg-pl-v2" style="display:none;margin-bottom:10px;">
+      <div class="card">
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g2);">LOOKS AT</b> — the <b>septum and anterior wall</b>, and it's the surface <b>mirror of the posterior wall</b>. Normally carries the <b>tallest T</b> on the ECG. <b>Artery:</b> LAD.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:#7986cb;">ELECTROPHYSIOLOGY</b> — still an <b>rS</b>, but the r is taller than V1 as the transition begins; the LV vector is starting to swing toward the precordium. Robust upright T.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b>NORMAL</b> — rS with a prominent <b>upright T</b> (V2–V3 have the tallest normal T). Some J-point elevation is common.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">NORMAL VARIANTS</b> — <b>benign early repolarization</b> (concave J-point/ST elevation) is common in young men across V2–V4. Persistent juvenile TWI.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;font-size:13.5px;color:var(--t);line-height:1.65;"><b style="color:var(--g4);">HUNT FOR</b><br>• <b>Anteroseptal STEMI</b> — ST elevation V1–V2 (≥2 mm men ≥40, ≥2.5 mm men &lt;40, ≥1.5 mm women).<br>• <b>★ Wellens</b> — deep symmetric or biphasic T in V2–V3 (pain-free) = critical proximal <b>LAD</b>.<br>• <b>de Winter</b> — upsloping ST depression + tall symmetric T = LAD-occlusion equivalent.<br>• <b>Posterior MI</b> — tall R + horizontal ST depression + upright T.<br>• <b>Brugada</b>; any <b>Q in V2–V3</b> is pathologic.</div>
+      </div>
+    </div>
+
+    <!-- V3 -->
+    <div class="card lang-section" style="margin:0 0 8px;cursor:pointer;border-left:3px solid #7986cb;" onclick="toggleSoap('ekg-pl-v3')">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <svg viewBox="0 0 96 56" width="54" style="flex:none;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L40,36 L44,22 L50,50 L56,36 L64,36 Q73,26 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg>
+          <div style="font-family:var(--mono);font-size:12px;color:#7986cb;letter-spacing:.08em;">V3 — anterior · the transition zone</div>
+        </div>
+        <div style="font-family:var(--mono);font-size:16px;color:var(--t3);" id="ekg-pl-v3-chevron">▸</div>
+      </div>
+    </div>
+    <div id="ekg-pl-v3" style="display:none;margin-bottom:10px;">
+      <div class="card">
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:#7986cb;">LOOKS AT</b> — the <b>anterior wall</b>, and it usually sits at the <b>transition zone</b> where R = S (normally V3–V4). <b>Artery:</b> LAD.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:#7986cb;">ELECTROPHYSIOLOGY</b> — the LV free-wall vector is now roughly <b>perpendicular</b> to the lead, so the R and S are about equal → an <b>isoelectric-ish RS</b>. This is where the precordial deflection flips from mostly-down (V1–V2) to mostly-up (V4–V6).</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b>NORMAL</b> — RS transition, tall upright T.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">NORMAL VARIANTS</b> — an <b>early</b> (V2) or <b>late</b> (V5) transition can be normal; benign early repolarization.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;font-size:13.5px;color:var(--t);line-height:1.65;"><b style="color:var(--g4);">HUNT FOR</b><br>• <b>Poor R-wave progression</b> — still rS by V3–V4 → anteroseptal MI, LVH, LBBB, or leads placed too high.<br>• <b>Anterior STEMI</b>; <b>Wellens</b> and <b>de Winter</b> patterns live here too.<br>• Any <b>Q in V3</b> is pathologic (should be a clean r).</div>
+      </div>
+    </div>
+
+    <!-- V4 -->
+    <div class="card lang-section" style="margin:0 0 8px;cursor:pointer;border-left:3px solid #7986cb;" onclick="toggleSoap('ekg-pl-v4')">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <svg viewBox="0 0 96 56" width="54" style="flex:none;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L40,36 L45,15 L51,44 L57,36 L64,36 Q73,26 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg>
+          <div style="font-family:var(--mono);font-size:12px;color:#7986cb;letter-spacing:.08em;">V4 — anterior / apex · 5th ICS, midclavicular</div>
+        </div>
+        <div style="font-family:var(--mono);font-size:16px;color:var(--t3);" id="ekg-pl-v4-chevron">▸</div>
+      </div>
+    </div>
+    <div id="ekg-pl-v4" style="display:none;margin-bottom:10px;">
+      <div class="card">
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:#7986cb;">LOOKS AT</b> — the <b>anterior wall and the LV apex</b>. Placed at the 5th intercostal space, midclavicular line — the same spot as the PMI. <b>Artery:</b> LAD (apex is almost always LAD).</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:#7986cb;">ELECTROPHYSIOLOGY</b> — the vector now points <b>toward</b> the lead → <b>R &gt; S (Rs)</b>, and the R amplitude often <b>peaks around V4</b>.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b>NORMAL</b> — Rs (or qR), upright T.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">NORMAL VARIANTS</b> — transition-zone variation; early repolarization.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;font-size:13.5px;color:var(--t);line-height:1.65;"><b style="color:var(--g4);">HUNT FOR</b><br>• <b>Anterior / apical STEMI</b> (LAD).<br>• <b>Apical HCM</b> — <b>giant symmetric T-wave inversions</b> in V3–V5.<br>• <b>Takotsubo</b> — anterior TWI + marked QT prolongation.<br>• <b>V4R</b> (right-sided placement) — the go-to lead for <b>RV infarct</b> in an inferior MI.</div>
+      </div>
+    </div>
+
+    <!-- V5 -->
+    <div class="card lang-section" style="margin:0 0 8px;cursor:pointer;border-left:3px solid var(--g);" onclick="toggleSoap('ekg-pl-v5')">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <svg viewBox="0 0 96 56" width="54" style="flex:none;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L39,36 L42,39 L47,15 L53,42 L58,36 L64,36 Q73,27 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg>
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g);letter-spacing:.08em;">V5 — low lateral · 5th ICS, ant axillary</div>
+        </div>
+        <div style="font-family:var(--mono);font-size:16px;color:var(--t3);" id="ekg-pl-v5-chevron">▸</div>
+      </div>
+    </div>
+    <div id="ekg-pl-v5" style="display:none;margin-bottom:10px;">
+      <div class="card">
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g);">LOOKS AT</b> — the <b>low lateral</b> LV wall. Together with V6 it's the key <b>LVH voltage</b> lead (Sokolow: S in V1 + R in V5/V6 ≥ 35 mm). <b>Artery:</b> LCx / diagonal.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:#7986cb;">ELECTROPHYSIOLOGY</b> — the vector points right at it → a tall <b>R</b>, with a small <b>septal q</b> (septum firing away from this left lead) and a small terminal s: <b>qRs</b>.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b>NORMAL</b> — qRs with a small septal q, upright T.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">NORMAL VARIANTS</b> — <b>high QRS voltage</b> in thin, young, or athletic patients <i>without</i> strain, LAE, or axis change is often a benign finding.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;font-size:13.5px;color:var(--t);line-height:1.65;"><b style="color:var(--g4);">HUNT FOR</b><br>• <b>Lateral MI</b> (with V6, I, aVL).<br>• <b>LVH</b> — voltage criteria <b>+ strain</b>: down-sloping ST depression and asymmetric T inversion in V5–V6/I/aVL.<br>• Lateral ischemia (ST depression).</div>
+      </div>
+    </div>
+
+    <!-- V6 -->
+    <div class="card lang-section" style="margin:0 0 8px;cursor:pointer;border-left:3px solid var(--g);" onclick="toggleSoap('ekg-pl-v6')">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <svg viewBox="0 0 96 56" width="54" style="flex:none;"><line x1="4" y1="36" x2="92" y2="36" stroke="var(--b)"/><path d="M6,36 L12,36 Q20,31 28,36 L39,36 L42,39 L47,17 L53,41 L58,36 L64,36 Q73,28 82,36 L90,36" fill="none" stroke="var(--t)" stroke-width="2"/></svg>
+          <div style="font-family:var(--mono);font-size:12px;color:var(--g);letter-spacing:.08em;">V6 — low lateral · 5th ICS, midaxillary</div>
+        </div>
+        <div style="font-family:var(--mono);font-size:16px;color:var(--t3);" id="ekg-pl-v6-chevron">▸</div>
+      </div>
+    </div>
+    <div id="ekg-pl-v6" style="display:none;margin-bottom:10px;">
+      <div class="card">
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g);">LOOKS AT</b> — the most <b>leftward, low-lateral</b> wall; the "purest" left-sided view. <b>Artery:</b> LCx / diagonal.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:#7986cb;">ELECTROPHYSIOLOGY</b> — like V5: septal q away → small q, dominant R toward the lead, small terminal s (<b>qRs</b>). Its <b>terminal</b> forces are the tell in bundle blocks: <b>RBBB → wide slurred S</b> here; <b>LBBB → broad, notched, monophasic R</b>.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b>NORMAL</b> — qRs with septal q, small s, upright T.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13.5px;color:var(--t);line-height:1.6;"><b style="color:var(--g3);">NORMAL VARIANTS</b> — modestly high voltage in thin chests.</div>
+        <div style="background:var(--s3);border-radius:8px;padding:9px 12px;font-size:13.5px;color:var(--t);line-height:1.65;"><b style="color:var(--g4);">HUNT FOR</b><br>• <b>Lateral MI</b>.<br>• <b>LVH strain</b>.<br>• <b>Bundle branch blocks</b> — read the terminal forces here + lead I: <b>slurred S = RBBB</b>, <b>broad notched R = LBBB</b>.</div>
+      </div>
+    </div>
+
+  </div>
+
   <!-- Q WAVES -->
   <div class="card lang-section" style="margin-bottom:10px;cursor:pointer;border-left:3px solid var(--g4);" onclick="toggleSoap('ekg-q')">
     <div style="display:flex;align-items:center;justify-content:space-between;">
